@@ -46,11 +46,11 @@ class TestUtilityFunctions(TestCase):
             Returns a list without the non-existing function.
         """
         pipeline = [
-            "openedx_filters.filters.tests.test_utils.test_function",
-            "openedx_filters.filters.tests.test_utils.non_existent",
+            "openedx_filters.tests.test_utils.test_function",
+            "openedx_filters.tests.test_utils.non_existent",
         ]
         log_message = "Failed to import '{}'.".format(
-            "openedx_filters.filters.tests.test_utils.non_existent"
+            "openedx_filters.tests.test_utils.non_existent"
         )
 
         with self.assertLogs() as captured:
@@ -71,11 +71,11 @@ class TestUtilityFunctions(TestCase):
             Returns a list without the non-existing function.
         """
         pipeline = [
-            "openedx_filters.filters.tests.test_utils.test_function",
-            "openedx_filters.filters.non_existent.test_utils.test_function",
+            "openedx_filters.tests.test_utils.test_function",
+            "openedx_filters.non_existent.test_utils.test_function",
         ]
         log_message = "Failed to import '{}'.".format(
-            "openedx_filters.filters.non_existent.test_utils.test_function"
+            "openedx_filters.non_existent.test_utils.test_function"
         )
 
         with self.assertLogs() as captured:
@@ -94,8 +94,8 @@ class TestUtilityFunctions(TestCase):
             Returns a list with the function objects.
         """
         pipeline = [
-            "openedx_filters.filters.tests.test_utils.test_function",
-            "openedx_filters.filters.tests.test_utils.test_function",
+            "openedx_filters.tests.test_utils.test_function",
+            "openedx_filters.tests.test_utils.test_function",
         ]
 
         function_list = get_functions_for_pipeline(pipeline)
@@ -119,8 +119,8 @@ class TestUtilityFunctions(TestCase):
         HOOKS_EXTENSION_CONFIG={
             "trigger_name": {
                 "pipeline": [
-                    "openedx_filters.filters.tests.test_utils.test_function",
-                    "openedx_filters.filters.tests.test_utils.test_function",
+                    "openedx_filters.tests.test_utils.test_function",
+                    "openedx_filters.tests.test_utils.test_function",
                 ],
                 "async": False,
             }
@@ -137,8 +137,8 @@ class TestUtilityFunctions(TestCase):
         """
         expected_result = {
             "pipeline": [
-                "openedx_filters.filters.tests.test_utils.test_function",
-                "openedx_filters.filters.tests.test_utils.test_function",
+                "openedx_filters.tests.test_utils.test_function",
+                "openedx_filters.tests.test_utils.test_function",
             ],
             "async": False,
         }
@@ -147,35 +147,35 @@ class TestUtilityFunctions(TestCase):
 
         self.assertDictEqual(result, expected_result)
 
-    @patch("openedx_filters.filters.utils.get_hook_configurations")
+    @patch("openedx_filters.utils.get_hook_configurations")
     @ddt.data(
-        (("openedx_filters.filters.tests.test_utils.test_function",), []),
+        (("openedx_filters.tests.test_utils.test_function",), []),
         ({}, []),
         (
             {
                 "pipeline": [
-                    "openedx_filters.filters.tests.test_utils.test_function",
-                    "openedx_filters.filters.tests.test_utils.test_function",
+                    "openedx_filters.tests.test_utils.test_function",
+                    "openedx_filters.tests.test_utils.test_function",
                 ],
             },
             [
-                "openedx_filters.filters.tests.test_utils.test_function",
-                "openedx_filters.filters.tests.test_utils.test_function",
+                "openedx_filters.tests.test_utils.test_function",
+                "openedx_filters.tests.test_utils.test_function",
             ],
         ),
         (
             [
-                "openedx_filters.filters.tests.test_utils.test_function",
-                "openedx_filters.filters.tests.test_utils.test_function",
+                "openedx_filters.tests.test_utils.test_function",
+                "openedx_filters.tests.test_utils.test_function",
             ],
             [
-                "openedx_filters.filters.tests.test_utils.test_function",
-                "openedx_filters.filters.tests.test_utils.test_function",
+                "openedx_filters.tests.test_utils.test_function",
+                "openedx_filters.tests.test_utils.test_function",
             ],
         ),
         (
-            "openedx_filters.filters.tests.test_utils.test_function",
-            ["openedx_filters.filters.tests.test_utils.test_function", ],
+            "openedx_filters.tests.test_utils.test_function",
+            ["openedx_filters.tests.test_utils.test_function", ],
         ),
     )
     @ddt.unpack
