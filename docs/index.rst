@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 openedx-filters
-==============
+===============
 
 What is this project?
 
