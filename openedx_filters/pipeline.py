@@ -4,12 +4,12 @@ Pipeline runner used to execute list of functions (actions or filters).
 from logging import getLogger
 
 from .exceptions import HookException
-from .utils import get_functions_for_pipeline
+from .utils import get_functions_for_pipeline, get_pipeline_configuration
 
 log = getLogger(__name__)
 
 
-def run_pipeline(pipeline, *args, raise_exception=False, **kwargs):
+def run_pipeline(trigger_name, *args, raise_exception=False, **kwargs):
     """
     Execute filters in order.
 
@@ -19,22 +19,20 @@ def run_pipeline(pipeline, *args, raise_exception=False, **kwargs):
 
     Example usage:
         result = run_pipeline(
-            [
-                'my_plugin.hooks.filters.test_function',
-                'my_plugin.hooks.filters.test_function_2nd'
-            ],
+            'openedx.service.trigger_context.location.trigger_type.vi',
             raise_exception=True,
             request=request,
             user=user,
         )
         >>> result
        {
-           'result_test_function': Object,
-           'result_test_function_2nd': Object_2nd,
+           'result_test_1st_function': 1st_object,
+           'result_test_2nd_function': 2nd_object,
        }
 
     Arguments:
-        pipeline (list): paths where each function is defined.
+        trigger_name (str): determines which trigger we are listening to.
+        It also specifies which hook configuration defined through settings.
 
     Keyword arguments:
         raise_exception (bool): used to determine whether the pipeline will
@@ -55,6 +53,11 @@ def run_pipeline(pipeline, *args, raise_exception=False, **kwargs):
     information check their Github repository:
     https://github.com/python-social-auth/social-core
     """
+    pipeline = get_pipeline_configuration(trigger_name)
+
+    if not pipeline:
+        return kwargs
+
     functions = get_functions_for_pipeline(pipeline)
 
     out = kwargs.copy()

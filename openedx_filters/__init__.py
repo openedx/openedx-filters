@@ -1,6 +1,5 @@
 """
-File used to expose available triggers.
+File used to expose available filters.
 """
-from .triggers import trigger_filter
 
 __version__ = "0.1.0"
