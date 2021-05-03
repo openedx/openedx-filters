@@ -6,7 +6,7 @@ from unittest.mock import patch
 import ddt
 from django.test import TestCase, override_settings
 
-from ..utils import get_functions_for_pipeline, get_hook_configurations, get_pipeline_configuration
+from ..utils import get_filter_config, get_functions_for_pipeline, get_pipeline_configuration
 
 
 def test_function():
@@ -105,32 +105,32 @@ class TestUtilityFunctions(TestCase):
     def test_get_empty_hook_config(self):
         """
         This method is used to verify the behavior of
-        get_hook_configurations when a trigger without a
-        HOOKS_EXTENSION_CONFIG is passed as parameter.
+        get_filter_config when a trigger without a
+        HOOKS_FILTER_CONFIG is passed as parameter.
 
         Expected behavior:
             Returns an empty dictionary.
         """
-        result = get_hook_configurations("trigger_name")
+        result = get_filter_config("trigger_name")
 
         self.assertEqual(result, {})
 
     @override_settings(
-        HOOKS_EXTENSION_CONFIG={
-            "trigger_name": {
+        HOOKS_FILTERS_CONFIG={
+            "openedx.service.context.location.type.vi": {
                 "pipeline": [
                     "openedx_filters.tests.test_utils.test_function",
                     "openedx_filters.tests.test_utils.test_function",
                 ],
-                "async": False,
+                "fail_silently": False,
             }
         }
     )
     def test_get_hook_config(self):
         """
         This method is used to verify the behavior of
-        get_hook_configurations when a trigger with
-        HOOKS_EXTENSION_CONFIG defined is passed as parameter.
+        get_filter_config when a trigger with
+        HOOKS_FILTER_CONFIG defined is passed as parameter.
 
         Expected behavior:
             Returns a tuple with pipeline configurations.
@@ -140,57 +140,64 @@ class TestUtilityFunctions(TestCase):
                 "openedx_filters.tests.test_utils.test_function",
                 "openedx_filters.tests.test_utils.test_function",
             ],
-            "async": False,
+            "fail_silently": False,
         }
 
-        result = get_hook_configurations("trigger_name")
+        result = get_filter_config("openedx.service.context.location.type.vi")
 
         self.assertDictEqual(result, expected_result)
 
-    @patch("openedx_filters.utils.get_hook_configurations")
+    @patch("openedx_filters.utils.get_filter_config")
     @ddt.data(
-        (("openedx_filters.tests.test_utils.test_function",), []),
-        ({}, []),
+        (("openedx_filters.tests.test_utils.test_function",), ([], False,)),
+        ({}, ([], False,)),
         (
             {
                 "pipeline": [
                     "openedx_filters.tests.test_utils.test_function",
                     "openedx_filters.tests.test_utils.test_function",
                 ],
+                "fail_silently": False,
             },
-            [
-                "openedx_filters.tests.test_utils.test_function",
-                "openedx_filters.tests.test_utils.test_function",
-            ],
+            (
+                [
+                    "openedx_filters.tests.test_utils.test_function",
+                    "openedx_filters.tests.test_utils.test_function",
+                ],
+                True,
+            ),
         ),
         (
             [
                 "openedx_filters.tests.test_utils.test_function",
                 "openedx_filters.tests.test_utils.test_function",
             ],
-            [
-                "openedx_filters.tests.test_utils.test_function",
-                "openedx_filters.tests.test_utils.test_function",
-            ],
+            (
+                [
+                    "openedx_filters.tests.test_utils.test_function",
+                    "openedx_filters.tests.test_utils.test_function",
+                ],
+                False,
+            ),
         ),
         (
             "openedx_filters.tests.test_utils.test_function",
-            ["openedx_filters.tests.test_utils.test_function", ],
+            (["openedx_filters.tests.test_utils.test_function", ], False,),
         ),
     )
     @ddt.unpack
-    def test_get_pipeline_config(self, config, expected_result, get_config_mock):
+    def test_get_pipeline_config(self, config, expected_result, get_filter_config_mock):
         """
         This method is used to verify the behavior of
         get_pipeline_configuration when a trigger with
-        HOOKS_EXTENSION_CONFIG defined is passed as parameter.
+        HOOKS_FILTER_CONFIG defined is passed as parameter.
 
         Expected behavior:
-            Returns a tuple with the pipeline and synchronous
+            Returns a tuple with the pipeline and exception handling
             configuration.
         """
-        get_config_mock.return_value = config
+        get_filter_config_mock.return_value = config
 
         result = get_pipeline_configuration("trigger_name")
 
-        self.assertListEqual(result, expected_result)
+        self.assertTupleEqual(result, expected_result)

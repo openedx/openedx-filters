@@ -72,16 +72,23 @@ def get_pipeline_configuration(trigger_name):
     Returns:
         pipeline (list): paths where functions for the pipeline are
         defined.
+        raise_exception (bool): defines whether exceptions are raised while
+        executing the pipeline associated with a filter. It's determined by
+        fail_silently configuration, True meaning it won't raise exceptions and
+        False the opposite.
     """
-    hook_config = get_hook_configurations(trigger_name)
+    hook_config = get_filter_config(trigger_name)
 
     if not hook_config:
-        return []
+        return [], False
 
-    pipeline = []
+    pipeline, raise_exception = [], False
 
     if isinstance(hook_config, dict):
-        pipeline = hook_config.get("pipeline", [])
+        pipeline, raise_exception = (
+            hook_config.get("pipeline", []),
+            not hook_config.get("fail_silently", True),
+        )
 
     elif isinstance(hook_config, list):
         pipeline = hook_config
@@ -89,10 +96,10 @@ def get_pipeline_configuration(trigger_name):
     elif isinstance(hook_config, str):
         pipeline.append(hook_config)
 
-    return pipeline
+    return pipeline, raise_exception
 
 
-def get_hook_configurations(trigger_name):
+def get_filter_config(trigger_name):
     """
     Get filters configuration from settings.
 
@@ -100,7 +107,7 @@ def get_hook_configurations(trigger_name):
     Hooks Extension Framework.
 
     Example usage:
-            configuration = get_hook_configurations('trigger')
+            configuration = get_filter_config('trigger')
             >>> configuration
             {
                 'pipeline':
@@ -108,7 +115,17 @@ def get_hook_configurations(trigger_name):
                         'my_plugin.hooks.filters.test_function',
                         'my_plugin.hooks.filters.test_function_2nd',
                     ],
+                'fail_silently': False,
             }
+
+            Where:
+                - pipeline (list): paths where the functions to be executed by
+                the pipeline are defined.
+                - fail_silently (bool): determines whether the pipeline can
+                raise exceptions while executing. If its value is True then
+                exceptions (HookFilterException) are caught and the execution
+                continues, if False then exceptions are re-raised and the
+                execution fails.
 
     Arguments:
         trigger_name (str): determines which configuration to use.
@@ -117,6 +134,6 @@ def get_hook_configurations(trigger_name):
         hooks configuration (dict): taken from Django settings
         containing hooks configuration.
     """
-    hooks_config = getattr(settings, "HOOKS_EXTENSION_CONFIG", {})
+    hooks_config = getattr(settings, "HOOKS_FILTERS_CONFIG", {})
 
     return hooks_config.get(trigger_name, {})

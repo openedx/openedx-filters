@@ -3,13 +3,13 @@ Pipeline runner used to execute list of functions (actions or filters).
 """
 from logging import getLogger
 
-from .exceptions import HookException
+from .exceptions import HookFilterException
 from .utils import get_functions_for_pipeline, get_pipeline_configuration
 
 log = getLogger(__name__)
 
 
-def run_pipeline(trigger_name, *args, raise_exception=False, **kwargs):
+def run_pipeline(trigger_name, *args, **kwargs):
     """
     Execute filters in order.
 
@@ -34,10 +34,6 @@ def run_pipeline(trigger_name, *args, raise_exception=False, **kwargs):
         trigger_name (str): determines which trigger we are listening to.
         It also specifies which hook configuration defined through settings.
 
-    Keyword arguments:
-        raise_exception (bool): used to determine whether the pipeline will
-        raise HookExceptions. Default is set to False.
-
     Returns:
         out (dict): accumulated outputs of the functions defined in pipeline.
         result (obj): return object of one of the pipeline functions. This will
@@ -45,15 +41,15 @@ def run_pipeline(trigger_name, *args, raise_exception=False, **kwargs):
         an object different than Dict o None.
 
     Exceptions raised:
-        HookException: custom exception re-raised when a function raised an
-        exception of this type and raise_exception is set to True. This
+        HookFilterException: custom exception re-raised when a function raises
+        an exception of this type and raise_exception is set to True. This
         behavior is common when using filters.
 
     This pipeline implementation was inspired by: Social auth core. For more
     information check their Github repository:
     https://github.com/python-social-auth/social-core
     """
-    pipeline = get_pipeline_configuration(trigger_name)
+    pipeline, raise_exception = get_pipeline_configuration(trigger_name)
 
     if not pipeline:
         return kwargs
@@ -71,12 +67,12 @@ def run_pipeline(trigger_name, *args, raise_exception=False, **kwargs):
                 )
                 return result
             out.update(result)
-        except HookException as exc:
+        except HookFilterException as exc:
             if raise_exception:
                 log.exception(
                     "Exception raised while running '%s':\n %s", function.__name__, exc,
                 )
-                raise exc
+                raise
         except Exception as exc:  # pylint: disable=broad-except
             # We're catching this because we don't want the core to blow up
             # when a hook is broken. This exception will probably need some

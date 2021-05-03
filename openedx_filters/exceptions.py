@@ -3,7 +3,7 @@ Exceptions thrown by Hooks.
 """
 
 
-class HookException(Exception):
+class HookFilterException(Exception):
     """
     Base exception for hooks.
 
@@ -20,7 +20,7 @@ class HookException(Exception):
 
     def __init__(self, message="", redirect_to=None, status_code=None, **kwargs):
         """
-        Init method for HookException.
+        Init method for HookFilterException.
 
         It's designed to allow flexible instantiation through **kwargs.
         """
@@ -33,6 +33,6 @@ class HookException(Exception):
 
     def __str__(self):
         """
-        Show string representation of HookException using its message.
+        Show string representation of HookFilterException using its message.
         """
-        return "HookException: {}".format(self.message)
+        return "HookFilterException: {}".format(self.message)
