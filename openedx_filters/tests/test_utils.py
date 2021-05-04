@@ -116,7 +116,7 @@ class TestUtilityFunctions(TestCase):
         self.assertEqual(result, {})
 
     @override_settings(
-        HOOKS_FILTERS_CONFIG={
+        HOOK_FILTERS_CONFIG={
             "openedx.service.context.location.type.vi": {
                 "pipeline": [
                     "openedx_filters.tests.test_utils.test_function",

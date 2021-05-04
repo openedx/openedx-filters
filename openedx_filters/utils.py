@@ -134,6 +134,6 @@ def get_filter_config(trigger_name):
         hooks configuration (dict): taken from Django settings
         containing hooks configuration.
     """
-    hooks_config = getattr(settings, "HOOKS_FILTERS_CONFIG", {})
+    hooks_config = getattr(settings, "HOOK_FILTERS_CONFIG", {})
 
     return hooks_config.get(trigger_name, {})
