@@ -38,7 +38,7 @@ def run_pipeline(trigger_name, *args, **kwargs):
         out (dict): accumulated outputs of the functions defined in pipeline.
         result (obj): return object of one of the pipeline functions. This will
         be the returned by the pipeline if one of the functions returns
-        an object different than Dict o None.
+        an object different than Dict or None.
 
     Exceptions raised:
         HookFilterException: custom exception re-raised when a function raises

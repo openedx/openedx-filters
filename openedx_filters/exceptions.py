@@ -1,11 +1,11 @@
 """
-Exceptions thrown by Hooks.
+Exceptions thrown by filters.
 """
 
 
 class HookFilterException(Exception):
     """
-    Base exception for hooks.
+    Base exception for filters.
 
     It is re-raised by the Pipeline Runner if any filter that is
     executing raises it.

@@ -1,5 +1,5 @@
 """
-Tests for `edx-django-utils` hooks pipeline.
+Tests for pipeline runner used by filters.
 """
 from unittest.mock import Mock, patch
 

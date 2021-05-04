@@ -1,5 +1,5 @@
 """
-Tests for the `edx-django-utils` hooks utilities.
+Tests for utilities used by the filters tooling.
 """
 from unittest.mock import patch
 
@@ -18,7 +18,7 @@ def test_function():
 @ddt.ddt
 class TestUtilityFunctions(TestCase):
     """
-    Test class to verify standard behavior of hooks utility functions.
+    Test class to verify standard behavior of utility functions.
     """
 
     def test_get_empty_function_list(self):
