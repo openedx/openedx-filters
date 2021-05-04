@@ -105,7 +105,7 @@ class TestRunningPipeline(TestCase):
 
         result = run_pipeline(self.trigger_name, **self.kwargs)
 
-        self.assertDictEqual(result, return_value)  # TODO: fix
+        self.assertDictEqual(result, return_value)
         function_without_exception.assert_called_once_with(**self.kwargs)
 
     @patch("openedx_filters.pipeline.get_pipeline_configuration")
