@@ -19,7 +19,7 @@ def run_pipeline(trigger_name, *args, **kwargs):
 
     Example usage:
         result = run_pipeline(
-            'openedx.service.trigger_context.location.trigger_type.vi',
+            'org.openedx.service.subject.filter.action.major_version',
             raise_exception=True,
             request=request,
             user=user,
