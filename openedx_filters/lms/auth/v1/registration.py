@@ -40,6 +40,9 @@ def before_creation(data, *args, **kwargs):
         user.
 
     Raises:
+        - HookFilterException: re-raised by the pipeline runner
+        when one of its functions raises it (due to an error,
+        unfulfilled premisses, unmet business rule...).
     """
     kwargs.update({
         "data": data,

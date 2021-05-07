@@ -20,7 +20,7 @@ And Action can be:
     - deletion
     ...
 """
-from openedx_filters.names import PRE_ENROLLMENT_CREATION
+from openedx_filters.names import PRE_ENROLLMENT_CREATION, PRE_ENROLLMENT_DEACTIVATION
 from openedx_filters.pipeline import run_pipeline
 
 
@@ -52,3 +52,34 @@ def before_creation(user, course_key, *args, **kwargs):
         **kwargs
     )
     return out.get("user"), out.get("course_key")
+
+
+def before_deactivation(enrollment, *args, **kwargs):
+    """
+    Filter that executes just before the enrollment is soft-deleted.
+
+    This filter can alter the un-enrollment flow, either by modifying the
+    incoming enrollment or raising an error. It's placed before the
+    enrollment is deactivated, so it's garanteed that the user has not
+    been un-enrolled from the course yet.
+
+    Example usage:
+
+    Arguments:
+        - enrollment (CourseEnrollment): user's Enrollment record for
+        the Course.
+
+    Raises:
+        - HookFilterException: re-raised by the pipeline runner
+        when one of its functions raises it (due to an error,
+        unfulfilled premisses, unmet business rule...).
+    """
+    kwargs.update({
+        "enrollment": enrollment,
+    })
+    out = run_pipeline(
+        PRE_ENROLLMENT_DEACTIVATION,
+        *args,
+        **kwargs
+    )
+    return out.get("enrollment")
