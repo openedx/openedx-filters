@@ -9,7 +9,7 @@ from .utils import get_functions_for_pipeline, get_pipeline_configuration
 log = getLogger(__name__)
 
 
-def run_pipeline(trigger_name, *args, **kwargs):
+def run_pipeline(hook_name, *args, **kwargs):
     """
     Execute filters in order.
 
@@ -31,7 +31,7 @@ def run_pipeline(trigger_name, *args, **kwargs):
        }
 
     Arguments:
-        trigger_name (str): determines which trigger we are listening to.
+        hook_name (str): determines which trigger we are listening to.
         It also specifies which hook configuration defined through settings.
 
     Returns:
@@ -49,7 +49,7 @@ def run_pipeline(trigger_name, *args, **kwargs):
     information check their Github repository:
     https://github.com/python-social-auth/social-core
     """
-    pipeline, raise_exception = get_pipeline_configuration(trigger_name)
+    pipeline, raise_exception = get_pipeline_configuration(hook_name)
 
     if not pipeline:
         return kwargs

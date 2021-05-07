@@ -47,7 +47,7 @@ def get_functions_for_pipeline(pipeline):
     return function_list
 
 
-def get_pipeline_configuration(trigger_name):
+def get_pipeline_configuration(hook_name):
     """
     Get pipeline configuration from filter settings.
 
@@ -66,7 +66,7 @@ def get_pipeline_configuration(trigger_name):
             )
 
     Arguments:
-        trigger_name (str): determines which is the trigger of this
+        hook_name (str): determines which is the trigger of this
         pipeline.
 
     Returns:
@@ -77,7 +77,7 @@ def get_pipeline_configuration(trigger_name):
         fail_silently configuration, True meaning it won't raise exceptions and
         False the opposite.
     """
-    hook_config = get_filter_config(trigger_name)
+    hook_config = get_filter_config(hook_name)
 
     if not hook_config:
         return [], False
@@ -99,7 +99,7 @@ def get_pipeline_configuration(trigger_name):
     return pipeline, raise_exception
 
 
-def get_filter_config(trigger_name):
+def get_filter_config(hook_name):
     """
     Get filters configuration from settings.
 
@@ -128,7 +128,7 @@ def get_filter_config(trigger_name):
                 execution fails.
 
     Arguments:
-        trigger_name (str): determines which configuration to use.
+        hook_name (str): determines which configuration to use.
 
     Returns:
         hooks configuration (dict): taken from Django settings
@@ -136,4 +136,4 @@ def get_filter_config(trigger_name):
     """
     hooks_config = getattr(settings, "HOOK_FILTERS_CONFIG", {})
 
-    return hooks_config.get(trigger_name, {})
+    return hooks_config.get(hook_name, {})

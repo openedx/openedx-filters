@@ -111,7 +111,7 @@ class TestUtilityFunctions(TestCase):
         Expected behavior:
             Returns an empty dictionary.
         """
-        result = get_filter_config("trigger_name")
+        result = get_filter_config("hook_name")
 
         self.assertEqual(result, {})
 
@@ -198,6 +198,6 @@ class TestUtilityFunctions(TestCase):
         """
         get_filter_config_mock.return_value = config
 
-        result = get_pipeline_configuration("trigger_name")
+        result = get_pipeline_configuration("hook_name")
 
         self.assertTupleEqual(result, expected_result)

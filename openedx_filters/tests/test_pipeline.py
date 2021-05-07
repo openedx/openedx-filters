@@ -23,7 +23,7 @@ class TestRunningPipeline(TestCase):
             "request": Mock(),
         }
         self.pipeline = Mock()
-        self.trigger_name = "openedx.service.context.location.type.vi"
+        self.hook_name = "openedx.service.context.location.type.vi"
 
     @patch("openedx_filters.pipeline.get_pipeline_configuration")
     @patch("openedx_filters.pipeline.get_functions_for_pipeline")
@@ -41,7 +41,7 @@ class TestRunningPipeline(TestCase):
         )
         get_functions_mock.return_value = []
 
-        result = run_pipeline(self.trigger_name, **self.kwargs)
+        result = run_pipeline(self.hook_name, **self.kwargs)
 
         get_configuration_mock.assert_called_once_with(
             "openedx.service.context.location.type.vi",
@@ -73,7 +73,7 @@ class TestRunningPipeline(TestCase):
         )
 
         with self.assertRaises(HookFilterException), self.assertLogs() as captured:
-            run_pipeline(self.trigger_name, **self.kwargs)
+            run_pipeline(self.hook_name, **self.kwargs)
         self.assertEqual(
             captured.records[0].getMessage(), log_message,
         )
@@ -103,7 +103,7 @@ class TestRunningPipeline(TestCase):
             function_without_exception,
         ]
 
-        result = run_pipeline(self.trigger_name, **self.kwargs)
+        result = run_pipeline(self.hook_name, **self.kwargs)
 
         self.assertDictEqual(result, return_value)
         function_without_exception.assert_called_once_with(**self.kwargs)
@@ -138,7 +138,7 @@ class TestRunningPipeline(TestCase):
         )
 
         with self.assertLogs() as captured:
-            result = run_pipeline(self.trigger_name, **self.kwargs)
+            result = run_pipeline(self.hook_name, **self.kwargs)
 
         self.assertEqual(
             captured.records[0].getMessage(), log_message,
@@ -173,7 +173,7 @@ class TestRunningPipeline(TestCase):
             second_function,
         ]
 
-        result = run_pipeline(self.trigger_name, **self.kwargs)
+        result = run_pipeline(self.hook_name, **self.kwargs)
 
         first_function.assert_called_once_with(**self.kwargs)
         second_function.assert_called_once_with(**return_value_1st)
@@ -204,7 +204,7 @@ class TestRunningPipeline(TestCase):
         log_message = "Pipeline stopped by 'first_function' for returning an object."
 
         with self.assertLogs() as captured:
-            result = run_pipeline(self.trigger_name, **self.kwargs)
+            result = run_pipeline(self.hook_name, **self.kwargs)
 
         self.assertEqual(
             captured.records[0].getMessage(), log_message,
