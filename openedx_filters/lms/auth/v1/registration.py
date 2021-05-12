@@ -34,6 +34,7 @@ def before_creation(data, *args, **kwargs):
     been registered yet.
 
     Example usage:
+        To be provided.
 
     Arguments:
         - data (querydict): data from the registration form filled by the

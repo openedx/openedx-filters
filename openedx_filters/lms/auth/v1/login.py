@@ -34,6 +34,7 @@ def before_creation(user, *args, **kwargs):
     has not been logged in yet.
 
     Example usage:
+        To be provided.
 
     Arguments:
         - user (User): Django User object associated with the

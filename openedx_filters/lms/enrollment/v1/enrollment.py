@@ -34,13 +34,16 @@ def before_creation(user, course_key, *args, **kwargs):
     been enrolled in the course yet.
 
     Example usage:
+        To be provided.
 
     Arguments:
         - user (User): Django User object to be enrolled in the course.
         - course_key (CourseLocator): identifier of the course where the
         user is going to be enrolled (e.g. "edX/Test101/2013_Fall).
 
-    Raises:
+    - HookFilterException: re-raised by the pipeline runner
+        when one of its functions raises it (due to an error,
+        unfulfilled premisses, unmet business rule...).
     """
     kwargs.update({
         "user": user,
@@ -64,6 +67,7 @@ def before_deactivation(enrollment, *args, **kwargs):
     been un-enrolled from the course yet.
 
     Example usage:
+        To be provided.
 
     Arguments:
         - enrollment (CourseEnrollment): user's Enrollment record for
