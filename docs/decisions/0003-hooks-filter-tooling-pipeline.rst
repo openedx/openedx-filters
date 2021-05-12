@@ -1,5 +1,5 @@
-Hooks tooling: pipeline for filters
-===================================
+Filter tooling: pipeline behaviour
+==================================
 
 Status
 ------

@@ -18,6 +18,7 @@ Changed
 _______
 
 * Update doc-max-length following community recommendations.
+* Add ADRs for naming, payload and debugging tools.
 
 [0.2.0] - 2021-09-02
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
