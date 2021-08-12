@@ -3,7 +3,7 @@ Exceptions thrown by filters.
 """
 
 
-class HookFilterException(Exception):
+class OpenEdxFilterException(Exception):
     """
     Base exception for filters.
 
@@ -20,7 +20,7 @@ class HookFilterException(Exception):
 
     def __init__(self, message="", redirect_to=None, status_code=None, **kwargs):
         """
-        Init method for HookFilterException.
+        Init method for OpenEdxFilterException.
 
         It's designed to allow flexible instantiation through **kwargs.
         """
@@ -33,6 +33,6 @@ class HookFilterException(Exception):
 
     def __str__(self):
         """
-        Show string representation of HookFilterException using its message.
+        Show string representation of OpenEdxFilterException using its message.
         """
-        return "HookFilterException: {}".format(self.message)
+        return "OpenEdxFilterException: {}".format(self.message)

@@ -5,7 +5,7 @@ from unittest.mock import Mock, patch
 
 from django.test import TestCase
 
-from openedx_filters.exceptions import HookFilterException
+from openedx_filters.exceptions import OpenEdxFilterException
 from openedx_filters.pipeline import run_pipeline
 
 
@@ -51,10 +51,10 @@ class TestRunningPipeline(TestCase):
 
     @patch("openedx_filters.pipeline.get_pipeline_configuration")
     @patch("openedx_filters.pipeline.get_functions_for_pipeline")
-    def test_raise_hook_exception(self, get_functions_mock, get_configuration_mock):
+    def test_raise_filter_exception(self, get_functions_mock, get_configuration_mock):
         """
         This method runs a pipeline with a function that raises
-        HookFilterException. This means that fail_silently must be set to
+        OpenEdxFilterException. This means that fail_silently must be set to
         False.
 
         Expected behavior:
@@ -65,14 +65,14 @@ class TestRunningPipeline(TestCase):
             "fail_silently": False,
         }
         exception_message = "There was an error executing filter X."
-        function = Mock(side_effect=HookFilterException(message=exception_message))
+        function = Mock(side_effect=OpenEdxFilterException(message=exception_message))
         function.__name__ = "function_name"
         get_functions_mock.return_value = [function]
-        log_message = "Exception raised while running '{func_name}':\n HookFilterException: {exc_msg}".format(
+        log_message = "Exception raised while running '{func_name}':\n OpenEdxFilterException: {exc_msg}".format(
             func_name="function_name", exc_msg=exception_message,
         )
 
-        with self.assertRaises(HookFilterException), self.assertLogs() as captured:
+        with self.assertRaises(OpenEdxFilterException), self.assertLogs() as captured:
             run_pipeline(self.filter_name, **self.kwargs)
         self.assertEqual(
             captured.records[0].getMessage(), log_message,
@@ -80,10 +80,10 @@ class TestRunningPipeline(TestCase):
 
     @patch("openedx_filters.pipeline.get_pipeline_configuration")
     @patch("openedx_filters.pipeline.get_functions_for_pipeline")
-    def test_not_raise_hook_exception(self, get_functions_mock, get_filter_config_mock):
+    def test_not_raise_filter_exception(self, get_functions_mock, get_filter_config_mock):
         """
         This method runs a pipeline with a function that raises
-        HookFilterException but raise_exception is set to False. This means
+        OpenEdxFilterException but raise_exception is set to False. This means
         fail_silently must be set to True or not defined.
 
         Expected behavior:
@@ -96,7 +96,7 @@ class TestRunningPipeline(TestCase):
         return_value = {
             "request": Mock(),
         }
-        function_with_exception = Mock(side_effect=HookFilterException)
+        function_with_exception = Mock(side_effect=OpenEdxFilterException)
         function_without_exception = Mock(return_value=return_value)
         get_functions_mock.return_value = [
             function_with_exception,
