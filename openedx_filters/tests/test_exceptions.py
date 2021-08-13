@@ -13,7 +13,8 @@ class TestCustomOpenEdxFilterException(TestCase):
 
     def test_exception_extra_arguments(self):
         """
-        This method raises OpenEdxFilterException with custom dynamic arguments.
+        This method raises OpenEdxFilterException with custom dynamic
+        arguments.
 
         Expected behavior:
             Custom parameters can be accessed as instance arguments.

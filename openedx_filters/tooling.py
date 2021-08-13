@@ -1,6 +1,7 @@
 """
 Tooling necessary to use Open edX Filters.
 """
+from openedx_filters.exceptions import ExecutionValidationError, InstantiationError
 from openedx_filters.pipeline import run_pipeline
 
 
@@ -14,9 +15,9 @@ class OpenEdxPublicFilter:
         Init method for OpenEdxPublicSignal definition class.
 
         Arguments:
-            filter_name (str): name of the event.
-            data (dict): attributes passed to the event.
-            minor_version (int): version of the event type.
+            filter_name (str): name of the filter.
+            data (dict): attributes passed to the filter.
+            minor_version (int): version of the filter type.
         """
         if not filter_name:
             raise InstantiationError(
@@ -39,9 +40,9 @@ class OpenEdxPublicFilter:
 
     def generate_filter_metadata(self):
         """
-        Generate filters metadata when an event is sent.
+        Generate filters metadata when an filter is sent.
 
-        These fields are generated on the fly and are a subset of the Event
+        These fields are generated on the fly and are a subset of the filter
         Message defined in the OEP-41.
 
         Example usage:
@@ -52,9 +53,6 @@ class OpenEdxPublicFilter:
                 'filter_name': '...learning.student.registration.completed.v1',
                 'minorversion': 0,
                 'time': '2021-06-09T14:12:45.320819Z',
-                'source': 'openedx/lms/web',
-                'sourcehost': 'edx.devstack.lms',
-                'specversion': '1.0',
                 'sourcelib: (0,1,0,),
             }
         """
@@ -62,12 +60,12 @@ class OpenEdxPublicFilter:
 
     def execute_filter(self, **kwargs):
         """
-        Send events to all connected receivers.
+        Send filters to all connected receivers.
 
-        Used to send events just like Django signals are sent. In addition,
+        Used to send filters just like Django signals are sent. In addition,
         some validations are run on the arguments, and then relevant metadata
         that can be used for logging or debugging purposes is generated.
-        Besides this behavior, send_event behaves just like the send method.
+        Besides this behavior, send_filter behaves just like the send method.
 
         Example usage:
 
@@ -81,9 +79,9 @@ class OpenEdxPublicFilter:
             [(receiver, response), ... ]
 
         Exceptions raised:
-            SenderValidationError: raised when there's a mismatch between
+            ExecutionValidationError: raised when there's a mismatch between
             arguments passed to this method and arguments used to initialize
-            the event.
+            the filter.
         """
 
         def validate_execution():
@@ -91,24 +89,24 @@ class OpenEdxPublicFilter:
             Run validations over the send arguments.
 
             The validation checks whether the send arguments match the
-            arguments used when instantiating the event. If they don't a
+            arguments used when instantiating the filter. If they don't a
             validation error is raised.
             """
             if len(kwargs) != len(self.init_data):
-                raise SenderValidationError(
+                raise ExecutionValidationError(
                     filter_name=self.filter_name,
-                    message="There's a mismatch between initialization data and send_event arguments",
+                    message="There's a mismatch between initialization data and send_filter arguments",
                 )
 
             for key, value in self.init_data.items():
                 argument = kwargs.get(key)
                 if not argument:
-                    raise SenderValidationError(
+                    raise ExecutionValidationError(
                         filter_name=self.filter_name,
                         message="Missing required argument '{key}'".format(key=key),
                     )
                 if not isinstance(argument, value):
-                    raise SenderValidationError(
+                    raise ExecutionValidationError(
                         filter_name=self.filter_name,
                         message="The argument '{key}' is not instance of the Class Attribute '{attr}'".format(
                             key=key, attr=value.__class__.__name__
@@ -116,4 +114,4 @@ class OpenEdxPublicFilter:
                     )
 
         validate_execution()
-        run_pipeline(self.filter_name, self.data)
+        run_pipeline(self.filter_name, kwargs)

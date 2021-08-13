@@ -36,3 +36,47 @@ class OpenEdxFilterException(Exception):
         Show string representation of OpenEdxFilterException using its message.
         """
         return "OpenEdxFilterException: {}".format(self.message)
+
+
+class InstantiationError(OpenEdxFilterException):
+    """
+    Describes errors that occur while instantiating filters.
+
+    This exception is raised when there's an error instantiating an Open edX
+    filter, it can be that a required argument for the filter definition is
+    missing.
+    """
+
+    def __init__(self, filter_name="", message=""):
+        """
+        Init method for InstantiationError custom exception class.
+
+        Arguments:
+            filter_name (str): name of the filter raising the exception.
+            message (str): message describing why the exception was raised.
+        """
+        super().__init__(
+            message="InstantiationError {filter_name}: {message}".format(
+                filter_name=filter_name, message=message
+            )
+        )
+
+
+class ExecutionValidationError(OpenEdxFilterException):
+    """
+    Describes errors that occur while validating arguments of send methods.
+    """
+
+    def __init__(self, filter_name="", message=""):
+        """
+        Init method for ExecutionValidationError custom exception class.
+
+        Arguments:
+            filter_name (str): name of the filter raising the exception.
+            message (str): message describing why the exception was raised.
+        """
+        super().__init__(
+            message="ExecutionValidationError {filter_name}: {message}".format(
+                filter_name=filter_name, message=message
+            )
+        )
