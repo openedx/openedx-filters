@@ -35,7 +35,7 @@ class OpenEdxPublicFilter:
         """
         Generate filter metadata when a filter is executed.
 
-        These fields are generated on the fly and are a subset of the Event
+        These fields are generated on the fly and are a subset of the filter
         Message defined in the OEP-41.
 
         Example usage:
@@ -46,9 +46,6 @@ class OpenEdxPublicFilter:
                 'filter_name': '...learning.student.registration.started.v1',
                 'minorversion': 0,
                 'time': '2021-06-09T14:12:45.320819Z',
-                'source': 'openedx/lms/web',
-                'sourcehost': 'edx.devstack.lms',
-                'specversion': '1.0',
                 'sourcelib: (0,1,0,),
             }
         """
