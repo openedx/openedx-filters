@@ -41,9 +41,9 @@ def run_pipeline(filter_name, *args, **kwargs):
         an object different than Dict or None.
 
     Exceptions raised:
-        OpenEdxFilterException: custom exception re-raised when a function raises
-        an exception of this type and raise_exception is set to True. This
-        behavior is common when using filters.
+        OpenEdxFilterException: custom exception re-raised when a function
+        raises an exception of this type and raise_exception is set to True.
+        This behavior is common when using filters.
 
     This pipeline implementation was inspired by: Social auth core. For more
     information check their Github repository:
