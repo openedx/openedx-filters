@@ -1,7 +1,8 @@
 """
 Tooling necessary to use Open edX Filters.
 """
-from openedx_filters.exceptions import ExecutionValidationError, InstantiationError
+from openedx_filters.data import FiltersMetadata
+from openedx_filters.exceptions import ExecutionValidationError
 from openedx_filters.pipeline import run_pipeline
 
 
@@ -12,21 +13,13 @@ class OpenEdxPublicFilter:
 
     def __init__(self, filter_name, data, minor_version=0):
         """
-        Init method for OpenEdxPublicSignal definition class.
+        Init method for OpenEdxPublicFilter definition class.
 
         Arguments:
             filter_name (str): name of the filter.
             data (dict): attributes passed to the filter.
             minor_version (int): version of the filter type.
         """
-        if not filter_name:
-            raise InstantiationError(
-                message="Missing required argument 'filter_name'"
-            )
-        if not data:
-            raise InstantiationError(
-                filter_name=filter_name, message="Missing required argument 'data'"
-            )
         self.init_data = data
         self.filter_name = filter_name
         self.minor_version = minor_version
@@ -40,43 +33,54 @@ class OpenEdxPublicFilter:
 
     def generate_filter_metadata(self):
         """
-        Generate filters metadata when an filter is sent.
+        Generate filter metadata when a filter is executed.
 
-        These fields are generated on the fly and are a subset of the filter
+        These fields are generated on the fly and are a subset of the Event
         Message defined in the OEP-41.
 
         Example usage:
             >>> metadata = \
-                STUDENT_REGISTRATION_STARTED.generate_filter_metadata()
+                STUDENT_REGISTRATION_COMPLETED.generate_filter_metadata()
                 attr.asdict(metadata)
             {
-                'filter_name': '...learning.student.registration.completed.v1',
+                'filter_name': '...learning.student.registration.started.v1',
                 'minorversion': 0,
                 'time': '2021-06-09T14:12:45.320819Z',
+                'source': 'openedx/lms/web',
+                'sourcehost': 'edx.devstack.lms',
+                'specversion': '1.0',
                 'sourcelib: (0,1,0,),
             }
         """
-        return {}
+        return FiltersMetadata(
+            filter_name=self.filter_name,
+            minorversion=self.minor_version,
+        )
 
     def execute_filter(self, **kwargs):
         """
         Send filters to all connected receivers.
 
-        Used to send filters just like Django signals are sent. In addition,
+        Used to send filters just like Django filters are sent. In addition,
         some validations are run on the arguments, and then relevant metadata
         that can be used for logging or debugging purposes is generated.
         Besides this behavior, send_filter behaves just like the send method.
 
         Example usage:
 
-
-        Keyword arguments:
-            send_robust (bool): determines whether the Django signal will be
-            sent using the method `send` or `send_robust`.
+        >>> data = STUDENT_REGISTRATION_STARTED.execute_filter(
+        ...         user=UserData(
+        ...             pii=UserPersonalData(
+        ...                 username=data.get('username'),
+        ...                 email=data.get('email'),
+        ...                 name=data.get('name'),
+        ...             )
+        ...         )
+        ...     )
 
         Returns:
-            list: response of each receiver following the format
-            [(receiver, response), ... ]
+            dict: Open edX filter pipeline result. For a detailed explanation
+            checkout docs/decisions/0003-hooks-filter-tooling-pipeline.rst
 
         Exceptions raised:
             ExecutionValidationError: raised when there's a mismatch between
@@ -114,4 +118,5 @@ class OpenEdxPublicFilter:
                     )
 
         validate_execution()
-        run_pipeline(self.filter_name, kwargs)
+
+        return run_pipeline(self.filter_name, **kwargs)
