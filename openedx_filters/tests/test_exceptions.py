@@ -3,7 +3,7 @@ Tests for custom Hooks Exceptions.
 """
 from django.test import TestCase
 
-from ..exceptions import HookFilterException
+from openedx_filters.exceptions import HookFilterException
 
 
 class TestCustomHookFilterException(TestCase):

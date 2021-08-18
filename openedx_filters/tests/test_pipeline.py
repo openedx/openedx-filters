@@ -5,8 +5,8 @@ from unittest.mock import Mock, patch
 
 from django.test import TestCase
 
-from ..exceptions import HookFilterException
-from ..pipeline import run_pipeline
+from openedx_filters.exceptions import HookFilterException
+from openedx_filters.pipeline import run_pipeline
 
 
 class TestRunningPipeline(TestCase):
