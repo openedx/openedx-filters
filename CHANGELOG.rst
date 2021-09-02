@@ -14,6 +14,13 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+[0.2.0] - 2021-09-02
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Added
+_____
+
+* First version of Open edX Filters tooling.
+
 Changed
 _______
 
