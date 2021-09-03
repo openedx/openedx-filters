@@ -3,7 +3,7 @@ Pipeline runner used to execute list of functions (filters).
 """
 from logging import getLogger
 
-from openedx_filters.exceptions import HookFilterException
+from openedx_filters.exceptions import OpenEdxFilterException
 from openedx_filters.utils import get_functions_for_pipeline, get_pipeline_configuration
 
 log = getLogger(__name__)
@@ -41,7 +41,7 @@ def run_pipeline(filter_name, *args, **kwargs):
         an object different than Dict or None.
 
     Exceptions raised:
-        HookFilterException: custom exception re-raised when a function raises
+        OpenEdxFilterException: custom exception re-raised when a function raises
         an exception of this type and raise_exception is set to True. This
         behavior is common when using filters.
 
@@ -67,7 +67,7 @@ def run_pipeline(filter_name, *args, **kwargs):
                 )
                 return result
             out.update(result)
-        except HookFilterException as exc:
+        except OpenEdxFilterException as exc:
             if raise_exception:
                 log.exception(
                     "Exception raised while running '%s':\n %s", function.__name__, exc,
