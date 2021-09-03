@@ -67,7 +67,7 @@ for the pipeline and any other optional setting for a filter.
 
 .. code-block:: python
 
-    HOOK_FILTERS_CONFIG = {
+    OPEN_EDX_FILTERS_CONFIG = {
         "org.openedx.lms.auth_user.filter.before_creation.v1": {
             "pipeline": [
                 "from_a_plugin.filters.filter_1",
@@ -83,7 +83,7 @@ functions to be run by the pipeline.
 
 .. code-block:: python
 
-    HOOK_FILTERS_CONFIG = {
+    OPEN_EDX_FILTERS_CONFIG = {
         "org.openedx.lms.auth_user.filter.before_creation.v1": {
             [
                 "from_a_plugin.filters.filter_1",
@@ -97,7 +97,7 @@ functions to be run by the pipeline.
 
 .. code-block:: python
 
-    HOOK_FILTERS_CONFIG = {
+    OPEN_EDX_FILTERS_CONFIG = {
         "org.openedx.lms.auth_user.filter.before_creation.v1": "from_a_plugin.filters.filter_1",
     }
 

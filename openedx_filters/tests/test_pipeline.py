@@ -23,7 +23,7 @@ class TestRunningPipeline(TestCase):
             "request": Mock(),
         }
         self.pipeline = Mock()
-        self.hook_name = "openedx.service.context.location.type.vi"
+        self.filter_name = "openedx.service.context.location.type.vi"
 
     @patch("openedx_filters.pipeline.get_pipeline_configuration")
     @patch("openedx_filters.pipeline.get_functions_for_pipeline")
@@ -41,7 +41,7 @@ class TestRunningPipeline(TestCase):
         )
         get_functions_mock.return_value = []
 
-        result = run_pipeline(self.hook_name, **self.kwargs)
+        result = run_pipeline(self.filter_name, **self.kwargs)
 
         get_configuration_mock.assert_called_once_with(
             "openedx.service.context.location.type.vi",
@@ -73,14 +73,14 @@ class TestRunningPipeline(TestCase):
         )
 
         with self.assertRaises(HookFilterException), self.assertLogs() as captured:
-            run_pipeline(self.hook_name, **self.kwargs)
+            run_pipeline(self.filter_name, **self.kwargs)
         self.assertEqual(
             captured.records[0].getMessage(), log_message,
         )
 
     @patch("openedx_filters.pipeline.get_pipeline_configuration")
     @patch("openedx_filters.pipeline.get_functions_for_pipeline")
-    def test_not_raise_hook_exception(self, get_functions_mock, get_hook_config_mock):
+    def test_not_raise_hook_exception(self, get_functions_mock, get_filter_config_mock):
         """
         This method runs a pipeline with a function that raises
         HookFilterException but raise_exception is set to False. This means
@@ -89,7 +89,7 @@ class TestRunningPipeline(TestCase):
         Expected behavior:
             The pipeline does not re-raise the exception caught.
         """
-        get_hook_config_mock.return_value = (
+        get_filter_config_mock.return_value = (
             Mock(),
             False,
         )
@@ -103,14 +103,14 @@ class TestRunningPipeline(TestCase):
             function_without_exception,
         ]
 
-        result = run_pipeline(self.hook_name, **self.kwargs)
+        result = run_pipeline(self.filter_name, **self.kwargs)
 
         self.assertDictEqual(result, return_value)
         function_without_exception.assert_called_once_with(**self.kwargs)
 
     @patch("openedx_filters.pipeline.get_pipeline_configuration")
     @patch("openedx_filters.pipeline.get_functions_for_pipeline")
-    def test_not_raise_common_exception(self, get_functions_mock, get_hook_config_mock):
+    def test_not_raise_common_exception(self, get_functions_mock, get_filter_config_mock):
         """
         This method runs a pipeline with a function that raises a
         common Exception.
@@ -118,7 +118,7 @@ class TestRunningPipeline(TestCase):
         Expected behavior:
             The pipeline continues execution after caughting Exception.
         """
-        get_hook_config_mock.return_value = (
+        get_filter_config_mock.return_value = (
             self.pipeline,
             True,
         )
@@ -138,7 +138,7 @@ class TestRunningPipeline(TestCase):
         )
 
         with self.assertLogs() as captured:
-            result = run_pipeline(self.hook_name, **self.kwargs)
+            result = run_pipeline(self.filter_name, **self.kwargs)
 
         self.assertEqual(
             captured.records[0].getMessage(), log_message,
@@ -148,14 +148,14 @@ class TestRunningPipeline(TestCase):
 
     @patch("openedx_filters.pipeline.get_pipeline_configuration")
     @patch("openedx_filters.pipeline.get_functions_for_pipeline")
-    def test_getting_pipeline_result(self, get_functions_mock, get_hook_config_mock):
+    def test_getting_pipeline_result(self, get_functions_mock, get_filter_config_mock):
         """
         This method runs a pipeline with functions defined via configuration.
 
         Expected behavior:
             Returns the processed dictionary.
         """
-        get_hook_config_mock.return_value = (
+        get_filter_config_mock.return_value = (
             self.pipeline,
             True,
         )
@@ -173,7 +173,7 @@ class TestRunningPipeline(TestCase):
             second_function,
         ]
 
-        result = run_pipeline(self.hook_name, **self.kwargs)
+        result = run_pipeline(self.filter_name, **self.kwargs)
 
         first_function.assert_called_once_with(**self.kwargs)
         second_function.assert_called_once_with(**return_value_1st)
@@ -181,7 +181,7 @@ class TestRunningPipeline(TestCase):
 
     @patch("openedx_filters.pipeline.get_pipeline_configuration")
     @patch("openedx_filters.pipeline.get_functions_for_pipeline")
-    def test_partial_pipeline(self, get_functions_mock, get_hook_config_mock):
+    def test_partial_pipeline(self, get_functions_mock, get_filter_config_mock):
         """
         This method runs a pipeline with functions defined via configuration.
         At some point, returns an object to stop execution.
@@ -189,7 +189,7 @@ class TestRunningPipeline(TestCase):
         Expected behavior:
             Returns the object used to stop execution.
         """
-        get_hook_config_mock.return_value = (
+        get_filter_config_mock.return_value = (
             self.pipeline,
             True,
         )
@@ -204,7 +204,7 @@ class TestRunningPipeline(TestCase):
         log_message = "Pipeline stopped by 'first_function' for returning an object."
 
         with self.assertLogs() as captured:
-            result = run_pipeline(self.hook_name, **self.kwargs)
+            result = run_pipeline(self.filter_name, **self.kwargs)
 
         self.assertEqual(
             captured.records[0].getMessage(), log_message,

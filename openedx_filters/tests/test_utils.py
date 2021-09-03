@@ -102,21 +102,21 @@ class TestUtilityFunctions(TestCase):
 
         self.assertEqual(function_list, [test_function] * 2)
 
-    def test_get_empty_hook_config(self):
+    def test_get_empty_filter_config(self):
         """
         This method is used to verify the behavior of
         get_filter_config when a trigger without a
-        HOOKS_FILTER_CONFIG is passed as parameter.
+        OPEN_EDX_FILTERS_CONFIG is passed as parameter.
 
         Expected behavior:
             Returns an empty dictionary.
         """
-        result = get_filter_config("hook_name")
+        result = get_filter_config("filter_name")
 
         self.assertEqual(result, {})
 
     @override_settings(
-        HOOK_FILTERS_CONFIG={
+        OPEN_EDX_FILTERS_CONFIG={
             "openedx.service.context.location.type.vi": {
                 "pipeline": [
                     "openedx_filters.tests.test_utils.test_function",
@@ -126,11 +126,11 @@ class TestUtilityFunctions(TestCase):
             }
         }
     )
-    def test_get_hook_config(self):
+    def test_get_filter_config(self):
         """
         This method is used to verify the behavior of
         get_filter_config when a trigger with
-        HOOKS_FILTER_CONFIG defined is passed as parameter.
+        OPEN_EDX_FILTERS_CONFIG defined is passed as parameter.
 
         Expected behavior:
             Returns a tuple with pipeline configurations.
@@ -190,7 +190,7 @@ class TestUtilityFunctions(TestCase):
         """
         This method is used to verify the behavior of
         get_pipeline_configuration when a trigger with
-        HOOKS_FILTER_CONFIG defined is passed as parameter.
+        OPEN_EDX_FILTERS_CONFIG defined is passed as parameter.
 
         Expected behavior:
             Returns a tuple with the pipeline and exception handling
@@ -198,6 +198,6 @@ class TestUtilityFunctions(TestCase):
         """
         get_filter_config_mock.return_value = config
 
-        result = get_pipeline_configuration("hook_name")
+        result = get_pipeline_configuration("filter_name")
 
         self.assertTupleEqual(result, expected_result)

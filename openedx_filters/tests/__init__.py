@@ -1,3 +1,3 @@
 """
-Test package for filters from the Hooks Extension Framework.
+Test package for Open edX filters from the Hooks Extension Framework.
 """

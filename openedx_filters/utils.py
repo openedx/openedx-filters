@@ -1,5 +1,5 @@
 """
-Utilities for the hooks module.
+Utilities for the Open edX Filters module.
 """
 from logging import getLogger
 
@@ -47,7 +47,7 @@ def get_functions_for_pipeline(pipeline):
     return function_list
 
 
-def get_pipeline_configuration(hook_name):
+def get_pipeline_configuration(filter_name):
     """
     Get pipeline configuration from filter settings.
 
@@ -66,7 +66,7 @@ def get_pipeline_configuration(hook_name):
             )
 
     Arguments:
-        hook_name (str): determines which is the trigger of this
+        filter_name (str): determines which is the trigger of this
         pipeline.
 
     Returns:
@@ -77,29 +77,29 @@ def get_pipeline_configuration(hook_name):
         fail_silently configuration, True meaning it won't raise exceptions and
         False the opposite.
     """
-    hook_config = get_filter_config(hook_name)
+    filter_config = get_filter_config(filter_name)
 
-    if not hook_config:
+    if not filter_config:
         return [], False
 
     pipeline, raise_exception = [], False
 
-    if isinstance(hook_config, dict):
+    if isinstance(filter_config, dict):
         pipeline, raise_exception = (
-            hook_config.get("pipeline", []),
-            not hook_config.get("fail_silently", True),
+            filter_config.get("pipeline", []),
+            not filter_config.get("fail_silently", True),
         )
 
-    elif isinstance(hook_config, list):
-        pipeline = hook_config
+    elif isinstance(filter_config, list):
+        pipeline = filter_config
 
-    elif isinstance(hook_config, str):
-        pipeline.append(hook_config)
+    elif isinstance(filter_config, str):
+        pipeline.append(filter_config)
 
     return pipeline, raise_exception
 
 
-def get_filter_config(hook_name):
+def get_filter_config(filter_name):
     """
     Get filters configuration from settings.
 
@@ -128,12 +128,12 @@ def get_filter_config(hook_name):
                 execution fails.
 
     Arguments:
-        hook_name (str): determines which configuration to use.
+        filter_name (str): determines which configuration to use.
 
     Returns:
-        hooks configuration (dict): taken from Django settings
-        containing hooks configuration.
+        filters configuration (dict): taken from Django settings
+        containing filters configuration.
     """
-    hooks_config = getattr(settings, "HOOK_FILTERS_CONFIG", {})
+    filters_config = getattr(settings, "OPEN_EDX_FILTERS_CONFIG", {})
 
-    return hooks_config.get(hook_name, {})
+    return filters_config.get(filter_name, {})

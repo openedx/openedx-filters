@@ -1,5 +1,5 @@
 """
-Pipeline runner used to execute list of functions (actions or filters).
+Pipeline runner used to execute list of functions (filters).
 """
 from logging import getLogger
 
@@ -9,7 +9,7 @@ from .utils import get_functions_for_pipeline, get_pipeline_configuration
 log = getLogger(__name__)
 
 
-def run_pipeline(hook_name, *args, **kwargs):
+def run_pipeline(filter_name, *args, **kwargs):
     """
     Execute filters in order.
 
@@ -31,8 +31,8 @@ def run_pipeline(hook_name, *args, **kwargs):
        }
 
     Arguments:
-        hook_name (str): determines which trigger we are listening to.
-        It also specifies which hook configuration defined through settings.
+        filter_name (str): determines which trigger we are listening to.
+        It also specifies which filter configuration to use.
 
     Returns:
         out (dict): accumulated outputs of the functions defined in pipeline.
@@ -49,7 +49,7 @@ def run_pipeline(hook_name, *args, **kwargs):
     information check their Github repository:
     https://github.com/python-social-auth/social-core
     """
-    pipeline, raise_exception = get_pipeline_configuration(hook_name)
+    pipeline, raise_exception = get_pipeline_configuration(filter_name)
 
     if not pipeline:
         return kwargs
@@ -75,7 +75,7 @@ def run_pipeline(hook_name, *args, **kwargs):
                 raise
         except Exception as exc:  # pylint: disable=broad-except
             # We're catching this because we don't want the core to blow up
-            # when a hook is broken. This exception will probably need some
+            # when a filter is broken. This exception will probably need some
             # sort of monitoring hooked up to it to make sure that these
             # errors don't go unseen.
             log.exception(
