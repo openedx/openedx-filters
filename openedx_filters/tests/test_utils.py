@@ -6,7 +6,7 @@ from unittest.mock import patch
 import ddt
 from django.test import TestCase, override_settings
 
-from ..utils import get_filter_config, get_functions_for_pipeline, get_pipeline_configuration
+from openedx_filters.utils import get_filter_config, get_functions_for_pipeline, get_pipeline_configuration
 
 
 def test_function():

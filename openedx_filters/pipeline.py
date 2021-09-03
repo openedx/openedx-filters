@@ -3,8 +3,8 @@ Pipeline runner used to execute list of functions (filters).
 """
 from logging import getLogger
 
-from .exceptions import HookFilterException
-from .utils import get_functions_for_pipeline, get_pipeline_configuration
+from openedx_filters.exceptions import HookFilterException
+from openedx_filters.utils import get_functions_for_pipeline, get_pipeline_configuration
 
 log = getLogger(__name__)
 
