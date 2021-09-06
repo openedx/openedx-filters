@@ -123,8 +123,7 @@ def get_filter_config(filter_name):
                 the pipeline are defined.
                 - fail_silently (bool): determines whether the pipeline can
                 raise exceptions while executing. If its value is True then
-                exceptions (OpenEdxFilterException) are caught and the
-                execution
+                exceptions (OpenEdxFilterException) are caught and the execution
                 continues, if False then exceptions are re-raised and the
                 execution fails.
 
