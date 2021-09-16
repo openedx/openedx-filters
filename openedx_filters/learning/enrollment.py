@@ -10,22 +10,24 @@ class PreEnrollmentFilter(OpenEdxPublicFilter):
     Custom class used to create PreEnrollment filters.
     """
 
+    filter_type = "org.openedx.learning.course.enrollment.started.v1"
+
     class PreventEnrollment(OpenEdxFilterException):
         """
         Custom class used to stop the enrollment process.
         """
 
-    def run(self, course_key, user, mode):
+    @classmethod
+    def run(cls, course_key, user, mode):
         """
         Executes a filter with the signature specified.
 
         Arguments:
-            course_key (CourseKey): name of the filter.
             user (User):
+            course_key (CourseKey): name of the filter.
             mode (str):
         """
-        data = super().execute_filter(
-            course_key=course_key, user=user, mode=mode,
+        data = super().run_pipeline(
+            user=user, course_key=course_key, mode=mode,
         )
-
-        return data.get("course_key"), data.get("user"), data.get("mode")
+        return data.get("user"), data.get("course_key"), data.get("mode")
