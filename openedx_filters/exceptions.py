@@ -36,23 +36,3 @@ class OpenEdxFilterException(Exception):
         Show string representation of OpenEdxFilterException using its message.
         """
         return "OpenEdxFilterException: {}".format(self.message)
-
-
-class ExecutionValidationError(OpenEdxFilterException):
-    """
-    Describes errors that occur while validating arguments of send methods.
-    """
-
-    def __init__(self, filter_name="", message=""):
-        """
-        Init method for ExecutionValidationError custom exception class.
-
-        Arguments:
-            filter_name (str): name of the filter raising the exception.
-            message (str): message describing why the exception was raised.
-        """
-        super().__init__(
-            message="ExecutionValidationError {filter_name}: {message}".format(
-                filter_name=filter_name, message=message
-            )
-        )

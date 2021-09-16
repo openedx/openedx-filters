@@ -116,7 +116,6 @@ def get_filter_config(filter_name):
                         'my_plugin.hooks.filters.test_function_2nd',
                     ],
                 'fail_silently': False,
-                'debug_mode': true,
             }
 
             Where:

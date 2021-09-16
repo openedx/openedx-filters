@@ -20,7 +20,7 @@ class PreEnrollmentFilter(OpenEdxPublicFilter):
     @classmethod
     def run(cls, course_key, user, mode):
         """
-        Executes a filter with the signature specified.
+        Execute a filter with the signature specified.
 
         Arguments:
             user (User):
