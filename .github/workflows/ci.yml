@@ -15,8 +15,8 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-20.04]
-        python-version: ['3.8']
-        toxenv: ["py38", "quality", "docs"]
+        python-version: ['3.8', '3.9']
+        toxenv: ["py38","py39", "quality", "docs"]
 
     steps:
       - uses: actions/checkout@v2
