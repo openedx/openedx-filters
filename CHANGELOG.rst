@@ -14,6 +14,12 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+Added
+_____
+
+* OpenEdxPublicFilter class with the necessary tooling for filters execution
+* PreEnrollmentFilter class definition
+
 Changed
 _______
 
