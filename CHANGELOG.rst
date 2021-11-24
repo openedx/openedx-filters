@@ -14,9 +14,13 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+[0.3.0] - 2021-11-24
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Added
 _____
 
+* ADRs for naming, payload and debugging tools.
 * OpenEdxPublicFilter class with the necessary tooling for filters execution
 * PreEnrollmentFilter class definition
 
@@ -24,10 +28,10 @@ Changed
 _______
 
 * Update doc-max-length following community recommendations.
-* Add ADRs for naming, payload and debugging tools.
 
 [0.2.0] - 2021-09-02
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Added
 _____
 
