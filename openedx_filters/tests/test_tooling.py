@@ -21,7 +21,7 @@ class FirstPipelineStep(PipelineStep):
     Utility function used when getting steps for pipeline.
     """
 
-    def run(self, **kwargs):
+    def run_filter(self, **kwargs):
         pass
 
 
@@ -30,7 +30,7 @@ class SecondPipelineStep(PipelineStep):
     Utility class used when getting steps for pipeline.
     """
 
-    def run(self, **kwargs):
+    def run_filter(self, **kwargs):
         pass
 
 
