@@ -35,4 +35,4 @@ class OpenEdxFilterException(Exception):
         """
         Show string representation of OpenEdxFilterException using its message.
         """
-        return "OpenEdxFilterException: {}".format(self.message)
+        return self.message
