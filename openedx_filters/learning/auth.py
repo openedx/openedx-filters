@@ -3,7 +3,6 @@ Package where filters related to the auth process are implemented.
 """
 from openedx_filters.exceptions import OpenEdxFilterException
 from openedx_filters.tooling import OpenEdxPublicFilter
-from openedx_filters.utils import remove_sensitive_form_data
 
 
 class PreRegisterFilter(OpenEdxPublicFilter):
