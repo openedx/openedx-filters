@@ -38,7 +38,16 @@ class PreRegisterFilter(OpenEdxPublicFilter):
     @classmethod
     def remove_sensitive_form_data(cls, form_data):
         """
-        PreRegisterFilter runner removing sensitive data from its input arguments.
+        Extract sensitive data from PreRegisterFilter input arguments.
+
+        Example usage:
+
+            >> form_data = {"username": "example", "password": "password"}
+            >> sensitive_data = PreRegisterFilter.remove_sensitive_form_data(form_data)
+            >> sensitive_data
+            {"password": "password"}
+            >> form_data
+            {"username": "example"}
         """
         sensitive_data = {}
         base_form_data = form_data.copy()
@@ -61,6 +70,7 @@ class PreLoginFilter(OpenEdxPublicFilter):
         """
         Custom class used to stop the login process.
         """
+
         def __init__(self, message, redirect_to=None, error_code="", context=None):
             super().__init__(message, redirect_to=redirect_to, error_code=error_code, context=context)
 
