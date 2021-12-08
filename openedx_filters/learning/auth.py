@@ -3,6 +3,7 @@ Package where filters related to the auth process are implemented.
 """
 from openedx_filters.exceptions import OpenEdxFilterException
 from openedx_filters.tooling import OpenEdxPublicFilter
+from openedx_filters.utils import remove_sensitive_form_data
 
 
 class PreRegisterFilter(OpenEdxPublicFilter):
@@ -11,6 +12,9 @@ class PreRegisterFilter(OpenEdxPublicFilter):
     """
 
     filter_type = "org.openedx.learning.student.registration.requested.v1"
+    sensitive_form_data = [
+        "password",
+    ]
 
     class PreventRegister(OpenEdxFilterException):
         """
@@ -26,8 +30,25 @@ class PreRegisterFilter(OpenEdxPublicFilter):
             form_data (QueryDict): contains the request.data submitted by the registration
             form.
         """
+        sensitive_data = cls.remove_sensitive_form_data(form_data)
         data = super().run_pipeline(form_data=form_data)
-        return data.get("form_data")
+        form_data = data.get("form_data")
+        form_data.update(sensitive_data)
+        return form_data
+
+    @classmethod
+    def remove_sensitive_form_data(cls, form_data):
+        """
+        PreRegisterFilter runner removing sensitive data from its input arguments.
+        """
+        sensitive_data = {}
+        base_form_data = form_data.copy()
+        for key, value in base_form_data.items():
+            if key in cls.sensitive_form_data:
+                form_data.pop(key)
+                sensitive_data[key] = value
+
+        return sensitive_data
 
 
 class PreLoginFilter(OpenEdxPublicFilter):
