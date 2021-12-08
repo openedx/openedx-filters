@@ -7,6 +7,7 @@ from django.conf import settings
 from django.utils.module_loading import import_string
 
 from openedx_filters.exceptions import OpenEdxFilterException
+from openedx_filters.utils import FiltersLogStrategy
 
 log = getLogger(__name__)
 
@@ -192,7 +193,9 @@ class OpenEdxPublicFilter:
         information check their Github repository:
         https://github.com/python-social-auth/social-core
         """
+        import pudb; pu.db
         pipeline, fail_silently, extra_config = cls.get_pipeline_configuration()
+        log_strategy = FiltersLogStrategy(log_level=extra_config.get("log_level", "info"))
 
         if not pipeline:
             return kwargs
@@ -205,21 +208,49 @@ class OpenEdxPublicFilter:
         }
 
         accumulated_output = kwargs.copy()
+
+        log_strategy.collect_pipeline_context(
+            pipeline_steps=pipeline,
+            fail_silently=fail_silently,
+            initial_input=kwargs,
+        )
+
         for step in steps:
             try:
                 step_runner = step(**filter_metadata)
                 result = step_runner.run(**accumulated_output)
+
+                log_strategy.collect_step_context(
+                    step.__name__,
+                    accumulated_output=accumulated_output,
+                    step_result=result,
+                )
 
                 if not isinstance(result, dict):
                     log.info(
                         "Pipeline stopped by '%s' for returning an object different from a dictionary.",
                         step.__name__,
                     )
+                    log_strategy.log(
+                        filter_type=cls.filter_type,
+                        current_configuration=pipeline,
+                        accumulated_output=accumulated_output,
+                    )
                     return accumulated_output
                 accumulated_output.update(result)
             except OpenEdxFilterException as exc:
                 log.exception(
                     "Exception raised while running '%s':\n %s", step.__name__, exc,
+                )
+                log_strategy.collect_step_context(
+                    step.__name__,
+                    accumulated_output=accumulated_output,
+                    step_exception=exc,
+                )
+                log_strategy.log(
+                    filter_type=cls.filter_type,
+                    current_configuration=pipeline,
+                    accumulated_output=accumulated_output,
                 )
                 raise
             except Exception as exc:
@@ -231,8 +262,24 @@ class OpenEdxPublicFilter:
                     step.__name__,
                     exc,
                 )
+                log_strategy.collect_step_context(
+                    step.__name__,
+                    accumulated_output=accumulated_output,
+                    step_exception=exc,
+                )
                 if fail_silently:
                     continue
+                log_strategy.log(
+                    filter_type=cls.filter_type,
+                    current_configuration=pipeline,
+                    accumulated_output=accumulated_output,
+                )
                 raise
+
+        log_strategy.log(
+            filter_type=cls.filter_type,
+            current_configuration=pipeline,
+            accumulated_output=accumulated_output,
+        )
 
         return accumulated_output
