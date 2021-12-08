@@ -61,6 +61,8 @@ class PreLoginFilter(OpenEdxPublicFilter):
         """
         Custom class used to stop the login process.
         """
+        def __init__(self, message, redirect_to=None, error_code="", context=None):
+            super().__init__(message, redirect_to=redirect_to, error_code=error_code, context=context)
 
     @classmethod
     def run(cls, user):
