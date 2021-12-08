@@ -72,6 +72,9 @@ class PreLoginFilter(OpenEdxPublicFilter):
         """
 
         def __init__(self, message, redirect_to=None, error_code="", context=None):
+            """
+            Override init that defines specific arguments used in the login process.
+            """
             super().__init__(message, redirect_to=redirect_to, error_code=error_code, context=context)
 
     @classmethod
