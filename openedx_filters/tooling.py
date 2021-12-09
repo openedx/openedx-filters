@@ -193,7 +193,6 @@ class OpenEdxPublicFilter:
         information check their Github repository:
         https://github.com/python-social-auth/social-core
         """
-        import pudb; pu.db
         pipeline, fail_silently, extra_config = cls.get_pipeline_configuration()
         log_strategy = FiltersLogStrategy(log_level=extra_config.get("log_level", "info"))
 
