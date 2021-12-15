@@ -22,7 +22,7 @@ class PipelineStep:
 
         class MyFilterStep(PipelineStep):
 
-            def run(self, user, course_key, mode):
+            def run_filter(self, user, course_key, mode):
                 if mode != "honor":
                     return
 
@@ -35,7 +35,7 @@ class PipelineStep:
 
         class MyFilterStep(PipelineStep):
 
-            def run(self, user, course_key, mode):
+            def run_filter(self, user, course_key, mode):
                 if mode != "honor":
                     return
 
@@ -55,7 +55,7 @@ class PipelineStep:
         self.running_pipeline = running_pipeline
         self.extra_config = extra_config
 
-    def run(self, **kwargs):  # pylint: disable=unused-argument
+    def run_filter(self, **kwargs):  # pylint: disable=unused-argument
         """
         Abstract pipeline step runner.
 

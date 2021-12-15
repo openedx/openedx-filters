@@ -13,6 +13,17 @@ Change Log
 
 Unreleased
 ~~~~~~~~~~
+Added
+_____
+
+* Filter definitions for registration and login.
+* Sensitive data mixin for filters.
+
+Changed
+_______
+
+* Pipeline runner from `run` to `run_filter`.
+* Moved filters definitions to filters file inside their domain.
 
 [0.3.0] - 2021-11-24
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
