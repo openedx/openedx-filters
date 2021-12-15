@@ -70,11 +70,10 @@ def format_steps_context(obj, indent=1, width=80, depth=None, *, compact=False, 
 
 class FiltersLogStrategy:
     """
-    Class that implements each log level for Open edX Filters.
+    Class that implements each log level message formats for Open edX Filters.
     """
 
     DEBUG = "debug"
-    PERFORMANCE = "performance"
     INFO = "info"
     DEFAULT_LOG_LEVEL = INFO
     DEBUG_MESSAGE = (
@@ -103,7 +102,7 @@ class FiltersLogStrategy:
             - DEBUG
             - INFO
         """
-        self.log_level = log_level
+        self.log_level = log_level if log_level in [self.DEBUG, self.INFO] else self.DEFAULT_LOG_LEVEL
         self._steps_context = {}
         self._pipeline_context = {}
 
@@ -112,18 +111,21 @@ class FiltersLogStrategy:
         Call log method specified by log_level.
         """
         log_message = self.LOG_MESSAGES.get(self.log_level)
-        log_args = (
-            log_message, kwargs.get("filter_type"), pformat(kwargs.get("accumulated_output", {}))
-        )
-        if self.log_level == self.DEBUG:
-            log_args = (
+        logs_args = {
+            "info": (
+                log_message,
+                kwargs.get("filter_type"),
+                pformat(kwargs.get("accumulated_output", {})),
+            ),
+            "debug": (
                 log_message,
                 kwargs.get("filter_type"),
                 pformat(self._pipeline_context),
                 format_steps_context(self._steps_context),
                 pformat(kwargs.get("current_configuration")),
             )
-        getattr(LOG, self.log_level, self.DEFAULT_LOG_LEVEL)(*log_args)
+        }
+        getattr(LOG, self.log_level)(*logs_args.get(self.log_level))
 
     def collect_step_context(self, current_step, **step_context):
         """
