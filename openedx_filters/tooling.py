@@ -164,7 +164,7 @@ class OpenEdxPublicFilter:
         docs/decisions/0003-hooks-filter-tooling-pipeline.rst
 
         Example usage:
-            filter_result = OpenEdxPublicFilter.run(
+            filter_result = OpenEdxPublicFilter.run_filter(
                 user=user,
             )
             >>> filter_result
@@ -208,7 +208,7 @@ class OpenEdxPublicFilter:
         for step in steps:
             try:
                 step_runner = step(**filter_metadata)
-                result = step_runner.run(**accumulated_output)
+                result = step_runner.run_filter(**accumulated_output)
 
                 if not isinstance(result, dict):
                     log.info(

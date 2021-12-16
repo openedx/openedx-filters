@@ -286,11 +286,11 @@ class TestOpenEdxFiltersExecution(TestCase):
         """
         filter_step_fail.__name__ = "SecondPipelineStep"
         exception_message = "There was an error executing filter X."
-        filter_step_fail.return_value.run.side_effect = OpenEdxFilterException(message=exception_message)
+        filter_step_fail.return_value.run_filter.side_effect = OpenEdxFilterException(message=exception_message)
 
         with self.assertRaises(OpenEdxFilterException):
             PreEnrollmentFilterMock.run_pipeline(**self.kwargs)
-        filter_step_success.return_value.run.assert_not_called()
+        filter_step_success.return_value.run_filter.assert_not_called()
 
     @override_settings(
         OPEN_EDX_FILTERS_CONFIG={
@@ -318,14 +318,14 @@ class TestOpenEdxFiltersExecution(TestCase):
         return_value = {
             "request": Mock(),
         }
-        filter_step_success.return_value.run.return_value = return_value
-        filter_step_fail.return_value.run.side_effect = TypeError
+        filter_step_success.return_value.run_filter.return_value = return_value
+        filter_step_fail.return_value.run_filter.side_effect = TypeError
         filter_step_success.__name__ = "FirstPipelineStep"
         filter_step_fail.__name__ = "SecondPipelineStep"
         result = PreEnrollmentFilterMock.run_pipeline(**self.kwargs)
 
         self.assertDictEqual(result, return_value)
-        filter_step_success.return_value.run.assert_called_once_with(**self.kwargs)
+        filter_step_success.return_value.run_filter.assert_called_once_with(**self.kwargs)
 
     @override_settings(
         OPEN_EDX_FILTERS_CONFIG={
@@ -351,15 +351,15 @@ class TestOpenEdxFiltersExecution(TestCase):
         return_value = {
             "request": Mock(),
         }
-        filter_step_fail.return_value.run.side_effect = ValueError("Value error exception")
-        filter_step_success.return_value.run.return_value = return_value
+        filter_step_fail.return_value.run_filter.side_effect = ValueError("Value error exception")
+        filter_step_success.return_value.run_filter.return_value = return_value
         filter_step_success.__name__ = "FirstPipelineStep"
         filter_step_fail.__name__ = "SecondPipelineStep"
 
         result = PreEnrollmentFilterMock.run_pipeline(**self.kwargs)
 
         self.assertDictEqual(result, return_value)
-        filter_step_success.return_value.run.assert_called_once_with(**self.kwargs)
+        filter_step_success.return_value.run_filter.assert_called_once_with(**self.kwargs)
 
     @override_settings(
         OPEN_EDX_FILTERS_CONFIG={
@@ -391,13 +391,13 @@ class TestOpenEdxFiltersExecution(TestCase):
         return_overall_value = {**return_value_1st, **return_value_2nd}
         first_filter.__name__ = "FirstPipelineStep"
         second_filter.__name__ = "SecondPipelineStep"
-        first_filter.return_value.run.return_value = return_value_1st
-        second_filter.return_value.run.return_value = return_value_2nd
+        first_filter.return_value.run_filter.return_value = return_value_1st
+        second_filter.return_value.run_filter.return_value = return_value_2nd
 
         result = PreEnrollmentFilterMock.run_pipeline(**self.kwargs)
 
-        first_filter.return_value.run.assert_called_once_with(**self.kwargs)
-        second_filter.return_value.run.assert_called_once_with(**return_value_1st)
+        first_filter.return_value.run_filter.assert_called_once_with(**self.kwargs)
+        second_filter.return_value.run_filter.assert_called_once_with(**return_value_1st)
         self.assertDictEqual(result, return_overall_value)
 
     @override_settings(
@@ -422,7 +422,7 @@ class TestOpenEdxFiltersExecution(TestCase):
         Expected behavior:
             Returns the object used to stop execution.
         """
-        first_filter.return_value.run.return_value = Mock()
+        first_filter.return_value.run_filter.return_value = Mock()
         first_filter.__name__ = "FirstPipelineStep"
         second_filter.__name__ = "SecondPipelineStep"
         log_message = "Pipeline stopped by 'FirstPipelineStep' for returning an object different from a dictionary."
@@ -433,5 +433,5 @@ class TestOpenEdxFiltersExecution(TestCase):
         self.assertEqual(
             captured.records[0].getMessage(), log_message,
         )
-        first_filter.return_value.run.assert_called_once_with(**self.kwargs)
-        second_filter.return_value.run.assert_not_called()
+        first_filter.return_value.run_filter.assert_called_once_with(**self.kwargs)
+        second_filter.return_value.run_filter.assert_not_called()
