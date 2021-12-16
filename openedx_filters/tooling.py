@@ -98,10 +98,11 @@ class OpenEdxPublicFilter:
             return pipeline, fail_silently, extra_config
 
         if isinstance(filter_config, dict):
+            filter_config_copy = filter_config.copy()
             pipeline, fail_silently, extra_config = (
-                filter_config.pop("pipeline", []),
-                filter_config.pop("fail_silently", True),
-                filter_config,
+                filter_config_copy.pop("pipeline", []),
+                filter_config_copy.pop("fail_silently", True),
+                filter_config_copy,
             )
 
         elif isinstance(filter_config, list):
