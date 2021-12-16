@@ -13,6 +13,10 @@ Change Log
 
 Unreleased
 ~~~~~~~~~~
+Changed
+_______
+
+* Use `run_filter` instead of `run` in OpenEdxPublicFilter tooling.
 
 [0.4.0] - 2021-12-15
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
