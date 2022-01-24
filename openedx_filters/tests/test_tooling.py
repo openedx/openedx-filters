@@ -48,54 +48,59 @@ class TestOpenEdxFiltersUtilities(TestCase):
         Expected behavior:
             Returns an empty list.
         """
-        pipeline = []
+        pipeline, fail_silently = [], True
 
-        function_list = PreEnrollmentFilterMock.get_steps_for_pipeline(pipeline)
+        function_list = PreEnrollmentFilterMock.get_steps_for_pipeline(pipeline, fail_silently)
 
         self.assertEqual(function_list, pipeline)
 
-    def test_get_non_existing_function(self):
+    def test_get_non_existing_step_failure(self):
         """
-        This method is used to verify the behavior of get_steps_for_pipeline when a non-existing function
-        path is passed inside the pipeline argument.
+        This method is used to verify the behavior of get_steps_for_pipeline when a non-existing filter
+        step is passed inside the pipeline argument and fail_silently is False.
 
         Expected behavior:
-            Returns a list without the non-existing function.
+            Crashes application execution and logs error.
         """
         pipeline = [
             "openedx_filters.tests.test_tooling.FirstPipelineStep",
             "openedx_filters.tests.test_tooling.non_existant",
         ]
-        log_message = "Failed to import '{}'.".format(
+        fail_silently = False
+        log_message = "Failed to import: '{}'".format(
             "openedx_filters.tests.test_tooling.non_existant",
         )
 
-        with self.assertLogs() as captured:
-            step_list = PreEnrollmentFilterMock.get_steps_for_pipeline(pipeline)
+        with self.assertRaises(ImportError), self.assertLogs() as captured:
+            PreEnrollmentFilterMock.get_steps_for_pipeline(
+                pipeline, fail_silently,
+            )
 
         self.assertEqual(
             captured.records[0].getMessage(), log_message,
         )
-        self.assertEqual(step_list, [FirstPipelineStep])
 
-    def test_get_non_existing_module_func(self):
+    def test_get_non_existing_step_continue(self):
         """
-        This method is used to verify the behavior of get_steps_for_pipeline when a non-existing module
-        path is passed inside the pipeline argument.
+        This method is used to verify the behavior of get_steps_for_pipeline when a non-existing filter
+        step is passed inside the pipeline argument and fail_silently is True
 
         Expected behavior:
-            Returns a list without the non-existing function.
+            Returns a list without the non-existing step.
         """
         pipeline = [
             "openedx_filters.tests.test_tooling.FirstPipelineStep",
             "openedx_filters.non_existent.test_tooling.FirstPipelineStep",
         ]
-        log_message = "Failed to import '{}'.".format(
+        fail_silently = True
+        log_message = "Failed to import: '{}'".format(
             "openedx_filters.non_existent.test_tooling.FirstPipelineStep"
         )
 
         with self.assertLogs() as captured:
-            step_list = PreEnrollmentFilterMock.get_steps_for_pipeline(pipeline)
+            step_list = PreEnrollmentFilterMock.get_steps_for_pipeline(
+                pipeline, fail_silently,
+            )
 
         self.assertEqual(captured.records[0].getMessage(), log_message)
         self.assertEqual(step_list, [FirstPipelineStep])
@@ -112,8 +117,11 @@ class TestOpenEdxFiltersUtilities(TestCase):
             "openedx_filters.tests.test_tooling.FirstPipelineStep",
             "openedx_filters.tests.test_tooling.SecondPipelineStep",
         ]
+        fail_silently = False
 
-        function_list = PreEnrollmentFilterMock.get_steps_for_pipeline(pipeline)
+        function_list = PreEnrollmentFilterMock.get_steps_for_pipeline(
+            pipeline, fail_silently,
+        )
 
         self.assertEqual(function_list, [FirstPipelineStep, SecondPipelineStep])
 

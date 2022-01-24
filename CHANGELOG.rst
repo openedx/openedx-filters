@@ -14,6 +14,11 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+Changed
+_______
+
+* Add fail_silently when importing filter steps.
+
 [0.4.2] - 2021-12-16
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

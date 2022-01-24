@@ -25,7 +25,7 @@ class OpenEdxPublicFilter:
         return "<OpenEdxPublicFilter: {filter_type}>".format(filter_type=self.filter_type)
 
     @classmethod
-    def get_steps_for_pipeline(cls, pipeline):
+    def get_steps_for_pipeline(cls, pipeline, fail_silently):
         """
         Get pipeline objects from paths.
 
@@ -48,6 +48,8 @@ class OpenEdxPublicFilter:
 
         Arguments:
             pipeline (list): paths where steps are defined.
+            fail_silently (bool): True meaning it won't raise exceptions and
+            False the opposite.
 
         Returns:
             step_list (list): class objects defined in pipeline.
@@ -58,7 +60,10 @@ class OpenEdxPublicFilter:
                 function = import_string(step_path)
                 step_list.append(function)
             except ImportError:
-                log.exception("Failed to import '%s'.", step_path)
+                log.exception("Failed to import: '%s'", step_path)
+                if fail_silently:
+                    continue
+                raise
 
         return step_list
 
@@ -198,7 +203,7 @@ class OpenEdxPublicFilter:
         if not pipeline:
             return kwargs
 
-        steps = cls.get_steps_for_pipeline(pipeline)
+        steps = cls.get_steps_for_pipeline(pipeline, fail_silently)
         filter_metadata = {
             "filter_type": cls.filter_type,
             "running_pipeline": pipeline,
