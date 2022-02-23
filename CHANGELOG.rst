@@ -14,6 +14,15 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+Added
+_____
+
+* Unenrollment filter definition.
+* Certificate creation/rendering filters.
+* Dashboard render filter definition.
+* Course home/about render filters.
+* Cohort change filter.
+
 [0.4.3] - 2022-01-24
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
