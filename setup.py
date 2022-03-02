@@ -67,11 +67,11 @@ CHANGELOG = open(os.path.join(os.path.dirname(__file__), "CHANGELOG.rst")).read(
 setup(
     name="openedx-filters",
     version=VERSION,
-    description="""What is this project?""",
+    description="""Open edX Filters from Hooks Extensions Framework (OEP-50).""",
     long_description=README + "\n\n" + CHANGELOG,
-    author="edX",
-    author_email="oscm@edx.org",
-    url="https://github.com/edx/openedx-filters",
+    author="eduNEXT",
+    author_email="technical@edunext.co",
+    url="https://github.com/openedx/openedx-filters",
     packages=[
         "openedx_filters",
     ],
@@ -80,7 +80,7 @@ setup(
     python_requires=">=3.8",
     license="AGPL 3.0",
     zip_safe=False,
-    keywords="Python edx",
+    keywords="Python openedx",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
