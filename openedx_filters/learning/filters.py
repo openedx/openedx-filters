@@ -132,20 +132,30 @@ class CertificateCreationRequested(OpenEdxPublicFilter):
         """
 
     @classmethod
-    def run_filter(cls, user, course_id, mode, status):
+    def run_filter(cls, user, course_key, mode, status, grade, generation_mode):
         """
         Execute a filter with the signature specified.
 
         Arguments:
             user (User): is a Django User object.
-            course_id (CourseKey): course key associated with the certificate.
+            course_key (CourseKey): course key associated with the certificate.
             mode (str): mode of the certificate.
             status (str): status of the certificate.
+            grade (CourseGrade): user's grade in this course run.
+            generation_mode (str): Options are "self" (implying the user generated the cert themself) and "batch"
+            for everything else.
         """
         data = super().run_pipeline(
-            user=user, course_id=course_id, mode=mode, status=status,
+            user=user, course_key=course_key, mode=mode, status=status, grade=grade, generation_mode=generation_mode,
         )
-        return data.get("user"), data.get("course_id"), data.get("mode"), data.get("status")
+        return (
+            data.get("user"),
+            data.get("course_key"),
+            data.get("mode"),
+            data.get("status"),
+            data.get("grade"),
+            data.get("generation_mode"),
+        )
 
 
 class CertificateRenderStarted(OpenEdxPublicFilter):
