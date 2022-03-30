@@ -6,7 +6,6 @@ Open edX Filters
 
 Open edX Filters from Hooks Extensions Framework (`OEP-50`_).
 
-What is this project?
 
 Overview
 --------
@@ -114,12 +113,12 @@ For more information about these options, see the `Getting Help`_ page.
     :target: https://pypi.python.org/pypi/openedx-filters/
     :alt: PyPI
 
-.. |ci-badge| image:: https://github.com/eduNEXT/openedx-filters/workflows/Python%20CI/badge.svg?branch=main
-    :target: https://github.com/eduNEXT/openedx-filters/actions
+.. |ci-badge| image:: https://github.com/openedx/openedx-filters/workflows/Python%20CI/badge.svg?branch=main
+    :target: https://github.com/openedx/openedx-filters/actions
     :alt: CI
 
-.. |codecov-badge| image:: https://codecov.io/github/eduNEXT/openedx-filters/coverage.svg?branch=main
-    :target: https://codecov.io/github/eduNEXT/openedx-filters?branch=main
+.. |codecov-badge| image:: https://codecov.io/github/openedx/openedx-filters/coverage.svg?branch=main
+    :target: https://codecov.io/github/openedx/openedx-filters?branch=main
     :alt: Codecov
 
 .. |doc-badge| image:: https://readthedocs.org/projects/openedx-filters/badge/?version=latest
@@ -130,6 +129,6 @@ For more information about these options, see the `Getting Help`_ page.
     :target: https://pypi.python.org/pypi/openedx-filters/
     :alt: Supported Python versions
 
-.. |license-badge| image:: https://img.shields.io/github/license/eduNEXT/openedx-filters.svg
-    :target: https://github.com/eduNEXT/openedx-filters/blob/main/LICENSE.txt
+.. |license-badge| image:: https://img.shields.io/github/license/openedx/openedx-filters.svg
+    :target: https://github.com/openedx/openedx-filters/blob/main/LICENSE.txt
     :alt: License
