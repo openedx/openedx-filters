@@ -165,10 +165,53 @@ class CertificateRenderStarted(OpenEdxPublicFilter):
 
     filter_type = "org.openedx.learning.certificate.render.started.v1"
 
-    class PreventCertificateRender(OpenEdxFilterException):
+    class RedirectToPage(OpenEdxFilterException):
         """
         Custom class used to stop the certificate rendering process.
         """
+
+        def __init__(self, message, redirect_to=""):
+            """
+            Override init that defines specific arguments used in the certificate render process.
+
+            Arguments:
+                message: error message for the exception.
+                redirect_to: URL to redirect to.
+            """
+            super().__init__(message, redirect_to=redirect_to)
+
+    class RenderAlternativeCertificate(OpenEdxFilterException):
+        """
+        Custom class used to stop the certificate rendering process.
+        """
+
+        def __init__(self, message, template_name=""):
+            """
+            Override init that defines specific arguments used in the certificate render process.
+
+            Arguments:
+                message: error message for the exception.
+                template_name: template path of the new certificate.
+            """
+            super().__init__(message, template_name=template_name)
+
+    class RenderCustomResponse(OpenEdxFilterException):
+        """
+        Custom class used to stop the certificate rendering process.
+        """
+
+        def __init__(self, message, response=None):
+            """
+            Override init that defines specific arguments used in the certificate render process.
+
+            Arguments:
+                message: error message for the exception.
+                response: custom response which will be returned by the certificate view.
+            """
+            super().__init__(
+                message,
+                response=response,
+            )
 
     @classmethod
     def run_filter(cls, context, custom_template):
@@ -217,16 +260,58 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
 
     filter_type = "org.openedx.learning.course_about.render.started.v1"
 
-    class PreventCourseAboutRender(OpenEdxFilterException):
+    class RedirectToPage(OpenEdxFilterException):
         """
         Custom class used to stop the course about rendering process.
         """
 
-        def __init__(self, message, redirect_to=None):
+        def __init__(self, message, redirect_to=""):
             """
             Override init that defines specific arguments used in the course about render process.
+
+            Arguments:
+                message: error message for the exception.
+                redirect_to: URL to redirect to.
             """
             super().__init__(message, redirect_to=redirect_to)
+
+    class RenderAlternativeCourseAbout(OpenEdxFilterException):
+        """
+        Custom class used to stop the course about rendering process.
+        """
+
+        def __init__(self, message, course_about_template="", template_context=None):
+            """
+            Override init that defines specific arguments used in the course about render process.
+
+            Arguments:
+                message: error message for the exception.
+                course_about_template: template path rendered instead.
+                template_context: context used to the new course_about_template.
+            """
+            super().__init__(
+                message,
+                course_about_template=course_about_template,
+                template_context=template_context,
+            )
+
+    class RenderCustomResponse(OpenEdxFilterException):
+        """
+        Custom class used to stop the course about rendering process.
+        """
+
+        def __init__(self, message, response=None):
+            """
+            Override init that defines specific arguments used in the course about render process.
+
+            Arguments:
+                message: error message for the exception.
+                response: custom response which will be returned by the course about view.
+            """
+            super().__init__(
+                message,
+                response=response,
+            )
 
     @classmethod
     def run_filter(cls, context, template_name):
@@ -248,16 +333,58 @@ class CourseHomeRenderStarted(OpenEdxPublicFilter):
 
     filter_type = "org.openedx.learning.course_home.render.started.v1"
 
-    class PreventCourseHomeRender(OpenEdxFilterException):
+    class RedirectToPage(OpenEdxFilterException):
+        """
+        Custom class used to stop the course home rendering process.
+        """
+
+        def __init__(self, message, redirect_to=""):
+            """
+            Override init that defines specific arguments used in the course home render process.
+
+            Arguments:
+                message: error message for the exception.
+                redirect_to: URL to redirect to.
+            """
+            super().__init__(message, redirect_to=redirect_to)
+
+    class RenderAlternativeCourseHome(OpenEdxFilterException):
         """
         Custom class used to stop the course home render process.
         """
 
-        def __init__(self, message, redirect_to=None):
+        def __init__(self, message, course_home_template="", template_context=None):
             """
             Override init that defines specific arguments used in the course home render process.
+
+            Arguments:
+                message: error message for the exception.
+                course_home_template: template path rendered instead.
+                template_context: context used to the new course_home_template.
             """
-            super().__init__(message, redirect_to=redirect_to)
+            super().__init__(
+                message,
+                course_home_template=course_home_template,
+                template_context=template_context,
+            )
+
+    class RenderCustomResponse(OpenEdxFilterException):
+        """
+        Custom class used to stop the course home rendering process.
+        """
+
+        def __init__(self, message, response=None):
+            """
+            Override init that defines specific arguments used in the course home render process.
+
+            Arguments:
+                message: error message for the exception.
+                response: custom response which will be returned by the course home view.
+            """
+            super().__init__(
+                message,
+                response=response,
+            )
 
     @classmethod
     def run_filter(cls, context, template_name):
@@ -279,16 +406,58 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
 
     filter_type = "org.openedx.learning.dashboard.render.started.v1"
 
-    class PreventDashboardRender(OpenEdxFilterException):
+    class RedirectToPage(OpenEdxFilterException):
+        """
+        Custom class used to stop the dashboard rendering process.
+        """
+
+        def __init__(self, message, redirect_to=""):
+            """
+            Override init that defines specific arguments used in the dashboard render process.
+
+            Arguments:
+                message: error message for the exception.
+                redirect_to: URL to redirect to.
+            """
+            super().__init__(message, redirect_to=redirect_to)
+
+    class RenderAlternativeDashboard(OpenEdxFilterException):
         """
         Custom class used to stop the dashboard render process.
         """
 
-        def __init__(self, message, redirect_to=None):
+        def __init__(self, message, dashboard_template="", template_context=None):
             """
             Override init that defines specific arguments used in the dashboard render process.
+
+            Arguments:
+                message: error message for the exception.
+                dashboard_template: template path rendered instead.
+                template_context: context used to the new dashboard_template.
             """
-            super().__init__(message, redirect_to=redirect_to)
+            super().__init__(
+                message,
+                dashboard_template=dashboard_template,
+                template_context=template_context,
+            )
+
+    class RenderCustomResponse(OpenEdxFilterException):
+        """
+        Custom class used to stop the dashboard rendering process.
+        """
+
+        def __init__(self, message, response=None):
+            """
+            Override init that defines specific arguments used in the dashboard render process.
+
+            Arguments:
+                message: error message for the exception.
+                response: custom response which will be returned by the dashboard view.
+            """
+            super().__init__(
+                message,
+                response=response,
+            )
 
     @classmethod
     def run_filter(cls, context, template_name):

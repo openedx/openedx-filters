@@ -3,6 +3,7 @@ Tests for learning subdomain filters.
 """
 from unittest.mock import Mock, patch
 
+from ddt import data, ddt, unpack
 from django.test import TestCase
 
 from openedx_filters.learning.filters import (
@@ -19,6 +20,7 @@ from openedx_filters.learning.filters import (
 )
 
 
+@ddt
 class TestCertificateFilters(TestCase):
     """
     Test class to verify standard behavior of the certificate filters.
@@ -74,6 +76,23 @@ class TestCertificateFilters(TestCase):
         result = CertificateRenderStarted.run_filter(context, template_name)
 
         self.assertTupleEqual((context, template_name,), result)
+
+    @data(
+        (CertificateRenderStarted.RedirectToPage, {"redirect_to": "custom-certificate.pdf"}),
+        (CertificateRenderStarted.RenderAlternativeCertificate, {"template_name": "custom-certificate.html"}),
+        (CertificateRenderStarted.RenderCustomResponse, {"response": Mock()}),
+    )
+    @unpack
+    def test_halt_certificate_render(self, CertificateException, attributes):
+        """
+        Test for certificate exceptions attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = CertificateException(message="You can't generate certificate", **attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
 
 
 class TestAuthFilters(TestCase):
@@ -196,6 +215,7 @@ class TestEnrollmentFilters(TestCase):
         self.assertEqual(expected_enrollment, enrollment)
 
 
+@ddt
 class TestRenderingFilters(TestCase):
     """
     Test class to verify standard behavior of the filters located in rendering views.
@@ -251,6 +271,75 @@ class TestRenderingFilters(TestCase):
         result = DashboardRenderStarted.run_filter(self.context, self.template_name)
 
         self.assertTupleEqual((self.context, self.template_name,), result)
+
+    @data(
+        (DashboardRenderStarted.RedirectToPage, {"redirect_to": "custom-dashboard.html"}),
+        (
+            DashboardRenderStarted.RenderAlternativeDashboard,
+            {
+                "dashboard_template": "custom-dasboard.html",
+                "template_context": {"user": Mock()},
+            }
+        ),
+        (DashboardRenderStarted.RenderCustomResponse, {"response": Mock()}),
+    )
+    @unpack
+    def test_halt_dashboard_render(self, dashboard_exception, attributes):
+        """
+        Test for dashboard exceptions attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = dashboard_exception(message="You can't access the dashboard", **attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
+
+    @data(
+        (CourseAboutRenderStarted.RedirectToPage, {"redirect_to": "custom-course-about.html"}),
+        (
+            CourseAboutRenderStarted.RenderAlternativeCourseAbout,
+            {
+                "course_about_template": "custom-course-about.html",
+                "template_context": {"course_id": Mock()},
+            }
+        ),
+        (CourseAboutRenderStarted.RenderCustomResponse, {"response": Mock()}),
+    )
+    @unpack
+    def test_halt_course_about_render(self, course_about_exception, attributes):
+        """
+        Test for course about exceptions attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = course_about_exception(message="You can't access the course about", **attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
+
+    @data(
+        (CourseHomeRenderStarted.RedirectToPage, {"redirect_to": "custom-course-home.html"}),
+        (
+            CourseHomeRenderStarted.RenderAlternativeCourseHome,
+            {
+                "course_home_template": "custom-course-home.html",
+                "template_context": {"course_id": Mock()},
+            }
+        ),
+        (CourseHomeRenderStarted.RenderCustomResponse, {"response": Mock()}),
+    )
+    @unpack
+    def test_halt_course_home_render(self, course_home_exception, attributes):
+        """
+        Test for course home exceptions attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = course_home_exception(message="You can't access the course home", **attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
 
 
 class TestCohortFilters(TestCase):
