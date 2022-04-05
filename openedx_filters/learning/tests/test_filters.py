@@ -327,7 +327,7 @@ class TestRenderingFilters(TestCase):
                 "template_context": {"course_id": Mock()},
             }
         ),
-        (CourseHomeRenderStarted.RenderCustomResponse, {"response": Mock()}),
+        (CourseHomeRenderStarted.RenderCustomFragment, {"fragment": "<a href='#'>Link to course home</a>"}),
     )
     @unpack
     def test_halt_course_home_render(self, course_home_exception, attributes):

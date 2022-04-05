@@ -368,22 +368,22 @@ class CourseHomeRenderStarted(OpenEdxPublicFilter):
                 template_context=template_context,
             )
 
-    class RenderCustomResponse(OpenEdxFilterException):
+    class RenderCustomFragment(OpenEdxFilterException):
         """
         Custom class used to stop the course home rendering process.
         """
 
-        def __init__(self, message, response=None):
+        def __init__(self, message, fragment=""):
             """
             Override init that defines specific arguments used in the course home render process.
 
             Arguments:
                 message: error message for the exception.
-                response: custom response which will be returned by the course home view.
+                fragment: custom HTML fragment which will be returned by the course home view.
             """
             super().__init__(
                 message,
-                response=response,
+                fragment=fragment,
             )
 
     @classmethod
