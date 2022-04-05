@@ -22,7 +22,7 @@ class FirstPipelineStep(PipelineStep):
     """
 
     def run_filter(self, **kwargs):
-        pass
+        return {}
 
 
 class SecondPipelineStep(PipelineStep):
@@ -31,7 +31,7 @@ class SecondPipelineStep(PipelineStep):
     """
 
     def run_filter(self, **kwargs):
-        pass
+        return {}
 
 
 @ddt.ddt
@@ -278,6 +278,30 @@ class TestOpenEdxFiltersExecution(TestCase):
         """
         This method runs an empty pipeline, i.e, a pipeline without
         defined functions.
+
+        Expected behavior:
+            Returns the same input arguments.
+        """
+        result = PreEnrollmentFilterMock.run_pipeline(**self.kwargs)
+
+        self.assertDictEqual(result, self.kwargs)
+
+    @override_settings(
+        OPEN_EDX_FILTERS_CONFIG={
+            "org.openedx.learning.course.enrollment.started.v1": {
+                "pipeline": [
+                    "openedx_filters.tests.test_tooling.FirstPipelineStep",
+                    "openedx_filters.tests.test_tooling.SecondPipelineStep",
+                ],
+                "fail_silently": True,
+                "log_level": "debug",
+            },
+        },
+    )
+    def test_noop_pipeline(self):
+        """
+        This method runs noop pipeline, i.e, a pipeline with functions that
+        don't affect the input.
 
         Expected behavior:
             Returns the same input arguments.

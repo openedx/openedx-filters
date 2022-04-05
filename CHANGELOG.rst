@@ -14,6 +14,12 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+[0.6.1] - 2022-04-07
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Remove CourseHomeRenderStarted since it's not going to be used.
+* Change RenderAlternativeCertificate to RenderAlternativeInvalidCertificate.
+
 [0.6.0] - 2022-04-01
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -12,7 +12,6 @@ from openedx_filters.learning.filters import (
     CohortChangeRequested,
     CourseAboutRenderStarted,
     CourseEnrollmentStarted,
-    CourseHomeRenderStarted,
     CourseUnenrollmentStarted,
     DashboardRenderStarted,
     StudentLoginRequested,
@@ -79,7 +78,7 @@ class TestCertificateFilters(TestCase):
 
     @data(
         (CertificateRenderStarted.RedirectToPage, {"redirect_to": "custom-certificate.pdf"}),
-        (CertificateRenderStarted.RenderAlternativeCertificate, {"template_name": "custom-certificate.html"}),
+        (CertificateRenderStarted.RenderAlternativeInvalidCertificate, {"template_name": "custom-certificate.html"}),
         (CertificateRenderStarted.RenderCustomResponse, {"response": Mock()}),
         (CertificateCreationRequested.PreventCertificateCreation, {})
     )
@@ -270,7 +269,6 @@ class TestRenderingFilters(TestCase):
     Test class to verify standard behavior of the filters located in rendering views.
     You'll find test suites for:
 
-    - CourseHomeRenderStarted
     - CourseAboutRenderStarted
     - DashboardRenderStarted
     """
@@ -294,18 +292,6 @@ class TestRenderingFilters(TestCase):
             - The filter should return context and template_name in that order.
         """
         result = CourseAboutRenderStarted.run_filter(self.context, self.template_name)
-
-        self.assertTupleEqual((self.context, self.template_name,), result)
-
-    def test_course_home_render_started(self):
-        """
-        Test CourseHomeRenderStarted filter behavior under normal conditions.
-
-        Expected behavior:
-            - The filter must have the signature specified.
-            - The filter should return context and template_name in that order.
-        """
-        result = CourseHomeRenderStarted.run_filter(self.context, self.template_name)
 
         self.assertTupleEqual((self.context, self.template_name,), result)
 
@@ -364,29 +350,6 @@ class TestRenderingFilters(TestCase):
             - The exception must have the attributes specified.
         """
         exception = course_about_exception(message="You can't access the course about", **attributes)
-
-        self.assertDictContainsSubset(attributes, exception.__dict__)
-
-    @data(
-        (CourseHomeRenderStarted.RedirectToPage, {"redirect_to": "custom-course-home.html"}),
-        (
-            CourseHomeRenderStarted.RenderAlternativeCourseHome,
-            {
-                "course_home_template": "custom-course-home.html",
-                "template_context": {"course_id": Mock()},
-            }
-        ),
-        (CourseHomeRenderStarted.RenderCustomResponse, {"response": Mock()}),
-    )
-    @unpack
-    def test_halt_course_home_render(self, course_home_exception, attributes):
-        """
-        Test for course home exceptions attributes.
-
-        Expected behavior:
-            - The exception must have the attributes specified.
-        """
-        exception = course_home_exception(message="You can't access the course home", **attributes)
 
         self.assertDictContainsSubset(attributes, exception.__dict__)
 
