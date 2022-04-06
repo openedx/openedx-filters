@@ -210,6 +210,10 @@ class TestOpenEdxFiltersUtilities(TestCase):
             "openedx_filters.tests.test_tooling.FirstPipelineStep",
             (["openedx_filters.tests.test_tooling.FirstPipelineStep", ], True, {},),
         ),
+        (
+            True,
+            ([], True, {},),
+        ),
     )
     @ddt.unpack
     def test_get_pipeline_config(self, config, expected_result, get_filter_config_mock):
@@ -249,6 +253,17 @@ class TestOpenEdxFiltersExecution(TestCase):
             ],
             "log_level": "debug",
         }
+
+    def test_filter_class_representation(self):
+        """
+        This method gets the string representation of the OpenEdxPublicFilter.
+
+        Expected behavior:
+            The representation contains the filter type.
+        """
+        filter_representation = repr(PreEnrollmentFilterMock())
+
+        self.assertIn(PreEnrollmentFilterMock.filter_type, filter_representation)
 
     @override_settings(
         OPEN_EDX_FILTERS_CONFIG={
@@ -314,42 +329,7 @@ class TestOpenEdxFiltersExecution(TestCase):
     )
     @patch("openedx_filters.tests.test_tooling.SecondPipelineStep")
     @patch("openedx_filters.tests.test_tooling.FirstPipelineStep")
-    def test_raise_common_exception(self, filter_step_success, filter_step_fail):
-        """
-        This method runs a pipeline with a function that raises
-        OpenEdxFilterException but raise_exception is set to False. This means
-        fail_silently must be set to True or not defined.
-
-        Expected behavior:
-            The pipeline does not re-raise the exception caught.
-        """
-        return_value = {
-            "request": Mock(),
-        }
-        filter_step_success.return_value.run_filter.return_value = return_value
-        filter_step_fail.return_value.run_filter.side_effect = TypeError
-        filter_step_success.__name__ = "FirstPipelineStep"
-        filter_step_fail.__name__ = "SecondPipelineStep"
-        result = PreEnrollmentFilterMock.run_pipeline(**self.kwargs)
-
-        self.assertDictEqual(result, return_value)
-        filter_step_success.return_value.run_filter.assert_called_once_with(**self.kwargs)
-
-    @override_settings(
-        OPEN_EDX_FILTERS_CONFIG={
-            "org.openedx.learning.course.enrollment.started.v1": {
-                "pipeline": [
-                    "openedx_filters.tests.test_tooling.FirstPipelineStep",
-                    "openedx_filters.tests.test_tooling.SecondPipelineStep",
-                ],
-                "fail_silently": True,
-                "log_level": "debug",
-            },
-        },
-    )
-    @patch("openedx_filters.tests.test_tooling.SecondPipelineStep")
-    @patch("openedx_filters.tests.test_tooling.FirstPipelineStep")
-    def test_not_raise_regular_exception(self, filter_step_success, filter_step_fail):
+    def test_not_raise_regular_exception(self, filter_step_fail, filter_step_success):
         """
         This method runs a pipeline with a function that raises a common Exception.
 
@@ -368,6 +348,40 @@ class TestOpenEdxFiltersExecution(TestCase):
 
         self.assertDictEqual(result, return_value)
         filter_step_success.return_value.run_filter.assert_called_once_with(**self.kwargs)
+
+    @override_settings(
+        OPEN_EDX_FILTERS_CONFIG={
+            "org.openedx.learning.course.enrollment.started.v1": {
+                "pipeline": [
+                    "openedx_filters.tests.test_tooling.FirstPipelineStep",
+                    "openedx_filters.tests.test_tooling.SecondPipelineStep",
+                ],
+                "fail_silently": False,
+                "log_level": "debug",
+            },
+        },
+    )
+    @patch("openedx_filters.tests.test_tooling.SecondPipelineStep")
+    @patch("openedx_filters.tests.test_tooling.FirstPipelineStep")
+    def test_raise_regular_exception(self, filter_step_fail, filter_step_success):
+        """
+        This method runs a pipeline with a function that raises a common Exception.
+
+        Expected behavior:
+            The pipeline continues execution after caughting Exception.
+        """
+        return_value = {
+            "request": Mock(),
+        }
+        filter_step_fail.return_value.run_filter.side_effect = ValueError("Value error exception")
+        filter_step_success.return_value.run_filter.return_value = return_value
+        filter_step_success.__name__ = "FirstPipelineStep"
+        filter_step_fail.__name__ = "SecondPipelineStep"
+
+        with self.assertRaises(ValueError):
+            PreEnrollmentFilterMock.run_pipeline(**self.kwargs)
+
+        filter_step_success.return_value.run_filter.assert_not_called()
 
     @override_settings(
         OPEN_EDX_FILTERS_CONFIG={
