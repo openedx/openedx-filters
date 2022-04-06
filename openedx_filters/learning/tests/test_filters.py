@@ -81,9 +81,10 @@ class TestCertificateFilters(TestCase):
         (CertificateRenderStarted.RedirectToPage, {"redirect_to": "custom-certificate.pdf"}),
         (CertificateRenderStarted.RenderAlternativeCertificate, {"template_name": "custom-certificate.html"}),
         (CertificateRenderStarted.RenderCustomResponse, {"response": Mock()}),
+        (CertificateCreationRequested.PreventCertificateCreation, {})
     )
     @unpack
-    def test_halt_certificate_render(self, CertificateException, attributes):
+    def test_halt_certificate_process(self, CertificateException, attributes):
         """
         Test for certificate exceptions attributes.
 
@@ -95,6 +96,7 @@ class TestCertificateFilters(TestCase):
         self.assertDictContainsSubset(attributes, exception.__dict__)
 
 
+@ddt
 class TestAuthFilters(TestCase):
     """
     Test class to verify standard behavior of the auth filters.
@@ -174,7 +176,36 @@ class TestAuthFilters(TestCase):
 
         self.assertEqual(expected_user, user)
 
+    @data(
+        (
+            StudentLoginRequested.PreventLogin,
+            {
+                "message": "Can't login into this site.",
+                "redirect_to": "custom-error-page.com",
+                "error_code": 400,
+                "context": {
+                    "username": "test",
+                },
+            }
+        ),
+        (
+            StudentRegistrationRequested.PreventRegistration, {"message": "Can't register in this site."}
+        ),
+    )
+    @unpack
+    def test_halt_student_auth_process(self, auth_exception, attributes):
+        """
+        Test for student auth exceptions attributes.
 
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = auth_exception(**attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
+
+
+@ddt
 class TestEnrollmentFilters(TestCase):
     """
     Test class to verify standard behavior of the enrollment filters.
@@ -213,6 +244,24 @@ class TestEnrollmentFilters(TestCase):
         enrollment = CourseUnenrollmentStarted.run_filter(expected_enrollment)
 
         self.assertEqual(expected_enrollment, enrollment)
+
+    @data(
+        (CourseEnrollmentStarted.PreventEnrollment, {"message": "Can't enroll into course."}),
+        (
+            CourseUnenrollmentStarted.PreventUnenrollment, {"message": "Can't un-enroll into course."}
+        ),
+    )
+    @unpack
+    def test_halt_enrollment_process(self, enrollment_exception, attributes):
+        """
+        Test for enrollment/unenrollment exceptions attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = enrollment_exception(**attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
 
 
 @ddt

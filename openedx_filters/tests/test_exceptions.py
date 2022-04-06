@@ -1,5 +1,5 @@
 """
-Tests for custom Hooks Exceptions.
+Tests for custom filter hooks Exceptions.
 """
 from django.test import TestCase
 
