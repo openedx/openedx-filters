@@ -180,7 +180,7 @@ class CertificateRenderStarted(OpenEdxPublicFilter):
             """
             super().__init__(message, redirect_to=redirect_to)
 
-    class RenderAlternativeCertificate(OpenEdxFilterException):
+    class RenderAlternativeInvalidCertificate(OpenEdxFilterException):
         """
         Custom class used to stop the certificate rendering process.
         """
@@ -320,80 +320,7 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
 
         Arguments:
             context (dict): context dictionary for course about template.
-            template_name (str): certificate name to be rendered by the course about.
-        """
-        data = super().run_pipeline(context=context, template_name=template_name)
-        return data.get("context"), data.get("template_name")
-
-
-class CourseHomeRenderStarted(OpenEdxPublicFilter):
-    """
-    Custom class used to create course home render filters and its custom methods.
-    """
-
-    filter_type = "org.openedx.learning.course_home.render.started.v1"
-
-    class RedirectToPage(OpenEdxFilterException):
-        """
-        Custom class used to stop the course home rendering process.
-        """
-
-        def __init__(self, message, redirect_to=""):
-            """
-            Override init that defines specific arguments used in the course home render process.
-
-            Arguments:
-                message: error message for the exception.
-                redirect_to: URL to redirect to.
-            """
-            super().__init__(message, redirect_to=redirect_to)
-
-    class RenderAlternativeCourseHome(OpenEdxFilterException):
-        """
-        Custom class used to stop the course home render process.
-        """
-
-        def __init__(self, message, course_home_template="", template_context=None):
-            """
-            Override init that defines specific arguments used in the course home render process.
-
-            Arguments:
-                message: error message for the exception.
-                course_home_template: template path rendered instead.
-                template_context: context used to the new course_home_template.
-            """
-            super().__init__(
-                message,
-                course_home_template=course_home_template,
-                template_context=template_context,
-            )
-
-    class RenderCustomResponse(OpenEdxFilterException):
-        """
-        Custom class used to stop the course home rendering process.
-        """
-
-        def __init__(self, message, response=None):
-            """
-            Override init that defines specific arguments used in the course home render process.
-
-            Arguments:
-                message: error message for the exception.
-                response: custom response which will be returned by the course home view.
-            """
-            super().__init__(
-                message,
-                response=response,
-            )
-
-    @classmethod
-    def run_filter(cls, context, template_name):
-        """
-        Execute a filter with the signature specified.
-
-        Arguments:
-            context (dict): context dictionary for course home template.
-            template_name (str): certificate name to be rendered by the course home.
+            template_name (str): template name to be rendered by the course about.
         """
         data = super().run_pipeline(context=context, template_name=template_name)
         return data.get("context"), data.get("template_name")
@@ -466,7 +393,7 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
 
         Arguments:
             context (dict): context dictionary for student's dashboard template.
-            template_name (str): certificate name to be rendered by the student's dashboard.
+            template_name (str): template name to be rendered by the student's dashboard.
         """
         data = super().run_pipeline(context=context, template_name=template_name)
         return data.get("context"), data.get("template_name")
