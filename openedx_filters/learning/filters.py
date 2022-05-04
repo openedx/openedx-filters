@@ -275,7 +275,7 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
             """
             super().__init__(message, redirect_to=redirect_to)
 
-    class RenderAlternativeCourseAbout(OpenEdxFilterException):
+    class RenderInvalidCourseAbout(OpenEdxFilterException):
         """
         Custom class used to stop the course about rendering process.
         """
@@ -348,7 +348,7 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
             """
             super().__init__(message, redirect_to=redirect_to)
 
-    class RenderAlternativeDashboard(OpenEdxFilterException):
+    class RenderInvalidDashboard(OpenEdxFilterException):
         """
         Custom class used to stop the dashboard render process.
         """

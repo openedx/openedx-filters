@@ -310,7 +310,7 @@ class TestRenderingFilters(TestCase):
     @data(
         (DashboardRenderStarted.RedirectToPage, {"redirect_to": "custom-dashboard.html"}),
         (
-            DashboardRenderStarted.RenderAlternativeDashboard,
+            DashboardRenderStarted.RenderInvalidDashboard,
             {
                 "dashboard_template": "custom-dasboard.html",
                 "template_context": {"user": Mock()},
@@ -333,7 +333,7 @@ class TestRenderingFilters(TestCase):
     @data(
         (CourseAboutRenderStarted.RedirectToPage, {"redirect_to": "custom-course-about.html"}),
         (
-            CourseAboutRenderStarted.RenderAlternativeCourseAbout,
+            CourseAboutRenderStarted.RenderInvalidCourseAbout,
             {
                 "course_about_template": "custom-course-about.html",
                 "template_context": {"course_id": Mock()},
