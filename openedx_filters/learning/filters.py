@@ -253,6 +253,31 @@ class CohortChangeRequested(OpenEdxPublicFilter):
         return data.get("current_membership"), data.get("target_cohort")
 
 
+class CohortAssignmentRequested(OpenEdxPublicFilter):
+    """
+    Custom class used to create cohort assignment filters and its custom methods.
+    """
+
+    filter_type = "org.openedx.learning.cohort.assignment.requested.v1"
+
+    class PreventCohortAssignment(OpenEdxFilterException):
+        """
+        Custom class used to stop the cohort assignment process.
+        """
+
+    @classmethod
+    def run_filter(cls, user, target_cohort):
+        """
+        Execute a filter with the signature specified.
+
+        Arguments:
+            user (User): is a Django User object to be added in the cohort.
+            target_cohort (CourseUserGroup): edxapp object representing the new user's cohort.
+        """
+        data = super().run_pipeline(user=user, target_cohort=target_cohort)
+        return data.get("user"), data.get("target_cohort")
+
+
 class CourseAboutRenderStarted(OpenEdxPublicFilter):
     """
     Custom class used to create course about render filters and its custom methods.

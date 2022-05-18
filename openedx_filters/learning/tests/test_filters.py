@@ -9,6 +9,7 @@ from django.test import TestCase
 from openedx_filters.learning.filters import (
     CertificateCreationRequested,
     CertificateRenderStarted,
+    CohortAssignmentRequested,
     CohortChangeRequested,
     CourseAboutRenderStarted,
     CourseEnrollmentStarted,
@@ -360,6 +361,7 @@ class TestCohortFilters(TestCase):
     You'll find test suites for:
 
     - CohortChangeRequested
+    - CohortAssignmentRequested
     """
 
     def test_cohort_change_requested(self):
@@ -375,3 +377,17 @@ class TestCohortFilters(TestCase):
         result = CohortChangeRequested.run_filter(current_membership, target_cohort)
 
         self.assertTupleEqual((current_membership, target_cohort,), result)
+
+    def test_cohort_assignment_requested(self):
+        """
+        Test CohortAssignmentRequested filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter must have the signature specified.
+            - The filter should return user and target_cohort in that order.
+        """
+        user, target_cohort = Mock(), Mock()
+
+        result = CohortAssignmentRequested.run_filter(user, target_cohort)
+
+        self.assertTupleEqual((user, target_cohort,), result)
