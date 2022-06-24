@@ -422,3 +422,42 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(context=context, template_name=template_name)
         return data.get("context"), data.get("template_name")
+
+
+class XBlockRenderStarted(OpenEdxPublicFilter):
+    """
+    Custom class to change the XBlock Fragment of the units before rendering it to response
+
+    Arguments:
+        context (dict): contains the full context object that will be rendered in the
+        template_name (str): path to the template being used for rendering the XBlock
+            defaults to `lms/templates/courseware/courseware-chromeless.html`
+    """
+
+    filter_type = "org.openedx.learning.xblock.render.started.v1"
+
+    class RenderCustomReponse(OpenEdxFilterException):
+        """
+        Custom class used to stop the XBlock rendering process
+        """
+        def __init__(self, message, response=None):
+            """
+            Override init that defines specific arguments used in the XBlock render process.
+
+            Arguments:
+                message: error message for the exception.
+                response: custom response which will be returned by the render_xblock view.
+            """
+            super().__init__( message, response=response)
+
+    @classmethod
+    def run_filter(cls, context, template_name):
+        """
+        Execute the filter with the context.
+
+        Arguments:
+            context (dict): the xblock rendering context with fragment and all other
+                related values.
+        """
+        data = super().run_pipeline(context=context, template_name=template_name)
+        return data.get("context"), data.get("template_name")
