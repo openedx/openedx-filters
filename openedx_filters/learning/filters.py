@@ -451,13 +451,17 @@ class XBlockRenderStarted(OpenEdxPublicFilter):
             super().__init__( message, response=response)
 
     @classmethod
-    def run_filter(cls, context, template_name):
+    def run_filter(cls, block, context, template_name):
         """
         Execute the filter with the context.
 
         Arguments:
+            block (VerticalBlock): The VerticalBlock containing the XBlocks to be
+                rendered
             context (dict): the xblock rendering context with fragment and all other
                 related values.
+            template_name (str): the name of the template that will render the final
+                view
         """
-        data = super().run_pipeline(context=context, template_name=template_name)
+        data = super().run_pipeline(block=block, context=context, template_name=template_name)
         return data.get("context"), data.get("template_name")
