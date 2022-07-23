@@ -17,6 +17,7 @@ from openedx_filters.learning.filters import (
     DashboardRenderStarted,
     StudentLoginRequested,
     StudentRegistrationRequested,
+    VerticalBlockChildRenderStarted,
 )
 
 
@@ -272,6 +273,7 @@ class TestRenderingFilters(TestCase):
 
     - CourseAboutRenderStarted
     - DashboardRenderStarted
+    - VerticalBlockChildRenderStarted
     """
 
     def setUp(self):
@@ -353,6 +355,26 @@ class TestRenderingFilters(TestCase):
         exception = course_about_exception(message="You can't access the course about", **attributes)
 
         self.assertDictContainsSubset(attributes, exception.__dict__)
+
+    def test_verticalblock_child_render_started(self):
+        """
+        Test VerticalBlockChildRenderStarted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter must have the signature specified.
+            - The filter should return the child block and its context in that order.
+        """
+        block = Mock("child_block")
+        context = {
+            "is_mobile_view": False,
+            "username": "edx",
+            "child_of_veritcal": True,
+            "bookmarked": False
+        }
+
+        result = VerticalBlockChildRenderStarted.run_filter(block, context)
+
+        self.assertTupleEqual((block, context,), result)
 
 
 class TestCohortFilters(TestCase):

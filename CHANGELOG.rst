@@ -13,6 +13,13 @@ Change Log
 
 Unreleased
 ~~~~~~~~~~
+[0.8.0] - 2022-08-18
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Added
+_____
+
+* VerticalBlockChildRenderStarted filter added that is called when every child block of a VericalBlock is about to be rendered.
 
 [0.7.0] - 2022-05-26
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
