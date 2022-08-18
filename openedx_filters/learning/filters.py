@@ -422,3 +422,23 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(context=context, template_name=template_name)
         return data.get("context"), data.get("template_name")
+
+
+class VerticalBlockChildRenderStarted(OpenEdxPublicFilter):
+    """
+    Custom class used to create vertical block children's render filters.
+    """
+
+    filter_type = "org.openedx.learning.vertical_block_child.render.started.v1"
+
+    @classmethod
+    def run_filter(cls, block, context):
+        """
+        Execute a filter with the signature specified.
+
+        Arguments:
+            block (XBlock): the XBlock that is about to be rendered into HTML
+            context (dict): rendering context values like is_mobile_app, show_title..etc
+        """
+        data = super().run_pipeline(block=block, context=context)
+        return data.get("block"), data.get("context")
