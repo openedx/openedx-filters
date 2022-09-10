@@ -1,6 +1,7 @@
 """
 Necessary classes used to define pipeline steps used by OpenEdxPublicFilter's pipeline runner.
 """
+from abc import abstractmethod
 from logging import getLogger
 
 log = getLogger(__name__)
@@ -55,6 +56,7 @@ class PipelineStep:
         self.running_pipeline = running_pipeline
         self.extra_config = extra_config
 
+    @abstractmethod
     def run_filter(self, **kwargs):  # pylint: disable=unused-argument
         """
         Abstract pipeline step runner.
