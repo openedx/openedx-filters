@@ -18,7 +18,7 @@ framework about
    form of a pipeline
 
 
-See https://github.com/edx/open-edx-proposals/pull/184 for more information.
+See https://github.com/openedx/open-edx-proposals/pull/184 for more information.
 
 To do this, we considered three similar approaches for the pipeline implementation:
 
