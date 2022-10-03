@@ -17,10 +17,6 @@ attrs==22.1.0
     # via
     #   -r requirements/quality.txt
     #   pytest
-backports-zoneinfo==0.2.1
-    # via
-    #   -r requirements/quality.txt
-    #   django
 bleach==5.0.1
     # via
     #   -r requirements/quality.txt
@@ -81,8 +77,10 @@ distlib==0.3.6
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==4.1.1
-    # via -r requirements/quality.txt
+django==3.2.15
+    # via
+    #   -c requirements/common_constraints.txt
+    #   -r requirements/quality.txt
 docutils==0.19
     # via
     #   -r requirements/quality.txt
@@ -231,6 +229,10 @@ python-slugify==6.1.2
     # via
     #   -r requirements/quality.txt
     #   code-annotations
+pytz==2022.4
+    # via
+    #   -r requirements/quality.txt
+    #   django
 pyyaml==6.0
     # via
     #   -r requirements/quality.txt
