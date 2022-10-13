@@ -8,7 +8,7 @@ asgiref==3.5.2
     # via
     #   -r requirements/test.txt
     #   django
-astroid==2.12.10
+astroid==2.12.11
     # via
     #   pylint
     #   pylint-celery
@@ -44,9 +44,9 @@ ddt==1.6.0
     # via -r requirements/test.txt
 dill==0.3.5.1
     # via pylint
-django==3.2.15
+django==3.2.16
     # via
-    #   -c requirements/common_constraints.txt
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
 docutils==0.19
     # via readme-renderer
@@ -112,7 +112,7 @@ pygments==2.13.0
     # via
     #   readme-renderer
     #   rich
-pylint==2.15.3
+pylint==2.15.4
     # via
     #   edx-lint
     #   pylint-celery
@@ -157,7 +157,7 @@ requests==2.28.1
     # via
     #   requests-toolbelt
     #   twine
-requests-toolbelt==0.9.1
+requests-toolbelt==0.10.0
     # via twine
 rfc3986==2.0.0
     # via twine
@@ -191,7 +191,7 @@ tomlkit==0.11.5
     # via pylint
 twine==4.0.1
     # via -r requirements/quality.in
-typing-extensions==4.3.0
+typing-extensions==4.4.0
     # via
     #   astroid
     #   pylint
@@ -204,5 +204,5 @@ webencodings==0.5.1
     # via bleach
 wrapt==1.14.1
     # via astroid
-zipp==3.8.1
+zipp==3.9.0
     # via importlib-metadata
