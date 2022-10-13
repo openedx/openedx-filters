@@ -57,7 +57,7 @@ class PipelineStep:
         self.extra_config = extra_config
 
     @abstractmethod
-    def run_filter(self, **kwargs):  # pylint: disable=unused-argument
+    def run_filter(self, **kwargs):
         """
         Abstract pipeline step runner.
 
