@@ -7,6 +7,7 @@ from ddt import data, ddt, unpack
 from django.test import TestCase
 
 from openedx_filters.learning.filters import (
+    AccountSettingsRenderStarted,
     CertificateCreationRequested,
     CertificateRenderStarted,
     CohortAssignmentRequested,
@@ -309,6 +310,7 @@ class TestRenderingFilters(TestCase):
     - DashboardRenderStarted
     - VerticalBlockChildRenderStarted
     - VerticalBlockRenderCompleted
+    - AccountSettingsRenderStarted
     """
 
     def setUp(self):
@@ -471,6 +473,22 @@ class TestRenderingFilters(TestCase):
         exception = render_exception(**attributes)
 
         self.assertDictContainsSubset(attributes, exception.__dict__)
+    def test_account_settings_render_started(self):
+        """
+        Test AccountSettingsRenderStarted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter should return context.
+        """
+        context = {
+            'duplicate_provider': None,
+            'disable_courseware_js': True,
+            'show_dashboard_tabs': True
+        }
+
+        result = AccountSettingsRenderStarted.run_filter(context=context)
+
+        self.assertEqual(result, context)
 
 
 class TestCohortFilters(TestCase):

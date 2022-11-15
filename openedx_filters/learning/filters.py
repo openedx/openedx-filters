@@ -1,9 +1,50 @@
 """
 Package where filters related to the learning architectural subdomain are implemented.
 """
+
 from openedx_filters.exceptions import OpenEdxFilterException
 from openedx_filters.tooling import OpenEdxPublicFilter
 from openedx_filters.utils import SensitiveDataManagementMixin
+
+
+class AccountSettingsRenderStarted(OpenEdxPublicFilter):
+    """
+    Custom class used to create Account settings filters.
+    """
+
+    filter_type = "org.openedx.learning.student.settings.render.started.v1"
+
+    class PreventAccountSettingsRender(OpenEdxFilterException):
+        """
+        Custom class used to stop the Account settings rendering process.
+        """
+
+    class RedirectToPage(OpenEdxFilterException):
+        """
+        Custom class used to redirect before account settings rendering process.
+        """
+
+        def __init__(self, message, redirect_to=""):
+            """
+            Override init that defines specific arguments used in the account settings render process.
+
+            Arguments:
+                message: error message for the exception.
+                redirect_to: URL to redirect to.
+            """
+            super().__init__(message, redirect_to=redirect_to)
+
+    @classmethod
+    def run_filter(cls, context):
+        """
+        Execute a filter with the signature specified.
+
+        Arguments:
+            context (dict): context for the account settings page.
+        """
+        data = super().run_pipeline(context=context)
+        context = data.get("context")
+        return context
 
 
 class StudentRegistrationRequested(OpenEdxPublicFilter, SensitiveDataManagementMixin):
