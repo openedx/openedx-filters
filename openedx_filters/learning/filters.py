@@ -442,3 +442,22 @@ class VerticalBlockChildRenderStarted(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(block=block, context=context)
         return data.get("block"), data.get("context")
+
+
+class CourseEnrollmentSiteFilterRequested(OpenEdxPublicFilter):
+    """
+    Custom class used to filter user's course enrollments by site.
+    """
+
+    filter_type = "org.openedx.learning.course_enrollments_site.filter.requested.v1"
+
+    @classmethod
+    def run_filter(cls, context):
+        """
+        Execute a filter with the signature specified.
+
+        Arguments:
+        context (QuerySet): list of all user's course enrollments
+        """
+        data = super().run_pipeline(context=context)
+        return data.get("context")
