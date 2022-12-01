@@ -11,8 +11,9 @@ Open edX Filters from Hooks Extensions Framework (`OEP-50`_).
 Purpose
 *******
 
-This repository implements the necessary tooling and definitions used by the
-Hooks Extension Framework to manage the filters execution and extra tools.
+This repository implements the necessary tooling and
+definitions used by the Hooks Extension Framework to
+manage the filters execution and extra tools.
 
 Getting Started
 ***************
@@ -69,12 +70,15 @@ Every time you develop something in this repo
 Deploying
 =========
 
-The Open edX Filters component is a Python library which doesn't need independent deployment. Therefore,
-its setup is reasonably straightforward. First, it needs to be added to your service requirements,
-and then it will be installed alongside requirements of the service.
+The Open edX Filters component is a Python library which doesn't
+need independent deployment. Therefore, its setup is reasonably
+straightforward. First, it needs to be added to your service
+requirements, and then it will be installed alongside requirements
+of the service.
 
-If the service you intend to use is either the LMS or CMS, then the library is installed alongside
-their requirements since the Nutmeg release.
+If the service you intend to use is either the LMS or CMS, then
+the library is installed alongside their requirements since the
+Nutmeg release.
 
 Getting Help
 ************
