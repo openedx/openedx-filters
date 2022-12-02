@@ -466,3 +466,24 @@ class CourseEnrollmentQuerysetRequested(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(enrollments=enrollments)
         return data.get("enrollments")
+
+
+class VerticalBlockChildrenLoaded(OpenEdxPublicFilter):
+    """
+    Custom class used to create filters that act when child blocks of a vertical block are loaded.
+    """
+
+    filter_type = "org.openedx.learning.vertical_block.children.loaded.v1"
+
+    @classmethod
+    def run_filter(cls, children, context, view):
+        """
+        Execute a filter with the specified signature.
+
+        Arguments:
+            children (list): the list of child Blocks of a vertical block
+            context (dict): rendering context values like is_mobile_app, show_title..etc.,
+            view (str): the rendering view. Can be either 'student_view', or 'public_view'
+        """
+        data = super().run_pipeline(children=children, context=context, view=view)
+        return data.get("children"), data.get("context"), data.get("view")
