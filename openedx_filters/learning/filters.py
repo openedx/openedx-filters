@@ -1,8 +1,6 @@
+""" Package where filters related to the learning architectural subdomain are implemented.
 """
-Package where filters related to the learning architectural subdomain are implemented.
-"""
-from openedx_filters.exceptions import OpenEdxFilterException
-from openedx_filters.tooling import OpenEdxPublicFilter
+from openedx_filters.exceptions import OpenEdxFilterException from openedx_filters.tooling import OpenEdxPublicFilter
 from openedx_filters.utils import SensitiveDataManagementMixin
 
 
@@ -468,22 +466,22 @@ class CourseEnrollmentQuerysetRequested(OpenEdxPublicFilter):
         return data.get("enrollments")
 
 
-class VerticalBlockChildrenLoaded(OpenEdxPublicFilter):
+class VerticalBlockRenderCompleted(OpenEdxPublicFilter):
     """
-    Custom class used to create filters that act when child blocks of a vertical block are loaded.
+    Custom class used to create filters to act on vertical block rendering completed.
     """
 
-    filter_type = "org.openedx.learning.vertical_block.children.loaded.v1"
+    filter_type = "org.openedx.learning.vertical_block.render.completed.v1"
 
     @classmethod
-    def run_filter(cls, children, context, view):
+    def run_filter(cls, fragment, context, view):
         """
         Execute a filter with the specified signature.
 
         Arguments:
-            children (list): the list of child Blocks of a vertical block
+            fragment (web_fragments.Fragment): The web-fragment containing the rendered content of VerticalBlock
             context (dict): rendering context values like is_mobile_app, show_title..etc.,
             view (str): the rendering view. Can be either 'student_view', or 'public_view'
         """
-        data = super().run_pipeline(children=children, context=context, view=view)
-        return data.get("children"), data.get("context"), data.get("view")
+        data = super().run_pipeline(fragment=fragment, context=context, view=view)
+        return data.get("fragment"), data.get("context"), data.get("view")

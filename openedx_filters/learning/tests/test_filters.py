@@ -19,7 +19,7 @@ from openedx_filters.learning.filters import (
     StudentLoginRequested,
     StudentRegistrationRequested,
     VerticalBlockChildRenderStarted,
-    VerticalBlockChildrenLoaded,
+    VerticalBlockRenderCompleted,
 )
 
 
@@ -308,7 +308,7 @@ class TestRenderingFilters(TestCase):
     - CourseAboutRenderStarted
     - DashboardRenderStarted
     - VerticalBlockChildRenderStarted
-    - VerticalBlockChildrenLoaded
+    - VerticalBlockRenderCompleted
     """
 
     def setUp(self):
@@ -411,15 +411,15 @@ class TestRenderingFilters(TestCase):
 
         self.assertTupleEqual((block, context,), result)
 
-    def test_vertical_block_children_loaded(self):
+    def test_vertical_block_render_completed(self):
         """
-        Test VerticalBlockChildrenLoaded filter behavior under normal conditions.
+        Test VerticalBlockRenderCompleted filter behavior under normal conditions.
 
         Expected behavior:
             - The filter must have the signature specified.
-            - The filter must return a list of blocks, the context and view in order.
+            - The filter must return a webfragment, the context and view in order.
         """
-        children = [Mock("block_1"), Mock("block_2"), Mock("block_3")]
+        fragment = Mock("webfragment")
         context = {
             "is_mobile_view": False,
             "username": "edx",
@@ -427,9 +427,9 @@ class TestRenderingFilters(TestCase):
         }
         view = "student_view"
 
-        result = VerticalBlockChildrenLoaded.run_filter(children, context, view)
+        result = VerticalBlockRenderCompleted.run_filter(fragment, context, view)
 
-        self.assertTupleEqual((children, context, view), result)
+        self.assertTupleEqual((fragment, context, view), result)
 
 
 class TestCohortFilters(TestCase):
