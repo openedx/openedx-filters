@@ -20,7 +20,7 @@ bleach==5.0.1
     # via readme-renderer
 build==0.9.0
     # via -r requirements/doc.in
-certifi==2022.9.24
+certifi==2022.12.7
     # via requests
 cffi==1.15.1
     # via cryptography
@@ -92,7 +92,7 @@ markupsafe==2.1.1
     #   jinja2
 more-itertools==9.0.0
     # via jaraco-classes
-packaging==21.3
+packaging==22.0
     # via
     #   -r requirements/test.txt
     #   build
@@ -118,10 +118,6 @@ pygments==2.13.0
     #   readme-renderer
     #   rich
     #   sphinx
-pyparsing==3.0.9
-    # via
-    #   -r requirements/test.txt
-    #   packaging
 pytest==7.2.0
     # via
     #   -r requirements/test.txt
