@@ -451,6 +451,11 @@ class CourseEnrollmentSiteFilterRequested(OpenEdxPublicFilter):
 
     filter_type = "org.openedx.learning.course_enrollments_site.filter.requested.v1"
 
+    class PreventEnrollmentSiteFilter(OpenEdxFilterException):
+        """
+        Custom class used to stop the course enrollment site filter process.
+        """
+
     @classmethod
     def run_filter(cls, context):
         """
