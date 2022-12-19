@@ -490,6 +490,21 @@ class TestRenderingFilters(TestCase):
 
         self.assertEqual(result, context)
 
+    @data(
+        (AccountSettingsRenderStarted.RedirectToPage, {"redirect_to": "custom_account_settings.html"}),
+        (AccountSettingsRenderStarted.PreventAccountSettingsRender, {})
+    )
+    @unpack
+    def test_halt_certificate_process(self, AccountSettingsException, attributes):
+        """
+        Test for account settings exceptions attributes.
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = AccountSettingsException(message="You can't access to this page", **attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
+
 
 class TestCohortFilters(TestCase):
     """

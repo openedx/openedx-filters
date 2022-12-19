@@ -40,7 +40,7 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
         Execute a filter with the signature specified.
 
         Arguments:
-            context (dict): context for the account settings page.
+            context (dict): template context for the account settings page.
         """
         data = super().run_pipeline(context=context)
         context = data.get("context")
