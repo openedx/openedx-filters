@@ -419,6 +419,7 @@ class TestRenderingFilters(TestCase):
             - The filter must have the signature specified.
             - The filter must return a webfragment, the context and view in order.
         """
+        block = Mock("VerticalBlock")
         fragment = Mock("webfragment")
         context = {
             "is_mobile_view": False,
@@ -427,9 +428,9 @@ class TestRenderingFilters(TestCase):
         }
         view = "student_view"
 
-        result = VerticalBlockRenderCompleted.run_filter(fragment, context, view)
+        result = VerticalBlockRenderCompleted.run_filter(block, fragment, context, view)
 
-        self.assertTupleEqual((fragment, context, view), result)
+        self.assertTupleEqual((block, fragment, context, view), result)
 
 
 class TestCohortFilters(TestCase):

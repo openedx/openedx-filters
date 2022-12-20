@@ -474,14 +474,15 @@ class VerticalBlockRenderCompleted(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.vertical_block.render.completed.v1"
 
     @classmethod
-    def run_filter(cls, fragment, context, view):
+    def run_filter(cls, block, fragment, context, view):
         """
         Execute a filter with the specified signature.
 
         Arguments:
+            block (VerticalBlock): The VeriticalBlock instance which is being rendered
             fragment (web_fragments.Fragment): The web-fragment containing the rendered content of VerticalBlock
             context (dict): rendering context values like is_mobile_app, show_title..etc.,
             view (str): the rendering view. Can be either 'student_view', or 'public_view'
         """
-        data = super().run_pipeline(fragment=fragment, context=context, view=view)
-        return data.get("fragment"), data.get("context"), data.get("view")
+        data = super().run_pipeline(block=block, fragment=fragment, context=context, view=view)
+        return data.get("block"), data.get("fragment"), data.get("context"), data.get("view")
