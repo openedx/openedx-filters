@@ -492,7 +492,8 @@ class TestRenderingFilters(TestCase):
 
     @data(
         (AccountSettingsRenderStarted.RedirectToPage, {"redirect_to": "custom_account_settings.html"}),
-        (AccountSettingsRenderStarted.PreventAccountSettingsRender, {})
+        (AccountSettingsRenderStarted.PreventAccountSettingsRender, {}),
+        (AccountSettingsRenderStarted.RenderCustomResponse, {"response": Mock()})
     )
     @unpack
     def test_halt_certificate_process(self, AccountSettingsException, attributes):
@@ -501,7 +502,7 @@ class TestRenderingFilters(TestCase):
         Expected behavior:
             - The exception must have the attributes specified.
         """
-        exception = AccountSettingsException(message="You can't access to this page", **attributes)
+        exception = AccountSettingsException(message="You can't access this page", **attributes)
 
         self.assertDictContainsSubset(attributes, exception.__dict__)
 

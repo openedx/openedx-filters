@@ -21,7 +21,7 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
 
     class RedirectToPage(OpenEdxFilterException):
         """
-        Custom class used to redirect before account settings rendering process.
+        Custom class used to redirect before the account settings rendering process.
         """
 
         def __init__(self, message, redirect_to=""):
@@ -33,6 +33,24 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
                 redirect_to: URL to redirect to.
             """
             super().__init__(message, redirect_to=redirect_to)
+
+    class RenderCustomResponse(OpenEdxFilterException):
+        """
+        Custom class used to stop the account settings rendering process and return a custom response.
+        """
+
+        def __init__(self, message, response=None):
+            """
+            Override init that defines specific arguments used in the account settings render process.
+
+            Arguments:
+                message: error message for the exception.
+                response: custom response which will be returned by the account settings view.
+            """
+            super().__init__(
+                message,
+                response=response,
+            )
 
     @classmethod
     def run_filter(cls, context):
