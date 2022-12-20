@@ -446,16 +446,14 @@ class VerticalBlockChildRenderStarted(OpenEdxPublicFilter):
 
 class CourseEnrollmentQuerysetRequested(OpenEdxPublicFilter):
     """
-    Custom class used to filter user's course enrollments by site, when a request is made by the user.
-    Basically it modifies the enrollments queryset.
+    Custom class used to create course enrollments queryset filters and its custom methods.
     """
 
     filter_type = "org.openedx.learning.course_enrollment_queryset.requested.v1"
 
-    class PreventEnrollmentSiteFilter(OpenEdxFilterException):
+    class PreventCourseEnrollmentQueryset(OpenEdxFilterException):
         """
-        Custom class used to stop the course enrollment site filter process.
-        This does not modify the enrollments queryset.
+        Custom class used to stop the course enrollment queryset filter process.
         """
 
     @classmethod
