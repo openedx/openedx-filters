@@ -12,7 +12,7 @@ from openedx_filters.learning.filters import (
     CohortAssignmentRequested,
     CohortChangeRequested,
     CourseAboutRenderStarted,
-    CourseEnrollmentSiteFilterRequested,
+    CourseEnrollmentQuerysetRequested,
     CourseEnrollmentStarted,
     CourseUnenrollmentStarted,
     DashboardRenderStarted,
@@ -215,7 +215,7 @@ class TestEnrollmentFilters(TestCase):
 
     - CourseEnrollmentStarted
     - CourseUnenrollmentStarted
-    - CourseEnrollmentSiteFilterRequested
+    - CourseEnrollmentQuerysetRequested
     """
 
     def test_course_enrollment_started(self):
@@ -275,7 +275,7 @@ class TestEnrollmentFilters(TestCase):
         """
         expected_enrollments = Mock()
 
-        enrollments = CourseEnrollmentSiteFilterRequested.run_filter(expected_enrollments)
+        enrollments = CourseEnrollmentQuerysetRequested.run_filter(expected_enrollments)
 
         self.assertEqual(expected_enrollments, enrollments)
 
