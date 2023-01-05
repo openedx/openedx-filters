@@ -451,9 +451,9 @@ class CourseEnrollmentQuerysetRequested(OpenEdxPublicFilter):
 
     filter_type = "org.openedx.learning.course_enrollment_queryset.requested.v1"
 
-    class PreventCourseEnrollmentQueryset(OpenEdxFilterException):
+    class PreventEnrollmentQuerysetRequest(OpenEdxFilterException):
         """
-        Custom class used to stop the course enrollment queryset filter process.
+        Custom class used to stop the course enrollment queryset request process.
         """
 
     @classmethod
