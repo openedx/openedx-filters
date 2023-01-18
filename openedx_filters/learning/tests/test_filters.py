@@ -279,6 +279,24 @@ class TestEnrollmentFilters(TestCase):
 
         self.assertEqual(expected_enrollments, enrollments)
 
+    @data(
+        (
+            CourseEnrollmentQuerysetRequested.PreventEnrollmentQuerysetRequest,
+            {"message": "Can't request QuerySet Enrollment."}
+        )
+    )
+    @unpack
+    def test_halt_queryset_request(self, request_exception, attributes):
+        """
+        Test for queryset request exceptions attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = request_exception(**attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
+
 
 @ddt
 class TestRenderingFilters(TestCase):
