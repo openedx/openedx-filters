@@ -14,6 +14,16 @@ Change Log
 Unreleased
 ----------
 
+[1.0.0] - 2023-01-18
+--------------------
+
+Added
+~~~~~
+
+* Bump version to 1.x to acknowledge that this is in use in production.
+* CourseEnrollmentQuerysetRequested filter added that is called when returning course enrollments queryset object.
+
+
 [0.8.0] - 2022-08-18
 --------------------
 
