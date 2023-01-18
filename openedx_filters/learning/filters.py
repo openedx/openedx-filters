@@ -442,3 +442,27 @@ class VerticalBlockChildRenderStarted(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(block=block, context=context)
         return data.get("block"), data.get("context")
+
+
+class CourseEnrollmentQuerysetRequested(OpenEdxPublicFilter):
+    """
+    Custom class used to create course enrollments queryset filters and its custom methods.
+    """
+
+    filter_type = "org.openedx.learning.course_enrollment_queryset.requested.v1"
+
+    class PreventEnrollmentQuerysetRequest(OpenEdxFilterException):
+        """
+        Custom class used to stop the course enrollment queryset request process.
+        """
+
+    @classmethod
+    def run_filter(cls, enrollments):
+        """
+        Execute a filter with the signature specified.
+
+        Arguments:
+        enrollments (QuerySet): data with all user's course enrollments
+        """
+        data = super().run_pipeline(enrollments=enrollments)
+        return data.get("enrollments")

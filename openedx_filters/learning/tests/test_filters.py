@@ -12,6 +12,7 @@ from openedx_filters.learning.filters import (
     CohortAssignmentRequested,
     CohortChangeRequested,
     CourseAboutRenderStarted,
+    CourseEnrollmentQuerysetRequested,
     CourseEnrollmentStarted,
     CourseUnenrollmentStarted,
     DashboardRenderStarted,
@@ -214,6 +215,7 @@ class TestEnrollmentFilters(TestCase):
 
     - CourseEnrollmentStarted
     - CourseUnenrollmentStarted
+    - CourseEnrollmentQuerysetRequested
     """
 
     def test_course_enrollment_started(self):
@@ -261,6 +263,37 @@ class TestEnrollmentFilters(TestCase):
             - The exception must have the attributes specified.
         """
         exception = enrollment_exception(**attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
+
+    def test_course_enrollments_requested(self):
+        """
+        Test user course enrollment requested filter.
+
+        Expected behavior:
+            - The filter should return the enrollments to orgs.
+        """
+        expected_enrollments = Mock()
+
+        enrollments = CourseEnrollmentQuerysetRequested.run_filter(expected_enrollments)
+
+        self.assertEqual(expected_enrollments, enrollments)
+
+    @data(
+        (
+            CourseEnrollmentQuerysetRequested.PreventEnrollmentQuerysetRequest,
+            {"message": "Can't request QuerySet Enrollment."}
+        )
+    )
+    @unpack
+    def test_halt_queryset_request(self, request_exception, attributes):
+        """
+        Test for queryset request exceptions attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = request_exception(**attributes)
 
         self.assertDictContainsSubset(attributes, exception.__dict__)
 
