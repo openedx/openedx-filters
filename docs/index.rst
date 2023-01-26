@@ -10,11 +10,8 @@ Welcome to Open edX Filters's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   concepts/index
+   decisions/index
+   how-tos/index
+   quickstarts/index
+   reference/index

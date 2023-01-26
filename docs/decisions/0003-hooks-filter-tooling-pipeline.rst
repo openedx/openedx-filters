@@ -1,5 +1,5 @@
-Filter tooling: pipeline behaviour
-==================================
+3. Filter tooling: pipeline behaviour
+=====================================
 
 Status
 ------

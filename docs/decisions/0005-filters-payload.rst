@@ -1,5 +1,5 @@
-Open edX filters payload conventions
-====================================
+5. Open edX filters payload conventions
+=======================================
 
 Status
 ------

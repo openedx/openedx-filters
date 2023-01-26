@@ -1,5 +1,5 @@
-Open edX filters naming and versioning
-======================================
+4. Open edX filters naming and versioning
+=========================================
 
 Status
 ------
