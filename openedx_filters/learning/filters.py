@@ -47,10 +47,7 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
                 message: error message for the exception.
                 response: custom response which will be returned by the account settings view.
             """
-            super().__init__(
-                message,
-                response=response,
-            )
+            super().__init__(message, response=response)
 
     @classmethod
     def run_filter(cls, context):

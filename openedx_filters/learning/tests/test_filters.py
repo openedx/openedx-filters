@@ -496,7 +496,7 @@ class TestRenderingFilters(TestCase):
         (AccountSettingsRenderStarted.RenderCustomResponse, {"response": Mock()})
     )
     @unpack
-    def test_halt_certificate_process(self, AccountSettingsException, attributes):
+    def test_halt_account_rendering_process(self, AccountSettingsException, attributes):
         """
         Test for account settings exceptions attributes.
         Expected behavior:
