@@ -6,5 +6,10 @@
 doc8                      # reStructuredText style checker
 edx_sphinx_theme          # edX theme for Sphinx output
 build                     # Needed for twine command
-twine                     # Validates README.rst for usage on PyPI
-Sphinx                    # Documentation builder
+twine                     # Utility for publishing Python packages on PyPI.
+sphinx
+sphinx-book-theme
+sphinx-copybutton
+sphinx-autobuild
+sphinxcontrib-mermaid
+sphinxcontrib-contentui

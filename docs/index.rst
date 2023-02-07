@@ -1,29 +1,17 @@
-.. openedx-filters documentation top level file, created by
-   sphinx-quickstart on Wed Apr 07 10:13:29 2021.
+.. Open edX Filters documentation master file, created by
+   sphinx-quickstart on Wed Jan 11 10:47:22 2023.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-openedx-filters
-===============
-
-What is this project?
-
-Contents:
+Welcome to Open edX Filters's documentation!
+============================================
 
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
 
-   readme
-   getting_started
-   testing
-   internationalization
-   modules
-   changelog
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   concepts/index
+   decisions/index
+   how-tos/index
+   quickstarts/index
+   reference/index
