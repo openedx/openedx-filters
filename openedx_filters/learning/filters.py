@@ -1,6 +1,7 @@
 """ Package where filters related to the learning architectural subdomain are implemented.
 """
-from openedx_filters.exceptions import OpenEdxFilterException from openedx_filters.tooling import OpenEdxPublicFilter
+from openedx_filters.exceptions import OpenEdxFilterException
+from openedx_filters.tooling import OpenEdxPublicFilter
 from openedx_filters.utils import SensitiveDataManagementMixin
 
 
