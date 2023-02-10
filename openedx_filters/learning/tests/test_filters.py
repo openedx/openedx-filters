@@ -411,6 +411,26 @@ class TestRenderingFilters(TestCase):
 
         self.assertTupleEqual((block, context,), result)
 
+    @data(
+        (
+            VerticalBlockChildRenderStarted.PreventChildBlockRender,
+            {
+                "message": "Assessement question not available for Audit students"
+            }
+        )
+    )
+    @unpack
+    def test_halt_vertical_child_block_render(self, block_render_exception, attributes):
+        """
+        Test for vertical child block render exception attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = block_render_exception(**attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
+
     def test_vertical_block_render_completed(self):
         """
         Test VerticalBlockRenderCompleted filter behavior under normal conditions.
@@ -431,6 +451,26 @@ class TestRenderingFilters(TestCase):
         result = VerticalBlockRenderCompleted.run_filter(block, fragment, context, view)
 
         self.assertTupleEqual((block, fragment, context, view), result)
+
+    @data(
+        (
+            VerticalBlockRenderCompleted.PreventVerticalBlockRender,
+            {
+                "message": "Assignment units are not available for Audit students"
+            }
+        )
+    )
+    @unpack
+    def test_halt_vertical_block_render(self, render_exception, attributes):
+        """
+        Test for vertical child block render exception attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = render_exception(**attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
 
 
 class TestCohortFilters(TestCase):

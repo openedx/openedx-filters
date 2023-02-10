@@ -1,4 +1,5 @@
-""" Package where filters related to the learning architectural subdomain are implemented.
+"""
+Package where filters related to the learning architectural subdomain are implemented.
 """
 from openedx_filters.exceptions import OpenEdxFilterException
 from openedx_filters.tooling import OpenEdxPublicFilter
@@ -430,6 +431,11 @@ class VerticalBlockChildRenderStarted(OpenEdxPublicFilter):
 
     filter_type = "org.openedx.learning.vertical_block_child.render.started.v1"
 
+    class PreventChildBlockRender(OpenEdxFilterException):
+        """
+        Custom class used to stop a particular child block from being rendered.
+        """
+
     @classmethod
     def run_filter(cls, block, context):
         """
@@ -473,6 +479,11 @@ class VerticalBlockRenderCompleted(OpenEdxPublicFilter):
     """
 
     filter_type = "org.openedx.learning.vertical_block.render.completed.v1"
+
+    class PreventVerticalBlockRender(OpenEdxFilterException):
+        """
+        Custom class used to prevent the vertical block from rendering for the user.
+        """
 
     @classmethod
     def run_filter(cls, block, fragment, context, view):
