@@ -66,16 +66,16 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
             super().__init__(message, response=response)
 
     @classmethod
-    def run_filter(cls, context):
+    def run_filter(cls, context, template_name):
         """
         Execute a filter with the signature specified.
 
         Arguments:
             context (dict): template context for the account settings page.
+            template_name (str): template path used to render the account settings page.
         """
-        data = super().run_pipeline(context=context)
-        context = data.get("context")
-        return context
+        data = super().run_pipeline(context=context, template_name=template_name)
+        return data.get("context"), data.get("template_name")
 
 
 class StudentRegistrationRequested(OpenEdxPublicFilter, SensitiveDataManagementMixin):
