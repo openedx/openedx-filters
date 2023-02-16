@@ -13,6 +13,18 @@ Change Log
 
 Unreleased
 ----------
+[1.1.0] - 2023-02-16
+--------------------
+
+Added
+~~~~~
+
+* VerticalBlockRenderCompleted filter added which can be used to modify the rendered output of a VerticalBlock.
+
+Changed
+~~~~~~~
+
+* Introduced PreventChildBlockRender exception to the VerticalBlockChildRenderStarted filter.
 
 [1.0.0] - 2023-01-18
 --------------------
