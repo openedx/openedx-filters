@@ -431,6 +431,11 @@ class VerticalBlockChildRenderStarted(OpenEdxPublicFilter):
 
     filter_type = "org.openedx.learning.vertical_block_child.render.started.v1"
 
+    class PreventChildBlockRender(OpenEdxFilterException):
+        """
+        Custom class used to stop a particular child block from being rendered.
+        """
+
     @classmethod
     def run_filter(cls, block, context):
         """
@@ -466,3 +471,30 @@ class CourseEnrollmentQuerysetRequested(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(enrollments=enrollments)
         return data.get("enrollments")
+
+
+class VerticalBlockRenderCompleted(OpenEdxPublicFilter):
+    """
+    Custom class used to create filters to act on vertical block rendering completed.
+    """
+
+    filter_type = "org.openedx.learning.vertical_block.render.completed.v1"
+
+    class PreventVerticalBlockRender(OpenEdxFilterException):
+        """
+        Custom class used to prevent the vertical block from rendering for the user.
+        """
+
+    @classmethod
+    def run_filter(cls, block, fragment, context, view):
+        """
+        Execute a filter with the specified signature.
+
+        Arguments:
+            block (VerticalBlock): The VeriticalBlock instance which is being rendered
+            fragment (web_fragments.Fragment): The web-fragment containing the rendered content of VerticalBlock
+            context (dict): rendering context values like is_mobile_app, show_title..etc.,
+            view (str): the rendering view. Can be either 'student_view', or 'public_view'
+        """
+        data = super().run_pipeline(block=block, fragment=fragment, context=context, view=view)
+        return data.get("block"), data.get("fragment"), data.get("context"), data.get("view")
