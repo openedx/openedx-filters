@@ -36,13 +36,7 @@ A longer description of the framework and it's history can be found in `OEP 50`_
 .. _openedx-filters: https://github.com/eduNEXT/openedx-filters
 .. _openedx-events: https://github.com/eduNEXT/openedx-events
 
-On the technical side events are implemented through django signals which makes
-them run in the same python process as the lms or cms. Furthermore, events block
-the running process. Listeners of an event are encouraged to monitor the
-performance or use alternative arch patterns such as receiving the event and
-defer to launching async tasks than do the slow processing.
-
-On the other hand, filters are implemented using a pipeline mechanism, that executes
+On the technical side, filters are implemented using a pipeline mechanism, that executes
 a list of functions called ``steps`` configured through Django settings. Each
 pipeline step receives a dictionary with data, process it and returns an output. During
 this process, they can alter the application execution flow by halting the process

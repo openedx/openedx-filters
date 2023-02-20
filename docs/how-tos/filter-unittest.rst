@@ -1,1 +1,0 @@
-* In edX platform + library

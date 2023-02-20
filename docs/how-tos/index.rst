@@ -6,6 +6,4 @@ How-tos
    :caption: Contents:
 
     create-new-filter
-    triggering-filters
-    configure-filter
-    filter-unittest
+    using-filters
