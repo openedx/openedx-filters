@@ -473,6 +473,7 @@ class TestRenderingFilters(TestCase):
         exception = render_exception(**attributes)
 
         self.assertDictContainsSubset(attributes, exception.__dict__)
+
     def test_account_settings_render_started(self):
         """
         Test AccountSettingsRenderStarted filter behavior under normal conditions.
@@ -486,13 +487,13 @@ class TestRenderingFilters(TestCase):
             'show_dashboard_tabs': True
         }
 
-        result = AccountSettingsRenderStarted.run_filter(context=context)
+        result, _ = AccountSettingsRenderStarted.run_filter(context=context, template_name=None)
 
         self.assertEqual(result, context)
 
     @data(
         (AccountSettingsRenderStarted.RedirectToPage, {"redirect_to": "custom_account_settings.html"}),
-        (AccountSettingsRenderStarted.PreventAccountSettingsRender, {}),
+        (AccountSettingsRenderStarted.RenderInvalidAccountSettings, {}),
         (AccountSettingsRenderStarted.RenderCustomResponse, {"response": Mock()})
     )
     @unpack

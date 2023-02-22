@@ -29,7 +29,6 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
             """
             super().__init__(message, redirect_to=redirect_to)
 
-
     class RenderInvalidAccountSettings(OpenEdxFilterException):
         """
         Custom class used to stop the account settings rendering process.
