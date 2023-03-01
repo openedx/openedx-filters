@@ -13,6 +13,14 @@ Change Log
 
 Unreleased
 ----------
+[1.2.0] - 2023-03-01
+--------------------
+
+Added
+~~~~~
+
+* AccountSettingsRenderStarted filter added which can be used to modify the rendered output of the account settings page.
+
 [1.1.0] - 2023-02-16
 --------------------
 
