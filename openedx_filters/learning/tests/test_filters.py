@@ -7,6 +7,7 @@ from ddt import data, ddt, unpack
 from django.test import TestCase
 
 from openedx_filters.learning.filters import (
+    AccountSettingsRenderStarted,
     CertificateCreationRequested,
     CertificateRenderStarted,
     CohortAssignmentRequested,
@@ -309,6 +310,7 @@ class TestRenderingFilters(TestCase):
     - DashboardRenderStarted
     - VerticalBlockChildRenderStarted
     - VerticalBlockRenderCompleted
+    - AccountSettingsRenderStarted
     """
 
     def setUp(self):
@@ -469,6 +471,39 @@ class TestRenderingFilters(TestCase):
             - The exception must have the attributes specified.
         """
         exception = render_exception(**attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
+
+    def test_account_settings_render_started(self):
+        """
+        Test AccountSettingsRenderStarted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter should return context.
+        """
+        context = {
+            'duplicate_provider': None,
+            'disable_courseware_js': True,
+            'show_dashboard_tabs': True
+        }
+
+        result, _ = AccountSettingsRenderStarted.run_filter(context=context, template_name=None)
+
+        self.assertEqual(result, context)
+
+    @data(
+        (AccountSettingsRenderStarted.RedirectToPage, {"redirect_to": "custom_account_settings.html"}),
+        (AccountSettingsRenderStarted.RenderInvalidAccountSettings, {}),
+        (AccountSettingsRenderStarted.RenderCustomResponse, {"response": Mock()})
+    )
+    @unpack
+    def test_halt_account_rendering_process(self, AccountSettingsException, attributes):
+        """
+        Test for account settings exceptions attributes.
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = AccountSettingsException(message="You can't access this page", **attributes)
 
         self.assertDictContainsSubset(attributes, exception.__dict__)
 

@@ -1,9 +1,80 @@
 """
 Package where filters related to the learning architectural subdomain are implemented.
 """
+
 from openedx_filters.exceptions import OpenEdxFilterException
 from openedx_filters.tooling import OpenEdxPublicFilter
 from openedx_filters.utils import SensitiveDataManagementMixin
+
+
+class AccountSettingsRenderStarted(OpenEdxPublicFilter):
+    """
+    Custom class used to create Account settings filters.
+    """
+
+    filter_type = "org.openedx.learning.student.settings.render.started.v1"
+
+    class RedirectToPage(OpenEdxFilterException):
+        """
+        Custom class used to redirect before the account settings rendering process.
+        """
+
+        def __init__(self, message, redirect_to=""):
+            """
+            Override init that defines specific arguments used in the account settings render process.
+
+            Arguments:
+                message: error message for the exception.
+                redirect_to: URL to redirect to.
+            """
+            super().__init__(message, redirect_to=redirect_to)
+
+    class RenderInvalidAccountSettings(OpenEdxFilterException):
+        """
+        Custom class used to stop the account settings rendering process.
+        """
+
+        def __init__(self, message, account_settings_template="", template_context=None):
+            """
+            Override init that defines specific arguments used in the account settings render process.
+
+            Arguments:
+                message: error message for the exception.
+                account_settings_template: template path rendered instead.
+                template_context: context used to the new account settings template.
+            """
+            super().__init__(
+                message,
+                account_settings_template=account_settings_template,
+                template_context=template_context,
+            )
+
+    class RenderCustomResponse(OpenEdxFilterException):
+        """
+        Custom class used to stop the account settings rendering process and return a custom response.
+        """
+
+        def __init__(self, message, response=None):
+            """
+            Override init that defines specific arguments used in the account settings render process.
+
+            Arguments:
+                message: error message for the exception.
+                response: custom response which will be returned by the account settings view.
+            """
+            super().__init__(message, response=response)
+
+    @classmethod
+    def run_filter(cls, context, template_name):
+        """
+        Execute a filter with the signature specified.
+
+        Arguments:
+            context (dict): template context for the account settings page.
+            template_name (str): template path used to render the account settings page.
+        """
+        data = super().run_pipeline(context=context, template_name=template_name)
+        return data.get("context"), data.get("template_name")
 
 
 class StudentRegistrationRequested(OpenEdxPublicFilter, SensitiveDataManagementMixin):
