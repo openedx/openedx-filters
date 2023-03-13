@@ -36,7 +36,7 @@ cffi==1.15.1
     #   cryptography
 chardet==5.1.0
     # via diff-cover
-charset-normalizer==3.0.1
+charset-normalizer==3.1.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -91,7 +91,7 @@ docutils==0.19
     #   readme-renderer
 edx-lint==5.3.2
     # via -r requirements/quality.txt
-exceptiongroup==1.1.0
+exceptiongroup==1.1.1
     # via
     #   -r requirements/quality.txt
     #   pytest
@@ -182,7 +182,7 @@ pkginfo==1.9.6
     # via
     #   -r requirements/quality.txt
     #   twine
-platformdirs==3.1.0
+platformdirs==3.1.1
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -213,7 +213,7 @@ pygments==2.14.0
     #   diff-cover
     #   readme-renderer
     #   rich
-pylint==2.16.3
+pylint==2.17.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -338,13 +338,13 @@ typing-extensions==4.5.0
     #   astroid
     #   pylint
     #   rich
-urllib3==1.26.14
+urllib3==1.26.15
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
     #   requests
     #   twine
-virtualenv==20.20.0
+virtualenv==20.21.0
     # via
     #   -r requirements/ci.txt
     #   tox
