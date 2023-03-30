@@ -569,3 +569,30 @@ class VerticalBlockRenderCompleted(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(block=block, fragment=fragment, context=context, view=view)
         return data.get("block"), data.get("fragment"), data.get("context"), data.get("view")
+
+
+class TenantAwareLinkRenderStarted(OpenEdxPublicFilter):
+    """
+    Custom class used to create tenant aware link render filters and its custom methods.
+    """
+
+    filter_type = "org.openedx.learning.tenant_aware_link.render.started.v1"
+
+    class PreventTenantAwarelinkRender(OpenEdxFilterException):
+        """
+        Custom class used to stop tenant aware link render process.
+        """
+
+    @classmethod
+    def run_filter(cls, context, org, val_name, default):
+        """
+        Execute a filter with the signature specified.
+
+        Arguments:
+        context (str): rendering context value
+        org (str): Course org filter, this value will be used to filter out the correct tenant configuration.
+        val_name (str): Name of the key for which to return configuration value.
+        default: default value to return if key is not present in the configuration
+        """
+        data = super().run_pipeline(context=context, org=org, val_name=val_name, default=default)
+        return data.get("context")

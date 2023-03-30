@@ -19,6 +19,7 @@ from openedx_filters.learning.filters import (
     DashboardRenderStarted,
     StudentLoginRequested,
     StudentRegistrationRequested,
+    TenantAwareLinkRenderStarted,
     VerticalBlockChildRenderStarted,
     VerticalBlockRenderCompleted,
 )
@@ -311,6 +312,7 @@ class TestRenderingFilters(TestCase):
     - VerticalBlockChildRenderStarted
     - VerticalBlockRenderCompleted
     - AccountSettingsRenderStarted
+    - TenantAwareLinkRenderStarted
     """
 
     def setUp(self):
@@ -504,6 +506,43 @@ class TestRenderingFilters(TestCase):
             - The exception must have the attributes specified.
         """
         exception = AccountSettingsException(message="You can't access this page", **attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
+
+    def test_tenant_aware_render_started(self):
+        """
+        Test TenantAwareLinkRenderStarted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter should return tenant aware link context.
+        """
+        context = Mock()
+        org = Mock()
+        val_name = Mock()
+        default = Mock()
+
+        result = TenantAwareLinkRenderStarted.run_filter(context, org, val_name, default)
+        print(result)
+
+        self.assertEqual(context, result)
+
+    @data(
+        (
+            TenantAwareLinkRenderStarted.PreventTenantAwarelinkRender,
+            {
+                "message": "Can't render tenant aware link."
+            }
+        )
+    )
+    @unpack
+    def test_halt_tenant_aware_render(self, tenant_aware_exception, attributes):
+        """
+        Test for teant aware exceptions attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = tenant_aware_exception(**attributes)
 
         self.assertDictContainsSubset(attributes, exception.__dict__)
 
