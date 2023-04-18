@@ -8,7 +8,7 @@ asgiref==3.6.0
     # via
     #   -r requirements/test.txt
     #   django
-astroid==2.15.2
+astroid==2.15.3
     # via
     #   pylint
     #   pylint-celery
@@ -36,7 +36,7 @@ coverage[toml]==7.2.3
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==40.0.1
+cryptography==40.0.2
     # via secretstorage
 ddt==1.6.0
     # via -r requirements/test.txt
@@ -56,7 +56,7 @@ exceptiongroup==1.1.1
     #   pytest
 idna==3.4
     # via requests
-importlib-metadata==6.2.1
+importlib-metadata==6.4.1
     # via
     #   keyring
     #   twine
@@ -96,7 +96,7 @@ mdurl==0.1.2
     # via markdown-it-py
 more-itertools==9.1.0
     # via jaraco-classes
-packaging==23.0
+packaging==23.1
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -118,7 +118,7 @@ pycparser==2.21
     # via cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.in
-pygments==2.14.0
+pygments==2.15.0
     # via
     #   readme-renderer
     #   rich
@@ -136,7 +136,7 @@ pylint-plugin-utils==0.7
     # via
     #   pylint-celery
     #   pylint-django
-pytest==7.3.0
+pytest==7.3.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -167,7 +167,7 @@ requests-toolbelt==0.10.1
     # via twine
 rfc3986==2.0.0
     # via twine
-rich==13.3.3
+rich==13.3.4
     # via twine
 secretstorage==3.3.3
     # via keyring
