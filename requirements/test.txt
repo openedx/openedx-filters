@@ -50,7 +50,7 @@ pytz==2023.3
     #   django
 pyyaml==6.0
     # via code-annotations
-sqlparse==0.4.3
+sqlparse==0.4.4
     # via
     #   -r requirements/base.txt
     #   django

@@ -85,7 +85,7 @@ exceptiongroup==1.1.1
     # via
     #   -r requirements/quality.txt
     #   pytest
-filelock==3.11.0
+filelock==3.12.0
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -94,7 +94,7 @@ idna==3.4
     # via
     #   -r requirements/quality.txt
     #   requests
-importlib-metadata==6.4.1
+importlib-metadata==6.6.0
     # via
     #   -r requirements/quality.txt
     #   keyring
@@ -196,7 +196,7 @@ pycparser==2.21
     #   cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.txt
-pygments==2.15.0
+pygments==2.15.1
     # via
     #   -r requirements/quality.txt
     #   diff-cover
@@ -283,7 +283,7 @@ snowballstemmer==2.2.0
     # via
     #   -r requirements/quality.txt
     #   pydocstyle
-sqlparse==0.4.3
+sqlparse==0.4.4
     # via
     #   -r requirements/quality.txt
     #   django
@@ -330,7 +330,7 @@ urllib3==1.26.15
     #   -r requirements/quality.txt
     #   requests
     #   twine
-virtualenv==20.21.0
+virtualenv==20.22.0
     # via
     #   -r requirements/ci.txt
     #   tox
