@@ -8,13 +8,13 @@ asgiref==3.6.0
     # via
     #   -r requirements/test.txt
     #   django
-astroid==2.15.4
+astroid==2.15.5
     # via
     #   pylint
     #   pylint-celery
 bleach==6.0.0
     # via readme-renderer
-certifi==2022.12.7
+certifi==2023.5.7
     # via requests
 cffi==1.15.1
     # via cryptography
@@ -42,11 +42,11 @@ ddt==1.6.0
     # via -r requirements/test.txt
 dill==0.3.6
     # via pylint
-django==3.2.18
+django==3.2.19
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
-docutils==0.19
+docutils==0.20
     # via readme-renderer
 edx-lint==5.3.4
     # via -r requirements/quality.in
@@ -106,7 +106,7 @@ pbr==5.11.1
     #   stevedore
 pkginfo==1.9.6
     # via twine
-platformdirs==3.5.0
+platformdirs==3.5.1
     # via pylint
 pluggy==1.0.0
     # via
@@ -122,7 +122,7 @@ pygments==2.15.1
     # via
     #   readme-renderer
     #   rich
-pylint==2.17.3
+pylint==2.17.4
     # via
     #   edx-lint
     #   pylint-celery
@@ -159,11 +159,11 @@ pyyaml==6.0
     #   code-annotations
 readme-renderer==37.3
     # via twine
-requests==2.29.0
+requests==2.30.0
     # via
     #   requests-toolbelt
     #   twine
-requests-toolbelt==0.10.1
+requests-toolbelt==1.0.0
     # via twine
 rfc3986==2.0.0
     # via twine
@@ -204,7 +204,7 @@ typing-extensions==4.5.0
     #   astroid
     #   pylint
     #   rich
-urllib3==1.26.15
+urllib3==2.0.2
     # via
     #   requests
     #   twine
