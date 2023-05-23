@@ -13,6 +13,14 @@ Change Log
 
 Unreleased
 ----------
+[1.3.0] - 2023-05-25
+--------------------
+
+Added
+~~~~~
+
+* CourseHomeUrlCreationStarted filter added which can be used to modify the course_home_url for externally hosted courses.
+
 [1.2.0] - 2023-03-01
 --------------------
 

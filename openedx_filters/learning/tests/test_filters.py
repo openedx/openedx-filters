@@ -15,6 +15,7 @@ from openedx_filters.learning.filters import (
     CourseAboutRenderStarted,
     CourseEnrollmentQuerysetRequested,
     CourseEnrollmentStarted,
+    CourseHomeUrlCreationStarted,
     CourseUnenrollmentStarted,
     DashboardRenderStarted,
     StudentLoginRequested,
@@ -544,3 +545,26 @@ class TestCohortFilters(TestCase):
         result = CohortAssignmentRequested.run_filter(user, target_cohort)
 
         self.assertTupleEqual((user, target_cohort,), result)
+
+
+class TestFederatedContentFilters(TestCase):
+    """
+    Test class to verify standard behavior of the federated content filters.
+    You'll find test suites for:
+
+    - CourseHomeUrlCreationStarted
+    """
+
+    def test_course_homeurl_creation_started(self):
+        """
+        Test CourseHomeUrlCreationStarted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter must have the signature specified.
+            - The filter should return course_key and course_home_url in that order.
+        """
+        course_key, course_home_url = Mock(), Mock()
+
+        result = CourseHomeUrlCreationStarted.run_filter(course_key, course_home_url)
+
+        self.assertTupleEqual((course_key, course_home_url,), result)
