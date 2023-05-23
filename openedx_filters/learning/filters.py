@@ -569,3 +569,23 @@ class VerticalBlockRenderCompleted(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(block=block, fragment=fragment, context=context, view=view)
         return data.get("block"), data.get("fragment"), data.get("context"), data.get("view")
+
+
+class CourseHomeUrlCreationStarted(OpenEdxPublicFilter):
+    """
+    Custom class used to create filters to act on course home url creation.
+    """
+
+    filter_type = "org.openedx.learning.course.homepage.url.creation.started.v1"
+
+    @classmethod
+    def run_filter(cls, course_key, course_home_url):
+        """
+        Execute a filter with the specified signature.
+
+        Arguments:
+            course_key (CourseKey): The course key for which the home url is being requested.
+            course_home_url (String): The url string for the course home
+        """
+        data = super().run_pipeline(course_key=course_key, course_home_url=course_home_url)
+        return data.get("course_key"), data.get("course_home_url")
