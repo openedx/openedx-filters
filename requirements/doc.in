@@ -4,7 +4,6 @@
 -r test.txt               # Core and testing dependencies for this package
 
 doc8                      # reStructuredText style checker
-edx_sphinx_theme          # edX theme for Sphinx output
 build                     # Needed for twine command
 twine                     # Utility for publishing Python packages on PyPI.
 sphinx
