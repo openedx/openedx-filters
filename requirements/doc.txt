@@ -6,7 +6,7 @@
 #
 alabaster==0.7.13
     # via sphinx
-asgiref==3.6.0
+asgiref==3.7.2
     # via
     #   -r requirements/test.txt
     #   django
@@ -18,7 +18,7 @@ bleach==6.0.0
     # via readme-renderer
 build==0.10.0
     # via -r requirements/doc.in
-certifi==2022.12.7
+certifi==2023.5.7
     # via requests
 cffi==1.15.1
     # via cryptography
@@ -32,7 +32,7 @@ code-annotations==1.3.0
     # via -r requirements/test.txt
 colorama==0.4.6
     # via sphinx-autobuild
-coverage[toml]==7.2.5
+coverage[toml]==7.2.6
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -40,7 +40,7 @@ cryptography==40.0.2
     # via secretstorage
 ddt==1.6.0
     # via -r requirements/test.txt
-django==3.2.18
+django==3.2.19
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -132,7 +132,7 @@ pytest==7.3.1
     #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
-pytest-cov==4.0.0
+pytest-cov==4.1.0
     # via -r requirements/test.txt
 pytest-django==4.5.2
     # via -r requirements/test.txt
@@ -152,12 +152,12 @@ pyyaml==6.0
     #   sphinx-book-theme
 readme-renderer==37.3
     # via twine
-requests==2.29.0
+requests==2.31.0
     # via
     #   requests-toolbelt
     #   sphinx
     #   twine
-requests-toolbelt==0.10.1
+requests-toolbelt==1.0.0
     # via twine
 restructuredtext-lint==1.4.0
     # via doc8
@@ -202,7 +202,7 @@ sphinxcontrib-htmlhelp==2.0.1
     # via sphinx
 sphinxcontrib-jsmath==1.0.1
     # via sphinx
-sphinxcontrib-mermaid==0.8.1
+sphinxcontrib-mermaid==0.9.2
     # via -r requirements/doc.in
 sphinxcontrib-qthelp==1.0.3
     # via sphinx
@@ -212,7 +212,7 @@ sqlparse==0.4.4
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==5.0.0
+stevedore==5.1.0
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -229,13 +229,16 @@ tomli==2.0.1
     #   doc8
     #   pyproject-hooks
     #   pytest
-tornado==6.3.1
+tornado==6.3.2
     # via livereload
 twine==4.0.2
     # via -r requirements/doc.in
-typing-extensions==4.5.0
-    # via rich
-urllib3==1.26.15
+typing-extensions==4.6.2
+    # via
+    #   -r requirements/test.txt
+    #   asgiref
+    #   rich
+urllib3==2.0.2
     # via
     #   requests
     #   twine
