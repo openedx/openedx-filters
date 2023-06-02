@@ -5,5 +5,5 @@ How-tos
    :maxdepth: 1
    :caption: Contents:
 
-    create-new-filter
-    using-filters
+   create-new-filter
+   using-filters
