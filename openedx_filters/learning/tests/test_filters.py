@@ -18,6 +18,7 @@ from openedx_filters.learning.filters import (
     CourseHomeUrlCreationStarted,
     CourseUnenrollmentStarted,
     DashboardRenderStarted,
+    InstructorDashboardRenderStarted,
     StudentLoginRequested,
     StudentRegistrationRequested,
     VerticalBlockChildRenderStarted,
@@ -505,6 +506,41 @@ class TestRenderingFilters(TestCase):
             - The exception must have the attributes specified.
         """
         exception = AccountSettingsException(message="You can't access this page", **attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
+
+    def test_instructor_dashboard_render_started(self):
+        """
+        Test InstructorDashboardRenderStarted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter must have the signature specified.
+            - The filter should return context and template_name in that order.
+        """
+        result = InstructorDashboardRenderStarted.run_filter(self.context, self.template_name)
+
+        self.assertTupleEqual((self.context, self.template_name,), result)
+
+    @data(
+        (InstructorDashboardRenderStarted.RedirectToPage, {"redirect_to": "custom-dashboard.html"}),
+        (
+            InstructorDashboardRenderStarted.RenderInvalidDashboard,
+            {
+                "dashboard_template": "custom-dasboard.html",
+                "template_context": {"course": Mock()},
+            }
+        ),
+        (InstructorDashboardRenderStarted.RenderCustomResponse, {"response": Mock()}),
+    )
+    @unpack
+    def test_halt_instructor_dashboard_render(self, dashboard_exception, attributes):
+        """
+        Test for the instructor dashboard exceptions attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = dashboard_exception(message="You can't access the dashboard", **attributes)
 
         self.assertDictContainsSubset(attributes, exception.__dict__)
 

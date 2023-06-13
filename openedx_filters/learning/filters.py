@@ -589,3 +589,76 @@ class CourseHomeUrlCreationStarted(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(course_key=course_key, course_home_url=course_home_url)
         return data.get("course_key"), data.get("course_home_url")
+
+
+class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
+    """
+    Custom class used to create instructor dashboard filters and its custom methods.
+    """
+
+    filter_type = "org.openedx.learning.instructor.dashboard.render.started.v1"
+
+    class RedirectToPage(OpenEdxFilterException):
+        """
+        Custom class used to stop the instructor dashboard process.
+        """
+
+        def __init__(self, message, redirect_to=""):
+            """
+            Override init that defines specific arguments used in the instructor dashboard render process.
+
+            Arguments:
+                message: error message for the exception.
+                redirect_to: URL to redirect to.
+            """
+            super().__init__(message, redirect_to=redirect_to)
+
+    class RenderInvalidDashboard(OpenEdxFilterException):
+        """
+        Custom class used to stop the instructor dashboard render process.
+        """
+
+        def __init__(self, message, dashboard_template="", template_context=None):
+            """
+            Override init that defines specific arguments used in the instructor dashboard render process.
+
+            Arguments:
+                message: error message for the exception.
+                dashboard_template: template path rendered instead.
+                template_context: context used to the new dashboard_template.
+            """
+            super().__init__(
+                message,
+                dashboard_template=dashboard_template,
+                template_context=template_context,
+            )
+
+    class RenderCustomResponse(OpenEdxFilterException):
+        """
+        Custom class used to stop the instructor dashboard rendering process.
+        """
+
+        def __init__(self, message, response=None):
+            """
+            Override init that defines specific arguments used in the instructor dashboard render process.
+
+            Arguments:
+                message: error message for the exception.
+                response: custom response which will be returned by the dashboard view.
+            """
+            super().__init__(
+                message,
+                response=response,
+            )
+
+    @classmethod
+    def run_filter(cls, context, template_name):
+        """
+        Execute a filter with the signature specified.
+
+        Arguments:
+            context (dict): context dictionary for instructor's tab template.
+            template_name (str): template name to be rendered by the instructor's tab.
+        """
+        data = super().run_pipeline(context=context, template_name=template_name)
+        return data.get("context"), data.get("template_name")
