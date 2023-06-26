@@ -32,9 +32,9 @@ packaging==23.1
     # via pytest
 pbr==5.11.1
     # via stevedore
-pluggy==1.0.0
+pluggy==1.2.0
     # via pytest
-pytest==7.3.2
+pytest==7.4.0
     # via
     #   pytest-cov
     #   pytest-django
