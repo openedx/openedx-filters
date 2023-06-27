@@ -86,7 +86,7 @@ Getting Help
 Documentation
 =============
 
-See `documentation on Read the Docs <https://openedx-filters.readthedocs.io/en/latest/>`_.
+See the `Open edX Hooks Extension Framework guide <https://github.com/openedx/edx-platform/blob/master/docs/guides/hooks/index.rst>`_ in edx-platform.
 
 More Help
 =========
