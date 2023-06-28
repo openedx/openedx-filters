@@ -6,3 +6,4 @@ Concepts
    :caption: Contents:
 
    hooks-extension-framework
+   glossary

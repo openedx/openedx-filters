@@ -1,11 +1,10 @@
-How to use
-----------
+How to use Open edX Filters
+---------------------------
 
 Using openedx-filters in your code is very straight forward. We can consider the
-two possible cases:
+various use cases: implementing pipeline steps, attaching/hooking pipelines to filter,
+and triggering a filter. We'll also cover how to test the filters you create in your service.
 
-Configuring a filter
-^^^^^^^^^^^^^^^^^^^^
 
 Implement pipeline steps
 ************************
@@ -23,6 +22,9 @@ and can be implemented in an installable Python library:
     from openedx_filters.learning.filters import CertificateCreationRequested
 
     class StopCertificateCreation(PipelineStep):
+        """
+        Stop certificate creation if user is not in third party service.
+        """
 
         def run_filter(self, user, course_id, mode, status):
             # Consult third party service and check if continue
@@ -57,7 +59,7 @@ filter to execute our pipeline.
     }
 
 Triggering a filter
-^^^^^^^^^^^^^^^^^^^
+*******************
 
 In order to execute a filter in your own plugin/library, you must install the
 plugin where the steps are implemented and also, ``openedx-filters``.
@@ -68,14 +70,14 @@ plugin where the steps are implemented and also, ``openedx-filters``.
     from openedx_filters.learning.filters import CertificateCreationRequested
 
     try:
-        self.user, self.course_id, self.mode, self.status = CertificateCreationRequested.run_filter(
-            user=self.user, course_id=self.course_id, mode=self.mode, status=self.status,
+        user, course_id, mode, status = CertificateCreationRequested.run_filter(
+            user=user, course_id=course_id, mode=mode, status=status,
         )
     except CertificateCreationRequested.PreventCertificateCreation as exc:
         raise CertificateGenerationNotAllowed(str(exc)) from exc
 
 Testing filters' steps
-^^^^^^^^^^^^^^^^^^^^^^
+**********************
 
 It's pretty straightforward to test your pipeline steps, you'll need to include the
 ``openedx-filters`` library in your testing dependencies and configure them in your test case.
@@ -102,14 +104,15 @@ It's pretty straightforward to test your pipeline steps, you'll need to include 
           - The pipeline step configured for the filter raises PreventCertificateCreation
           when the conditions are met.
         """
+        ...
         with self.assertRaises(CertificateCreationRequested.PreventCertificateCreation):
             CertificateCreationRequested.run_filter(
-                user=self.user, course_key=self.course_key, mode="audit",
+                user=user, course_key=course_key, mode="audit",
             )
 
         # run your assertions
 
 Changes in the ``openedx-filters`` library that are not compatible with your code
 should break this kind of test in CI and let you know you need to upgrade your code.
-The main limitation while testing filters' steps it's their arguments, as they are edxapp
-memory objects, but that can be solved in CI using Python mocks.
+The main limitation while testing filters' steps it's their arguments, as they are
+in-memory objects, but that can be solved in CI using Python mocks.

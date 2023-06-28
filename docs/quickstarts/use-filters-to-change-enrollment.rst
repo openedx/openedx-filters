@@ -9,4 +9,3 @@ you can find minimal steps exemplifying the different ways on how to use
 ``openedx-filters``.
 
 .. _openedx-filters-samples: https://github.com/eduNEXT/openedx-filters-samples
-
