@@ -662,3 +662,35 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(context=context, template_name=template_name)
         return data.get("context"), data.get("template_name")
+
+
+class AccessRoleCheckRequested(OpenEdxPublicFilter):
+
+    @classmethod
+    def run_filter(cls, user, roles, course_key):
+        data = super().run_pipeline(user=user, roles=roles, course_key=course_key)
+        return data.get("user"), data.get("roles"), data.get("course_key")
+
+
+class AccessRoleAdditionRequested(OpenEdxPublicFilter):
+
+    @classmethod
+    def run_filter(cls, user, roles, course_key):
+        data = super().run_pipeline(user=user, roles=roles, course_key=course_key)
+        return data.get("user"), data.get("roles"), data.get("course_key")
+
+
+class AccessRoleRemovalRequested(OpenEdxPublicFilter):
+
+    @classmethod
+    def run_filter(cls, user, roles, course_key):
+        data = super().run_pipeline(user=user, roles=roles, course_key=course_key)
+        return data.get("user"), data.get("roles"), data.get("course_key")
+
+
+class UsersWithRolesRequested(OpenEdxPublicFilter):
+
+    @classmethod
+    def run_filter(cls, user, roles, course_key):
+        data = super().run_pipeline(user=user, roles=roles, course_key=course_key)
+        return data.get("user"), data.get("roles"), data.get("course_key")
