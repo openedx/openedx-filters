@@ -526,7 +526,7 @@ class TestRenderingFilters(TestCase):
         (
             InstructorDashboardRenderStarted.RenderInvalidDashboard,
             {
-                "dashboard_template": "custom-dasboard.html",
+                "instructor_template": "custom-dasboard.html",
                 "template_context": {"course": Mock()},
             }
         ),

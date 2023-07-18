@@ -600,7 +600,7 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
 
     class RedirectToPage(OpenEdxFilterException):
         """
-        Custom class used to stop the instructor dashboard process.
+        Custom class used to stop the instructor dashboard render by redirecting to a new page.
         """
 
         def __init__(self, message, redirect_to=""):
@@ -615,27 +615,27 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
 
     class RenderInvalidDashboard(OpenEdxFilterException):
         """
-        Custom class used to stop the instructor dashboard render process.
+        Custom class used to render a custom template instead of the instructor dashboard.
         """
 
-        def __init__(self, message, dashboard_template="", template_context=None):
+        def __init__(self, message, instructor_template="", template_context=None):
             """
             Override init that defines specific arguments used in the instructor dashboard render process.
 
             Arguments:
                 message: error message for the exception.
-                dashboard_template: template path rendered instead.
-                template_context: context used to the new dashboard_template.
+                instructor_template: template path rendered instead.
+                template_context: context used to the new instructor_template.
             """
             super().__init__(
                 message,
-                dashboard_template=dashboard_template,
+                instructor_template=instructor_template,
                 template_context=template_context,
             )
 
     class RenderCustomResponse(OpenEdxFilterException):
         """
-        Custom class used to stop the instructor dashboard rendering process.
+        Custom class used to stop the instructor dashboard rendering by returning a custom response.
         """
 
         def __init__(self, message, response=None):
