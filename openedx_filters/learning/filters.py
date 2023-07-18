@@ -666,6 +666,8 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
 
 class AccessRoleCheckRequested(OpenEdxPublicFilter):
 
+    filter_type = "org.openedx.learning.access.role.check.requested.v1"
+
     @classmethod
     def run_filter(cls, user, roles, course_key):
         data = super().run_pipeline(user=user, roles=roles, course_key=course_key)
@@ -673,6 +675,8 @@ class AccessRoleCheckRequested(OpenEdxPublicFilter):
 
 
 class AccessRoleAdditionRequested(OpenEdxPublicFilter):
+
+    filter_type = "org.openedx.learning.access.role.addition.requested.v1"
 
     @classmethod
     def run_filter(cls, user, roles, course_key):
@@ -682,6 +686,8 @@ class AccessRoleAdditionRequested(OpenEdxPublicFilter):
 
 class AccessRoleRemovalRequested(OpenEdxPublicFilter):
 
+    filter_type = "org.openedx.learning.access.role.removal.requested.v1"
+
     @classmethod
     def run_filter(cls, user, roles, course_key):
         data = super().run_pipeline(user=user, roles=roles, course_key=course_key)
@@ -689,6 +695,8 @@ class AccessRoleRemovalRequested(OpenEdxPublicFilter):
 
 
 class UsersWithRolesRequested(OpenEdxPublicFilter):
+
+    filter_type = "org.openedx.learning.access.role.users.retrieval.requested.v1"
 
     @classmethod
     def run_filter(cls, user, roles, course_key):
