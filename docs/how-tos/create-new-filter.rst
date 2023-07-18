@@ -28,71 +28,71 @@ Steps
 
 #. Propose a new filter to the Open edX community
 
-When creating a new filter, you must justify its implementation. For example, you could create a post in Discuss,
-send a message through slack or open a new issue in the library repository listing your use cases for it. Or even,
-if you have time, you could accompany your proposal with the implementation of the filter to illustrate its behavior.
+    When creating a new filter, you must justify its implementation. For example, you could create a post in Discuss,
+    send a message through slack or open a new issue in the library repository listing your use cases for it. Or even,
+    if you have time, you could accompany your proposal with the implementation of the filter to illustrate its behavior.
 
 #. Place your filter in an architecture subdomain
 
-As specified in the Architectural Decisions Record (ADR) filter naming and versioning, the filter definition needs an Open edX Architecture
-Subdomain for:
+    As specified in the Architectural Decisions Record (ADR) filter naming and versioning, the filter definition needs an Open edX Architecture
+    Subdomain for:
 
-- The type of the filter: ``{Reverse DNS}.{Architecture Subdomain}.{Subject}.{Action}.{Major Version}``
-- The package name where the definition will live, eg. ``learning/``.
+    - The type of the filter: ``{Reverse DNS}.{Architecture Subdomain}.{Subject}.{Action}.{Major Version}``
+    - The package name where the definition will live, eg. ``learning/``.
 
-For those reasons, after studying your new filter purpose, you must place it in one of the subdomains already in use, or introduce a new subdomain:
+    For those reasons, after studying your new filter purpose, you must place it in one of the subdomains already in use, or introduce a new subdomain:
 
-+-------------------+----------------------------------------------------------------------------------------------------+
-| Subdomain name    | Description                                                                                        |
-+===================+====================================================================================================+
-| Learning          | Allows learners to consume content and perform actions in a learning activity on the platform.     |
-+-------------------+----------------------------------------------------------------------------------------------------+
+    +-------------------+----------------------------------------------------------------------------------------------------+
+    | Subdomain name    | Description                                                                                        |
+    +===================+====================================================================================================+
+    | Learning          | Allows learners to consume content and perform actions in a learning activity on the platform.     |
+    +-------------------+----------------------------------------------------------------------------------------------------+
 
-New subdomains may require some discussion, because there does not yet exist and agreed upon set on subdomains. So we encourage you to start the conversation
-as soon as possible through any of the communication channels available.
+    New subdomains may require some discussion, because there does not yet exist and agreed upon set of subdomains. So we encourage you to start the conversation
+    as soon as possible through any of the communication channels available.
 
-Refer to `edX DDD Bounded Contexts <https://openedx.atlassian.net/l/cp/vf8XjRiX>`_ confluence page for more documentation on domain-driven design in the Open edX project.
+    Refer to `edX DDD Bounded Contexts <https://openedx.atlassian.net/l/cp/vf8XjRiX>`_ confluence page for more documentation on domain-driven design in the Open edX project.
 
 #. Define the filter's behavior
 
-Defining the filter's behavior includes:
+    Defining the filter's behavior includes:
 
-- Defining the filter type for identification
-- Defining the filter's signature
-- Defining the filter's behavior for stopping the process in which it is being used
+    - Defining the filter type for identification
+    - Defining the filter's signature
+    - Defining the filter's behavior for stopping the process in which it is being used
 
-The filter type is the name that will be used to identify the filter's and it'd help others identifying its purpose. For example, if you're creating a filter that will be used during the student registration process in the LMS,
-according to the documentation, the filter type is defined as follows:
+    The filter type is the name that will be used to identify the filter's and it'd help others identifying its purpose. For example, if you're creating a filter that will be used during the student registration process in the LMS,
+    according to the documentation, the filter type is defined as follows:
 
-``{Reverse DNS}.{Architecture Subdomain}.student.registration.requested.{Major Version}``
+    ``{Reverse DNS}.{Architecture Subdomain}.student.registration.requested.{Major Version}``
 
-Where ``student`` is the subject and ``registration.requested`` the action being performed. The major version is the version of the filter, which will be incremented
-when a change is made to the filter that is not backwards compatible, as explained in the ADR.
+    Where ``student`` is the subject and ``registration.requested`` the action being performed. The major version is the version of the filter, which will be incremented
+    when a change is made to the filter that is not backwards compatible, as explained in the ADR.
 
-Now that you have the filter type, you'll need to define the filter's signature and overall behavior. The filter's signature, which is the set of parameters that the filter will manipulate, depends on where the filter is located. For example,
-if you're creating a filter that will be used during the student registration process in the LMS, the filter's signature will be the set of parameters available for that time for the user. In this case, the filter's signature will be the set of parameters that the registration form sends to the LMS.
+    Now that you have the filter type, you'll need to define the filter's signature and overall behavior. The filter's signature, which is the set of parameters that the filter will manipulate, depends on where the filter is located. For example,
+    if you're creating a filter that will be used during the student registration process in the LMS, the filter's signature will be the set of parameters available for that time for the user. In this case, the filter's signature will be the set of parameters that the registration form sends to the LMS.
 
-To get to this conclusions for your specific filter, you can ask yourself the following questions:
+    You can ask yourself the following questions to help you figure out your filter's parameters:
 
-- What is the filter's purpose? (e.g. to validate the student's email address)
-- What parameters will the filter need to to that? (e.g. the email address)
-- Where in the registration process will the filter be used? (e.g. after the student submits the registration form but before anything else)
+    - What is the filter's purpose? (e.g. to validate the student's email address)
+    - What parameters will the filter need to to that? (e.g. the email address)
+    - Where in the registration process will the filter be used? (e.g. after the student submits the registration form but before anything else)
 
-With that information, you can define the filter's signature:
+    With that information, you can define the filter's signature:
 
-- Arguments: ``email``. Since we want this filter to be broadly used, we'll add as much relevant information as possible for the user at that point. As we mentioned above, we can send more information stored in the registration form like ``name`` or ``username``.
-- Returns: since filters take in a set of parameters and return a set of parameters, we'll return the same set of parameters that we received.
+    - Arguments: ``email``. Since we want this filter to be broadly used, we'll add as much relevant information as possible for the user at that point. As we mentioned above, we can send more information stored in the registration form like ``name`` or ``username``.
+    - Returns: since filters take in a set of parameters and return a set of parameters, we'll return the same set of parameters that we received.
 
-Since filters also can act according to the result of the filter's execution, we'll need to define the filter's behavior for when the filter stops the process in which it is being used. For example, if you're using the filter in the LMS, you'll need to define
-what happens when the filter stops the registration process. So, for this filter we'll define the following behavior:
+    Since filters also can act according to the result of the filter's execution, we'll need to define the filter's behavior for when the filter stops the process in which it is being used. For example, if you're using the filter in the LMS, you'll need to define
+    what happens when the filter stops the registration process. So, for this filter we'll define the following behavior:
 
-- When stopping the registration process, we'll raise a ``PreventRegistration`` exception.
+    - When stopping the registration process, we'll raise a ``PreventRegistration`` exception.
 
 #. Implement the new filter
 
 .. Following the steps, you should add the result and any follow-up tasks needed.
 
-Up to this point, you should have the following:
+    Up to this point, you should have the following:
 
 .. code-block:: python
 
@@ -124,12 +124,23 @@ Up to this point, you should have the following:
 .. note::
   This is not exactly what the registration filter looks like, but it's a good starting point. You can find the full implementation of the registration filter in the library's repository.
 
-Some things to note:
+    Some things to note:
 
-- The filter's type is defined in the ``filter_type`` class attribute. In this case, the filter type is ``org.openedx.learning.student.registration.requested.v1``.
-- The filter's signature is defined in the ``run_filter`` method. In this case, the signature is the ``form_data`` parameter.
-- The ``run_filter`` is a class method that returns the same set of parameters that it receives.
-- The ``run_filter`` class method calls the ``run_pipeline`` method, which is the method that executes the filter's logic. This method is defined in the ``OpenEdxPublicFilter`` class, which is the base class for all the filters in the library. This method returns a dictionary with the following structure:
+    - The filter's type is defined in the ``filter_type`` class attribute. In this case, the filter type is ``org.openedx.learning.student.registration.requested.v1``.
+    - The filter's signature is defined in the ``run_filter`` method. In this case, the signature is the ``form_data`` parameter.
+    - The ``run_filter`` is a class method that returns the same set of parameters that it receives.
+    - The ``run_filter`` class method calls the ``run_pipeline`` method, which is the method that executes the filter's logic. This method is defined in the ``OpenEdxPublicFilter`` class, which is the base class for all the filters in the library. This method returns a dictionary with the following structure:
+
+    .. code-block:: python
+
+      {
+        "<INPUT ARGUMENT 1>": <INPUT ARGUMENT OBJECT 1>,
+        "<INPUT ARGUMENT 2>": <INPUT ARGUMENT OBJECT 2>,
+        ...
+        "<OUTPUT ARGUMENT N>": <OUTPUT ARGUMENT OBJECT N>,
+      }
+
+    Where in this specific example would be:
 
     .. code-block:: python
 
@@ -137,14 +148,14 @@ Some things to note:
         "form_data": form_data,
       }
 
-    Where ``form_data`` is the same set of parameters that the filter receives, which is the accumulated output for the filter's pipeline. This is how ``run_filter`` should always look like.
-- The filter's behavior for stopping the process is defined in the ``PreventRegistration`` exception which inherits from the ``OpenEdxFilterException`` base exception. In this case, the exception is raised when the filter stops the registration process. This is done in the service where the filter is being used, which in this case is the LMS.
-- The class name is the filter's type ``{Subject}.{Action}`` part in a camel case format. In this case, the filter's name is ``StudentRegistrationRequested``.
+    Where ``form_data`` is the same set of parameters that the filter receives, which is the accumulated output for the filter's pipeline. That is how ``run_filter`` should always look like.
+    - The filter's behavior for stopping the process is defined in the ``PreventRegistration`` exception which inherits from the ``OpenEdxFilterException`` base exception. In this case, the exception is raised when the filter stops the registration process. This is done in the service where the filter is being used, which in this case is the LMS.
+    - The class name is the filter's type ``{Subject}.{Action}`` part in a camel case format. In this case, the filter's name is ``StudentRegistrationRequested``.
 
 #. Add tests for the new filter
 
-Each filter has its own set of tests. The tests for the filter you're creating should be located in the ``tests`` directory in the library's repository. The tests should be located in the ``test_filters.py`` file, which is where all the tests for the filters are located. Each set of tests is related to a specific type of filter, so you should add your tests to the set of tests that are related to the filter you're creating.
-For example, if you're creating a filter that will be used during the student registration process in the LMS, you should add your tests to the ``TestAuthFilters`` set of tests. This is how the tests for the registration filter look like:
+    Each filter has its own set of tests. The tests for the filter you're creating should be located in the ``tests`` directory in the library's repository. The tests should be located in the ``test_filters.py`` file, which is where all the tests for the filters are located. Each set of tests is related to a specific type of filter, so you should add your tests to the set of tests that are related to the filter you're creating.
+    For example, if you're creating a filter that will be used during the student registration process in the LMS, you should add your tests to the ``TestAuthFilters`` set of tests. This is how the tests for the registration filter look like:
 
 
 .. code-block:: python
@@ -184,7 +195,8 @@ For example, if you're creating a filter that will be used during the student re
 
         self.assertDictContainsSubset(attributes, exception.__dict__)
 
-Basically, we're testing the filter's signature and the filter's behavior for stopping the process. The first test is testing the filter's signature, which is the set of parameters that the filter receives and returns. The second test is testing the filter's behavior for stopping the process, which is the exception that is raised when the filter stops the process.
+.. note::
+    Basically, we're testing the filter's signature and the filter's behavior for stopping the process. The first test is testing the filter's signature, which is the set of parameters that the filter receives and returns. The second test is testing the filter's behavior for stopping the process, which is the exception that is raised when the filter stops the process.
 
 .. .. seealso::
 

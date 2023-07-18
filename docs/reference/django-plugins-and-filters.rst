@@ -16,7 +16,7 @@ after implementing their definitions in your plugin.
 Configure filters
 *****************
 
-Filters are configured in the ``OPEN_EDX_FILTERS_CONFIG`` dictionary which can we specified in your plugin's settings
+Filters are configured in the ``OPEN_EDX_FILTERS_CONFIG`` dictionary which can be specified in your plugin's settings
 file. The dictionary has the following structure:
 
 .. code-block:: python

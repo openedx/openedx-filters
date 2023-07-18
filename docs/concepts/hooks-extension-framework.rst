@@ -14,7 +14,7 @@ functions can take place. In some cases, those functions can alter what the user
 sees or experiences in the platform. Other cases are informative only. All cases
 are meant to be extended using Open edX plugins and configuration.
 
-Hooks can be of two types, events and filters. Events are in essence signals, in
+Hooks can be of two types, events and filters. Events are in essence Django signals, in
 that they are sent in specific application places and whose listeners can extend
 functionality. On the other hand Filters are passed data and can act on it
 before this data is put back in the original application flow. In order to allow
@@ -32,12 +32,12 @@ the case of filters, this is detailed in the `naming and versioning ADR`_.
 A longer description of the framework and it's history can be found in `OEP 50`_.
 
 .. _OEP 50: https://open-edx-proposals.readthedocs.io/en/latest/oep-0050-hooks-extension-framework.html
-.. _naming and versioning ADR: https://github.com/eduNEXT/openedx-events/blob/main/docs/decisions/0002-events-naming-and-versioning.rst
-.. _openedx-filters: https://github.com/eduNEXT/openedx-filters
-.. _openedx-events: https://github.com/eduNEXT/openedx-events
+.. _naming and versioning ADR: https://github.com/openedx/openedx-filters/blob/main/docs/decisions/0004-filters-naming-and-versioning.rst
+.. _openedx-filters: https://github.com/openedx/openedx-filters
+.. _openedx-events: https://github.com/openedx/openedx-events
 
 On the technical side, filters are implemented using a pipeline mechanism, that executes
 a list of functions called ``steps`` configured through Django settings. Each
-pipeline step receives a dictionary with data, process it and returns an output. During
+pipeline step receives a dictionary with data, processes it and returns an output. During
 this process, they can alter the application execution flow by halting the process
 or modifying their input arguments.

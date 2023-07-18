@@ -38,8 +38,47 @@ There's two key components to the implementation:
 
 1. The filter step must be a subclass of ``PipelineStep``.
 
-2. The ``run_filter`` signature must match the filters definition, eg.,
-the previous step matches the method's definition in CertificateCreationRequested.
+2. The ``run_filter`` signature must match the filters', eg., the step signature matches the `run_filter` signature in CertificateCreationRequested:
+
+.. code-block:: python
+
+    class CertificateCreationRequested(OpenEdxPublicFilter):
+        """
+        Custom class used to create certificate creation filters and its custom methods.
+        """
+
+        filter_type = "org.openedx.learning.certificate.creation.requested.v1"
+
+        class PreventCertificateCreation(OpenEdxFilterException):
+            """
+            Custom class used to stop the certificate creation process.
+            """
+
+        @classmethod
+        def run_filter(cls, user, course_key, mode, status, grade, generation_mode):
+            """
+            Execute a filter with the signature specified.
+
+            Arguments:
+                user (User): is a Django User object.
+                course_key (CourseKey): course key associated with the certificate.
+                mode (str): mode of the certificate.
+                status (str): status of the certificate.
+                grade (CourseGrade): user's grade in this course run.
+                generation_mode (str): Options are "self" (implying the user generated the cert themself) and "batch"
+                for everything else.
+            """
+            data = super().run_pipeline(
+                user=user, course_key=course_key, mode=mode, status=status, grade=grade, generation_mode=generation_mode,
+            )
+            return (
+                data.get("user"),
+                data.get("course_key"),
+                data.get("mode"),
+                data.get("status"),
+                data.get("grade"),
+                data.get("generation_mode"),
+            )
 
 Attach/hook pipeline to filter
 ******************************
@@ -61,7 +100,7 @@ filter to execute our pipeline.
 Triggering a filter
 *******************
 
-In order to execute a filter in your own plugin/library, you must install the
+In order to execute a filter in edx-platform or your own plugin/library, you must install the
 plugin where the steps are implemented and also, ``openedx-filters``.
 
 .. code-block:: python
@@ -114,5 +153,5 @@ It's pretty straightforward to test your pipeline steps, you'll need to include 
 
 Changes in the ``openedx-filters`` library that are not compatible with your code
 should break this kind of test in CI and let you know you need to upgrade your code.
-The main limitation while testing filters' steps it's their arguments, as they are
+The main limitation while testing filters' steps is their arguments, as they are
 in-memory objects, but that can be solved in CI using Python mocks.
