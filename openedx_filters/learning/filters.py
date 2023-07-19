@@ -591,6 +591,26 @@ class CourseHomeUrlCreationStarted(OpenEdxPublicFilter):
         return data.get("course_key"), data.get("course_home_url")
 
 
+class CourseIsStartedCreationStarted(OpenEdxPublicFilter):
+    """
+    Custom class used to create filters to act on isStarted creation.
+    """
+
+    filter_type = "org.openedx.learning.course.is.started.creation.started.v1"
+
+    @classmethod
+    def run_filter(cls, course_key, is_started):
+        """
+        Execute a filter with the specified signature.
+
+        Arguments:
+            course_key (CourseKey): The course key for which the home url is being requested.
+            is_started (Boolean): isStarted check value for the course
+        """
+        data = super().run_pipeline(course_key=course_key, is_started=is_started)
+        return data.get("course_key"), data.get("is_started")
+
+
 class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
     """
     Custom class used to create instructor dashboard filters and its custom methods.

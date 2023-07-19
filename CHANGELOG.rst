@@ -14,6 +14,15 @@ Change Log
 Unreleased
 ----------
 
+[1.5.0] - 2023-07-19
+--------------------
+
+Added
+~~~~~
+
+* CourseIsStartedCreationStarted filter added which can be used to modify the isStarted B2C dashboard rendering process.
+
+
 [1.4.0] - 2023-07-18
 --------------------
 

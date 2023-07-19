@@ -16,6 +16,7 @@ from openedx_filters.learning.filters import (
     CourseEnrollmentQuerysetRequested,
     CourseEnrollmentStarted,
     CourseHomeUrlCreationStarted,
+    CourseIsStartedCreationStarted,
     CourseUnenrollmentStarted,
     DashboardRenderStarted,
     InstructorDashboardRenderStarted,
@@ -604,3 +605,17 @@ class TestFederatedContentFilters(TestCase):
         result = CourseHomeUrlCreationStarted.run_filter(course_key, course_home_url)
 
         self.assertTupleEqual((course_key, course_home_url,), result)
+
+    def test_course_is_started_creation_started(self):
+        """
+        Test CourseIsStartedCreationStarted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter must have the signature specified.
+            - The filter should return course_key and is_started in that order.
+        """
+        course_key, is_started = Mock(), Mock()
+
+        result = CourseIsStartedCreationStarted.run_filter(course_key, is_started)
+
+        self.assertTupleEqual((course_key, is_started,), result)
