@@ -662,3 +662,61 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(context=context, template_name=template_name)
         return data.get("context"), data.get("template_name")
+
+
+class ORAStudentViewRenderStarted(OpenEdxPublicFilter):
+    """
+    Custom class used to create dashboard render filters and its custom methods.
+    """
+
+    filter_type = "org.openedx.learning.ora.student_view.render.started.v1"
+
+    class RenderInvalidTemplate(OpenEdxFilterException):
+        """
+        Custom class used to stop the dashboard render process.
+        """
+
+        def __init__(self, message, dashboard_template="", template_context=None):
+            """
+            Override init that defines specific arguments used in the dashboard render process.
+
+            Arguments:
+                message: error message for the exception.
+                dashboard_template: template path rendered instead.
+                template_context: context used to the new dashboard_template.
+            """
+            super().__init__(
+                message,
+                dashboard_template=dashboard_template,
+                template_context=template_context,
+            )
+
+    class RenderCustomFragment(OpenEdxFilterException):
+        """
+        Custom class used to stop the dashboard rendering process.
+        """
+
+        def __init__(self, message, fragment=None):
+            """
+            Override init that defines specific arguments used in the dashboard render process.
+
+            Arguments:
+                message: error message for the exception.
+                response: custom response which will be returned by the dashboard view.
+            """
+            super().__init__(
+                message,
+                fragment=fragment,
+            )
+
+    @classmethod
+    def run_filter(cls, context, template_name):
+        """
+        Execute a filter with the signature specified.
+
+        Arguments:
+            context (dict): context dictionary for student's dashboard template.
+            template_name (str): template name to be rendered by the student's dashboard.
+        """
+        data = super().run_pipeline(context=context, template_name=template_name)
+        return data.get("context"), data.get("template_name")
