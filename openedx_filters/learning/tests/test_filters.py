@@ -13,6 +13,7 @@ from openedx_filters.learning.filters import (
     CohortAssignmentRequested,
     CohortChangeRequested,
     CourseAboutRenderStarted,
+    CourseEnrollmentAPIRenderStarted,
     CourseEnrollmentQuerysetRequested,
     CourseEnrollmentStarted,
     CourseHomeUrlCreationStarted,
@@ -604,3 +605,17 @@ class TestFederatedContentFilters(TestCase):
         result = CourseHomeUrlCreationStarted.run_filter(course_key, course_home_url)
 
         self.assertTupleEqual((course_key, course_home_url,), result)
+
+    def test_course_enrollment_api_render_started(self):
+        """
+        Test CourseEnrollmentAPIRenderStarted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter must have the signature specified.
+            - The filter should return course_key and is_started in that order.
+        """
+        course_key, serialized_enrollment = Mock(), Mock()
+
+        result = CourseEnrollmentAPIRenderStarted.run_filter(course_key, serialized_enrollment)
+
+        self.assertTupleEqual((course_key, serialized_enrollment,), result)

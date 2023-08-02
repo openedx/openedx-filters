@@ -591,6 +591,26 @@ class CourseHomeUrlCreationStarted(OpenEdxPublicFilter):
         return data.get("course_key"), data.get("course_home_url")
 
 
+class CourseEnrollmentAPIRenderStarted(OpenEdxPublicFilter):
+    """
+    Custom class used to create filters for enrollment data.
+    """
+
+    filter_type = "org.openedx.learning.home.enrollment.api.rendered.v1"
+
+    @classmethod
+    def run_filter(cls, course_key, serialized_enrollment):
+        """
+        Execute a filter with the specified signature.
+
+        Arguments:
+            course_key (CourseKey): The course key for which isStarted is being modify.
+            serialized_enrollment (dict): enrollment data
+        """
+        data = super().run_pipeline(course_key=course_key, serialized_enrollment=serialized_enrollment)
+        return data.get("course_key"), data.get("serialized_enrollment")
+
+
 class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
     """
     Custom class used to create instructor dashboard filters and its custom methods.
