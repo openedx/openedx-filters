@@ -32,7 +32,7 @@ code-annotations==1.5.0
     # via -r requirements/test.txt
 colorama==0.4.6
     # via sphinx-autobuild
-coverage[toml]==7.2.7
+coverage[toml]==7.3.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -66,7 +66,7 @@ importlib-metadata==6.8.0
     #   keyring
     #   sphinx
     #   twine
-importlib-resources==6.0.0
+importlib-resources==6.0.1
     # via keyring
 iniconfig==2.0.0
     # via
@@ -228,7 +228,7 @@ tomli==2.0.1
     #   doc8
     #   pyproject-hooks
     #   pytest
-tornado==6.3.2
+tornado==6.3.3
     # via livereload
 twine==4.0.2
     # via -r requirements/doc.in

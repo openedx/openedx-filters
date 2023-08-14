@@ -51,7 +51,7 @@ code-annotations==1.5.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-coverage[toml]==7.2.7
+coverage[toml]==7.3.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -99,7 +99,7 @@ importlib-metadata==6.8.0
     #   -r requirements/quality.txt
     #   keyring
     #   twine
-importlib-resources==6.0.0
+importlib-resources==6.0.1
     # via
     #   -r requirements/quality.txt
     #   keyring
@@ -165,7 +165,7 @@ pbr==5.11.1
     # via
     #   -r requirements/quality.txt
     #   stevedore
-pip-tools==7.2.0
+pip-tools==7.3.0
     # via -r requirements/pip-tools.txt
 pkginfo==1.9.6
     # via
@@ -332,7 +332,7 @@ urllib3==2.0.4
     #   -r requirements/quality.txt
     #   requests
     #   twine
-virtualenv==20.24.2
+virtualenv==20.24.3
     # via
     #   -r requirements/ci.txt
     #   tox
