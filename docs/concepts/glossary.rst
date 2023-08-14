@@ -12,17 +12,22 @@ A pipeline is a list of functions that are executed in order. Each function rece
 Pipeline steps
 --------------
 
-A pipeline step is a function that receives data, manipulates it and returns it. It can be used to transform data, to validate it, to filter it, to enrich it, etc. In the context of Open edX Filters, a pipeline step is a class that inherits from ``PipelineStep`` that implements the `run_filter` method.
+A pipeline step is a function that receives data, manipulates it and returns it. It can be used to transform data, to validate it, to filter it, to enrich it, etc.
 
 Open edX Filter
 ---------------
 
-An Open edX Filter is a Python class used for executing pipelines or list of functions in specific order. It implements a `run_filter` method that receives the data to be processed and returns the output of the pipeline.
+An Open edX Filter is a Python class that inherits from `OpenEdXPublicFilter`, which is used for executing pipelines or list of functions in specific order. It implements a `run_filter` method that receives the data to be processed and returns the output of the pipeline.
 
-Filter signature
-----------------
+Open edX Filter signature
+-------------------------
 
-It's the signature of the `run_filter` method. It defines the input and output of the filter. The input is a dictionary with the data to be processed and the output is a dictionary with the processed data.
+It's the signature of the `run_filter` method of each filter. It defines the input and output of the filter. The input is a dictionary with the data to be processed and the output is a dictionary with the processed data.
+
+Open edX Filters' pipeline steps
+--------------------------------
+
+In the context of Open edX Filters, a pipeline step is a class that inherits from ``PipelineStep`` that implements the `run_filter` method which must match the Open edX Filter signature.
 
 Filter type
 -----------
