@@ -14,6 +14,15 @@ Change Log
 Unreleased
 ----------
 
+[1.6.0] - 2023-08-18
+--------------------
+
+Added
+~~~~~
+
+* CourseRunAPIRenderStarted filter added which can be used to modify the courserun data for B2C dashboard rendering process.
+
+
 [1.5.0] - 2023-07-19
 --------------------
 
