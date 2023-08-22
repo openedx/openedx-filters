@@ -104,11 +104,11 @@ can provide.
 
 https://github.com/openedx/openedx-filters/issues
 
-For more information about these options, see the `Getting Help`_ page.
+For more information about these options, see the `Open edX Getting Help`_ page.
 
 .. _Slack invitation: https://openedx.org/slack
 .. _community Slack workspace: https://openedx.slack.com/
-.. _Getting Help: https://openedx.org/getting-help
+.. _Open edX Getting Help: https://openedx.org/getting-help
 
 License
 *******

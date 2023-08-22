@@ -70,7 +70,7 @@ setup(
     name="openedx-filters",
     version=VERSION,
     description="""Open edX Filters from Hooks Extensions Framework (OEP-50).""",
-    long_description=README + "\n\n" + CHANGELOG,
+    long_description=README,
     long_description_content_type='text/x-rst',
     author="eduNEXT",
     author_email="technical@edunext.co",
