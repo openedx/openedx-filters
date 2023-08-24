@@ -17,6 +17,7 @@ from openedx_filters.learning.filters import (
     CourseEnrollmentQuerysetRequested,
     CourseEnrollmentStarted,
     CourseHomeUrlCreationStarted,
+    CourseRunAPIRenderStarted,
     CourseUnenrollmentStarted,
     DashboardRenderStarted,
     InstructorDashboardRenderStarted,
@@ -619,3 +620,17 @@ class TestFederatedContentFilters(TestCase):
         result = CourseEnrollmentAPIRenderStarted.run_filter(course_key, serialized_enrollment)
 
         self.assertTupleEqual((course_key, serialized_enrollment,), result)
+
+    def test_course_run_api_render_started(self):
+        """
+        Test CourseRunAPIRenderStarted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter must have the signature specified.
+            - The filter should return serialized_courserun.
+        """
+        serialized_courserun = Mock()
+
+        result = CourseRunAPIRenderStarted.run_filter(serialized_courserun)
+
+        self.assertEqual(serialized_courserun, result)
