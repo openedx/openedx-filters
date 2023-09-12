@@ -13,11 +13,7 @@ astroid==2.15.6
     #   -r requirements/quality.txt
     #   pylint
     #   pylint-celery
-bleach==6.0.0
-    # via
-    #   -r requirements/quality.txt
-    #   readme-renderer
-build==1.0.0
+build==1.0.3
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
@@ -51,7 +47,7 @@ code-annotations==1.5.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-coverage[toml]==7.3.0
+coverage[toml]==7.3.1
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -71,7 +67,7 @@ distlib==0.3.7
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==3.2.20
+django==3.2.21
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
@@ -155,6 +151,10 @@ more-itertools==10.1.0
     # via
     #   -r requirements/quality.txt
     #   jaraco-classes
+nh3==0.2.14
+    # via
+    #   -r requirements/quality.txt
+    #   readme-renderer
 packaging==23.1
     # via
     #   -r requirements/ci.txt
@@ -228,7 +228,7 @@ pyproject-hooks==1.0.0
     # via
     #   -r requirements/pip-tools.txt
     #   build
-pytest==7.4.1
+pytest==7.4.2
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -241,7 +241,7 @@ python-slugify==8.0.1
     # via
     #   -r requirements/quality.txt
     #   code-annotations
-pytz==2023.3
+pytz==2023.3.post1
     # via
     #   -r requirements/quality.txt
     #   django
@@ -249,7 +249,7 @@ pyyaml==6.0.1
     # via
     #   -r requirements/quality.txt
     #   code-annotations
-readme-renderer==41.0
+readme-renderer==42.0
     # via
     #   -r requirements/quality.txt
     #   twine
@@ -278,7 +278,6 @@ six==1.16.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
-    #   bleach
     #   edx-lint
     #   tox
 snowballstemmer==2.2.0
@@ -336,14 +335,10 @@ urllib3==2.0.4
     #   -r requirements/quality.txt
     #   requests
     #   twine
-virtualenv==20.24.4
+virtualenv==20.24.5
     # via
     #   -r requirements/ci.txt
     #   tox
-webencodings==0.5.1
-    # via
-    #   -r requirements/quality.txt
-    #   bleach
 wheel==0.41.2
     # via
     #   -r requirements/pip-tools.txt
