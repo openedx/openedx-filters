@@ -8,7 +8,7 @@ asgiref==3.7.2
     # via
     #   -r requirements/quality.txt
     #   django
-astroid==2.15.6
+astroid==2.15.7
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -51,7 +51,7 @@ coverage[toml]==7.3.1
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
-cryptography==41.0.3
+cryptography==41.0.4
     # via
     #   -r requirements/quality.txt
     #   secretstorage
@@ -97,7 +97,7 @@ importlib-metadata==6.8.0
     #   build
     #   keyring
     #   twine
-importlib-resources==6.0.1
+importlib-resources==6.1.0
     # via
     #   -r requirements/quality.txt
     #   keyring
@@ -321,14 +321,14 @@ tox-battery==0.6.2
     # via -r requirements/dev.in
 twine==4.0.2
     # via -r requirements/quality.txt
-typing-extensions==4.7.1
+typing-extensions==4.8.0
     # via
     #   -r requirements/quality.txt
     #   asgiref
     #   astroid
     #   pylint
     #   rich
-urllib3==2.0.4
+urllib3==2.0.5
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -345,7 +345,7 @@ wrapt==1.15.0
     # via
     #   -r requirements/quality.txt
     #   astroid
-zipp==3.16.2
+zipp==3.17.0
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
