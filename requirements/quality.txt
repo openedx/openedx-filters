@@ -12,15 +12,13 @@ astroid==2.15.6
     # via
     #   pylint
     #   pylint-celery
-bleach==6.0.0
-    # via readme-renderer
 certifi==2023.7.22
     # via requests
 cffi==1.15.1
     # via cryptography
 charset-normalizer==3.2.0
     # via requests
-click==8.1.6
+click==8.1.7
     # via
     #   -r requirements/test.txt
     #   click-log
@@ -32,7 +30,7 @@ code-annotations==1.5.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-coverage[toml]==7.2.7
+coverage[toml]==7.3.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -42,7 +40,7 @@ ddt==1.6.0
     # via -r requirements/test.txt
 dill==0.3.7
     # via pylint
-django==3.2.20
+django==3.2.21
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -50,7 +48,7 @@ docutils==0.20.1
     # via readme-renderer
 edx-lint==5.3.4
     # via -r requirements/quality.in
-exceptiongroup==1.1.2
+exceptiongroup==1.1.3
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -60,7 +58,7 @@ importlib-metadata==6.8.0
     # via
     #   keyring
     #   twine
-importlib-resources==6.0.0
+importlib-resources==6.0.1
     # via keyring
 iniconfig==2.0.0
     # via
@@ -96,6 +94,8 @@ mdurl==0.1.2
     # via markdown-it-py
 more-itertools==10.1.0
     # via jaraco-classes
+nh3==0.2.14
+    # via readme-renderer
 packaging==23.1
     # via
     #   -r requirements/test.txt
@@ -108,7 +108,7 @@ pkginfo==1.9.6
     # via twine
 platformdirs==3.10.0
     # via pylint
-pluggy==1.2.0
+pluggy==1.3.0
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -136,7 +136,7 @@ pylint-plugin-utils==0.8.2
     # via
     #   pylint-celery
     #   pylint-django
-pytest==7.4.0
+pytest==7.4.2
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -149,7 +149,7 @@ python-slugify==8.0.1
     # via
     #   -r requirements/test.txt
     #   code-annotations
-pytz==2023.3
+pytz==2023.3.post1
     # via
     #   -r requirements/test.txt
     #   django
@@ -157,7 +157,7 @@ pyyaml==6.0.1
     # via
     #   -r requirements/test.txt
     #   code-annotations
-readme-renderer==40.0
+readme-renderer==42.0
     # via twine
 requests==2.31.0
     # via
@@ -167,14 +167,12 @@ requests-toolbelt==1.0.0
     # via twine
 rfc3986==2.0.0
     # via twine
-rich==13.5.2
+rich==13.5.3
     # via twine
 secretstorage==3.3.3
     # via keyring
 six==1.16.0
-    # via
-    #   bleach
-    #   edx-lint
+    # via edx-lint
 snowballstemmer==2.2.0
     # via pydocstyle
 sqlparse==0.4.4
@@ -210,8 +208,6 @@ urllib3==2.0.4
     # via
     #   requests
     #   twine
-webencodings==0.5.1
-    # via bleach
 wrapt==1.15.0
     # via astroid
 zipp==3.16.2
