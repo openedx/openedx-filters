@@ -15,60 +15,14 @@ This repository implements the necessary tooling and
 definitions used by the Hooks Extension Framework to
 manage the filters execution and extra tools.
 
-Getting Started
-***************
 
-Developing
-==========
+Getting Started with Development
+********************************
 
-One Time Setup
---------------
-.. code-block::
-
-  # Clone the repository
-  git clone git@github.com:openedx/openedx-filters.git
-  cd openedx-filters
-
-  # Set up a virtualenv using virtualenvwrapper with the same name as the repo and activate it
-  mkvirtualenv -p python3.8 openedx-filters
-
-Every time you develop something in this repo
----------------------------------------------
-.. code-block::
-
-  # Activate the virtualenv
-  workon openedx-filters
-
-  # Grab the latest code
-  git checkout main
-  git pull
-
-  # Install/update the dev requirements
-  make requirements
-
-  # Run the tests and quality checks (to verify the status before you make any changes)
-  make validate
-
-  # Make a new branch for your changes
-  git checkout -b <your_github_username>/<short_description>
-
-  # Using your favorite editor, edit the code to make your change.
-  vim …
-
-  # Run your new tests
-  pytest ./path/to/new/tests
-
-  # Run all the tests and quality checks
-  make validate
-
-  # Commit all your changes
-  git commit …
-  git push
-
-  # Open a PR and ask for review.
+Please see the Open edX documentation for `guidance on Python development <https://docs.openedx.org/en/latest/developers/how-tos/get-ready-for-python-dev.html>`_ in this repo.
 
 Deploying
-=========
+*********
 
 The Open edX Filters component is a Python library which doesn't
 need independent deployment. Therefore, its setup is reasonably
@@ -86,7 +40,7 @@ Getting Help
 Documentation
 =============
 
-See the `Open edX Hooks Extension Framework guide <https://github.com/openedx/edx-platform/blob/master/docs/guides/hooks/index.rst>`_ in edx-platform.
+See `documentation on Read the Docs <https://docs.openedx.org/projects/openedx-filters/en/latest/>`_.
 
 More Help
 =========
