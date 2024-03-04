@@ -8,15 +8,19 @@ asgiref==3.7.2
     # via
     #   -r requirements/base.txt
     #   django
+backports-zoneinfo==0.2.1
+    # via
+    #   -r requirements/base.txt
+    #   django
 click==8.1.7
     # via code-annotations
 code-annotations==1.6.0
     # via -r requirements/test.in
 coverage[toml]==7.4.3
     # via pytest-cov
-ddt==1.7.1
+ddt==1.7.2
     # via -r requirements/test.in
-django==3.2.24
+django==4.2.10
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.txt
@@ -34,7 +38,7 @@ pbr==6.0.0
     # via stevedore
 pluggy==1.4.0
     # via pytest
-pytest==8.0.2
+pytest==8.1.0
     # via
     #   pytest-cov
     #   pytest-django
@@ -44,10 +48,6 @@ pytest-django==4.8.0
     # via -r requirements/test.in
 python-slugify==8.0.4
     # via code-annotations
-pytz==2024.1
-    # via
-    #   -r requirements/base.txt
-    #   django
 pyyaml==6.0.1
     # via code-annotations
 sqlparse==0.4.4
