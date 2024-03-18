@@ -14,9 +14,9 @@ backports-zoneinfo==0.2.1
     #   django
 click==8.1.7
     # via code-annotations
-code-annotations==1.6.0
+code-annotations==1.7.0
     # via -r requirements/test.in
-coverage[toml]==7.4.3
+coverage[toml]==7.4.4
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
