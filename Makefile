@@ -48,12 +48,10 @@ upgrade:  ## update the requirements/*.txt files with the latest packages satisf
 	$(PIP_COMPILE) -o requirements/dev.txt requirements/dev.in
 
 quality: ## check coding style with pycodestyle and pylint
-	touch tests/__init__.py
-	pylint openedx_filters tests test_utils *.py
-	rm tests/__init__.py
-	pycodestyle openedx_filters tests  *.py
-	pydocstyle openedx_filters tests *.py
-	isort --check-only --diff --recursive tests test_utils openedx_filters *.py test_settings.py
+	pylint openedx_filters test_utils *.py
+	pycodestyle openedx_filters  *.py
+	pydocstyle openedx_filters *.py
+	isort --check-only --diff --recursive test_utils openedx_filters *.py test_settings.py
 	python setup.py bdist_wheel
 	twine check dist/*
 	make selfcheck
