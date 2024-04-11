@@ -2,6 +2,8 @@
 Package where filters related to the learning architectural subdomain are implemented.
 """
 
+from typing import Optional
+
 from openedx_filters.exceptions import OpenEdxFilterException
 from openedx_filters.tooling import OpenEdxPublicFilter
 from openedx_filters.utils import SensitiveDataManagementMixin
@@ -700,4 +702,40 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
             template_name (str): template name to be rendered by the instructor's tab.
         """
         data = super().run_pipeline(context=context, template_name=template_name)
+        return data.get("context"), data.get("template_name")
+
+
+class ORASubmissionViewRenderStarted(OpenEdxPublicFilter):
+    """
+    Custom class used to create ORA submission view filters and its custom methods.
+    """
+
+    filter_type = "org.openedx.learning.ora.submission_view.render.started.v1"
+
+    class RenderInvalidTemplate(OpenEdxFilterException):
+        """
+        Custom class used to stop the submission view render process.
+        """
+
+        def __init__(self, message: str, context: Optional[dict] = None, template_name: str = ""):
+            """
+            Override init that defines specific arguments used in the submission view render process.
+
+            Arguments:
+                message (str): error message for the exception.
+                context (dict): context used to the submission view template.
+                template_name (str): template path rendered instead.
+            """
+            super().__init__(message, context=context, template_name=template_name)
+
+    @classmethod
+    def run_filter(cls, context: dict, template_name: str):
+        """
+        Execute a filter with the signature specified.
+
+        Arguments:
+            context (dict): context dictionary for submission view template.
+            template_name (str): template name to be rendered by the student's dashboard.
+        """
+        data = super().run_pipeline(context=context, template_name=template_name, )
         return data.get("context"), data.get("template_name")

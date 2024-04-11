@@ -14,6 +14,13 @@ Change Log
 Unreleased
 ----------
 
+[1.8.0] - 2024-04-11
+
+Added
+~~~~~
+
+* ORASubmissionViewRenderStarted filter added which can be used to modify the ORA submission view.
+
 [1.7.0] - 2024-04-11
 --------------------
 

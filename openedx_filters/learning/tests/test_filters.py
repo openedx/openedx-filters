@@ -21,6 +21,7 @@ from openedx_filters.learning.filters import (
     CourseUnenrollmentStarted,
     DashboardRenderStarted,
     InstructorDashboardRenderStarted,
+    ORASubmissionViewRenderStarted,
     StudentLoginRequested,
     StudentRegistrationRequested,
     VerticalBlockChildRenderStarted,
@@ -543,6 +544,36 @@ class TestRenderingFilters(TestCase):
             - The exception must have the attributes specified.
         """
         exception = dashboard_exception(message="You can't access the dashboard", **attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
+
+    def test_ora_submission_view_render_started(self):
+        """
+        Test ORASubmissionViewRenderStarted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter must have the signature specified.
+            - The filter should return context and template_name in that order.
+        """
+        result = ORASubmissionViewRenderStarted.run_filter(self.context, self.template_name)
+
+        self.assertTupleEqual((self.context, self.template_name,), result)
+
+    @data(
+        (
+            ORASubmissionViewRenderStarted.RenderInvalidTemplate,
+            {"context": {"course": Mock()}, "template_name": "custom-template.html"},
+        ),
+    )
+    @unpack
+    def test_halt_ora_submission_view_render(self, dashboard_exception, attributes):
+        """
+        Test for the ora submission view exceptions attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = dashboard_exception(message="You can't access the view", **attributes)
 
         self.assertDictContainsSubset(attributes, exception.__dict__)
 
