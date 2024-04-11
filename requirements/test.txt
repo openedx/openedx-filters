@@ -8,8 +8,9 @@ asgiref==3.8.1
     # via
     #   -r requirements/base.txt
     #   django
-backports-zoneinfo==0.2.1
+backports-zoneinfo==0.2.1 ; python_version < "3.9"
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   django
 click==8.1.7
