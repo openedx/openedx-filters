@@ -13,7 +13,7 @@ astroid==3.1.0
     #   -r requirements/quality.txt
     #   pylint
     #   pylint-celery
-backports-tarfile==1.1.0
+backports-tarfile==1.1.1
     # via
     #   -r requirements/quality.txt
     #   jaraco-context
@@ -67,7 +67,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.4.4
+coverage[toml]==7.5.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -152,7 +152,7 @@ jinja2==3.1.3
     #   -r requirements/quality.txt
     #   code-annotations
     #   diff-cover
-keyring==25.1.0
+keyring==25.2.0
     # via
     #   -r requirements/quality.txt
     #   twine
@@ -200,7 +200,7 @@ pkginfo==1.10.0
     # via
     #   -r requirements/quality.txt
     #   twine
-platformdirs==4.2.0
+platformdirs==4.2.1
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -257,7 +257,7 @@ pyproject-hooks==1.0.0
     #   -r requirements/pip-tools.txt
     #   build
     #   pip-tools
-pytest==8.1.1
+pytest==8.2.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -336,7 +336,7 @@ tomlkit==0.12.4
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.14.2
+tox==4.15.0
     # via -r requirements/ci.txt
 twine==5.0.0
     # via -r requirements/quality.txt
@@ -352,7 +352,7 @@ urllib3==2.2.1
     #   -r requirements/quality.txt
     #   requests
     #   twine
-virtualenv==20.25.3
+virtualenv==20.26.0
     # via
     #   -r requirements/ci.txt
     #   tox
