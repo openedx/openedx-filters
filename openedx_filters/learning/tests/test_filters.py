@@ -22,6 +22,7 @@ from openedx_filters.learning.filters import (
     DashboardRenderStarted,
     InstructorDashboardRenderStarted,
     ORASubmissionViewRenderStarted,
+    RenderXBlockStarted,
     StudentLoginRequested,
     StudentRegistrationRequested,
     VerticalBlockChildRenderStarted,
@@ -476,6 +477,68 @@ class TestRenderingFilters(TestCase):
             - The exception must have the attributes specified.
         """
         exception = render_exception(**attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
+
+    def test_xblock_render_started(self):
+        """
+        Test RenderXBlockStarted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter must have the signature specified.
+            - The filter should return the expected values
+        """
+        context = {
+            "foo": False,
+            "bar": "baz",
+            "buzz": 1337,
+        }
+        student_view_context = {
+            "arbitrary_context": "value",
+            "more_arbitrary_context": True
+        }
+
+        result = VerticalBlockChildRenderStarted.run_filter(context, student_view_context)
+
+        self.assertTupleEqual((context, student_view_context), result)
+
+    @data(
+        (
+            RenderXBlockStarted.PreventXBlockBlockRender,
+            {
+                "message": "Danger, Will Robinson!"
+            }
+        )
+    )
+    @unpack
+    def test_halt_xblock_render(self, xblock_render_exception, attributes):
+        """
+        Test for xblock render exception attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = xblock_render_exception(**attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
+
+    @data(
+        (
+            RenderXBlockStarted.RenderCustomResponse,
+            {
+                "message": "Danger, Will Robinson!"
+            }
+        )
+    )
+    @unpack
+    def test_halt_xblock_render_custom_response(self, xblock_render_exception, attributes):
+        """
+        Test for xblock render exception attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = xblock_render_exception(**attributes)
 
         self.assertDictContainsSubset(attributes, exception.__dict__)
 
