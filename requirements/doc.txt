@@ -41,7 +41,7 @@ code-annotations==1.8.0
     # via -r requirements/test.txt
 colorama==0.4.6
     # via sphinx-autobuild
-coverage[toml]==7.5.1
+coverage[toml]==7.5.2
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -98,7 +98,7 @@ jinja2==3.1.4
     #   -r requirements/test.txt
     #   code-annotations
     #   sphinx
-keyring==25.2.0
+keyring==25.2.1
     # via twine
 livereload==2.6.3
     # via sphinx-autobuild
@@ -147,7 +147,7 @@ pygments==2.18.0
     #   sphinx
 pyproject-hooks==1.1.0
     # via build
-pytest==8.2.0
+pytest==8.2.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -168,7 +168,7 @@ pyyaml==6.0.1
     #   code-annotations
 readme-renderer==43.0
     # via twine
-requests==2.31.0
+requests==2.32.2
     # via
     #   requests-toolbelt
     #   sphinx
@@ -241,9 +241,9 @@ tomli==2.0.1
     #   pytest
 tornado==6.4
     # via livereload
-twine==5.0.0
+twine==5.1.0
     # via -r requirements/doc.in
-typing-extensions==4.11.0
+typing-extensions==4.12.0
     # via
     #   -r requirements/test.txt
     #   asgiref
@@ -253,7 +253,7 @@ urllib3==2.2.1
     # via
     #   requests
     #   twine
-zipp==3.18.1
+zipp==3.19.0
     # via
     #   importlib-metadata
     #   importlib-resources
