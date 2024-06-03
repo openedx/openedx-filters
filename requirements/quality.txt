@@ -8,18 +8,18 @@ asgiref==3.8.1
     # via
     #   -r requirements/test.txt
     #   django
-astroid==3.1.0
+astroid==3.2.2
     # via
     #   pylint
     #   pylint-celery
-backports-tarfile==1.1.1
+backports-tarfile==1.2.0
     # via jaraco-context
 backports-zoneinfo==0.2.1 ; python_version < "3.9"
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/test.txt
     #   django
-certifi==2024.2.2
+certifi==2024.6.2
     # via requests
 cffi==1.16.0
     # via cryptography
@@ -37,7 +37,7 @@ code-annotations==1.8.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-coverage[toml]==7.5.1
+coverage[toml]==7.5.3
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -90,7 +90,7 @@ jinja2==3.1.4
     # via
     #   -r requirements/test.txt
     #   code-annotations
-keyring==25.2.0
+keyring==25.2.1
     # via twine
 markdown-it-py==3.0.0
     # via rich
@@ -116,9 +116,9 @@ pbr==6.0.0
     # via
     #   -r requirements/test.txt
     #   stevedore
-pkginfo==1.10.0
+pkginfo==1.11.0
     # via twine
-platformdirs==4.2.1
+platformdirs==4.2.2
     # via pylint
 pluggy==1.5.0
     # via
@@ -134,7 +134,7 @@ pygments==2.18.0
     # via
     #   readme-renderer
     #   rich
-pylint==3.1.0
+pylint==3.2.2
     # via
     #   edx-lint
     #   pylint-celery
@@ -148,7 +148,7 @@ pylint-plugin-utils==0.8.2
     # via
     #   pylint-celery
     #   pylint-django
-pytest==8.2.0
+pytest==8.2.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -167,7 +167,7 @@ pyyaml==6.0.1
     #   code-annotations
 readme-renderer==43.0
     # via twine
-requests==2.31.0
+requests==2.32.3
     # via
     #   requests-toolbelt
     #   twine
@@ -203,9 +203,9 @@ tomli==2.0.1
     #   pytest
 tomlkit==0.12.5
     # via pylint
-twine==5.0.0
+twine==5.1.0
     # via -r requirements/quality.in
-typing-extensions==4.11.0
+typing-extensions==4.12.1
     # via
     #   -r requirements/test.txt
     #   asgiref
@@ -216,7 +216,7 @@ urllib3==2.2.1
     # via
     #   requests
     #   twine
-zipp==3.18.1
+zipp==3.19.1
     # via
     #   importlib-metadata
     #   importlib-resources
