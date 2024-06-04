@@ -6,3 +6,4 @@ References
    :caption: Contents:
 
    django-plugins-and-filters
+   filters
