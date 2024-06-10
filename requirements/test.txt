@@ -17,7 +17,7 @@ click==8.1.7
     # via code-annotations
 code-annotations==1.8.0
     # via -r requirements/test.in
-coverage[toml]==7.5.1
+coverage[toml]==7.5.3
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
@@ -33,13 +33,13 @@ jinja2==3.1.4
     # via code-annotations
 markupsafe==2.1.5
     # via jinja2
-packaging==24.0
+packaging==24.1
     # via pytest
 pbr==6.0.0
     # via stevedore
 pluggy==1.5.0
     # via pytest
-pytest==8.2.0
+pytest==8.2.2
     # via
     #   pytest-cov
     #   pytest-django
@@ -63,7 +63,7 @@ tomli==2.0.1
     # via
     #   coverage
     #   pytest
-typing-extensions==4.11.0
+typing-extensions==4.12.2
     # via
     #   -r requirements/base.txt
     #   asgiref
