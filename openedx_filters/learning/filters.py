@@ -546,6 +546,46 @@ class CourseEnrollmentQuerysetRequested(OpenEdxPublicFilter):
         return data.get("enrollments")
 
 
+class RenderXBlockStarted(OpenEdxPublicFilter):
+    """
+    Filter in between context generation and rendering of XBlock scope.
+    """
+
+    filter_type = "org.openedx.learning.xblock.render.started.v1"
+
+    class PreventXBlockBlockRender(OpenEdxFilterException):
+        """
+        Custom class used to prevent the XBlock from rendering for the user.
+        """
+
+    class RenderCustomResponse(OpenEdxFilterException):
+        """
+        Custom class used to stop the XBlock rendering process and return a custom response.
+        """
+
+        def __init__(self, message, response=None):
+            """
+            Override init that defines specific arguments used in the XBlock render process.
+
+            Arguments:
+                message: error message for the exception.
+                response: custom response which will be returned by the XBlock render view.
+            """
+            super().__init__(message, response=response)
+
+    @classmethod
+    def run_filter(cls, context, student_view_context):
+        """
+        Execute a filter with the specified signature.
+
+        Arguments:
+            context (dict): rendering context values like is_mobile_app, show_title, etc.
+            student_view_context (dict): context passed to the student_view of the block context
+        """
+        data = super().run_pipeline(context=context, student_view_context=student_view_context)
+        return data.get("context"), data.get("student_view_context")
+
+
 class VerticalBlockRenderCompleted(OpenEdxPublicFilter):
     """
     Custom class used to create filters to act on vertical block rendering completed.

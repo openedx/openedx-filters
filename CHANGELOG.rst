@@ -14,6 +14,14 @@ Change Log
 Unreleased
 ----------
 
+[1.9.0] - 2024-06-14
+--------------------
+
+Added
+~~~~~~~
+
+* RenderXBlockStarted filter added which allows reading / modifying of XBlock context prior to render.
+
 [1.8.1] - 2024-04-12
 --------------------
 
