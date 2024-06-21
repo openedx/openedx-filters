@@ -5,5 +5,5 @@ References
    :maxdepth: 1
    :caption: Contents:
 
-   django-plugins-and-filters
    filters
+   django-plugins-and-filters
