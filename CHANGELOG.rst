@@ -13,6 +13,7 @@ Change Log
 
 Unreleased
 ----------
+* Configuration for automatic filters docs generation.
 
 [1.9.0] - 2024-06-14
 --------------------
