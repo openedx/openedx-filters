@@ -37,7 +37,7 @@ code-annotations==1.8.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-coverage[toml]==7.5.3
+coverage[toml]==7.5.4
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -212,7 +212,7 @@ typing-extensions==4.12.2
     #   astroid
     #   pylint
     #   rich
-urllib3==2.2.1
+urllib3==2.2.2
     # via
     #   requests
     #   twine
