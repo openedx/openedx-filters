@@ -37,7 +37,7 @@ code-annotations==1.8.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-coverage[toml]==7.5.3
+coverage[toml]==7.5.4
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -116,7 +116,7 @@ pbr==6.0.0
     # via
     #   -r requirements/test.txt
     #   stevedore
-pkginfo==1.11.1
+pkginfo==1.10.0
     # via twine
 platformdirs==4.2.2
     # via pylint
@@ -134,7 +134,7 @@ pygments==2.18.0
     # via
     #   readme-renderer
     #   rich
-pylint==3.2.3
+pylint==3.2.5
     # via
     #   edx-lint
     #   pylint-celery
@@ -203,7 +203,7 @@ tomli==2.0.1
     #   pytest
 tomlkit==0.12.5
     # via pylint
-twine==5.1.0
+twine==5.1.1
     # via -r requirements/quality.in
 typing-extensions==4.12.2
     # via
@@ -212,7 +212,7 @@ typing-extensions==4.12.2
     #   astroid
     #   pylint
     #   rich
-urllib3==2.2.1
+urllib3==2.2.2
     # via
     #   requests
     #   twine

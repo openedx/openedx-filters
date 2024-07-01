@@ -67,7 +67,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.5.3
+coverage[toml]==7.5.4
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -77,7 +77,7 @@ cryptography==42.0.8
     #   secretstorage
 ddt==1.7.2
     # via -r requirements/quality.txt
-diff-cover==9.0.0
+diff-cover==9.1.0
     # via -r requirements/dev.in
 dill==0.3.8
     # via
@@ -101,7 +101,7 @@ exceptiongroup==1.2.1
     # via
     #   -r requirements/quality.txt
     #   pytest
-filelock==3.15.1
+filelock==3.15.4
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -196,7 +196,7 @@ pbr==6.0.0
     #   stevedore
 pip-tools==7.4.1
     # via -r requirements/pip-tools.txt
-pkginfo==1.11.1
+pkginfo==1.10.0
     # via
     #   -r requirements/quality.txt
     #   twine
@@ -228,7 +228,7 @@ pygments==2.18.0
     #   diff-cover
     #   readme-renderer
     #   rich
-pylint==3.2.3
+pylint==3.2.5
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -248,7 +248,7 @@ pylint-plugin-utils==0.8.2
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pyproject-api==1.6.1
+pyproject-api==1.7.1
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -337,7 +337,7 @@ tomlkit==0.12.5
     #   pylint
 tox==4.15.1
     # via -r requirements/ci.txt
-twine==5.1.0
+twine==5.1.1
     # via -r requirements/quality.txt
 typing-extensions==4.12.2
     # via
@@ -346,12 +346,12 @@ typing-extensions==4.12.2
     #   astroid
     #   pylint
     #   rich
-urllib3==2.2.1
+urllib3==2.2.2
     # via
     #   -r requirements/quality.txt
     #   requests
     #   twine
-virtualenv==20.26.2
+virtualenv==20.26.3
     # via
     #   -r requirements/ci.txt
     #   tox
