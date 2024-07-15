@@ -8,7 +8,7 @@ asgiref==3.8.1
     # via
     #   -r requirements/quality.txt
     #   django
-astroid==3.2.2
+astroid==3.2.3
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -30,7 +30,7 @@ cachetools==5.3.3
     # via
     #   -r requirements/ci.txt
     #   tox
-certifi==2024.6.2
+certifi==2024.7.4
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -67,7 +67,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.5.4
+coverage[toml]==7.6.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -87,7 +87,7 @@ distlib==0.3.8
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==4.2.13
+django==4.2.14
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
@@ -97,7 +97,7 @@ docutils==0.20.1
     #   readme-renderer
 edx-lint==5.3.6
     # via -r requirements/quality.txt
-exceptiongroup==1.2.1
+exceptiongroup==1.2.2
     # via
     #   -r requirements/quality.txt
     #   pytest
@@ -177,7 +177,7 @@ more-itertools==10.3.0
     #   -r requirements/quality.txt
     #   jaraco-classes
     #   jaraco-functools
-nh3==0.2.17
+nh3==0.2.18
     # via
     #   -r requirements/quality.txt
     #   readme-renderer
@@ -331,11 +331,11 @@ tomli==2.0.1
     #   pyproject-api
     #   pytest
     #   tox
-tomlkit==0.12.5
+tomlkit==0.13.0
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.15.1
+tox==4.16.0
     # via -r requirements/ci.txt
 twine==5.1.1
     # via -r requirements/quality.txt
