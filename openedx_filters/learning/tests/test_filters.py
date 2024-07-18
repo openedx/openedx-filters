@@ -12,6 +12,7 @@ from openedx_filters.learning.filters import (
     CertificateRenderStarted,
     CohortAssignmentRequested,
     CohortChangeRequested,
+    CourseAboutPageURLRequested,
     CourseAboutRenderStarted,
     CourseEnrollmentAPIRenderStarted,
     CourseEnrollmentQuerysetRequested,
@@ -752,3 +753,25 @@ class TestIDVFilters(TestCase):
         result = IDVPageURLRequested.run_filter(url)
 
         self.assertEqual(url, result)
+
+
+class TestCourseAboutPageURLRequested(TestCase):
+    """
+    Test class to verify standard behavior of the ID verification filters.
+    You'll find test suites for:
+
+    - CourseAboutPageURLRequested
+    """
+
+    def test_lms_page_url_requested(self):
+        """
+        Test CourseAboutPageURLRequested filter behavior under normal conditions.
+        Expected behavior:
+            - The filter should return lms page url requested.
+        """
+        target_url = Mock()
+        org = Mock()
+
+        result = CourseAboutPageURLRequested.run_filter(target_url, org)
+
+        self.assertEqual((target_url, org), result)

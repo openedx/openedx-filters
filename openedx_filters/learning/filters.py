@@ -798,3 +798,23 @@ class IDVPageURLRequested(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(url=url)
         return data.get("url")
+
+
+class CourseAboutPageURLRequested(OpenEdxPublicFilter):
+    """
+    Custom class used to get course about page url filters and its custom methods.
+    """
+
+    filter_type = "org.openedx.learning.course_about.page.url.requested.v1"
+
+    @classmethod
+    def run_filter(cls, target_url, org):
+        """
+        Execute a filter with the specified signature.
+
+        Arguments:
+            target_url (str): target url to use.
+            org (str): Course org filter, this value will be used to filter out the correct lms url configuration.
+        """
+        data = super().run_pipeline(target_url=target_url, org=org)
+        return data.get("target_url"), data.get("org")
