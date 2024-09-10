@@ -739,7 +739,7 @@ class TestIDVFilters(TestCase):
     - IDVPageURLRequested
     """
 
-    def test_course_idv_page_url_requested(self):
+    def test_idv_page_url_requested(self):
         """
         Test IDVPageURLRequested filter behavior under normal conditions.
 
@@ -747,7 +747,7 @@ class TestIDVFilters(TestCase):
             - The filter must have the signature specified.
             - The filter should return the url.
         """
-        url = Mock(), Mock()
+        url = Mock()
 
         result = IDVPageURLRequested.run_filter(url)
 

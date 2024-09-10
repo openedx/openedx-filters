@@ -789,7 +789,7 @@ class IDVPageURLRequested(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.idv.page.url.requested.v1"
 
     @classmethod
-    def run_filter(cls, url):
+    def run_filter(cls, url: str):
         """
         Execute a filter with the specified signature.
 
