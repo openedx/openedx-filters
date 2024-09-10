@@ -751,4 +751,4 @@ class TestIDVFilters(TestCase):
 
         result = IDVPageURLRequested.run_filter(url)
 
-        self.assertEquals(url, result)
+        self.assertEqual(url, result)
