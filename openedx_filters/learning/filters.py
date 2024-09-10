@@ -779,3 +779,22 @@ class ORASubmissionViewRenderStarted(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(context=context, template_name=template_name, )
         return data.get("context"), data.get("template_name")
+
+
+class IDVPageURLRequested(OpenEdxPublicFilter):
+    """
+    Custom class used to create filters to act on ID verification page URL requests.
+    """
+
+    filter_type = "org.openedx.learning.idv.page.url.requested.v1"
+
+    @classmethod
+    def run_filter(cls, url):
+        """
+        Execute a filter with the specified signature.
+
+        Arguments:
+            url (str): The url for the ID verification page to be modified.
+        """
+        data = super().run_pipeline(url=url)
+        return data.get("url")
