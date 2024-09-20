@@ -15,6 +15,14 @@ Unreleased
 ----------
 * Configuration for automatic filters docs generation.
 
+[1.10.0] - 2024-09-20
+--------------------
+
+Added
+~~~~~
+
+* IDVPageURLRequested filter added which can be used to modify the URL for the ID verification process.
+
 [1.9.0] - 2024-06-14
 --------------------
 
