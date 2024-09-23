@@ -72,10 +72,9 @@ persistent = yes
 load-plugins = edx_lint.pylint,pylint_celery
 
 [MESSAGES CONTROL]
-enable = 
+enable =
 	blacklisted-name,
 	line-too-long,
-	
 	abstract-class-instantiated,
 	abstract-method,
 	access-member-before-definition,
@@ -184,26 +183,21 @@ enable =
 	used-before-assignment,
 	using-constant-test,
 	yield-outside-function,
-	
 	astroid-error,
 	fatal,
 	method-check-failed,
 	parse-error,
 	raw-checker-failed,
-	
 	empty-docstring,
 	invalid-characters-in-docstring,
 	missing-docstring,
 	wrong-spelling-in-comment,
 	wrong-spelling-in-docstring,
-	
 	unused-argument,
 	unused-import,
 	unused-variable,
-	
 	eval-used,
 	exec-used,
-	
 	bad-classmethod-argument,
 	bad-mcs-classmethod-argument,
 	bad-mcs-method-argument,
@@ -234,30 +228,25 @@ enable =
 	unneeded-not,
 	useless-else-on-loop,
 	wrong-assert-type,
-	
 	deprecated-method,
 	deprecated-module,
-	
 	too-many-boolean-expressions,
 	too-many-nested-blocks,
 	too-many-statements,
-	
 	wildcard-import,
 	wrong-import-order,
 	wrong-import-position,
-	
 	missing-final-newline,
 	mixed-line-endings,
 	trailing-newlines,
 	trailing-whitespace,
 	unexpected-line-ending-format,
-	
 	bad-inline-option,
 	bad-option-value,
 	deprecated-pragma,
 	unrecognized-inline-option,
 	useless-suppression,
-disable = 
+disable =
 	bad-indentation,
 	consider-using-f-string,
 	duplicate-code,
@@ -277,14 +266,13 @@ disable =
 	too-many-locals,
 	too-many-public-methods,
 	too-many-return-statements,
+	too-many-positional-arguments,
 	ungrouped-imports,
 	unspecified-encoding,
 	unused-wildcard-import,
 	use-maxsplit-arg,
-	
 	feature-toggle-needs-doc,
 	illegal-waffle-usage,
-	
 	logging-fstring-interpolation,
 
 [REPORTS]
