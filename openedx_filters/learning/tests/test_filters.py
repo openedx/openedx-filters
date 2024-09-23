@@ -20,6 +20,7 @@ from openedx_filters.learning.filters import (
     CourseRunAPIRenderStarted,
     CourseUnenrollmentStarted,
     DashboardRenderStarted,
+    IDVPageURLRequested,
     InstructorDashboardRenderStarted,
     ORASubmissionViewRenderStarted,
     RenderXBlockStarted,
@@ -728,3 +729,26 @@ class TestFederatedContentFilters(TestCase):
         result = CourseRunAPIRenderStarted.run_filter(serialized_courserun)
 
         self.assertEqual(serialized_courserun, result)
+
+
+class TestIDVFilters(TestCase):
+    """
+    Test class to verify standard behavior of the ID verification filters.
+    You'll find test suites for:
+
+    - IDVPageURLRequested
+    """
+
+    def test_idv_page_url_requested(self):
+        """
+        Test IDVPageURLRequested filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter must have the signature specified.
+            - The filter should return the url.
+        """
+        url = Mock()
+
+        result = IDVPageURLRequested.run_filter(url)
+
+        self.assertEqual(url, result)
