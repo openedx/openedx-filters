@@ -82,7 +82,7 @@ jaraco-classes==3.4.0
     # via keyring
 jaraco-context==6.0.1
     # via keyring
-jaraco-functools==4.0.2
+jaraco-functools==4.1.0
     # via keyring
 jeepney==0.8.0
     # via
@@ -138,7 +138,7 @@ pygments==2.18.0
     #   readme-renderer
     #   rich
     #   sphinx
-pyproject-hooks==1.1.0
+pyproject-hooks==1.2.0
     # via build
 pytest==8.3.3
     # via
@@ -214,7 +214,7 @@ sqlparse==0.5.1
     # via
     #   -r requirements/test.txt
     #   django
-starlette==0.38.6
+starlette==0.39.2
     # via sphinx-autobuild
 stevedore==5.3.0
     # via
@@ -233,7 +233,7 @@ urllib3==2.2.3
     # via
     #   requests
     #   twine
-uvicorn==0.30.6
+uvicorn==0.31.0
     # via sphinx-autobuild
 watchfiles==0.24.0
     # via sphinx-autobuild
