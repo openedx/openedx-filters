@@ -3,14 +3,12 @@ Tests for authoring subdomain filters.
 """
 from unittest.mock import Mock
 
-from ddt import data, ddt, unpack
 from django.test import TestCase
 
-from openedx_filters.authoring.filters import LMSPageURLRequested
+from openedx_filters.course_authoring.filters import LMSPageURLRequested
 
 
-@ddt
-class TestAuthoringFilters(TestCase):
+class TestCourseAuthoringFilters(TestCase):
     """
     Test class to verify standard behavior of the filters located in rendering views.
     You'll find test suites for:
@@ -21,6 +19,7 @@ class TestAuthoringFilters(TestCase):
     def test_lms_page_url_requested(self):
         """
         Test LMSPageURLRequested filter behavior under normal conditions.
+
         Expected behavior:
             - The filter should return lms page url requested.
         """

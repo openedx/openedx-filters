@@ -808,13 +808,13 @@ class CourseAboutPageURLRequested(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.course_about.page.url.requested.v1"
 
     @classmethod
-    def run_filter(cls, target_url, org):
+    def run_filter(cls, url, org):
         """
         Execute a filter with the specified signature.
 
         Arguments:
-            target_url (str): target url to use.
-            org (str): Course org filter, this value will be used to filter out the correct lms url configuration.
+            url (str): the URL of the page to be modified.
+            org (str): Course org filter used as context data to get LMS configurations.
         """
-        data = super().run_pipeline(target_url=target_url, org=org)
-        return data.get("target_url"), data.get("org")
+        data = super().run_pipeline(url=url, org=org)
+        return data.get("url"), data.get("org")
