@@ -15,8 +15,17 @@ Unreleased
 ----------
 * Configuration for automatic filters docs generation.
 
+[1.11.0] - 2024-09-30
+---------------------
+
+Added
+~~~~~
+
+* CourseAboutPageURLRequested filter added which can be used to modify the URL for the course about page.
+* LMSPageURLRequested filter added which can be used to modify the URL for the LMS page.
+
 [1.10.0] - 2024-09-20
---------------------
+---------------------
 
 Added
 ~~~~~
