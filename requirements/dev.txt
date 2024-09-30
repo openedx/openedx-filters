@@ -8,7 +8,7 @@ asgiref==3.8.1
     # via
     #   -r requirements/quality.txt
     #   django
-astroid==3.3.3
+astroid==3.3.4
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -74,7 +74,7 @@ ddt==1.7.2
     # via -r requirements/quality.txt
 diff-cover==9.2.0
     # via -r requirements/dev.in
-dill==0.3.8
+dill==0.3.9
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -122,7 +122,7 @@ jaraco-context==6.0.1
     # via
     #   -r requirements/quality.txt
     #   keyring
-jaraco-functools==4.0.2
+jaraco-functools==4.1.0
     # via
     #   -r requirements/quality.txt
     #   keyring
@@ -212,7 +212,7 @@ pygments==2.18.0
     #   diff-cover
     #   readme-renderer
     #   rich
-pylint==3.3.0
+pylint==3.3.1
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -236,7 +236,7 @@ pyproject-api==1.8.0
     # via
     #   -r requirements/ci.txt
     #   tox
-pyproject-hooks==1.1.0
+pyproject-hooks==1.2.0
     # via
     #   -r requirements/pip-tools.txt
     #   build
@@ -316,7 +316,7 @@ urllib3==2.2.3
     #   -r requirements/quality.txt
     #   requests
     #   twine
-virtualenv==20.26.5
+virtualenv==20.26.6
     # via
     #   -r requirements/ci.txt
     #   tox
