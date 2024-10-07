@@ -8,7 +8,7 @@ asgiref==3.8.1
     # via
     #   -r requirements/quality.txt
     #   django
-astroid==3.3.4
+astroid==3.3.5
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -17,7 +17,7 @@ backports-tarfile==1.2.0
     # via
     #   -r requirements/quality.txt
     #   jaraco-context
-build==1.2.2
+build==1.2.2.post1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
@@ -275,7 +275,7 @@ rfc3986==2.0.0
     # via
     #   -r requirements/quality.txt
     #   twine
-rich==13.8.1
+rich==13.9.2
     # via
     #   -r requirements/quality.txt
     #   twine
@@ -307,7 +307,7 @@ tomlkit==0.13.2
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.20.0
+tox==4.21.2
     # via -r requirements/ci.txt
 twine==5.1.1
     # via -r requirements/quality.txt
