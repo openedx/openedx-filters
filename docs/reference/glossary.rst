@@ -1,8 +1,7 @@
-Open edX filters glossary
+Open edX Filters Glossary
 ##########################
 
-This glossary provides definitions for some of the concepts needed to use the Open edX Filters library.
-
+This glossary provides definitions for some of the terms to ease the adoption of the Open edX Filters library.
 
 Pipelines
 ---------
@@ -18,6 +17,11 @@ Open edX Filter
 ---------------
 
 An Open edX Filter is a Python class that inherits from `OpenEdXPublicFilter`, which is used for executing pipelines or list of functions in specific order. It implements a `run_filter` method that receives the data to be processed and returns the output of the pipeline.
+
+Filter definition
+-----------------
+
+It's the class that implements the `run_filter` method, usually implemented in this repository for community use. It's invoked by services to execute configured pipeline steps.
 
 Open edX Filter signature
 -------------------------
