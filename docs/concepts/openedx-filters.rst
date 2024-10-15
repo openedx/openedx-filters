@@ -9,19 +9,17 @@ In the context of Open edX, filters provide a mechanism for modifying the platfo
 What are Open edX Filters?
 --------------------------
 
-An Open edX Filter is a pipeline mechanism that executes a series of functions in a specific order, allowing each function to modify the input data or halt execution based on specific conditions. Filters are used to intercept and modify the data used within a component without directly modifying the application itself. Filters are defined using the ``OpenEdxFilter`` class, which provides a structured way to define the filter function and the parameters it should receive.
+An Open edX Filter is a pipeline mechanism that executes a series of functions specified in a configuration setting. Each function can modify the input data or halt execution, altering the application's behavior during runtime. Filters are defined using the ``OpenEdxFilter`` class, which provides a structured way to define the filter function and the parameters it should receive.
 
 Why are Open edX Filters important?
 -----------------------------------
 
-Open edX Filters are a key component of the Hooks Extension Framework, which allow developers to implement their own functions to alter the functionality of the platform without directly modifying the core codebase saving time, effort and decreasing maintainability costs. This enables a wide range of use cases, from modifying the behavior of existing components to dynamically adding new functionality to the platform.
+Open edX Filters are a key component of the Hooks Extension Framework. Filters allow developers to implement their own functions to alter the platform's functionality without directly modifying the core codebase, saving time, effort, and decreasing maintainability costs. This enables a wide range of use cases, from modifying the behavior of existing components to dynamically adding new functionality to the platform.
 
 How are Open edX Filters used?
 ------------------------------
 
-Developers can implement pipeline functions that take a set of arguments and return a modified set to the caller or raise exceptions during processing. In this functions, developers can implement their business logic or requirements that modify the application's behavior based on specific conditions.
-
-These pipeline functions are configured by using the ``OPEN_EDX_FILTERS_CONFIG`` setting in the Django settings file. This setting allows developers to specify the functions that should run when invoking a specific filter.
+Developers can implement pipeline functions that take a set of arguments and return a modified set to the caller or raise exceptions during processing. In these functions, developers can implement business logic or requirements that modify the application's behavior based on specific conditions. These pipeline functions are configured by using the ``OPEN_EDX_FILTERS_CONFIG`` setting in the Django settings file. This setting allows developers to specify the functions that should run when invoking a specific filter.
 
 For more information on how to use Open edX Filters, refer to the `Using Open edX Filters`_ how-to guide.
 
@@ -33,10 +31,10 @@ Open edX Filters are implemented using an accumulative pipeline mechanism, which
 The lifecycle of an Open edX Filter can be summarized as follows:
 
 1. A service invokes calls a filter by invoking ``run_filter()`` method with the initial arguments.
-2. The filter's tooling gets the pipeline functions to execute based on the filter configuration ``OPEN_EDX_FILTERS_CONFIG``.
-3. The tooling executes a series of functions in a specific order, passing the output of the previous function as input to the next one.
+2. The filter's tooling gets the pipeline functions to execute from the filter configuration ``OPEN_EDX_FILTERS_CONFIG``.
+3. The tooling executes the functions in a specific order, passing the output of the previous function as input to the next one.
 4. Each function in the pipeline can modify the input data or halt execution based on specific conditions.
-5. The filter returns the final output of the pipeline to the caller.
+5. The filter returns the final output of the pipeline to the caller to be used by the rest of the process.
 6. The filter is considered complete once all functions in the pipeline have executed.
 
 Here is an example of how that might look like with an existing filter:
