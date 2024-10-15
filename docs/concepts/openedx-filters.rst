@@ -7,7 +7,7 @@ Overview
 In the context of Open edX, filters provide a mechanism for modifying the platform's behavior by altering runtime data or halting execution based on specific conditions. Filters allow developers to implement application flow control based on their business logic or requirements without directly modifying the application code.
 
 What are Open edX Filters?
--------------------------
+--------------------------
 
 An Open edX Filter is a pipeline mechanism that executes a series of functions in a specific order, allowing each function to modify the input data or halt execution based on specific conditions. Filters are used to intercept and modify the data used within a component without directly modifying the application itself. Filters are defined using the ``OpenEdxFilter`` class, which provides a structured way to define the filter function and the parameters it should receive.
 
@@ -26,7 +26,7 @@ These pipeline functions are configured by using the ``OPEN_EDX_FILTERS_CONFIG``
 For more information on how to use Open edX Filters, refer to the `Using Open edX Filters`_ how-to guide.
 
 How do Open edX Filters work?
-----------------------------
+-----------------------------
 
 Open edX Filters are implemented using an accumulative pipeline mechanism, which executes a series of functions in a specific order. Each function in the pipeline receives the output of the previous function as input, allowing developers to build complex processing logic by chaining multiple functions together. The pipeline ensures that the order of execution is maintained and that the result of a previous function is available to the current one in the form of a pipeline.
 
