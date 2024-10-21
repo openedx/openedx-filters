@@ -12,7 +12,7 @@ click==8.1.7
     # via code-annotations
 code-annotations==1.8.0
     # via -r requirements/test.in
-coverage[toml]==7.6.3
+coverage[toml]==7.6.4
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
@@ -24,7 +24,7 @@ iniconfig==2.0.0
     # via pytest
 jinja2==3.1.4
     # via code-annotations
-markupsafe==3.0.1
+markupsafe==3.0.2
     # via jinja2
 packaging==24.1
     # via pytest
