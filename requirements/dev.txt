@@ -90,7 +90,7 @@ docutils==0.21.2
     # via
     #   -r requirements/quality.txt
     #   readme-renderer
-edx-lint==5.4.0
+edx-lint==5.4.1
     # via -r requirements/quality.txt
 filelock==3.16.1
     # via
@@ -136,7 +136,7 @@ jinja2==3.1.4
     #   -r requirements/quality.txt
     #   code-annotations
     #   diff-cover
-keyring==25.4.1
+keyring==25.5.0
     # via
     #   -r requirements/quality.txt
     #   twine
@@ -275,7 +275,7 @@ rfc3986==2.0.0
     # via
     #   -r requirements/quality.txt
     #   twine
-rich==13.9.2
+rich==13.9.3
     # via
     #   -r requirements/quality.txt
     #   twine
@@ -307,7 +307,7 @@ tomlkit==0.13.2
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.23.0
+tox==4.23.2
     # via -r requirements/ci.txt
 twine==5.1.1
     # via -r requirements/quality.txt
