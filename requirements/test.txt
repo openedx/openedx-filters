@@ -6,7 +6,7 @@
 #
 asgiref==3.8.1
     # via
-    #   -r requirements/base.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/base.txt
     #   django
 click==8.1.7
     # via code-annotations
@@ -19,7 +19,7 @@ ddt==1.7.2
 django==4.2.16
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
-    #   -r requirements/base.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/base.txt
 iniconfig==2.0.0
     # via pytest
 jinja2==3.1.4
@@ -46,7 +46,7 @@ pyyaml==6.0.2
     # via code-annotations
 sqlparse==0.5.1
     # via
-    #   -r requirements/base.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/base.txt
     #   django
 stevedore==5.3.0
     # via code-annotations

@@ -14,7 +14,7 @@ anyio==4.6.2.post1
     #   watchfiles
 asgiref==3.8.1
     # via
-    #   -r requirements/test.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
     #   django
 babel==2.16.0
     # via
@@ -34,25 +34,25 @@ charset-normalizer==3.4.0
     # via requests
 click==8.1.7
     # via
-    #   -r requirements/test.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
     #   code-annotations
     #   uvicorn
 code-annotations==1.8.0
-    # via -r requirements/test.txt
+    # via -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
 colorama==0.4.6
     # via sphinx-autobuild
 coverage[toml]==7.6.4
     # via
-    #   -r requirements/test.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
     #   pytest-cov
 cryptography==43.0.3
     # via secretstorage
 ddt==1.7.2
-    # via -r requirements/test.txt
+    # via -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
 django==4.2.16
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
-    #   -r requirements/test.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
 doc8==1.1.2
     # via -r requirements/doc.in
 docutils==0.21.2
@@ -76,7 +76,7 @@ importlib-metadata==8.5.0
     #   twine
 iniconfig==2.0.0
     # via
-    #   -r requirements/test.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
     #   pytest
 jaraco-classes==3.4.0
     # via keyring
@@ -90,16 +90,16 @@ jeepney==0.8.0
     #   secretstorage
 jinja2==3.1.4
     # via
-    #   -r requirements/test.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
     #   code-annotations
     #   sphinx
-keyring==25.4.1
+keyring==25.5.0
     # via twine
 markdown-it-py==3.0.0
     # via rich
 markupsafe==3.0.2
     # via
-    #   -r requirements/test.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
     #   jinja2
 mdurl==0.1.2
     # via markdown-it-py
@@ -111,24 +111,23 @@ nh3==0.2.18
     # via readme-renderer
 packaging==24.1
     # via
-    #   -r requirements/test.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
     #   build
-    #   pydata-sphinx-theme
     #   pytest
     #   sphinx
 pbr==6.1.0
     # via
-    #   -r requirements/test.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
     #   stevedore
 pkginfo==1.10.0
     # via twine
 pluggy==1.5.0
     # via
-    #   -r requirements/test.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
     #   pytest
 pycparser==2.22
     # via cffi
-pydata-sphinx-theme==0.15.4
+pydata-sphinx-theme==0.16.0
     # via sphinx-book-theme
 pygments==2.18.0
     # via
@@ -142,20 +141,20 @@ pyproject-hooks==1.2.0
     # via build
 pytest==8.3.3
     # via
-    #   -r requirements/test.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
     #   pytest-cov
     #   pytest-django
 pytest-cov==5.0.0
-    # via -r requirements/test.txt
+    # via -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
 pytest-django==4.9.0
-    # via -r requirements/test.txt
+    # via -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
 python-slugify==8.0.4
     # via
-    #   -r requirements/test.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
     #   code-annotations
 pyyaml==6.0.2
     # via
-    #   -r requirements/test.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
     #   code-annotations
     #   sphinxcontrib-mermaid
 readme-renderer==44.0
@@ -171,7 +170,7 @@ restructuredtext-lint==1.4.0
     # via doc8
 rfc3986==2.0.0
     # via twine
-rich==13.9.2
+rich==13.9.3
     # via twine
 secretstorage==3.3.3
     # via keyring
@@ -214,18 +213,18 @@ sphinxcontrib-serializinghtml==2.0.0
     # via sphinx
 sqlparse==0.5.1
     # via
-    #   -r requirements/test.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
     #   django
-starlette==0.41.0
+starlette==0.41.2
     # via sphinx-autobuild
 stevedore==5.3.0
     # via
-    #   -r requirements/test.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
     #   code-annotations
     #   doc8
 text-unidecode==1.3
     # via
-    #   -r requirements/test.txt
+    #   -r /home/runner/work/openedx-filters/openedx-filters/requirements/test.txt
     #   python-slugify
 twine==5.1.1
     # via -r requirements/doc.in
