@@ -1,70 +1,32 @@
 Open edX Filters Glossary
 ##########################
 
-This glossary provides definitions for some of the terms to ease the adoption of the Open edX Filters library.
+A filter has multiple components, such as pipeline, pipeline steps, filter definition, filter signature, filter type, filter exceptions, filter configuration, etc. This glossary provides definitions for these components.
+
+Here's a brief explanation of each component:
 
 .. glossary::
 
-    Pipeline
-        A pipeline is a list of functions that are executed in order. Each function receives the output of the previous function as input. The output of the last function is the output of the filter itself.
+   Pipeline
+        A pipeline is a list of functions executed in a specific order; these functions are known as pipeline steps. Each function in the pipeline takes the output of the previous function as its input, with the final function's output serving as the overall output of the filter. These pipelines are configured in the filter configuration and are executed in sequence.
 
-    Pipeline Steps
-        A pipeline step is a function that receives, manipulates, and returns data. It can be used to transform data, validate it, filter it, enrich it, etc. It's a class that inherits from ``PipelineStep`` that implements the            ``run_filter`` method which must match the Open edX Filter signature.
+    Pipeline Step
+        A pipeline step is a function within a pipeline that receives, processes, and returns data. Each step may perform operations like transforming, validating, filtering, or enriching data. Pipeline steps are implemented as classes that inherit from a base step class and define specific logic within their ``run_filter`` method, which conforms to the filter's signature.
 
     Filter Definition
-        A filter definition is the class that implements the ``run_filter`` method, which is usually implemented in this repository for community use. Services invoke it to execute configured pipeline steps.
+        A filter definition is the class that defines the ``run_filter`` method for a filter, specifying the input and output behavior. This class, which inherits from a standard filter base, executes the configured pipeline steps, enabling custom processing within the defined filter.
 
-    Open edX Filter signature
-        It's the signature of each filter's ``run_filter`` method in the class inheriting from ``OpenEdxPublicFilter``. The signature specifies the filter's input and output. 
+    Filter Signature
+        The filter signature consists of the specific parameters required by a filter's ``run_filter`` method. It defines the expected input and output structure for the filter, detailing the data the filter will process.
 
-    Filter type
-        It's the filter identifier. It's used to identify the filter in the configuration settings. When configuring the pipeline for a filter, the type is as an index for the filter configuration.
+    Filter Type
+        The filter type is a unique identifier for the filter, following a standardized format (e.g., reverse DNS style). This type is used as an index for configuring the filter pipeline and specifies which configuration settings apply to a given filter.
 
-    Filter exceptions
+    Filter Exceptions
+        Filters can raise exceptions to control the flow of the pipeline. If a filter raises an exception, the pipeline halts, and the exception becomes the pipeline's output. Exceptions are typically raised when certain conditions specified in the filter's logic are met, signaling an event or state change.
 
-        Besides acting as a filter, an Open edX Filter can also raise exceptions. These exceptions are used to control the execution of the pipeline. If an exception is raised, the pipeline execution is stopped and the exception          is raised again as the output of the pipeline. These exceptions are intentionally raised by the developer during the filter's execution when a condition is met.
+    Filter Configuration
+        Filter configuration is a dictionary that defines the pipeline settings for a filter. Each filter type has its own configuration, which includes settings like whether errors should fail silently or propagate, and the sequence of pipeline steps. Configurations specify the filter type, error-handling preferences, and a list of module paths for each pipeline step to be executed.
 
-    Filter configuration
-
-        The filter configuration is a dictionary with the configuration settings for the filter. It's used to configure the pipeline for a filter. The configuration settings are specific for each filter type. The dictionary               looks like this:
-        
-        .. code-block:: python
-        
-            OPEN_EDX_FILTERS_CONFIG = {
-                "<FILTER EVENT TYPE>": {
-                    "fail_silently": <BOOLEAN>,
-                    "pipeline": [
-                        "<STEP MODULE PATH 0>",
-                        "<STEP MODULE PATH 1>",
-                        ...
-                        "<STEP MODULE PATH N-1>",
-                    ]
-                },
-            }
-        
-        Where:
-        
-        - ``<FILTER EVENT TYPE>`` is the filter type.
-        - ``fail_silently`` is a boolean value.
-        
-        If ``fail_silently`` is ``True``: when a pipeline step raises a runtime exception -- like ``ImportError`` or ``AttributeError`` exceptions which are not intentionally raised by the developer during the filter's execution; the exception won't be propagated and the pipeline execution will resume, i.e the next steps will be executed
-        If ``fail_silently`` is ``False``: the exception will be propagated and the pipeline execution will stop.
-        
-        For example, with this configuration:
-        
-        .. code-block:: python
-        
-            OPEN_EDX_FILTERS_CONFIG = {
-                "<FILTER EVENT TYPE>": {
-                    "fail_silently": True,
-                    "pipeline": [
-                        "non_existing_module.non_existing_function",
-                        "existing_module.function_raising_attribute_error",
-                        "existing_module.existing_function",
-                    ]
-                },
-            }
-        
-        The pipeline tooling will catch the ``ImportError`` exception raised by the first step and the ``AttributeError`` exception raised by the second step, then continue and execute the third step. Now, if ``fail_silently`` is ``False``, the pipeline tooling will catch the ``ImportError`` exception raised by the first step and propagate it, i.e the pipeline execution will stop.
-
-- ``pipeline`` is list of paths for each pipeline step. Each path is a string with the following format: ``<MODULE PATH>.<CLASS NAME>``. The module path is the path to the module where the pipeline step class is defined and the class name is the name of the class that implements the ``run_filter`` method to be executed.
+.. note::
+    In practice, "filter" is used to refer to the whole mechanism, including the pipeline steps, filter definition and so on.
