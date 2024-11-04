@@ -25,6 +25,3 @@ A filter has multiple components that are used to define, execute and handle fil
 
    Filter Configuration
      Filter configuration is a dictionary that defines the pipeline settings for a filter. Each filter type has its own configuration, which includes settings like whether errors should fail silently or propagate, and the sequence of pipeline steps. Configurations specify the filter type, error-handling preferences, and a list of module paths for each pipeline step to be executed.
-
-.. note::
-    In practice, "filter" is used to refer to the whole mechanism, including the pipeline steps, filter definition and so on.
