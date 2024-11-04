@@ -24,17 +24,17 @@ Open edX Filters are implemented using an accumulative pipeline mechanism, which
 
 #. The ``run_filter`` method calls the pipeline tooling under the hood, which manages the execution of the filter's pipeline.
 
-#. The filter's tooling retrieves the configuration from ``OPEN_EDX_FILTERS_CONFIG``, which defines a list of N functions (f0, f1, …, fn-1) that will be executed.
+#. The filter's tooling retrieves the configuration from ``OPEN_EDX_FILTERS_CONFIG``, which defines a list of N functions :math:`f_0, f_1, \ldots, f_{n-1}` that will be executed.
 
-#. The tooling then executes each function in the pipeline sequentially, starting with ``f0``, which processes the input arguments ``args`` and applies the developer's operations, returning potentially modified arguments.
+#. The tooling then executes each function in the pipeline sequentially, starting with :math:`f_0`, which processes the input arguments ``args`` and applies the developer's operations, returning potentially modified arguments.
 
-#. The next function ``f1`` receives the potentially modified arguments and applies further operations, returning another modified set of arguments. This process continues through the list of functions.
+#. The next function :math:`f_0` receives the potentially modified arguments and applies further operations, returning another modified set of arguments. This process continues through the list of functions.
 
-#. Each subsequent function ``fi+1`` receives the output from the previous function and returns its modified output until all functions have been executed.
+#. Each subsequent function :math:`f_{i+1}` receives the output from the previous function and returns its modified output until all functions have been executed.
 
 #. Additionally, at any point in the pipeline, a developer can halt execution by raising an exception, based on conditions defined in the processing logic, to stop further modifications.
 
-#. Once the final function ``fn-1`` has been executed, the final modified arguments are returned to the caller, which may use them for the remaining part of its execution.
+#. Once the final function :math:`f_{n-1}` has been executed, the final modified arguments are returned to the caller, which may use them for the remaining part of its execution.
 
 Each function in the pipeline has the ability to modify the input data, add new data, or halt execution based on specific conditions, such as raising exceptions if certain criteria is not met. This pipeline structure ensures that complex business logic can be applied during runtime without directly altering the application code.
 
