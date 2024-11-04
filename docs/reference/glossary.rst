@@ -1,9 +1,7 @@
 Open edX Filters Glossary
 ##########################
 
-A filter has multiple components, such as pipeline, pipeline steps, filter definition, filter signature, filter type, filter exceptions, filter configuration, etc. This glossary provides definitions for these components.
-
-Here's a brief explanation of each component:
+A filter has multiple components that are used to define, execute and handle filters, such as pipeline, pipeline steps, filter definition, filter signature, filter type, filter exceptions, filter configuration, etc.  This glossary provides definitions for some of the terms to ease the adoption of the Open edX Filters library.
 
 .. glossary::
 
