@@ -55,7 +55,7 @@ By organizing this workflow through a pipeline, Open edX Filters allow developer
 How are Open edX Filters used?
 ------------------------------
 
-Developers can implement functions in a plugin, configure them for a particular filter in the ``OPEN_EDX_FILTERS_CONFIG`` setting, modifying the application flow when a the filter in question is invoked by the process in execution. These functions can the application's behavior by altering data, adding new data, or stopping execution by raising exceptions. For example, a filter can stop a student's enrollment if certain conditions, such as business rules, are not met.
+Developers can implement functions in an `Open edX Django plugin`_, configure them for a particular filter in the ``OPEN_EDX_FILTERS_CONFIG`` setting, modifying the application flow when a the filter in question is invoked by the process in execution. These functions can the application's behavior by altering data, adding new data, or stopping execution by raising exceptions. For example, a filter can stop a student's enrollment if certain conditions, such as business rules, are not met.
 
 For more information on how to use Open edX Filters, refer to the `Using Open edX Filters`_ how-to guide.
 
@@ -65,3 +65,4 @@ For more information on how to use Open edX Filters, refer to the `Using Open ed
 .. _CourseEnrollmentStarted filter: https://github.com/openedx/edx-platform/blob/master/common/djangoapps/student/models/course_enrollment.py#L719-L724
 .. _Python Social Auth: https://python-social-auth.readthedocs.io/en/latest/pipeline.html
 .. _OpenEdxPublicFilter: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/tooling.py#L14-L15
+.. _Open edX Django plugin: https://edx.readthedocs.io/projects/edx-django-utils/en/latest/plugins/readme.html
