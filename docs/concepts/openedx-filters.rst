@@ -32,7 +32,7 @@ Open edX Filters are implemented using an accumulative pipeline mechanism, which
 
 #. Each subsequent function :math:`f_{i+1}` receives the output from the previous function and returns its modified output until all functions have been executed.
 
-#. Additionally, at any point in the pipeline, a developer can halt execution by raising an exception, based on conditions defined in the processing logic, to stop further modifications.
+#. Additionally, at any point in the pipeline, a developer can halt execution by raising an exception, based on conditions defined in the processing logic, to stop the application flow.
 
 #. Once the final function :math:`f_{n-1}` has been executed, the final modified arguments are returned to the caller, which may use them for the remaining part of its execution.
 
@@ -40,7 +40,7 @@ Each function in the pipeline has the ability to modify the input data, add new 
 
 Here's an example of a filter in action:
 
-#. A user enrolls in a course, `triggering the CourseEnrollmentStarted filter`_ by calling the ``run_filter`` method with the enrollment details. This filter processes information about the user, course, and enrollment details.
+#. A user enrolls in a course, triggering the `CourseEnrollmentStarted filter`_ by calling the ``run_filter`` method with the enrollment details. This filter processes information about the user, course, and enrollment details.
 
 #. The filter tooling executes a series of functions configured in ``OPEN_EDX_FILTERS_CONFIG``, e.g. checking user eligibility for enrollment, updating the enrollment status, and notifying the user about the enrollment.
 
@@ -48,7 +48,7 @@ Here's an example of a filter in action:
 
 #. The final output of the pipeline, such as the updated enrollment details, is returned to the caller, or an exception is raised if the user is not eligible.
 
-#. The process is complete once all functions in the pipeline have executed, and the application continues its execution based on the final output.
+#. The process is complete once all functions in the pipeline have executed, and the enrollment process continues based on the final output.
 
 By organizing this workflow through a pipeline, Open edX Filters allow developers to extend platform functionality in a flexible and maintainable way.
 
@@ -62,6 +62,6 @@ For more information on how to use Open edX Filters, refer to the `Using Open ed
 .. _Using Open edX Filters: ../how-tos/using-filters.html
 .. _Hooks Extension Framework: https://open-edx-proposals.readthedocs.io/en/latest/oep-0050-hooks-extension-framework.html
 .. _Django Signals Documentation: https://docs.djangoproject.com/en/4.2/topics/signals/
-.. _triggering the CourseEnrollmentStarted filter: https://github.com/openedx/edx-platform/blob/master/common/djangoapps/student/models/course_enrollment.py#L719-L724
+.. _CourseEnrollmentStarted filter: https://github.com/openedx/edx-platform/blob/master/common/djangoapps/student/models/course_enrollment.py#L719-L724
 .. _Python Social Auth: https://python-social-auth.readthedocs.io/en/latest/pipeline.html
 .. _OpenEdxPublicFilter: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/tooling.py#L14-L15
