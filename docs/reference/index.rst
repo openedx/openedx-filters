@@ -7,3 +7,4 @@ References
 
    filters
    django-plugins-and-filters
+   real-life-use-cases
