@@ -198,7 +198,7 @@ Steps
         self.assertDictContainsSubset(attributes, exception.__dict__)
 
 .. note::
-    Basically, we're testing the :term:`filter signature<Filter Signature>` and the filter's behavior for stopping the process. The first test is testing the :term:`filter signature<Filter Signature>`, which is the set of parameters that the filter receives and returns. The second test is testing the filter's behavior for stopping the process, which is the exception that is raised when the filter stops the process.
+    In this example, we're testing the :term:`filter signature<Filter Signature>` and the filter's behavior for stopping the process. The first test is testing the :term:`filter signature<Filter Signature>`, specifically that the behavior works as expected when passed mock form data. The second test is testing the filter's behavior for stopping the process, which is the exception that is raised when the filter stops the process.
 
 .. .. seealso::
 
