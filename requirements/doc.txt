@@ -109,7 +109,7 @@ more-itertools==10.5.0
     #   jaraco-functools
 nh3==0.2.18
     # via readme-renderer
-packaging==24.1
+packaging==24.2
     # via
     #   -r requirements/test.txt
     #   build
@@ -238,7 +238,7 @@ uvicorn==0.32.0
     # via sphinx-autobuild
 watchfiles==0.24.0
     # via sphinx-autobuild
-websockets==13.1
+websockets==14.0
     # via sphinx-autobuild
-zipp==3.20.2
+zipp==3.21.0
     # via importlib-metadata
