@@ -85,6 +85,8 @@ Here are some additional use cases that can be implemented using Open edX Filter
 * `Render Alternative Course About`_.
 * `Hide Course About from Users Without Memberships`_.
 
+.. note:: If you have implemented a solution using Open edX Filters and would like to share it with the community, please submit a pull request to add it to this list!
+
 .. _Prevent Enrollment From Non-Partner Users: https://github.com/academic-innovation/mogc-partnerships/blob/main/mogc_partnerships/pipeline.py#L35-L50
 .. _Prevent Enrollment for Non-Authorized Email Domains: https://github.com/fccn/nau-openedx-extensions/blob/nau/nutmeg.master/nau_openedx_extensions/filters/pipeline.py#L17-L79
 .. _Prevent Registration of Users with Specific Email Domains: https://github.com/UAMx/uamx-social-auth/blob/main/uamx_social_auth/pipeline.py#L59-L63
