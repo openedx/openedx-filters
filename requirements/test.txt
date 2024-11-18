@@ -10,9 +10,9 @@ asgiref==3.8.1
     #   django
 click==8.1.7
     # via code-annotations
-code-annotations==1.8.0
+code-annotations==1.8.1
     # via -r requirements/test.in
-coverage[toml]==7.6.4
+coverage[toml]==7.6.7
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
@@ -44,7 +44,7 @@ python-slugify==8.0.4
     # via code-annotations
 pyyaml==6.0.2
     # via code-annotations
-sqlparse==0.5.1
+sqlparse==0.5.2
     # via
     #   -r requirements/base.txt
     #   django

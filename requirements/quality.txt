@@ -28,11 +28,11 @@ click==8.1.7
     #   edx-lint
 click-log==0.4.0
     # via edx-lint
-code-annotations==1.8.0
+code-annotations==1.8.1
     # via
     #   -r requirements/test.txt
     #   edx-lint
-coverage[toml]==7.6.4
+coverage[toml]==7.6.7
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -171,7 +171,7 @@ six==1.16.0
     # via edx-lint
 snowballstemmer==2.2.0
     # via pydocstyle
-sqlparse==0.5.1
+sqlparse==0.5.2
     # via
     #   -r requirements/test.txt
     #   django
