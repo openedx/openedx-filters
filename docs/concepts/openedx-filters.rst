@@ -13,7 +13,7 @@ What are Open edX Filters?
 
 An Open edX Filter is a pipeline mechanism that executes a series of functions when configured. Each function receives input arguments, which are data used by the process in execution, and returns the same arguments, possibly modified. Given this design, filters can modify the application flow according to the specified configuration, altering or adding new behaviors during execution time.
 
-The pipeline mechanism is implemented by a class called `OpenEdxPublicFilter`_, which provides the necessary tools to fulfill the Open edX Filters requirements, such as ordered execution, configurability, interchangeable functions, argument definition, and cumulative behavior. This enables filters to modify the flow of the application dynamically during runtime based on predefined business logic or conditions.
+The pipeline mechanism is implemented by a class called `OpenEdxPublicFilter`_, which provides the necessary tools to fulfill the Open edX Filters requirements, such as ordered execution, configurability, interchangeable functions, argument definition, and cumulative behavior. This enables filters to modify the flow of the application dynamically during runtime based on predefined business logic or conditions. We refer to the pipeline mechanism as the **Pipeline Tooling** throughout this document.
 
 How do Open edX Filters work?
 -----------------------------
@@ -22,15 +22,15 @@ Open edX Filters are implemented using an accumulative pipeline mechanism, which
 
 #. An application component (caller) invokes the filter by calling the ``run_filter()`` method implemented by the filter definition.
 
-#. The ``run_filter`` method calls the pipeline tooling under the hood, which manages the execution of the filter's pipeline.
+#. The ``run_filter`` method calls the **Pipeline Tooling** under the hood, which manages the execution of the filter's pipeline.
 
-#. The filter's tooling retrieves the configuration from ``OPEN_EDX_FILTERS_CONFIG``, which defines a list of N functions :math:`f_0, f_1, \ldots, f_{n-1}` that will be executed.
+#. The filter's tooling retrieves the configuration from ``OPEN_EDX_FILTERS_CONFIG``, which defines a list of N functions :math::math:`f_0, f_1, \ldots, f_{n-1}` that will be executed.
 
-#. The tooling then executes each function in the pipeline sequentially, starting with :math:`f_0`, which processes the input arguments ``args`` and applies the developer's operations, returning potentially modified arguments.
+#. The tooling then executes each function in the pipeline sequentially, starting with :math:`f_0`, which processes the input arguments and applies the developer's operations, returning potentially modified arguments.
 
-#. The next function :math:`f_0` receives the potentially modified arguments and applies further operations, returning another modified set of arguments. This process continues through the list of functions.
+#. The next function (if there are more than one) :math:`f_1` receives the potentially modified arguments and applies further operations, returning another modified set of arguments. This process continues through the list of functions.
 
-#. Each subsequent function :math:`f_{i+1}` receives the output from the previous function and returns its modified output until all functions have been executed.
+#. Each subsequent function receives the output from the previous function and returns its modified output until all functions have been executed.
 
 #. Additionally, at any point in the pipeline, a developer can halt execution by raising an exception, based on conditions defined in the processing logic, to stop the application flow.
 
@@ -55,7 +55,7 @@ By organizing this workflow through a pipeline, Open edX Filters allow developer
 How are Open edX Filters used?
 ------------------------------
 
-Developers can implement functions in an `Open edX Django plugin`_, configure them for a particular filter in the ``OPEN_EDX_FILTERS_CONFIG`` setting, modifying the application flow when a the filter in question is invoked by the process in execution. These functions can the application's behavior by altering data, adding new data, or stopping execution by raising exceptions. For example, a filter can stop a student's enrollment if certain conditions, such as business rules, are not met.
+Developers can implement functions in an `Open edX Django plugin`_, configure them for a particular filter in the ``OPEN_EDX_FILTERS_CONFIG`` setting, and modify the application flow when a the filter in question is invoked by the process in execution. These functions can the application's behavior by altering data, adding new data, or stopping execution by raising exceptions. For example, a filter can stop a student's enrollment if certain conditions, such as business rules, are not met.
 
 For more information on how to use Open edX Filters, refer to the `Using Open edX Filters`_ how-to guide.
 
