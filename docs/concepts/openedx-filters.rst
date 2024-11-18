@@ -24,7 +24,7 @@ Open edX Filters are implemented using an accumulative pipeline mechanism, which
 
 #. The ``run_filter`` method calls the **Pipeline Tooling** under the hood, which manages the execution of the filter's pipeline.
 
-#. The filter's tooling retrieves the configuration from ``OPEN_EDX_FILTERS_CONFIG``, which defines a list of N functions :math::math:`f_1, f_2, \ldots, f_{n}` that will be executed.
+#. The filter's tooling retrieves the configuration from ``OPEN_EDX_FILTERS_CONFIG``, which defines a list of N functions :math:`f_1, f_2, \ldots, f_{n}` that will be executed.
 
 #. The tooling then executes each function in the pipeline sequentially, starting with :math:`f_1`, which processes the input arguments and applies the developer's operations, returning potentially modified arguments.
 
