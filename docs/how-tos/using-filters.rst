@@ -2,7 +2,7 @@ How to use Open edX Filters
 ---------------------------
 
 Using openedx-filters in your code is very straight forward. We can consider the
-various use cases: implementing pipeline steps, attaching/hooking pipelines to filter,
+various use cases: implementing :term:`Pipeline Steps<Pipeline Steps>`, attaching/hooking pipelines to filter,
 and triggering a filter. We'll also cover how to test the filters you create in your service.
 
 
@@ -11,8 +11,8 @@ Implement pipeline steps
 
 Let's say you want to consult student's information with a third party service
 before generating the students certificate. This is a common use case for filters,
-where the functions part of the filter's pipeline will perform the consulting tasks and
-decide the execution flow for the application. These functions are the pipeline steps,
+where the functions part of the :term:`filter pipeline<Filter Pipeline>` will perform the consulting tasks and
+decide the execution flow for the application. These functions are the :term:`pipeline steps<Pipeline Steps>`,
 and can be implemented in an installable Python library:
 
 .. code-block:: python
@@ -83,8 +83,8 @@ There's two key components to the implementation:
 Attach/hook pipeline to filter
 ******************************
 
-After implementing the pipeline steps, we have to tell the certificate creation
-filter to execute our pipeline.
+After implementing the :term:`pipeline steps<Pipeline Steps>`, we have to tell the certificate creation
+filter to execute our :term:`pipeline<Filter Pipeline>`.
 
 .. code-block:: python
 
