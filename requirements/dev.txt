@@ -54,7 +54,7 @@ click-log==0.4.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-code-annotations==1.8.0
+code-annotations==1.8.1
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -62,7 +62,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.6.4
+coverage[toml]==7.6.7
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -291,7 +291,7 @@ snowballstemmer==2.2.0
     # via
     #   -r requirements/quality.txt
     #   pydocstyle
-sqlparse==0.5.1
+sqlparse==0.5.2
     # via
     #   -r requirements/quality.txt
     #   django
