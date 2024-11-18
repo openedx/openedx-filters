@@ -18,7 +18,13 @@ The pipeline mechanism is implemented by a class called `OpenEdxPublicFilter`_, 
 How do Open edX Filters work?
 -----------------------------
 
-Open edX Filters are implemented using an accumulative pipeline mechanism, which executes a series of functions in a specific order. Each function in the pipeline receives the output of the previous function as input, allowing developers to build complex processing logic by chaining multiple functions together. The pipeline ensures that the order of execution is maintained and that the result of a previous function is available to the current one in the form of a pipeline. The filter execution process follows these steps:
+Open edX Filters are implemented using an accumulative pipeline mechanism, which executes a series of functions in a specific order. Each function in the pipeline receives the output of the previous function as input, allowing developers to build complex processing logic by chaining multiple functions together. The pipeline ensures that the order of execution is maintained and that the result of a previous function is available to the current one in the form of a pipeline. In this diagram, we illustrate the workflow of Open edX Filters:
+
+.. image:: ../_images/openedx-filters-workflow.png
+   :alt: Open edX Filters Workflow
+   :align: center
+
+The workflow of Open edX Filters is as follows:
 
 #. An application component (caller) invokes the filter by calling the ``run_filter()`` method implemented by the filter definition.
 
