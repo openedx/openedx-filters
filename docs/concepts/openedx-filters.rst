@@ -20,13 +20,26 @@ Open edX Filters are implemented using an accumulative pipeline mechanism, which
 
 This pipeline mechanism is implemented by the `OpenEdxPublicFilter`_ class , which provides the necessary tools to fulfill the Open edX Filters requirements mentioned previously, such as ordered execution, configurability, interchangeable functions, argument definition, and cumulative behavior. This enables filters to modify the flow of the application dynamically during runtime based on predefined business logic or conditions.
 
-In this diagram, we illustrate the workflow of Open edX Filters:
+Architectural Diagram
+*********************
+
+In this diagram, we illustrate the workflow of triggering an Open edX Filter:
 
 .. image:: ../_images/openedx-filters-workflow.png
    :alt: Open edX Filters Workflow
    :align: center
 
-The workflow of Open edX Filters is as follows:
+Components
+~~~~~~~~~~
+
+#. Application (caller): The component that calls the filter during its execution, triggering the pipeline to process the input data. Developers may have added this call to a part of the application to handle different behaviors under certain conditions. E.g., a user enrolls in a course, triggering the `CourseEnrollmentStarted filter`_.
+#. OpenEdxPublicFilter: The class that implements all methods used to manage the execution of the filter.
+#. PipelineStep1...N: The pipeline steps that are executed in sequence, each processing the input data and returning potentially modified data. These steps are defined by the developer and configured in the filter configuration. E.g., a pipeline step that checks user eligibility for enrollment.
+
+Workflow
+~~~~~~~~
+
+The workflow of triggering an Open edX Filter in an application with N pipeline steps configured is as follows:
 
 #. An application component (caller) invokes the filter during its execution by calling the ``run_filter`` method implemented by the :term:`filter definition<Filter Definition>`.
 
@@ -48,7 +61,7 @@ The workflow of Open edX Filters is as follows:
 
 Each function in the pipeline has the ability to modify the input data, add new data, or halt execution based on specific conditions, such as raising exceptions if certain criteria is not met. This pipeline structure ensures that complex business logic can be applied during runtime without directly altering the application code.
 
-Here's an example of a filter in action:
+Here's an example of the `CourseEnrollmentStarted filter`_ in action:
 
 #. A user enrolls in a course, triggering the `CourseEnrollmentStarted filter`_ by calling the ``run_filter`` method with the enrollment details. This filter processes information about the user, course, and enrollment details.
 
