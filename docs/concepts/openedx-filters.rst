@@ -38,7 +38,7 @@ The workflow of Open edX Filters is as follows:
 
 #. Each subsequent function receives the output from the previous function and returns its modified output until all functions have been executed.
 
-#. Additionally, at any point in the pipeline, a developer can halt execution by raising an exception, based on conditions defined in the processing logic, to stop the application flow. In this case, the pipeline stops, and the pipeline tooling raises the exception to the caller as the final output. From there the caller can handle the exception as needed.
+#. At any point in the pipeline, a developer can halt execution by raising an exception, based on conditions defined in the processing logic, to stop the application flow. Let's assume that :math:`f_{2}` raises an exception instead of returning the modified arguments ``kwargs_2``. In this case, the pipeline stops, and the pipeline tooling raises the exception to the caller as the final output. From there the caller can handle the exception as needed.
 
 #. If no exceptions are raised, the pipeline continues executing the functions until the final function :math:`f_{n}` has been executed.
 
