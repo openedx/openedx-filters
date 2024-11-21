@@ -18,7 +18,7 @@ How do Open edX Filters work?
 
 Open edX Filters are implemented using an accumulative pipeline mechanism, which executes a series of functions in a specific order. Each function in the pipeline receives the output of the previous function as input, allowing developers to build complex processing logic by chaining multiple functions together. The pipeline ensures that the order of execution is maintained and that the result of a previous function is available to the current one in the form of a pipeline.
 
-This pipeline mechanism is implemented by the `OpenEdxPublicFilter`_ class , which provides the necessary tools to fulfill the Open edX Filters requirements mentioned previously, such as ordered execution, configurability, interchangeable functions, argument definition, and cumulative behavior. This enables filters to modify the flow of the application dynamically during runtime based on predefined business logic or conditions.
+This pipeline mechanism is implemented by the `OpenEdxPublicFilter`_ class, which provides the necessary tools to fulfill the Open edX Filters requirements mentioned previously, such as ordered execution, configurability, interchangeable functions, argument definition, and cumulative behavior. This enables filters to modify the flow of the application dynamically during runtime based on predefined business logic or conditions.
 
 Architectural Diagram
 *********************
@@ -32,16 +32,16 @@ In this diagram, we illustrate the workflow of triggering an Open edX Filter:
 Components
 ~~~~~~~~~~
 
-#. Application (caller): The component that calls the filter during its execution, triggering the pipeline to process the input data. Developers may have added this call to a part of the application to handle different behaviors under certain conditions. E.g., a user enrolls in a course, triggering the `CourseEnrollmentStarted filter`_.
+#. Application (caller): The component that calls the filter during its execution, triggering the pipeline to process the input data. Developers may have added this call to a part of the application to include different behaviors. E.g., a user enrolls in a course, triggering the `CourseEnrollmentStarted filter`_.
 #. OpenEdxPublicFilter: The class that implements all methods used to manage the execution of the filter.
-#. PipelineStep1...N: The pipeline steps that are executed in sequence, each processing the input data and returning potentially modified data. These steps are defined by the developer and configured in the filter configuration. E.g., a pipeline step that checks user eligibility for enrollment.
+#. PipelineStep1...N: The pipeline steps that are executed in sequence, each processing the input data and returning potentially modified data. These steps are defined by the developer to introduce additional behaviors. E.g., a pipeline step that checks user eligibility for enrollment.
 
 Workflow
 ~~~~~~~~
 
 The workflow of triggering an Open edX Filter in an application with N pipeline steps configured is as follows:
 
-#. An application component (caller) invokes the filter during its execution by calling the ``run_filter`` method implemented by the :term:`filter definition<Filter Definition>`.
+#. An application component (caller) invokes the filter during its execution by calling the ``run_filter`` method implemented by its :term:`filter definition<Filter Definition>`.
 
 #. The ``run_filter`` method of the filter calls the ``OpenEdxPublicFilter.run_pipeline`` method under the hood, which manages the execution of the filter's pipeline.
 
@@ -53,13 +53,16 @@ The workflow of triggering an Open edX Filter in an application with N pipeline 
 
 #. Each subsequent function receives the output from the previous function and returns its modified output until all functions have been executed.
 
-#. At any point in the pipeline, a developer can halt execution by raising an exception, based on conditions defined in the processing logic, to stop the application flow. Let's assume that :math:`f_{2}` raises an exception instead of returning the modified arguments ``kwargs_2``. In this case, the pipeline stops, and the pipeline tooling raises the exception to the caller as the final output. From there the caller can handle the exception as needed.
+#. At any point in the pipeline, a developer can halt execution by raising an exception, based on conditions defined in the processing logic, to stop the application flow. Let's assume that :math:`f_{2}` raises an exception instead of returning the modified arguments ``kwargs_2``. In this case, the pipeline stops, and the ``OpenEdxPublicFilter.run_pipeline`` method raises the exception to the caller as the final output. From there the caller can handle the exception as needed.
 
 #. If no exceptions are raised, the pipeline continues executing the functions until the final function :math:`f_{n}` has been executed.
 
 #. The final modified arguments ``kwargs_n`` are returned to the caller, which may use them for the remaining part of its execution.
 
 Each function in the pipeline has the ability to modify the input data, add new data, or halt execution based on specific conditions, such as raising exceptions if certain criteria is not met. This pipeline structure ensures that complex business logic can be applied during runtime without directly altering the application code.
+
+Real-Life Example
+~~~~~~~~~~~~~~~~~
 
 Here's an example of the `CourseEnrollmentStarted filter`_ in action:
 
@@ -73,7 +76,7 @@ Here's an example of the `CourseEnrollmentStarted filter`_ in action:
 
 #. The process is complete once all functions in the pipeline have executed, and the enrollment process continues based on the final output.
 
-By organizing this workflow through a pipeline, Open edX Filters allow developers to extend platform functionality in a flexible and maintainable way.
+By running filters in key places of the Open edX platform, developers can extend the platform's functionality in a flexible and maintainable way.
 
 How are Open edX Filters used?
 ------------------------------
