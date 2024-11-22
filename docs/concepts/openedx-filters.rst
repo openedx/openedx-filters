@@ -43,6 +43,8 @@ The workflow of triggering an Open edX Filter in an application with N pipeline 
 
 #. An application component (caller) invokes the filter during its execution by calling the ``run_filter`` method implemented by its :term:`filter definition<Filter Definition>`.
 
+#. The caller passes the input data to the filter through the ``run_filter`` method, this data are in-memory platform objects that the filter will process.
+
 #. The ``run_filter`` method of the filter calls the ``OpenEdxPublicFilter.run_pipeline`` method under the hood, which manages the execution of the filter's pipeline.
 
 #. This method retrieves the configuration from ``OPEN_EDX_FILTERS_CONFIG``, which defines a list of N functions :math:`f_1, f_2, \ldots, f_{n}` that will be executed.
