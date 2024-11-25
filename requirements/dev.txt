@@ -54,7 +54,7 @@ click-log==0.4.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-code-annotations==1.8.1
+code-annotations==1.8.2
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -62,7 +62,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.6.7
+coverage[toml]==7.6.8
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -295,7 +295,7 @@ sqlparse==0.5.2
     # via
     #   -r requirements/quality.txt
     #   django
-stevedore==5.3.0
+stevedore==5.4.0
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -320,7 +320,7 @@ virtualenv==20.27.1
     # via
     #   -r requirements/ci.txt
     #   tox
-wheel==0.45.0
+wheel==0.45.1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools

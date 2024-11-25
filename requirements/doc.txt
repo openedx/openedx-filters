@@ -37,11 +37,11 @@ click==8.1.7
     #   -r requirements/test.txt
     #   code-annotations
     #   uvicorn
-code-annotations==1.8.1
+code-annotations==1.8.2
     # via -r requirements/test.txt
 colorama==0.4.6
     # via sphinx-autobuild
-coverage[toml]==7.6.7
+coverage[toml]==7.6.8
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -215,9 +215,9 @@ sqlparse==0.5.2
     # via
     #   -r requirements/test.txt
     #   django
-starlette==0.41.2
+starlette==0.41.3
     # via sphinx-autobuild
-stevedore==5.3.0
+stevedore==5.4.0
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -234,9 +234,9 @@ urllib3==2.2.3
     # via
     #   requests
     #   twine
-uvicorn==0.32.0
+uvicorn==0.32.1
     # via sphinx-autobuild
-watchfiles==0.24.0
+watchfiles==1.0.0
     # via sphinx-autobuild
 websockets==14.1
     # via sphinx-autobuild
