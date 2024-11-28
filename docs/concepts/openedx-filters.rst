@@ -39,8 +39,6 @@ Components
 Workflow
 ~~~~~~~~
 
-The workflow of triggering an Open edX Filter in an application with N pipeline steps configured is as follows:
-
 #. An application component (caller) invokes the filter during its execution by calling the ``run_filter`` method implemented by its :term:`filter definition<Filter Definition>`.
 
 #. The caller passes the input data to the filter through the ``run_filter`` method, this data are in-memory platform objects that the filter will process.
