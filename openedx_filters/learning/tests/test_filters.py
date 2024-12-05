@@ -25,6 +25,7 @@ from openedx_filters.learning.filters import (
     InstructorDashboardRenderStarted,
     ORASubmissionViewRenderStarted,
     RenderXBlockStarted,
+    ScheduleQuerySetRequested,
     StudentLoginRequested,
     StudentRegistrationRequested,
     VerticalBlockChildRenderStarted,
@@ -776,3 +777,44 @@ class TestCourseAboutPageURLRequested(TestCase):
 
         self.assertEqual(url, url_result)
         self.assertEqual(org, org_result)
+
+
+@ddt
+class TestScheduleFilters(TestCase):
+    """
+    Test class to verify standard behavior of the schedule filters.
+
+    You'll find test suites for:
+    - `ScheduleQuerySetRequested`
+    """
+
+    def test_schedule_requested(self):
+        """
+        Test schedule requested filter.
+
+        Expected behavior:
+            - The filter should return the filterd schedules.
+        """
+        schedules = Mock()
+
+        result = ScheduleQuerySetRequested.run_filter(schedules)
+
+        self.assertEqual(schedules, result)
+
+    @data(
+        (
+            ScheduleQuerySetRequested.PreventScheduleQuerySetRequest,
+            {"schedules":  Mock(), "message": "Can't request QuerySet Schedule."}
+        )
+    )
+    @unpack
+    def test_halt_queryset_request(self, request_exception, attributes):
+        """
+        Test for queryset request exceptions attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = request_exception(**attributes)
+
+        self.assertDictContainsSubset(attributes, exception.__dict__)
