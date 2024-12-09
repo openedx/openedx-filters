@@ -10,13 +10,13 @@ asgiref==3.8.1
     #   django
 click==8.1.7
     # via code-annotations
-code-annotations==1.8.2
+code-annotations==2.0.0
     # via -r requirements/test.in
-coverage[toml]==7.6.8
+coverage[toml]==7.6.9
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
-django==4.2.16
+django==4.2.17
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.txt
@@ -32,7 +32,7 @@ pbr==6.1.0
     # via stevedore
 pluggy==1.5.0
     # via pytest
-pytest==8.3.3
+pytest==8.3.4
     # via
     #   pytest-cov
     #   pytest-django
