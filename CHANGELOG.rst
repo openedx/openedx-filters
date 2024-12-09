@@ -15,6 +15,15 @@ Unreleased
 ----------
 * Configuration for automatic filters docs generation.
 
+
+[1.12.0] - 2024-12-10
+---------------------
+
+Added
+~~~~~
+
+* ScheduleQuerySetRequested filter added which can be used to modify the Schedule QuerySet.
+
 [1.11.0] - 2024-09-30
 ---------------------
 
