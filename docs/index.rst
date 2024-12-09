@@ -6,6 +6,8 @@
 Welcome to Open edX Filters's documentation!
 ============================================
 
+Open edX Filters is a type of hook in the Hooks Extension Framework that allows extending the Open edX platform in a more stable and maintainable way. If you're new to this approach for extending Open edX, start by reading the :doc:`docs.openedx.org:developers/concepts/hooks_extension_framework` documentation. This documentation provides an overview of the framework's concepts and structure useful to support your adoption of Open edX Filters.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
