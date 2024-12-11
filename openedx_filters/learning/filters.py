@@ -824,36 +824,44 @@ class CourseAboutPageURLRequested(OpenEdxPublicFilter):
 
 class ScheduleQuerySetRequested(OpenEdxPublicFilter):
     """
-    Custom class used to create schedule queryset filters filters and its custom methods.
+    Filter class designed to apply additional filtering to a given QuerySet of Schedules.
     """
 
     filter_type = "org.openedx.learning.schedule.queryset.requested.v1"
 
     class PreventScheduleQuerySetRequest(OpenEdxFilterException):
         """
-        Custom class used to stop the schedule queryset request process.
+        Custom exception to halt the schedule QuerySet request process.
+
+        This exception is raised when the filtering process encounters a condition
+        that prevents further processing of the QuerySet. It returns the original
+        QuerySet.
         """
 
         def __init__(self, message: str, schedules: QuerySet):
             """
-            Override init that defines specific arguments used in the schedule queryset request process.
+            Initialize the PreventScheduleQuerySetRequest with a message and a QuerySet.
 
             Arguments:
-                message (str): error message for the exception.
-                schedules (QuerySet): Queryset of schedules to be sent
+                message (str): A descriptive error message for the exception.
+                schedules (QuerySet): The QuerySet of schedules causing the exception.
             """
             super().__init__(message, schedules=schedules)
 
     @classmethod
     def run_filter(cls, schedules: QuerySet) -> QuerySet:
         """
-        Execute a filter with the signature specified.
+        Execute the filtering logic for the given QuerySet of schedules.
+
+        This method processes the input QuerySet using the configured pipeline steps
+        to applies additional filtering rules. It returns the filtered QuerySet for
+        further processing.
 
         Arguments:
-            schedules (QuerySet): Queryset of schedules to be sent.
+            schedules (QuerySet): The original QuerySet of schedules to be filtered.
 
         Returns:
-            QuerySet: Schedules to be sent.
+            QuerySet: A refined QuerySet of schedules after applying the filter.
         """
         data = super().run_pipeline(schedules=schedules)
         return data.get("schedules")
