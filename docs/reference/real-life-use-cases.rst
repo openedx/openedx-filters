@@ -73,6 +73,13 @@ Webfilters, as mentioned in `openedx-webhooks`_ is a type of webhook that allows
 
 More details on `Open edX Webhooks - Webfilters`_.
 
+Schedules Filtering
+*******************
+
+When a automatic email message is scheduled to be sent to students, a filter is executed to modify the schedule. This functionality allows you to define specific criteria to determine which students will receive the email. For example, filters can check whether students have opted to receive newsletters, assess their progress in the course, evaluate their activity, or consider other relevant conditions.
+
+More details on `Schedule Filtering`_.
+
 Other Use Cases
 ***************
 
@@ -106,3 +113,4 @@ Here are some additional use cases that can be implemented using Open edX Filter
 .. _IDV Integration with new Vendors: https://openedx.atlassian.net/wiki/spaces/OEPM/pages/4307386369/Proposal+Add+Extensibility+Mechanisms+to+IDV+to+Enable+Integration+of+New+IDV+Vendor+Persona
 .. _Render Alternative Course About: https://github.com/lektorium-tutor/lektorium_main/blob/master/lektorium_main/tilda/pipeline.py#L15-L94
 .. _Hide Course About from Users Without Memberships: https://github.com/academic-innovation/mogc-partnerships/blob/main/mogc_partnerships/pipeline.py#L53-L66
+.. _Schedule Filtering: https://github.com/fccn/nau-openedx-extensions/pull/56

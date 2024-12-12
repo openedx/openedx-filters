@@ -25,6 +25,7 @@ from openedx_filters.learning.filters import (
     InstructorDashboardRenderStarted,
     ORASubmissionViewRenderStarted,
     RenderXBlockStarted,
+    ScheduleQuerySetRequested,
     StudentLoginRequested,
     StudentRegistrationRequested,
     VerticalBlockChildRenderStarted,
@@ -776,3 +777,26 @@ class TestCourseAboutPageURLRequested(TestCase):
 
         self.assertEqual(url, url_result)
         self.assertEqual(org, org_result)
+
+
+@ddt
+class TestScheduleFilters(TestCase):
+    """
+    Test class to verify standard behavior of the schedule filters.
+
+    You'll find test suites for:
+    - `ScheduleQuerySetRequested`
+    """
+
+    def test_schedule_requested(self):
+        """
+        Test schedule requested filter.
+
+        Expected behavior:
+            - The filter should return the filtered schedules.
+        """
+        schedules = Mock()
+
+        result = ScheduleQuerySetRequested.run_filter(schedules)
+
+        self.assertEqual(schedules, result)

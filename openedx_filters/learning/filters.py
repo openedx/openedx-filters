@@ -4,6 +4,8 @@ Package where filters related to the learning architectural subdomain are implem
 
 from typing import Optional
 
+from django.db.models.query import QuerySet
+
 from openedx_filters.exceptions import OpenEdxFilterException
 from openedx_filters.tooling import OpenEdxPublicFilter
 from openedx_filters.utils import SensitiveDataManagementMixin
@@ -818,3 +820,33 @@ class CourseAboutPageURLRequested(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(url=url, org=org)
         return data.get("url"), data.get("org")
+
+
+class ScheduleQuerySetRequested(OpenEdxPublicFilter):
+    """
+    Filter class designed to apply additional filtering to a given QuerySet of Schedules.
+
+    If you want to know more about the Schedules feature, please refer:
+    - https://github.com/openedx/edx-platform/tree/master/openedx/core/djangoapps/schedules#readme
+    - https://edx.readthedocs.io/projects/edx-partner-course-staff/en/latest/manage_live_course/automatic_email.html
+    """
+
+    filter_type = "org.openedx.learning.schedule.queryset.requested.v1"
+
+    @classmethod
+    def run_filter(cls, schedules: QuerySet) -> QuerySet:
+        """
+        Execute the filtering logic for the given QuerySet of schedules.
+
+        This method processes the input QuerySet using the configured pipeline steps
+        to applies additional filtering rules. It returns the filtered QuerySet for
+        further processing.
+
+        Arguments:
+            schedules (QuerySet): The original QuerySet of schedules to be filtered.
+
+        Returns:
+            QuerySet: A refined QuerySet of schedules after applying the filter.
+        """
+        data = super().run_pipeline(schedules=schedules)
+        return data.get("schedules")
