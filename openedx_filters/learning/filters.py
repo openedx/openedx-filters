@@ -829,25 +829,6 @@ class ScheduleQuerySetRequested(OpenEdxPublicFilter):
 
     filter_type = "org.openedx.learning.schedule.queryset.requested.v1"
 
-    class PreventScheduleQuerySetRequest(OpenEdxFilterException):
-        """
-        Custom exception to halt the schedule QuerySet request process.
-
-        This exception is raised when the filtering process encounters a condition
-        that prevents further processing of the QuerySet. It returns the original
-        QuerySet.
-        """
-
-        def __init__(self, message: str, schedules: QuerySet):
-            """
-            Initialize the PreventScheduleQuerySetRequest with a message and a QuerySet.
-
-            Arguments:
-                message (str): A descriptive error message for the exception.
-                schedules (QuerySet): The QuerySet of schedules causing the exception.
-            """
-            super().__init__(message, schedules=schedules)
-
     @classmethod
     def run_filter(cls, schedules: QuerySet) -> QuerySet:
         """
