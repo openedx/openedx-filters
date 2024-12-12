@@ -825,6 +825,10 @@ class CourseAboutPageURLRequested(OpenEdxPublicFilter):
 class ScheduleQuerySetRequested(OpenEdxPublicFilter):
     """
     Filter class designed to apply additional filtering to a given QuerySet of Schedules.
+
+    If you want to know more about the Schedules feature, please refer:
+    - https://github.com/openedx/edx-platform/tree/master/openedx/core/djangoapps/schedules#readme
+    - https://edx.readthedocs.io/projects/edx-partner-course-staff/en/latest/manage_live_course/automatic_email.html
     """
 
     filter_type = "org.openedx.learning.schedule.queryset.requested.v1"
