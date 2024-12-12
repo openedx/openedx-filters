@@ -16,7 +16,7 @@ Unreleased
 * Configuration for automatic filters docs generation.
 
 
-[1.12.0] - 2024-12-10
+[1.12.0] - 2024-12-12
 ---------------------
 
 Added
