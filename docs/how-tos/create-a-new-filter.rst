@@ -137,6 +137,7 @@ In our example, the filter definition could be implemented as follows:
 - The ``filter_type`` attribute should be set to the filter type that was identified in the previous steps. This attribute is used to identify the filter in the :term:`filter configuration`.
 - The ``PreventEnrollment`` class is a custom exception that is raised when the filter should halt the application behavior.
 - The ``run_filter`` method is the main method of the filter that is called when the filter is triggered. The method should call the ``run_pipeline`` method, passing down the input arguments and returning the final output of the filter.
+- Use arguments names that are consistent with the triggering logic to avoid confusion and improve readability.
 
 Step 6: Trigger the Filter in the Application
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -150,9 +151,7 @@ In our example, we identified that the triggering logic is the ``enroll`` method
 Step 7: Implement Your Pipeline Steps
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Filters can be configured with pipeline steps to modify the behavior of the code where the filter is triggered. This allows you to define a sequence of steps that are executed in a specific order to modify the behavior of the application.
-
-.. TODO: Add a link to the pipeline steps documentation.
+Implementing pipeline steps allows you to modify the behavior of the application when the filter is triggered. Pipeline steps are a sequence of steps that are executed in a specific order to modify the behavior of the application. You can configure them with the :term:`filter configuration` to define the sequence of steps that are executed when the filter is triggered. Follow the steps in the :doc:`../how-tos/create-a-pipeline-step` guide to implement the pipeline steps for the filter.
 
 Step 8: Test the Filter
 ~~~~~~~~~~~~~~~~~~~~~~~

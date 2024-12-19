@@ -6,3 +6,4 @@ How-tos
    :caption: Contents:
 
    create-a-new-filter
+   create-a-pipeline-step
