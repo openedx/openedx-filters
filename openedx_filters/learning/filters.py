@@ -850,3 +850,53 @@ class ScheduleQuerySetRequested(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(schedules=schedules)
         return data.get("schedules")
+
+
+import requests
+
+class CourseTemplateRequested(OpenEdxPublicFilter):
+    """
+    Custom class for fetching templates from dynamic sources.
+    """
+    filter_type = "org.openedx.templates.fetch.requested.v1"
+
+    @classmethod
+    def run_filter(cls, source_type, source_config, organization):
+        """
+        Fetch templates from a specified source.
+
+        Arguments:
+            source_type (str): The type of source ('github' or 's3').
+            source_config (dict): Configuration for the source (e.g., URL for GitHub, bucket/key for S3).
+
+        Returns:
+            dict: Templates fetched from the source.
+
+        Raises:
+            TemplateFetchException: If fetching templates fails.
+        """
+        data = super().run_pipeline(source_type=source_type, source_config=source_config, organization=organization )
+        # Extract the updated values after pipeline execution
+        source_type = data.get("source_type")
+        source_config = data.get("source_config")
+        organization = data.get("organization")
+        # Route to specific fetching logic based on the source type
+        if source_type == "github":
+            data = cls.fetch_from_github(organization, source_config)
+        else:
+            raise cls.TemplateFetchException(f"Unknown source type: {source_type}")
+
+
+    @classmethod
+    def fetch_from_github(cls, organization, source_type, source_url):
+        headers = {
+            "Authorization": f"token {settings.GITHUB_TOKEN_COURSE_TEMPLATES}",
+            "Accept": "application/vnd.github.v3+json",
+        }
+        try:
+            response = requests.get(url, headers=headers)
+            response.raise_for_status()  # Raise error for 4xx/5xx responses
+            return response.json()
+        except Exception as err:
+            return JsonResponseBadRequest({"error": err.message})
+

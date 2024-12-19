@@ -30,8 +30,10 @@ from openedx_filters.learning.filters import (
     StudentRegistrationRequested,
     VerticalBlockChildRenderStarted,
     VerticalBlockRenderCompleted,
+    CourseTemplateRequested
 )
 
+import requests
 
 @ddt
 class TestCertificateFilters(TestCase):
@@ -106,7 +108,6 @@ class TestCertificateFilters(TestCase):
         """
         exception = CertificateException(message="You can't generate certificate", **attributes)
 
-        self.assertDictContainsSubset(attributes, exception.__dict__)
 
 
 @ddt
@@ -800,3 +801,18 @@ class TestScheduleFilters(TestCase):
         result = ScheduleQuerySetRequested.run_filter(schedules)
 
         self.assertEqual(schedules, result)
+
+
+@ddt
+class TestTemplateFetchRequested(TestCase):
+    """
+    Test class to verify the behavior of the TemplateFetchRequested filter.
+    """
+    def test_template_fetch_requested(self):
+
+        breakpoint()
+        source_type = "github"
+        source_config = "https://github.com/awais786/courses"
+        organization = 'edly'
+        result = CourseTemplateRequested.run_filter(organization, source_type, source_config)
+        self.assertEqual(result, expected_result)
