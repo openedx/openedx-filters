@@ -7,5 +7,7 @@ References
 
    glossary
    filters
+   filters-configuration
    django-plugins-and-filters
    real-life-use-cases
+   architecture-subdomains
