@@ -78,7 +78,7 @@ In our example, the triggering logic could be a place where all enrollment logic
 Step 4: Determine the Arguments of the Filter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Filter arguments are in-memory objects that can be manipulated and returned to the calling process to change a component's behavior. This is why they depend heavily on the specific behavior you want to modify and the information available at that point in the application flow. It's helpful to ask yourself: 
+Filter arguments are in-memory objects that can be manipulated and returned to the calling process to change a component's behavior. This is why they depend heavily on the specific behavior you want to modify and the information available at that point in the application flow. It's helpful to ask yourself:
 
 - How can this be modified?
 - What can I add or change to adjust the behavior?
