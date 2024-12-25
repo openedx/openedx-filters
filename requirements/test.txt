@@ -8,7 +8,7 @@ asgiref==3.8.1
     # via
     #   -r requirements/base.txt
     #   django
-click==8.1.7
+click==8.1.8
     # via code-annotations
 code-annotations==2.1.0
     # via -r requirements/test.in
@@ -22,7 +22,7 @@ django==4.2.17
     #   -r requirements/base.txt
 iniconfig==2.0.0
     # via pytest
-jinja2==3.1.4
+jinja2==3.1.5
     # via code-annotations
 markupsafe==3.0.2
     # via jinja2
