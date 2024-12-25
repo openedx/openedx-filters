@@ -147,7 +147,14 @@ In our example, we identified that the triggering logic is the ``enroll`` method
 
 .. note:: Try placing the filter so it can be triggered before the process is completed, so it can alter the process if needed. In some cases, this would be at the beginning of the process, while in others it would be elsewhere.
 
-Step 7: Test the Filter
+Step 7: Implement Your Pipeline Steps
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Filters can be configured with pipeline steps to modify the behavior of the code where the filter is triggered. This allows you to define a sequence of steps that are executed in a specific order to modify the behavior of the application.
+
+.. TODO: Add a link to the pipeline steps documentation.
+
+Step 8: Test the Filter
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 After triggering the filter in the application, you should test the filter to ensure that it is triggered when the conditions are met and that the filter is modifying the behavior as intended. You should test the filter with different scenarios to ensure that the filter is working as expected and that the filter is not breaking the application by adding tests in the service where the filter is being implemented. Also, test the filter signature by adding unit tests to the library to ensure that the arguments are being passed correctly and that the output is consistent with the behavior that the filter intends to modify.
@@ -161,13 +168,6 @@ In the service tests you should include at least the following scenarios:
 - The filter does not break the application when raising exceptions.
 
 You can test the filter by configuring a dummy :term:`Pipeline Step` only for testing purposes. This will allow you to test the filter in isolation and ensure that the filter is working as expected. You can also test the filter in the application by triggering the filter with different scenarios to ensure that the filter is working as expected. In the `test_filters.py`_ you can review how this is done for the enrollment filter.
-
-Step 8: Implement Your Pipeline Steps
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Filters can be configured with pipeline steps to modify the behavior of the code where the filter is triggered. This allows you to define a sequence of steps that are executed in a specific order to modify the behavior of the application.
-
-.. TODO: Add a link to the pipeline steps documentation.
 
 Step 9: Continue the Contribution Process
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
