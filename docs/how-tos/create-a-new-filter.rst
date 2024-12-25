@@ -73,7 +73,7 @@ In our example, the triggering logic could be a place where all enrollment logic
 
 .. note:: When designing an filter take into account the support over time of the service and triggering logic. If the service is likely to change or be deprecated, consider the implications of implementing the filter in that service.
 
-.. note:: It is helpful to inspect the triggering logic to review the data that is available at the time the filter is triggered. This will help you determine the content of the filter and the data that should be included in the filter arguments.
+.. note:: It is helpful to inspect the triggering logic to review the data that is available at the time the filter is triggered. This will help you determine the arguments of the filter and how the filter can modify the behavior.
 
 Step 4: Determine the Arguments of the Filter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -95,7 +95,7 @@ In our example, the filter arguments could include the user, course key, and enr
 Step 5: Implement the Filter Definition
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Implement the :term:`Filter Definition` by creating a new class that inherits from the `OpenEdxPublicFilter`_ class. The filter definition should implement the ``run_filter`` method, which defines the input and output behavior of the filter. The ``run_filter`` method should call the method `run_pipeline`_, passing down the input arguments and returning the final output of the filter. This class should be placed in the appropriate subdomain module in the library, in the ``filters.py`` file.
+Implement the :term:`filter definition` by creating a new class that inherits from the `OpenEdxPublicFilter`_ class. The filter definition should implement the ``run_filter`` method, which defines the input and output behavior of the filter. The ``run_filter`` method should call the method `run_pipeline`_, passing down the input arguments and returning the final output of the filter. This class should be placed in the appropriate subdomain module in the library, in the ``filters.py`` file.
 
 .. note:: The input arguments of the ``run_filter`` method should match the arguments that the triggering logic provides. The output of the filter should be consistent with the behavior that the filter intends to modify. Usually, the output is the modified data or the original data if no modifications are needed.
 
@@ -134,7 +134,7 @@ In our example, the filter definition could be implemented as follows:
             )
             return data.get("user"), data.get("course_key"), data.get("mode")
 
-- The ``filter_type`` attribute should be set to the filter type that was identified in the previous steps.
+- The ``filter_type`` attribute should be set to the filter type that was identified in the previous steps. This attribute is used to identify the filter in the :term:`filter configuration`.
 - The ``PreventEnrollment`` class is a custom exception that is raised when the filter should halt the application behavior.
 - The ``run_filter`` method is the main method of the filter that is called when the filter is triggered. The method should call the ``run_pipeline`` method, passing down the input arguments and returning the final output of the filter.
 
