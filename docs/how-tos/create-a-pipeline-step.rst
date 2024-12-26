@@ -43,7 +43,7 @@ Step 4: Create a Pipeline Step
 
 A :term:`pipeline step` is a class that inherits from the base class `PipelineStep`_ and defines specific logic within its `run_filter`_ method. The ``run_filter`` method is executed by the pipeline tooling when the filter is triggered. To create a pipeline step, you should:
 
-1. Create a new Python module for the pipeline step called ``pipeline.py``. Pipeline steps are usually implemented in a `Django Open edX plugin`_, so you should create the module in the plugin's directory.
+1. Create a new Python module for the pipeline step called ``pipeline.py``. Pipeline steps are usually implemented in a `Open edX Django plugins`_, so you should create the module in the plugin's directory.
 2. Create a new class for the pipeline step that inherits from the base class `PipelineStep`_.
 3. Implement the logic for the pipeline step within the `run_filter`_ method. The method signature should match the filter's signature to ensure compatibility with the pipeline tooling. In our example, the method should accept the user, course key, and enrollment mode as arguments and return the same arguments if the email address is valid. If the email address is not valid, the method should raise an exception.
 4. You can take an iterative approach to developing the pipeline step by testing it locally and making changes as needed.
@@ -78,7 +78,7 @@ Consider the following when creating a pipeline step:
 Step 5: Configure the Pipeline for the Filter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-After creating the pipeline step, you need to configure the pipeline for the filter in the `filter configuration`_. The configuration settings are specific for each :term:`filter type` and define the pipeline steps to be executed when the filter is triggered. You should add the path to the pipeline step class in the filter's pipeline configuration.
+After creating the pipeline step, you need to configure the pipeline for the filter in the :term:`filter configuration`. The configuration settings are specific for each :term:`filter type` and define the pipeline steps to be executed when the filter is triggered. You should add the path to the pipeline step class in the filter's pipeline configuration.
 
 In our example, we will configure the pipeline for the `CourseEnrollmentStarted filter`_ to include the pipeline step we created. The configuration should look like this:
 
@@ -121,4 +121,8 @@ In our example, you could write a unit test for the pipeline step like this:
                 user=user, course_key=self.course_key, mode="audit",
             )
 
-.. _Open edX Django plugin: https://docs.openedx.org/en/latest/developers/concepts/platform_overview.html#new-plugin
+.. _Tutor: https://docs.tutor.edly.io/
+.. _CourseEnrollmentStarted filter: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/learning/filters.py#L145-L170
+.. _PipelineStep: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/filters.py#L10-L77
+.. _Open edX Django plugins: https://docs.openedx.org/en/latest/developers/concepts/platform_overview.html#new-plugin
+.. _run_filter: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/filters.py#L60-L77
