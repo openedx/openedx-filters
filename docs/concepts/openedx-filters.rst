@@ -83,9 +83,8 @@ How are Open edX Filters used?
 
 Developers can implement functions in an `Open edX Django plugin`_, configure them for a particular filter in the ``OPEN_EDX_FILTERS_CONFIG`` setting, and modify the application flow when a the filter in question is invoked by the process in execution. These functions can the application's behavior by altering data, adding new data, or stopping execution by raising exceptions. For example, a filter can stop a student's enrollment if certain conditions, such as business rules, are not met.
 
-For more information on how to use Open edX Filters, refer to the `Using Open edX Filters`_ how-to guide.
+For more information on how to use Open edX Filters, refer to the :doc:`how-tos section <../how-tos/index>`.
 
-.. _Using Open edX Filters: ../how-tos/using-filters.html
 .. _Hooks Extension Framework: https://open-edx-proposals.readthedocs.io/en/latest/oep-0050-hooks-extension-framework.html
 .. _Django Signals Documentation: https://docs.djangoproject.com/en/4.2/topics/signals/
 .. _CourseEnrollmentStarted filter: https://github.com/openedx/edx-platform/blob/master/common/djangoapps/student/models/course_enrollment.py#L719-L724
