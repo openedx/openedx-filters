@@ -11,3 +11,4 @@ Decisions
    0004-filters-naming-and-versioning
    0005-filters-payload
    0006-filter-debug-tooling
+   0007-filter-design-practices
