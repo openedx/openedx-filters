@@ -139,6 +139,8 @@ In our example, the filter definition could be implemented as follows:
 - The ``run_filter`` method is the main method of the filter that is called when the filter is triggered. The method should call the ``run_pipeline`` method, passing down the input arguments and returning the final output of the filter.
 - Use arguments names that are consistent with the triggering logic to avoid confusion and improve readability.
 
+.. note:: Implement exceptions that are related to the filter behavior and specify how the filter should modify the application behavior with each exception. The caller should handle each exception differently based the exceptions purpose. For example, the caller should halt the application behavior when the ``PreventEnrollment`` exception is raised.
+
 Step 6: Trigger the Filter in the Application
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
