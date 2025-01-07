@@ -7,15 +7,24 @@ from openedx_filters.tooling import OpenEdxPublicFilter
 
 class LMSPageURLRequested(OpenEdxPublicFilter):
     """
-    Custom class used to get lms page url filters and its custom methods.
+    Filter used to modify the URL of the page requested by the user.
+
+    Filter Type:
+        org.openedx.course_authoring.lms.page.url.requested.v1
+
+    Trigger:
+        - Repository: openedx/edx-platform
+        - Path: cms/djangoapps/contentstore/asset_storage_handler.py
+        - Function: get_asset_json
     """
 
     filter_type = "org.openedx.course_authoring.lms.page.url.requested.v1"
 
     @classmethod
-    def run_filter(cls, url, org):
+    def run_filter(cls, url: str, org: str) -> tuple[str, str]:
         """
-        Execute a filter with the signature specified.
+        Process the input url and org using the configured pipeline steps to modify the URL of the page requested by the
+        user.
 
         Arguments:
             url (str): the URL of the page to be modified.

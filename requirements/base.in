@@ -2,4 +2,4 @@
 -c constraints.txt
 
 django
-
+edx-opaque-keys[django]
