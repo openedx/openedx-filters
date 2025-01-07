@@ -38,7 +38,7 @@ First, add the ``openedx-filters`` plugin into your dependencies so the library'
 
 This will mainly make the filters available for your CI/CD pipeline and local development environment. If you are using the Open edX platform, the library should be already be installed in the environment so no need to install it.
 
-Step 4: Create a Pipeline Step
+Step 3: Create a Pipeline Step
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A :term:`pipeline step` is a class that inherits from the base class `PipelineStep`_ and defines specific logic within its `run_filter`_ method. The ``run_filter`` method is executed by the pipeline tooling when the filter is triggered. To create a pipeline step, you should:
@@ -54,10 +54,13 @@ In our example, the pipeline step could look like this:
 
    from openedx_filters.filters import PipelineStep
 
+   # Location my_plugin/pipeline.py
    class CheckValidEmailPipelineStep(PipelineStep):
        def run_filter(self, user, course_key, mode):
            if self.not is_user_email_allowed(user.email):
+               log.debug("User %s does not have a valid email address, stopping enrollment", user.email)
                raise CourseEnrollmentStarted.PreventEnrollment("User does not have a valid email address")
+           log.debug("User has a valid email address, allowing enrollment")
            return {
                "user": user,
                "course_key": course_key,
@@ -73,9 +76,9 @@ Consider the following when creating a pipeline step:
 - Limit each step to a single responsibility to make the code easier to maintain and test.
 - Keep the pipeline step logic simple and focused on the specific task it needs to perform.
 - Consider the performance implications of the pipeline step and avoid adding unnecessary complexity or overhead, considering the pipeline will be executed each time the filter is triggered.
-- Implement error handling and logging in the pipeline step to handle exceptions and provide useful information for debugging, considering both development and production environments.
+- Implement error handling and logging in the pipeline step to handle exceptions and provide useful information for debugging, considering both development and production environments. E.g., when the email is not valid, we raise an exception to prevent the user from enrolling in the course. Logging relevant information when an exception is raised can help identify the root cause of a problem.
 
-Step 5: Configure the Pipeline for the Filter
+Step 4: Configure the Pipeline for the Filter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 After creating the pipeline step, you need to configure the pipeline for the filter in the :term:`filter configuration`. The configuration settings are specific for each :term:`filter type` and define the pipeline steps to be executed when the filter is triggered. You should add the path to the pipeline step class in the filter's pipeline configuration.
@@ -93,7 +96,7 @@ In our example, we will configure the pipeline for the `CourseEnrollmentStarted 
        },
    }
 
-Step 6: Test the Pipeline Step
+Step 5: Test the Pipeline Step
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 After creating the pipeline step and configuring the pipeline for the filter, you should test the pipeline step to ensure it works as expected. You can trigger the filter in your development environment and verify that the pipeline step is executed correctly. You should test different scenarios, including valid and invalid email addresses, to ensure the pipeline step behaves as expected.
@@ -104,6 +107,7 @@ In our example, you could write a unit test for the pipeline step like this:
 
 .. code-block:: python
 
+    # Location my_plugin/tests/test_pipeline.py
     @override_settings(
         OPEN_EDX_FILTERS_CONFIG={
             "org.openedx.learning.course.enrollment.started.v1": {
