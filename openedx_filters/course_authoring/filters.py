@@ -9,6 +9,9 @@ class LMSPageURLRequested(OpenEdxPublicFilter):
     """
     Filter used to modify the URL of the page requested by the user.
 
+    This filter is triggered when a user loads a page in Studio that references an LMS page, allowing the filter to
+    modify the URL of the page requested by the user.
+
     Filter Type:
         org.openedx.course_authoring.lms.page.url.requested.v1
 
@@ -23,8 +26,7 @@ class LMSPageURLRequested(OpenEdxPublicFilter):
     @classmethod
     def run_filter(cls, url: str, org: str) -> tuple[str, str]:
         """
-        Process the input url and org using the configured pipeline steps to modify the URL of the page requested by the
-        user.
+        Process the inputs using the configured pipeline steps to modify the URL of the page requested by the user.
 
         Arguments:
             url (str): the URL of the page to be modified.
