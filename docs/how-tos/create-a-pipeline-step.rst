@@ -25,7 +25,7 @@ Step 1: Understand your Use Case and Identify the Filter to Use
 
 Before creating a pipeline step, you should understand your use case for the filter and the specific logic you want to implement in the pipeline step. In our example, we want to prevent users from enrolling in a course if they do not have a valid email address. We will create a pipeline step that checks if the user's email address is valid and raise an exception if it is not.
 
-You should review the list of filters available in the Open edX platform and identify the filter that best fits your use case. In our example, we will use the `CourseEnrollmentStarted filter`_ to implement the logic for our use case. You should review the filter's arguments to understand the data that will be passed to the pipeline step and the expected output. This will help you define the pipeline step's logic and signature.
+You should review the :doc:`list of filters <../reference/filters>` available in the Open edX platform and identify the filter that best fits your use case. In our example, we will use the `CourseEnrollmentStarted filter`_ to implement the logic for our use case. You should review the filter's arguments to understand the data that will be passed to the pipeline step and the expected output. This will help you define the pipeline step's logic and signature.
 
 Step 2: Install Open edX Filters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
