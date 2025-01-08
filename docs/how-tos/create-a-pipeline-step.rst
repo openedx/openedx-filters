@@ -125,6 +125,20 @@ In our example, you could write a unit test for the pipeline step like this:
                 user=user, course_key=self.course_key, mode="audit",
             )
 
+Step 6: Debug and Iterate
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+After testing the pipeline step, you should debug and iterate on the implementation as needed. Consider the following when debugging and iterating on the pipeline step:
+
+- Review the logs and error messages to identify the root cause of any issues and determine the appropriate action to resolve them.
+- Use the development environment to test the pipeline step in different scenarios and verify that it behaves as expected. Try using ``fail_silently: False`` in the filter configuration to see the error messages in the logs.
+- Implement a fallback mechanism in the pipeline step to handle unexpected scenarios and prevent the filter from failing silently. You can log debug messages to provide useful information for debugging.
+- Implement unit tests for the pipeline step to verify its functionality and handle edge cases. Make incremental changes to the pipeline step and test each change to ensure it works as intended.
+- In unit tests, mock external dependencies as closely as possible to the real environment to ensure the pipeline step behaves as expected in different scenarios, since sometimes using real data can lead to unexpected results.
+- In production environments, monitor the pipeline step's performance and behavior to identify any issues and optimize the implementation as needed.
+
+.. note:: The default behavior of the pipeline tooling is to fail silently if a runtime exception is raised in a pipeline step. You can configure the filter to raise an exception when the pipeline step fails by setting ``fail_silently: False`` in the filter configuration. This will help you identify issues early and take appropriate action to resolve them. :term:`Filter Exceptions` will always be raised in the pipeline and will halt the execution of the pipeline. You can use exceptions to control the flow of the pipeline and handle specific scenarios in the pipeline step. In our example, we raise an exception when the user's email address is not valid to prevent them from enrolling in the course. The exceptions considered by the ``fail_silently`` flag are runtime exceptions that are not intentionally raised by the developer during the filter's execution, use the configuration as you see fit.
+
 .. _Tutor: https://docs.tutor.edly.io/
 .. _CourseEnrollmentStarted filter: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/learning/filters.py#L145-L170
 .. _PipelineStep: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/filters.py#L10-L77
