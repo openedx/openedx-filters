@@ -13,7 +13,7 @@ Assumptions
 - You understand the concept of filters or have reviewed the relevant :doc:`/concepts/index` docs.
 - You are familiar with the terminology used in the project, such as the terms :term:`Filter Type`. If not, you can review the :doc:`../reference/glossary` docs.
 - You have reviewed the :doc:`../decisions/0007-filter-design-practices` ADR.
-- You have identified that you need to create a new filter and have a use case for the filter.
+- You understand the use case for the filter and the specific logic you want to implement in the pipeline step.
 
 Steps
 -----
