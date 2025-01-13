@@ -61,6 +61,8 @@ Error Handling
 
 Consider the example above, the filter specifies an exception that is raised when the certificate creation process is stopped, providing a clear understanding of the filter behavior when the exception is raised. This exception should be handled properly in the application to avoid runtime errors.
 
+.. note:: The application should catch the exception and handle it properly by returning an error message to the user through API responses, UI messages, or logs depending on the application context and where the filter is being used.
+
 Type Safety
 ~~~~~~~~~~~
 
