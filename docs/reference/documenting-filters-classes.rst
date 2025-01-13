@@ -7,8 +7,8 @@ The docstring should comply with the following guidelines:
 
 - The docstring should be a triple-quoted string.
 - The docstring should be placed at the beginning of the class definition.
-- The docstring should describe the purpose of the filter.
 - The docstring should include a brief description of what's supposed to do.
+- The docstring should describe the purpose of the filter.
 - The docstring should include the filter type ``filter_type``, which is the unique identifier for the filter.
 - The docstring should include the trigger information, which includes the repository, path, and function or method that triggers the filter.
 - The docstring should include any other relevant information about the filter (e.g., it works only for legacy views not MFEs).
@@ -19,9 +19,9 @@ Consider the following example:
 
     class AccountSettingsRenderStarted(OpenEdxPublicFilter):
     """
-    Description:
-        Filter used to modify the rendering of the account settings page in the LMS.
+    Filter used to modify the rendering of the account settings page in the LMS.
 
+    Purpose:
         This filter is triggered when a user visits the account settings page, just before the page is rendered allowing
         the filter to modify the context and the template used to render the page.
 
