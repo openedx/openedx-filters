@@ -9,3 +9,4 @@ References
    filters
    django-plugins-and-filters
    real-life-use-cases
+   documenting-filters-classes

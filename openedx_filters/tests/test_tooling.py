@@ -12,6 +12,17 @@ from openedx_filters.tooling import OpenEdxPublicFilter
 
 
 class PreEnrollmentFilterMock(OpenEdxPublicFilter):
+    """
+    Filter used in the tests to verify the behavior of the pipeline runner.
+
+    Purpose:
+        Filter for testing purposes.
+
+    Filter Type:
+        org.openedx.learning.course.enrollment.started.v1
+
+    Trigger: NA
+    """
 
     filter_type = "org.openedx.learning.course.enrollment.started.v1"
 
