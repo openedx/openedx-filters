@@ -71,6 +71,6 @@ Type Safety
 Consequences
 ------------
 
-Following these practices will ensure that the filters are designed in a way that is easy to understand and maintain.  Having these standards in place will also make the decision process easier when designing new filters.
+Following these practices will ensure that the filters are designed in a way that is easy to understand and maintain. Having these standards in place will also make the decision process easier when designing new filters.
 
 .. _`_generate_certificate_task`: https://github.com/openedx/edx-platform/blob/master/lms/djangoapps/certificates/generation_handler.py#L116-L128
