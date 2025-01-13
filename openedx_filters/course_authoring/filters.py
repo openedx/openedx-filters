@@ -18,7 +18,7 @@ class LMSPageURLRequested(OpenEdxPublicFilter):
     Trigger:
         - Repository: openedx/edx-platform
         - Path: cms/djangoapps/contentstore/asset_storage_handler.py
-        - Function: get_asset_json
+        - Function or Method: get_asset_json
     """
 
     filter_type = "org.openedx.course_authoring.lms.page.url.requested.v1"
