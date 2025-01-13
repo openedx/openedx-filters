@@ -52,7 +52,7 @@ dnspython==2.7.0
     #   pymongo
 docutils==0.21.2
     # via readme-renderer
-edx-lint==5.4.1
+edx-lint @ git+https://github.com/eduNEXT/edx-lint.git@MJG/filter-docstring-linter
     # via -r requirements/quality.in
 edx-opaque-keys[django]==2.11.0
     # via -r requirements/test.txt
