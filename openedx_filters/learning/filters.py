@@ -335,7 +335,7 @@ class CertificateCreationRequested(OpenEdxPublicFilter):
 
     @classmethod
     def run_filter(
-        cls: type,
+        cls,
         user: Any,
         course_key: CourseKey,
         mode: str,

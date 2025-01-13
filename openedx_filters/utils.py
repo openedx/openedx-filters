@@ -8,7 +8,7 @@ class SensitiveDataManagementMixin:
     Custom class used manage sensitive data within filter arguments.
     """
 
-    sensitive_form_data = []
+    sensitive_form_data: list[str] = []
 
     @classmethod
     def extract_sensitive_data(cls, form_data):
