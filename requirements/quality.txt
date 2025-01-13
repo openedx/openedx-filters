@@ -117,7 +117,7 @@ pycparser==2.22
     # via cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.in
-pygments==2.19.0
+pygments==2.19.1
     # via
     #   readme-renderer
     #   rich
@@ -186,8 +186,9 @@ tomlkit==0.13.2
     # via pylint
 twine==6.0.1
     # via -r requirements/quality.in
-urllib3==2.3.0
+urllib3==2.2.3
     # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   requests
     #   twine
 zipp==3.21.0
