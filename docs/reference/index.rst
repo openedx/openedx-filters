@@ -11,3 +11,4 @@ References
    django-plugins-and-filters
    real-life-use-cases
    architecture-subdomains
+   documenting-filters-classes
