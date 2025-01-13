@@ -61,7 +61,7 @@ Error Handling
 
 Consider the example above, the filter specifies an exception that is raised when the certificate creation process is stopped, providing a clear understanding of the filter behavior when the exception is raised. This exception should be handled properly in the application to avoid runtime errors.
 
-.. note:: The application should catch the exception and handle it properly by returning an error message to the user through API responses, UI messages, or logs depending on the application context and where the filter is being used.
+.. note:: The application should catch the exception and handle it properly by returning an error message to the user through API responses, UI messages, or logs depending on the application context and where the filter is being used. For reference, see how the exception is handled in the `Pull Request edx-platform#35407`_.
 
 Type Safety
 ~~~~~~~~~~~
@@ -74,3 +74,4 @@ Consequences
 Following these practices will ensure that the filters are designed in a way that is easy to understand and maintain. Having these standards in place will also make the decision process easier when designing new filters.
 
 .. _`_generate_certificate_task`: https://github.com/openedx/edx-platform/blob/master/lms/djangoapps/certificates/generation_handler.py#L116-L128
+.. _`Pull Request edx-platform#35407`: https://github.com/openedx/edx-platform/pull/35407
