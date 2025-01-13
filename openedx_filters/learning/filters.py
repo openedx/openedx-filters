@@ -42,8 +42,8 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
         a new page.
 
         Arguments:
-            - message: error message for the exception.
-            - redirect_to: URL to redirect to.
+            - message (str): error message for the exception.
+            - redirect_to (str): URL to redirect to.
         """
 
         def __init__(self, message: str, redirect_to: str) -> None:
@@ -58,15 +58,15 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
         template instead.
 
         Arguments:
-            - message: error message for the exception.
-            - account_settings_template: template path rendered instead.
-            - template_context: context used to the new account settings template.
+            - message (str): error message for the exception.
+            - account_settings_template (str): template path rendered instead.
+            - template_context (dict): context used to the new account settings template.
         """
 
         def __init__(
             self,
             message: str,
-            account_settings_template: str = "",
+            account_settings_template: Optional[str] = "",
             template_context: Optional[dict] = None
         ) -> None:
             """Initialize the exception with the message and the template path to render instead."""
@@ -84,11 +84,11 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
         instead.
 
         Arguments:
-            - message: error message for the exception.
-            - response: custom response which will be returned by the account settings view.
+            - message (str): error message for the exception.
+            - response (HttpResponse): custom response which will be returned by the account settings view.
         """
 
-        def __init__(self, message: str, response: Optional[dict] = None) -> None:
+        def __init__(self, message: str, response: Optional[HttpResponse] = None) -> None:
             """Initialize the exception with the message and the custom response to return."""
             super().__init__(message, response=response)
 
@@ -183,18 +183,18 @@ class StudentLoginRequested(OpenEdxPublicFilter):
         This exception is propagated to the login view and handled by the view to stop the login process.
 
         Arguments:
-            - message: error message for the exception.
-            - redirect_to: URL to redirect to.
-            - error_code: error code for the exception.
-            - context: context dictionary to be used in the exception.
+            - message (str): error message for the exception.
+            - redirect_to (str): URL to redirect to.
+            - error_code (str): error code for the exception.
+            - context (dict): context dictionary to be used in the exception.
         """
 
         def __init__(
             self,
             message: str,
-            redirect_to: str = "",
-            error_code: str = "",
-            context: dict = None
+            redirect_to: Optional[str] = "",
+            error_code: Optional[str] = "",
+            context: Optional[dict] = None
         ) -> None:
             """Initialize the exception with the message and the URL to redirect to."""
             super().__init__(message, redirect_to=redirect_to, error_code=error_code, context=context)
@@ -405,11 +405,11 @@ class CertificateRenderStarted(OpenEdxPublicFilter):
         This exception is propagated to the certificate view and handled by the view to redirect the user to a new page.
 
         Arguments:
-            - message: error message for the exception.
-            - redirect_to: URL to redirect to.
+            - message (str): error message for the exception.
+            - redirect_to (str): URL to redirect to.
         """
 
-        def __init__(self, message: str, redirect_to: str = "") -> None:
+        def __init__(self, message: str, redirect_to: Optional[str] = "") -> None:
             """Initialize the exception with the message and the URL to redirect to."""
             super().__init__(message, redirect_to=redirect_to)
 
@@ -421,11 +421,11 @@ class CertificateRenderStarted(OpenEdxPublicFilter):
         instead.
 
         Arguments:
-            - message: error message for the exception.
-            - template_name: template path of the new certificate.
+            - message (str): error message for the exception.
+            - template_name (str): template path of the new certificate.
         """
 
-        def __init__(self, message: str, template_name: str = "") -> None:
+        def __init__(self, message: str, template_name: Optional[str] = "") -> None:
             """Initialize the exception with the message and the template path to render instead."""
             super().__init__(message, template_name=template_name)
 
@@ -437,8 +437,8 @@ class CertificateRenderStarted(OpenEdxPublicFilter):
         instead.
 
         Arguments:
-            - message: error message for the exception.
-            - response: custom response which will be returned by the certificate view.
+            - message (str): error message for the exception.
+            - response (HttpResponse): custom response which will be returned by the certificate view.
         """
 
         def __init__(self, message: str, response: HttpResponse) -> None:
@@ -575,11 +575,11 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
         page.
 
         Arguments:
-            - message: error message for the exception.
-            - redirect_to: URL to redirect to.
+            - message (str): error message for the exception.
+            - redirect_to (str): URL to redirect to.
         """
 
-        def __init__(self, message: str, redirect_to: str = "") -> None:
+        def __init__(self, message: str, redirect_to: Optional[str] = "") -> None:
             """Initialize the exception with the message and the URL to redirect to."""
             super().__init__(message, redirect_to=redirect_to)
 
@@ -591,12 +591,17 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
         instead.
 
         Arguments:
-            - message: error message for the exception.
-            - course_about_template: template path rendered instead.
-            - template_context: context used to the new course_about_template.
+            - message (Str): error message for the exception.
+            - course_about_template (str): template path rendered instead.
+            - template_context (dict): context used to the new course_about_template.
         """
 
-        def __init__(self, message: str, course_about_template: str = "", template_context: dict = None) -> None:
+        def __init__(
+            self,
+            message: str,
+            course_about_template: Optional[str] = "",
+            template_context: Optional[dict] = None
+        ) -> None:
             """Initialize the exception with the message and the template to render instead."""
             super().__init__(
                 message,
@@ -612,8 +617,8 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
         instead.
 
         Arguments:
-            - message: error message for the exception.
-            - response: custom response which will be returned by the course about view.
+            - message (str): error message for the exception.
+            - response (HttpResponse): custom response which will be returned by the course about view.
         """
 
         def __init__(self, message: str, response: HttpResponse) -> None:
@@ -668,11 +673,11 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
         This exception is propagated to the dashboard view and handled by the view to redirect the user to a new page.
 
         Arguments:
-            - message: error message for the exception.
-            - redirect_to: URL to redirect to.
+            - message (str): error message for the exception.
+            - redirect_to (str): URL to redirect to.
         """
 
-        def __init__(self, message: str, redirect_to: str = "") -> None:
+        def __init__(self, message: str, redirect_to: Optional[str] = "") -> None:
             """Initialize the exception with the message and the URL to redirect to."""
             super().__init__(message, redirect_to=redirect_to)
 
@@ -684,12 +689,17 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
         instead.
 
         Arguments:
-            - message: error message for the exception.
-            - dashboard_template: template path rendered instead.
-            - template_context: context used to the new dashboard_template.
+            - message (str): error message for the exception.
+            - dashboard_template (str): template path rendered instead.
+            - template_context (dict): context used to the new dashboard_template.
         """
 
-        def __init__(self, message: str, dashboard_template: str = "", template_context: dict = None) -> None:
+        def __init__(
+            self,
+            message: str,
+            dashboard_template: Optional[str] = "",
+            template_context: Optional[dict] = None
+        ) -> None:
             """Initialize the exception with the message and the template to render instead."""
             super().__init__(
                 message,
@@ -704,11 +714,11 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
         This exception is propagated to the dashboard view and handled by the view to return a custom response instead.
 
         Arguments:
-            - message: error message for the exception.
-            - response: custom response which will be returned by the dashboard view.
+            - message (str): error message for the exception.
+            - response (HttpResponse): custom response which will be returned by the dashboard view.
         """
 
-        def __init__(self, message: str, response: HttpResponse = None) -> None:
+        def __init__(self, message: str, response: Optional[HttpResponse] = None) -> None:
             """Initialize the exception with the message and the custom response to return."""
             super().__init__(
                 message,
@@ -845,11 +855,11 @@ class RenderXBlockStarted(OpenEdxPublicFilter):
         instead.
 
         Arguments:
-            message: error message for the exception.
-            response: custom response which will be returned by the XBlock render view.
+            message (str): error message for the exception.
+            response (HttpResponse): custom response which will be returned by the XBlock render view.
         """
 
-        def __init__(self, message: str, response: HttpResponse = None):
+        def __init__(self, message: str, response: Optional[HttpResponse] = None):
             """Initialize the exception with the message and the custom response to return."""
             super().__init__(message, response=response)
 
@@ -942,7 +952,7 @@ class CourseHomeUrlCreationStarted(OpenEdxPublicFilter):
 
         Arguments:
             course_key (CourseKey): The course key for which the home url is being requested.
-            course_home_url (String): The url string for the course home.
+            course_home_url (str): The url string for the course home.
 
         Returns:
             CourseKey: The course key for which the home url is being requested.
@@ -1046,11 +1056,11 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
         new page.
 
         Arguments:
-            - message: error message for the exception.
-            - redirect_to: URL to redirect to.
+            - message (str): error message for the exception.
+            - redirect_to (str): URL to redirect to.
         """
 
-        def __init__(self, message: str, redirect_to: str = ""):
+        def __init__(self, message: str, redirect_to: Optional[str] = ""):
             """Initialize the exception with the message and the URL to redirect to."""
             super().__init__(message, redirect_to=redirect_to)
 
@@ -1062,12 +1072,17 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
         template instead.
 
         Arguments:
-            - message: error message for the exception.
-            - instructor_template: template path rendered instead.
-            - template_context: context used to the new instructor_template.
+            - message (str): error message for the exception.
+            - instructor_template (str): template path rendered instead.
+            - template_context (dict): context used to the new instructor_template.
         """
 
-        def __init__(self, message: str, instructor_template: str = "", template_context: dict = None):
+        def __init__(
+            self,
+            message: str,
+            instructor_template: Optional[str] = "",
+            template_context: Optional[dict] = None
+        ):
             """Initialize the exception with the message and the template to render instead."""
             super().__init__(
                 message,
@@ -1083,11 +1098,11 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
         response instead.
 
         Arguments:
-            - message: error message for the exception.
-            - response: custom response which will be returned by the dashboard view.
+            - message (str): error message for the exception.
+            - response (HttpResponse): custom response which will be returned by the dashboard view.
         """
 
-        def __init__(self, message: str, response: HttpResponse = None):
+        def __init__(self, message: str, response: Optional[HttpResponse] = None):
             """Initialize the exception with the message and the custom response to return."""
             super().__init__(
                 message,
@@ -1142,7 +1157,11 @@ class ORASubmissionViewRenderStarted(OpenEdxPublicFilter):
             - template_name (str): template path rendered instead.
         """
 
-        def __init__(self, message: str, context: Optional[dict] = None, template_name: str = "") -> None:
+        def __init__(
+            self, message: str,
+            context: Optional[dict] = None,
+            template_name: Optional[str] = ""
+        ) -> None:
             """Initialize the exception with the message and the template to render instead."""
             super().__init__(message, context=context, template_name=template_name)
 
