@@ -349,7 +349,7 @@ class CertificateCreationRequested(OpenEdxPublicFilter):
         status: str,
         grade: float,
         generation_mode: str,
-    ) -> tuple[Any, CourseKey, str, str, float, str]:  # pylint: disable=too-many-arguments
+    ) -> tuple[Any, CourseKey, str, str, float, str]:  # pylint: disable=too-many-positional-arguments
         """
         Process the inputs using the configured pipeline steps to modify the certificate creation process.
 
