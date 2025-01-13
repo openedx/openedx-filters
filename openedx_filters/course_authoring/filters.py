@@ -7,9 +7,9 @@ from openedx_filters.tooling import OpenEdxPublicFilter
 
 class LMSPageURLRequested(OpenEdxPublicFilter):
     """
-    Description:
-        Filter used to modify the URL of the page requested by the user.
+    Filter used to modify the URL of the page requested by the user.
 
+    Purpose:
         This filter is triggered when a user loads a page in Studio that references an LMS page, allowing the filter to
         modify the URL of the page requested by the user.
 
