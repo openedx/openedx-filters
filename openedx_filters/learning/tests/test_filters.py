@@ -3,7 +3,8 @@ Tests for learning subdomain filters.
 """
 from unittest.mock import Mock, patch
 
-from ddt import data, ddt, unpack
+# Ignore the type error for ddt import since it is not recognized by mypy.
+from ddt import data, ddt, unpack  # type: ignore
 from django.test import TestCase
 
 from openedx_filters.learning.filters import (

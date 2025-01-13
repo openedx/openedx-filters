@@ -3,7 +3,8 @@ Tests for pipeline runner used by filters.
 """
 from unittest.mock import Mock, patch
 
-import ddt
+# Ignore the type error for ddt import since it is not recognized by mypy.
+import ddt  # type: ignore
 from django.test import TestCase, override_settings
 
 from openedx_filters import PipelineStep
