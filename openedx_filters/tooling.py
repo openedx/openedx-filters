@@ -33,7 +33,7 @@ class OpenEdxPublicFilter:
         the objects related to each path.
 
         Example usage:
-            steps = get_steps_for_pipeline(
+            >>> steps = get_steps_for_pipeline(
                 [
                     '1st_path_to_step',
                     ...
@@ -47,12 +47,11 @@ class OpenEdxPublicFilter:
             ]
 
         Arguments:
-            pipeline (list): paths where steps are defined.
-            fail_silently (bool): True meaning it won't raise exceptions and
-            False the opposite.
+            - pipeline (list): paths where steps are defined.
+            - fail_silently (bool): True meaning it won't raise exceptions and False the opposite.
 
         Returns:
-            step_list (list): class objects defined in pipeline.
+            list: objects related to each path in the pipeline.
         """
         step_list = []
         for step_path in pipeline:
@@ -77,7 +76,7 @@ class OpenEdxPublicFilter:
         the list of functions to execute and how to execute them.
 
         Example usage:
-            pipeline_config = cls.get_pipeline_configuration()
+            >>> pipeline_config = cls.get_pipeline_configuration()
             >>> pipeline_config
                 (
                     [
@@ -87,13 +86,11 @@ class OpenEdxPublicFilter:
                 )
 
         Returns:
-            pipeline (list): paths where functions for the pipeline are
-            defined.
-            fail_silently (bool): defines whether exceptions are raised while
-            executing the pipeline associated with a filter. It's determined by
-            fail_silently configuration, True meaning it won't raise exceptions and
-            False the opposite.
-            extra_config: anything else defined in the dictionary.
+            - (list): paths where functions for the pipeline are defined.
+            - (bool): defines whether exceptions are raised while executing
+                the pipeline associated with a filter. It's determined by ``fail_silently`` configuration,
+                ``True`` meaning it won't raise exceptions and ``False`` the opposite.
+            - (dict): extra configuration defined in the filter configuration.
         """
         filter_config = cls.get_filter_config()
 
@@ -121,40 +118,32 @@ class OpenEdxPublicFilter:
     @classmethod
     def get_filter_config(cls):
         """
-        Get filters configuration from settings.
+        Get filters configuration from Django settings.
 
-        Helper function used to get configuration needed for using
-        Hooks Extension Framework.
+        Helper function used to get configuration needed for using a filter.
 
         Example usage:
-                configuration = get_filter_config('trigger')
-                >>> configuration
-                {
-                    'pipeline':
-                        [
-                            'my_plugin.hooks.filters.PipelineStepV1',
-                            'my_plugin.hooks.filters.PipelineStepV2',
-                        ],
-                    'fail_silently': False,
-                    'log_level': 'debug'
-                }
+            >>> configuration = get_filter_config('trigger')
+            >>> configuration
+            {
+                'pipeline':
+                    [
+                        'my_plugin.hooks.filters.PipelineStepV1',
+                        'my_plugin.hooks.filters.PipelineStepV2',
+                    ],
+                'fail_silently': False,
+                'log_level': 'debug'
+            }
 
-                Where:
-                    - pipeline (list): paths where the functions to be executed by
-                    the pipeline are defined.
-                    - fail_silently (bool): determines whether the pipeline can
-                    raise exceptions while executing. If its value is True then
-                    common exceptions (TypeError, ImportError...) are caught and
-                    the execution continues, if False then exceptions are re-raised and the
-                    execution fails.
-                    - The rest: anything else defined in the dictionary.
-
-        Arguments:
-            filter_name (str): determines which configuration to use.
+        Where:
+            - pipeline (list): paths where the functions to be executed by the pipeline are defined.
+            - fail_silently (bool): determines whether the pipeline can raise exceptions while executing.
+                If its value is True then common exceptions (TypeError, ImportError...) are caught and
+                the execution continues, if False then exceptions are re-raised and the execution fails.
+            - The rest of the keys are extra configuration that can be used to customize the filter.
 
         Returns:
-            filters configuration (dict): taken from Django settings
-            containing filters configuration.
+            dict: configuration for the filter type defined in the class.
         """
         filters_config = getattr(settings, "OPEN_EDX_FILTERS_CONFIG", {})
 
@@ -163,40 +152,29 @@ class OpenEdxPublicFilter:
     @classmethod
     def run_pipeline(cls, **kwargs):
         """
-        Execute filters in order.
+        Execute filters in order based on the pipeline configuration.
 
-        Given a list of functions paths, this function will execute
-        them using the Accumulative Pipeline pattern defined in
-        docs/decisions/0003-hooks-filter-tooling-pipeline.rst
+        Given a list of pipeline steps, this function will execute them using the Accumulative Pipeline pattern
+        as specified in :doc:`docs/decisions/0003-hooks-filter-tooling-pipeline`.
 
         Example usage:
-            filter_result = OpenEdxPublicFilter.run_filter(
-                user=user,
-            )
-            >>> filter_result
+            >>> result = OpenEdxPublicFilter.run_filter(user=user, course=course)
+            >>> result
             {
-                'result_test_1st_function': 1st_object,
-                'result_test_2nd_function': 2nd_object,
+                'result_1st_function': 1st_object,
+                'result_2nd_function': 2nd_object,
             }
 
-        Arguments:
-            filter_name (str): determines which trigger we are listening to.
-            It also specifies which filter configuration to use.
-
         Returns:
-            accumulated_output (dict): accumulated outputs of the functions defined in pipeline.
-            result (obj): return object of one of the pipeline functions. This will
-            be the returned by the pipeline if one of the functions returns
-            an object different than Dict or None.
-
-        Exceptions raised:
-            OpenEdxFilterException: custom exception re-raised when a function raises
-            an exception of this type. This behavior is common when using filters
-            to halt application execution.
+            - (dict): accumulated outputs of the pipelines that were executed.
+            - (object): return value of a pipeline step if it's not a dictionary or None.
+        Raises:
+            - OpenEdxFilterException: exception re-raised when a pipeline step raises
+                an exception of this type. This behavior is common when using filters
+                to alter the application execution.
 
         This pipeline implementation was inspired by: Social auth core. For more
-        information check their Github repository:
-        https://github.com/python-social-auth/social-core
+        information check their Github repository: https://github.com/python-social-auth/social-core
         """
         pipeline, fail_silently, extra_config = cls.get_pipeline_configuration()
 
