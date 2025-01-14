@@ -1031,10 +1031,10 @@ class CourseRunAPIRenderStarted(OpenEdxPublicFilter):
         Process the serialized_courserun using the configured pipeline steps to modify the course run data.
 
         Arguments:
-            serialized_courserun (dict): courserun data.
+            - serialized_courserun (dict): courserun data.
 
         Returns:
-            dict: courserun data.
+            - dict: courserun data.
         """
         data = super().run_pipeline(serialized_courserun=serialized_courserun)
         return data.get("serialized_courserun")
