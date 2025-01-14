@@ -5,6 +5,7 @@ References
    :maxdepth: 1
    :caption: Contents:
 
+   filters-tooling
    glossary
    filters
    filters-configuration
