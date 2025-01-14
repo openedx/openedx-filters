@@ -22,7 +22,7 @@ class LMSPageURLRequested(OpenEdxPublicFilter):
         - Function or Method: get_asset_json
     """
 
-    filter_type = "org.openedx.course_authoring.lms.page.url.requested.v1"
+    filter_type: str = "org.openedx.course_authoring.lms.page.url.requested.v1"
 
     @classmethod
     def run_filter(cls, url: str, org: str) -> tuple[str, str]:

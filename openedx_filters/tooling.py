@@ -2,6 +2,7 @@
 Tooling necessary to use Open edX Filters.
 """
 from logging import getLogger
+from typing import Any, Optional
 
 from django.conf import settings
 from django.utils.module_loading import import_string
@@ -18,14 +19,14 @@ class OpenEdxPublicFilter:
 
     filter_type = ""
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Represent OpenEdxPublicFilter as a string.
         """
         return "<OpenEdxPublicFilter: {filter_type}>".format(filter_type=self.filter_type)
 
     @classmethod
-    def get_steps_for_pipeline(cls, pipeline, fail_silently):
+    def get_steps_for_pipeline(cls, pipeline: list, fail_silently: Optional[bool] = True) -> list:
         """
         Get pipeline objects from paths.
 
@@ -68,7 +69,7 @@ class OpenEdxPublicFilter:
         return step_list
 
     @classmethod
-    def get_pipeline_configuration(cls):
+    def get_pipeline_configuration(cls) -> tuple[list, bool, dict]:
         """
         Get pipeline configuration from filter settings.
 
@@ -95,9 +96,11 @@ class OpenEdxPublicFilter:
             False the opposite.
             extra_config: anything else defined in the dictionary.
         """
-        filter_config = cls.get_filter_config()
+        filter_config: dict = cls.get_filter_config()
 
-        pipeline, fail_silently, extra_config = [], True, {}
+        pipeline: list = []
+        fail_silently: bool = True
+        extra_config: dict = {}
 
         if not filter_config:
             return pipeline, fail_silently, extra_config
@@ -119,7 +122,7 @@ class OpenEdxPublicFilter:
         return pipeline, fail_silently, extra_config
 
     @classmethod
-    def get_filter_config(cls):
+    def get_filter_config(cls) -> dict:
         """
         Get filters configuration from settings.
 
@@ -161,7 +164,7 @@ class OpenEdxPublicFilter:
         return filters_config.get(cls.filter_type, {})
 
     @classmethod
-    def run_pipeline(cls, **kwargs):
+    def run_pipeline(cls, **kwargs: Any) -> dict:
         """
         Execute filters in order.
 

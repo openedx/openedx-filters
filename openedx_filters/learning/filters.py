@@ -33,7 +33,7 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
         This filter doesn't work alongside the account MFE, only with the legacy account settings page.
     """
 
-    filter_type = "org.openedx.learning.student.settings.render.started.v1"
+    filter_type: str = "org.openedx.learning.student.settings.render.started.v1"
 
     class RedirectToPage(OpenEdxFilterException):
         """
@@ -107,7 +107,7 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
                 - dict: context dictionary for the account settings page, possibly modified.
                 - str: template name to be rendered by the account settings page, possibly modified.
         """
-        data = super().run_pipeline(context=context, template_name=template_name)
+        data: dict = super().run_pipeline(context=context, template_name=template_name)
         return data.get("context"), data.get("template_name")
 
 
@@ -128,8 +128,8 @@ class StudentRegistrationRequested(OpenEdxPublicFilter, SensitiveDataManagementM
         - Function or Method: RegistrationView.post
     """
 
-    filter_type = "org.openedx.learning.student.registration.requested.v1"
-    sensitive_form_data = [
+    filter_type: str = "org.openedx.learning.student.registration.requested.v1"
+    sensitive_form_data: list[str] = [
         "password",
         "newpassword",
         "new_password",
@@ -181,7 +181,7 @@ class StudentLoginRequested(OpenEdxPublicFilter):
         - Function or Method: login_user
     """
 
-    filter_type = "org.openedx.learning.student.login.requested.v1"
+    filter_type: str = "org.openedx.learning.student.login.requested.v1"
 
     class PreventLogin(OpenEdxFilterException):
         """
@@ -238,7 +238,7 @@ class CourseEnrollmentStarted(OpenEdxPublicFilter):
         - Function or Method: enroll
     """
 
-    filter_type = "org.openedx.learning.course.enrollment.started.v1"
+    filter_type: str = "org.openedx.learning.course.enrollment.started.v1"
 
     class PreventEnrollment(OpenEdxFilterException):
         """
@@ -286,7 +286,7 @@ class CourseUnenrollmentStarted(OpenEdxPublicFilter):
         - Function or Method: unenroll
     """
 
-    filter_type = "org.openedx.learning.course.unenrollment.started.v1"
+    filter_type: str = "org.openedx.learning.course.unenrollment.started.v1"
 
     class PreventUnenrollment(OpenEdxFilterException):
         """
@@ -333,7 +333,7 @@ class CertificateCreationRequested(OpenEdxPublicFilter):
         - Function or Method: _generate_certificate_task
     """
 
-    filter_type = "org.openedx.learning.certificate.creation.requested.v1"
+    filter_type:str = "org.openedx.learning.certificate.creation.requested.v1"
 
     class PreventCertificateCreation(OpenEdxFilterException):
         """
@@ -407,7 +407,7 @@ class CertificateRenderStarted(OpenEdxPublicFilter):
         - Function or Method: render_html_view
     """
 
-    filter_type = "org.openedx.learning.certificate.render.started.v1"
+    filter_type: str = "org.openedx.learning.certificate.render.started.v1"
 
     class RedirectToPage(OpenEdxFilterException):
         """
@@ -494,7 +494,7 @@ class CohortChangeRequested(OpenEdxPublicFilter):
         - Function or Method: assign
     """
 
-    filter_type = "org.openedx.learning.cohort.change.requested.v1"
+    filter_type: str = "org.openedx.learning.cohort.change.requested.v1"
 
     class PreventCohortChange(OpenEdxFilterException):
         """
@@ -538,7 +538,7 @@ class CohortAssignmentRequested(OpenEdxPublicFilter):
         - Function or Method: assign
     """
 
-    filter_type = "org.openedx.learning.cohort.assignment.requested.v1"
+    filter_type: str = "org.openedx.learning.cohort.assignment.requested.v1"
 
     class PreventCohortAssignment(OpenEdxFilterException):
         """
@@ -582,7 +582,7 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
         - Function or Method: course_about
     """
 
-    filter_type = "org.openedx.learning.course_about.render.started.v1"
+    filter_type: str = "org.openedx.learning.course_about.render.started.v1"
 
     class RedirectToPage(OpenEdxFilterException):
         """
@@ -683,7 +683,7 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
         This filter doesn't work alongside the dashboard MFE, only with the legacy student dashboard.
     """
 
-    filter_type = "org.openedx.learning.dashboard.render.started.v1"
+    filter_type: str = "org.openedx.learning.dashboard.render.started.v1"
 
     class RedirectToPage(OpenEdxFilterException):
         """
@@ -779,7 +779,7 @@ class VerticalBlockChildRenderStarted(OpenEdxPublicFilter):
         - Function or Method: VerticalBlock._student_or_public_view
     """
 
-    filter_type = "org.openedx.learning.vertical_block_child.render.started.v1"
+    filter_type: str = "org.openedx.learning.vertical_block_child.render.started.v1"
 
     class PreventChildBlockRender(OpenEdxFilterException):
         """
@@ -825,7 +825,7 @@ class CourseEnrollmentQuerysetRequested(OpenEdxPublicFilter):
         marked to be removed if it's not used. See openedx-filters#245 for more information.
     """
 
-    filter_type = "org.openedx.learning.course_enrollment_queryset.requested.v1"
+    filter_type: str = "org.openedx.learning.course_enrollment_queryset.requested.v1"
 
     class PreventEnrollmentQuerysetRequest(OpenEdxFilterException):
         """
@@ -864,7 +864,7 @@ class RenderXBlockStarted(OpenEdxPublicFilter):
         - Function or Method: render_xblock
     """
 
-    filter_type = "org.openedx.learning.xblock.render.started.v1"
+    filter_type: str = "org.openedx.learning.xblock.render.started.v1"
 
     class PreventXBlockBlockRender(OpenEdxFilterException):
         """
@@ -925,7 +925,7 @@ class VerticalBlockRenderCompleted(OpenEdxPublicFilter):
         - Function or Method: VerticalBlock._student_or_public_view
     """
 
-    filter_type = "org.openedx.learning.vertical_block.render.completed.v1"
+    filter_type: str = "org.openedx.learning.vertical_block.render.completed.v1"
 
     class PreventVerticalBlockRender(OpenEdxFilterException):
         """
@@ -973,7 +973,7 @@ class CourseHomeUrlCreationStarted(OpenEdxPublicFilter):
         - Function or Method: course_home_url
     """
 
-    filter_type = "org.openedx.learning.course.homepage.url.creation.started.v1"
+    filter_type: str = "org.openedx.learning.course.homepage.url.creation.started.v1"
 
     @classmethod
     def run_filter(cls, course_key: CourseKey, course_home_url: str) -> tuple[CourseKey, str]:
@@ -1010,7 +1010,7 @@ class CourseEnrollmentAPIRenderStarted(OpenEdxPublicFilter):
         - Function or Method: EnrollmentSerializer.to_representation
     """
 
-    filter_type = "org.openedx.learning.home.enrollment.api.rendered.v1"
+    filter_type: str = "org.openedx.learning.home.enrollment.api.rendered.v1"
 
     @classmethod
     def run_filter(cls, course_key: CourseKey, serialized_enrollment: dict) -> tuple[CourseKey, dict]:
@@ -1047,7 +1047,7 @@ class CourseRunAPIRenderStarted(OpenEdxPublicFilter):
         - Function or Method: CourseRunSerializer.to_representation
     """
 
-    filter_type = "org.openedx.learning.home.courserun.api.rendered.started.v1"
+    filter_type: str = "org.openedx.learning.home.courserun.api.rendered.started.v1"
 
     @classmethod
     def run_filter(cls, serialized_courserun: dict) -> dict:
@@ -1081,7 +1081,7 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
         - Function or Method: instructor_dashboard_2
     """
 
-    filter_type = "org.openedx.learning.instructor.dashboard.render.started.v1"
+    filter_type: str = "org.openedx.learning.instructor.dashboard.render.started.v1"
 
     class RedirectToPage(OpenEdxFilterException):
         """
@@ -1179,7 +1179,7 @@ class ORASubmissionViewRenderStarted(OpenEdxPublicFilter):
         - Function or Method: render_submission
     """
 
-    filter_type = "org.openedx.learning.ora.submission_view.render.started.v1"
+    filter_type: str = "org.openedx.learning.ora.submission_view.render.started.v1"
 
     class RenderInvalidTemplate(OpenEdxFilterException):
         """
@@ -1237,7 +1237,7 @@ class IDVPageURLRequested(OpenEdxPublicFilter):
         - Function or Method: XBlockVerificationService.get_verify_location
     """
 
-    filter_type = "org.openedx.learning.idv.page.url.requested.v1"
+    filter_type: str = "org.openedx.learning.idv.page.url.requested.v1"
 
     @classmethod
     def run_filter(cls, url: str) -> str:
@@ -1271,7 +1271,7 @@ class CourseAboutPageURLRequested(OpenEdxPublicFilter):
         - Function or Method: get_link_for_about_page
     """
 
-    filter_type = "org.openedx.learning.course_about.page.url.requested.v1"
+    filter_type: str = "org.openedx.learning.course_about.page.url.requested.v1"
 
     @classmethod
     def run_filter(cls, url: str, org: str) -> tuple[str, str]:
@@ -1309,7 +1309,7 @@ class ScheduleQuerySetRequested(OpenEdxPublicFilter):
         - Function or Method: BinnedSchedulesBaseResolver.get_schedules_with_target_date_by_bin_and_orgs
     """
 
-    filter_type = "org.openedx.learning.schedule.queryset.requested.v1"
+    filter_type: str = "org.openedx.learning.schedule.queryset.requested.v1"
 
     @classmethod
     def run_filter(cls, schedules: QuerySet) -> QuerySet:
