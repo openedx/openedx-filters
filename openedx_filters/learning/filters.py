@@ -5,7 +5,7 @@ Package where filters related to the learning architectural subdomain are implem
 from typing import Any, Optional
 
 from django.db.models.query import QuerySet
-from django.http import HttpResponse
+from django.http import HttpResponse, QueryDict
 from opaque_keys.edx.keys import CourseKey
 
 from openedx_filters.exceptions import OpenEdxFilterException
@@ -102,8 +102,9 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
             - template_name (str): template path used to render the account settings page.
 
         Returns:
-            - dict: context dictionary for the account settings page, possibly modified.
-            - str: template name to be rendered by the account settings page, possibly modified.
+            tuple[dict, str]:
+                - dict: context dictionary for the account settings page, possibly modified.
+                - str: template name to be rendered by the account settings page, possibly modified.
         """
         data = super().run_pipeline(context=context, template_name=template_name)
         return data.get("context"), data.get("template_name")
@@ -141,7 +142,7 @@ class StudentRegistrationRequested(OpenEdxPublicFilter, SensitiveDataManagementM
         """
 
     @classmethod
-    def run_filter(cls, form_data: dict) -> dict:
+    def run_filter(cls, form_data: QueryDict) -> QueryDict:
         """
         Process the registration form data using the configured pipeline steps to modify the registration process.
 
@@ -149,7 +150,7 @@ class StudentRegistrationRequested(OpenEdxPublicFilter, SensitiveDataManagementM
             - form_data (QueryDict): contains the request.data submitted by the registration form.
 
         Returns:
-            - dict: form data dictionary, possibly modified.
+            - QueryDict: form data dictionary, possibly modified.
         """
         sensitive_data = cls.extract_sensitive_data(form_data)
         data = super().run_pipeline(form_data=form_data)
@@ -458,8 +459,9 @@ class CertificateRenderStarted(OpenEdxPublicFilter):
             - custom_template (CertificateTemplate): custom web certificate template.
 
         Returns:
-            - dict: context dictionary for the certificate template, possibly modified.
-            - CertificateTemplate: custom web certificate template, possibly modified.
+            tuple[dict, CertificateTemplate]:
+                - dict: context dictionary for the certificate template, possibly modified.
+                - CertificateTemplate: custom web certificate template, possibly modified.
         """
         data = super().run_pipeline(context=context, custom_template=custom_template)
         return data.get("context"), data.get("custom_template")
@@ -500,8 +502,9 @@ class CohortChangeRequested(OpenEdxPublicFilter):
             - target_cohort (CourseUserGroup): CourseUserGroup instance representing the new user's cohort.
 
         Returns:
-            - CohortMembership: CohortMembership instance representing the current user's cohort.
-            - CourseUserGroup: CourseUserGroup instance representing the new user's cohort.
+            tuple[CohortMembership, CourseUserGroup]:
+                - CohortMembership: CohortMembership instance representing the current user's cohort.
+                - CourseUserGroup: CourseUserGroup instance representing the new user's cohort.
         """
         data = super().run_pipeline(current_membership=current_membership, target_cohort=target_cohort)
         return data.get("current_membership"), data.get("target_cohort")
@@ -542,8 +545,9 @@ class CohortAssignmentRequested(OpenEdxPublicFilter):
             - target_cohort (CourseUserGroup): CourseUserGroup instance representing the new user's cohort.
 
         Returns:
-            - User: Django User object representing the user.
-            - CourseUserGroup: CourseUserGroup instance representing the new user's cohort.
+            tuple[User, CourseUserGroup]:
+                - User: Django User object representing the user.
+                - CourseUserGroup: CourseUserGroup instance representing the new user's cohort.
         """
         data = super().run_pipeline(user=user, target_cohort=target_cohort)
         return data.get("user"), data.get("target_cohort")
@@ -638,8 +642,9 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
             - template_name (str): template name to be rendered by the course about.
 
         Returns:
-            - dict: context dictionary for the course about template, possibly modified.
-            - str: template name to be rendered by the course about, possibly modified.
+            tuple[dict, str]:
+                - dict: context dictionary for the course about template, possibly modified.
+                - str: template name to be rendered by the course about, possibly modified.
         """
         data = super().run_pipeline(context=context, template_name=template_name)
         return data.get("context"), data.get("template_name")
@@ -735,8 +740,9 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
             - template_name (str): template name to be rendered by the student's dashboard.
 
         Returns:
-            - dict: context dictionary for the student's dashboard template, possibly modified.
-            - str: template name to be rendered by the student's dashboard, possibly modified.
+            tuple[dict, str]:
+                - dict: context dictionary for the student's dashboard template, possibly modified.
+                - str: template name to be rendered by the student's dashboard, possibly modified.
         """
         data = super().run_pipeline(context=context, template_name=template_name)
         return data.get("context"), data.get("template_name")
@@ -778,8 +784,9 @@ class VerticalBlockChildRenderStarted(OpenEdxPublicFilter):
             - context (dict): rendering context values like is_mobile_app, show_title..etc
 
         Returns:
-            - XBlock: the XBlock that is about to be rendered into HTML
-            - dict: rendering context values like is_mobile_app, show_title..etc
+            tuple[XBlock, dict]:
+                - XBlock: the XBlock that is about to be rendered into HTML
+                - dict: rendering context values like is_mobile_app, show_title..etc
         """
         data = super().run_pipeline(block=block, context=context)
         return data.get("block"), data.get("context")
@@ -873,8 +880,9 @@ class RenderXBlockStarted(OpenEdxPublicFilter):
             - student_view_context (dict): context passed to the student_view of the block context.
 
         Returns:
-            - dict: rendering context values like is_mobile_app, show_title, etc.
-            - dict: context passed to the student_view of the block context.
+            tuple[dict, dict]:
+                - dict: rendering context values like is_mobile_app, show_title, etc.
+                - dict: context passed to the student_view of the block context.
         """
         data = super().run_pipeline(context=context, student_view_context=student_view_context)
         return data.get("context"), data.get("student_view_context")
@@ -955,8 +963,9 @@ class CourseHomeUrlCreationStarted(OpenEdxPublicFilter):
             course_home_url (str): The url string for the course home.
 
         Returns:
-            CourseKey: The course key for which the home url is being requested.
-            str: The url string for the course home.
+            tuple[CourseKey, str]:
+                CourseKey: The course key for which the home url is being requested.
+                str: The url string for the course home.
         """
         data = super().run_pipeline(course_key=course_key, course_home_url=course_home_url)
         return data.get("course_key"), data.get("course_home_url")
@@ -990,8 +999,9 @@ class CourseEnrollmentAPIRenderStarted(OpenEdxPublicFilter):
             - serialized_enrollment (dict): enrollment data.
 
         Returns:
-            - CourseKey: The course key for which isStarted is being modify.
-            - dict: enrollment data.
+            tuple[CourseKey, dict]:
+                - CourseKey: The course key for which isStarted is being modify.
+                - dict: enrollment data.
         """
         data = super().run_pipeline(course_key=course_key, serialized_enrollment=serialized_enrollment)
         return data.get("course_key"), data.get("serialized_enrollment")
@@ -1119,8 +1129,9 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
             - template_name (str): template name to be rendered by the instructor's tab.
 
         Returns:
-            - dict: context dictionary for the instructor's tab template, possibly modified.
-            - str: template name to be rendered by the instructor's tab, possibly modified.
+            tuple[dict, str]:
+                - dict: context dictionary for the instructor's tab template, possibly modified.
+                - str: template name to be rendered by the instructor's tab, possibly modified.
         """
         data = super().run_pipeline(context=context, template_name=template_name)
         return data.get("context"), data.get("template_name")
@@ -1175,8 +1186,9 @@ class ORASubmissionViewRenderStarted(OpenEdxPublicFilter):
             - template_name (str): template name to be rendered by the student's dashboard.
 
         Returns:
-            - dict: context dictionary for the submission view template, possibly modified.
-            - str: template name to be rendered by the submission view, possibly modified.
+            tuple[dict, str]:
+                - dict: context dictionary for the submission view template, possibly modified.
+                - str: template name to be rendered by the submission view, possibly modified.
         """
         data = super().run_pipeline(context=context, template_name=template_name, )
         return data.get("context"), data.get("template_name")
@@ -1243,8 +1255,9 @@ class CourseAboutPageURLRequested(OpenEdxPublicFilter):
             - org (str): Course org filter used as context data to get LMS configurations.
 
         Returns:
-            - str: the modified URL of the page.
-            - str: Course org filter used as context data to get LMS configurations
+            tuple[str, str]:
+                - str: the modified URL of the page.
+                - str: Course org filter used as context data to get LMS configurations.
         """
         data = super().run_pipeline(url=url, org=org)
         return data.get("url"), data.get("org")

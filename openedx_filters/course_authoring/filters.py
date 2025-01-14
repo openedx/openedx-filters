@@ -29,8 +29,13 @@ class LMSPageURLRequested(OpenEdxPublicFilter):
         Process the inputs using the configured pipeline steps to modify the URL of the page requested by the user.
 
         Arguments:
-            url (str): the URL of the page to be modified.
-            org (str): Course org filter used as context data to get LMS configurations.
+            - url (str): the URL of the page to be modified.
+            - org (str): Course org filter used as context data to get LMS configurations.
+
+        Returns:
+            tuple[str, str]:
+                - str: the modified URL of the page requested by the user.
+                - str: the course org.
         """
         data = super().run_pipeline(url=url, org=org)
         return data.get("url"), data.get("org")
