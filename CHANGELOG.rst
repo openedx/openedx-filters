@@ -14,6 +14,19 @@ Change Log
 Unreleased
 ----------
 
+[2.0.0] - 2025-02-10
+---------------------
+
+Added
+~~~~~
+
+* Add support for mypy static type checking.
+
+Changed
+~~~~~~~
+
+* **Breaking change**: Correctly name authoring subdomain according to DDD docs: https://openedx.atlassian.net/wiki/spaces/AC/pages/663224968/edX+DDD+Bounded+Contexts
+
 [1.13.0] - 2025-01-31
 ---------------------
 
