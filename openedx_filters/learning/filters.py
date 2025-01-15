@@ -862,8 +862,8 @@ class RenderXBlockStarted(OpenEdxPublicFilter):
         instead.
 
         Arguments:
-            message (str): error message for the exception.
-            response (HttpResponse): custom response which will be returned by the XBlock render view.
+            - message (str): error message for the exception.
+            - response (HttpResponse): custom response which will be returned by the XBlock render view.
         """
 
         def __init__(self, message: str, response: Optional[HttpResponse] = None):
