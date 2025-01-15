@@ -66,7 +66,7 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
         def __init__(
             self,
             message: str,
-            account_settings_template: Optional[str] = "",
+            account_settings_template: str = "",
             template_context: Optional[dict] = None
         ) -> None:
             """Initialize the exception with the message and the template path to render instead."""
@@ -193,8 +193,8 @@ class StudentLoginRequested(OpenEdxPublicFilter):
         def __init__(
             self,
             message: str,
-            redirect_to: Optional[str] = "",
-            error_code: Optional[str] = "",
+            redirect_to: str = "",
+            error_code: str = "",
             context: Optional[dict] = None
         ) -> None:
             """Initialize the exception with the message and the URL to redirect to."""
@@ -410,7 +410,7 @@ class CertificateRenderStarted(OpenEdxPublicFilter):
             - redirect_to (str): URL to redirect to.
         """
 
-        def __init__(self, message: str, redirect_to: Optional[str] = "") -> None:
+        def __init__(self, message: str, redirect_to: str = "") -> None:
             """Initialize the exception with the message and the URL to redirect to."""
             super().__init__(message, redirect_to=redirect_to)
 
@@ -426,7 +426,7 @@ class CertificateRenderStarted(OpenEdxPublicFilter):
             - template_name (str): template path of the new certificate.
         """
 
-        def __init__(self, message: str, template_name: Optional[str] = "") -> None:
+        def __init__(self, message: str, template_name: str = "") -> None:
             """Initialize the exception with the message and the template path to render instead."""
             super().__init__(message, template_name=template_name)
 
@@ -583,7 +583,7 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
             - redirect_to (str): URL to redirect to.
         """
 
-        def __init__(self, message: str, redirect_to: Optional[str] = "") -> None:
+        def __init__(self, message: str, redirect_to: str = "") -> None:
             """Initialize the exception with the message and the URL to redirect to."""
             super().__init__(message, redirect_to=redirect_to)
 
@@ -603,7 +603,7 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
         def __init__(
             self,
             message: str,
-            course_about_template: Optional[str] = "",
+            course_about_template: str = "",
             template_context: Optional[dict] = None
         ) -> None:
             """Initialize the exception with the message and the template to render instead."""
@@ -682,7 +682,7 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
             - redirect_to (str): URL to redirect to.
         """
 
-        def __init__(self, message: str, redirect_to: Optional[str] = "") -> None:
+        def __init__(self, message: str, redirect_to: str = "") -> None:
             """Initialize the exception with the message and the URL to redirect to."""
             super().__init__(message, redirect_to=redirect_to)
 
@@ -702,7 +702,7 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
         def __init__(
             self,
             message: str,
-            dashboard_template: Optional[str] = "",
+            dashboard_template: str = "",
             template_context: Optional[dict] = None
         ) -> None:
             """Initialize the exception with the message and the template to render instead."""
@@ -1070,7 +1070,7 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
             - redirect_to (str): URL to redirect to.
         """
 
-        def __init__(self, message: str, redirect_to: Optional[str] = ""):
+        def __init__(self, message: str, redirect_to: str = ""):
             """Initialize the exception with the message and the URL to redirect to."""
             super().__init__(message, redirect_to=redirect_to)
 
@@ -1090,7 +1090,7 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
         def __init__(
             self,
             message: str,
-            instructor_template: Optional[str] = "",
+            instructor_template: str = "",
             template_context: Optional[dict] = None
         ):
             """Initialize the exception with the message and the template to render instead."""
@@ -1171,7 +1171,7 @@ class ORASubmissionViewRenderStarted(OpenEdxPublicFilter):
         def __init__(
             self, message: str,
             context: Optional[dict] = None,
-            template_name: Optional[str] = ""
+            template_name: str = ""
         ) -> None:
             """Initialize the exception with the message and the template to render instead."""
             super().__init__(message, context=context, template_name=template_name)
