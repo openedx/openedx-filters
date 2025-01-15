@@ -15,6 +15,13 @@ Unreleased
 ----------
 * Configuration for automatic filters docs generation.
 
+[2.0.0] - 2025-01-15
+---------------------
+
+Changed
+~~~~~~~
+
+* **Breaking change**: Correctly name authoring subdomain according to DDD docs: https://openedx.atlassian.net/wiki/spaces/AC/pages/663224968/edX+DDD+Bounded+Contexts
 
 [1.12.0] - 2024-12-12
 ---------------------
