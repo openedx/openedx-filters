@@ -32,6 +32,13 @@ class OpenEdxPublicFilter:
         Helper function that given a pipeline with step paths gets
         the objects related to each path.
 
+        Arguments:
+            pipeline (list): paths where steps are defined.
+            fail_silently (bool): True meaning it won't raise exceptions and False the opposite.
+
+        Returns:
+            list: objects related to each path in the pipeline.
+
         Example usage:
             >>> steps = get_steps_for_pipeline(
                 [
@@ -46,12 +53,6 @@ class OpenEdxPublicFilter:
                 ...
             ]
 
-        Arguments:
-            - pipeline (list): paths where steps are defined.
-            - fail_silently (bool): True meaning it won't raise exceptions and False the opposite.
-
-        Returns:
-            list: objects related to each path in the pipeline.
         """
         step_list = []
         for step_path in pipeline:
@@ -75,6 +76,15 @@ class OpenEdxPublicFilter:
         the Pipeline Runner. It will take from the hooks configuration
         the list of functions to execute and how to execute them.
 
+        Returns:
+            tuple: pipeline configuration with the following structure:
+                - list: Paths where functions for the pipeline are defined.
+                - bool: Indicates whether exceptions are raised while executing the pipeline associated with a filter.
+                  Determined by the `fail_silently` configuration: `True` means it won't raise exceptions, and `False`
+                  means the opposite.
+                - dict: Extra configuration defined in the filter configuration.
+
+
         Example usage:
             >>> pipeline_config = cls.get_pipeline_configuration()
             >>> pipeline_config
@@ -83,14 +93,11 @@ class OpenEdxPublicFilter:
                         'my_plugin.hooks.filters.PipelineStepV1',
                         'my_plugin.hooks.filters.PipelineStepV2',
                     ],
+                    False,
+                    {
+                        'log_level': 'debug'
+                    }
                 )
-
-        Returns:
-            - (list): paths where functions for the pipeline are defined.
-            - (bool): defines whether exceptions are raised while executing
-                the pipeline associated with a filter. It's determined by ``fail_silently`` configuration,
-                ``True`` meaning it won't raise exceptions and ``False`` the opposite.
-            - (dict): extra configuration defined in the filter configuration.
         """
         filter_config = cls.get_filter_config()
 
@@ -122,6 +129,16 @@ class OpenEdxPublicFilter:
 
         Helper function used to get configuration needed for using a filter.
 
+        Where:
+            - pipeline (list): paths where the functions to be executed by the pipeline are defined.
+            - fail_silently (bool): determines whether the pipeline can raise exceptions while executing.
+               If its value is True then common exceptions (TypeError, ImportError...) are caught and
+               the execution continues, if False then exceptions are re-raised and the execution fails.
+            - The rest of the keys are extra configuration that can be used to customize the filter.
+
+        Returns:
+            dict: configuration for the filter type defined in the class.
+
         Example usage:
             >>> configuration = get_filter_config('trigger')
             >>> configuration
@@ -134,16 +151,6 @@ class OpenEdxPublicFilter:
                 'fail_silently': False,
                 'log_level': 'debug'
             }
-
-        Where:
-            - pipeline (list): paths where the functions to be executed by the pipeline are defined.
-            - fail_silently (bool): determines whether the pipeline can raise exceptions while executing.
-                If its value is True then common exceptions (TypeError, ImportError...) are caught and
-                the execution continues, if False then exceptions are re-raised and the execution fails.
-            - The rest of the keys are extra configuration that can be used to customize the filter.
-
-        Returns:
-            dict: configuration for the filter type defined in the class.
         """
         filters_config = getattr(settings, "OPEN_EDX_FILTERS_CONFIG", {})
 
@@ -155,7 +162,22 @@ class OpenEdxPublicFilter:
         Execute filters in order based on the pipeline configuration.
 
         Given a list of pipeline steps, this function will execute them using the Accumulative Pipeline pattern
-        as specified in :doc:`docs/decisions/0003-hooks-filter-tooling-pipeline`.
+        as specified in :doc:`../decisions/0003-hooks-filter-tooling-pipeline`.
+
+        Arguments:
+            **kwargs: arguments to be passed to the pipeline steps.
+
+        Returns:
+            dict | Any: accumulated outputs of the pipelines that were executed or the return value of a pipeline step
+                if it's not a dictionary.
+
+        Raises:
+            OpenEdxFilterException: exception re-raised when a pipeline step raises
+                an exception of this type. This behavior is common when using filters
+                to alter the application execution.
+
+        This pipeline implementation was inspired by: Social auth core. For more
+        information check their Github repository: https://github.com/python-social-auth/social-core
 
         Example usage:
             >>> result = OpenEdxPublicFilter.run_filter(user=user, course=course)
@@ -164,17 +186,6 @@ class OpenEdxPublicFilter:
                 'result_1st_function': 1st_object,
                 'result_2nd_function': 2nd_object,
             }
-
-        Returns:
-            - (dict): accumulated outputs of the pipelines that were executed.
-            - (object): return value of a pipeline step if it's not a dictionary or None.
-        Raises:
-            - OpenEdxFilterException: exception re-raised when a pipeline step raises
-                an exception of this type. This behavior is common when using filters
-                to alter the application execution.
-
-        This pipeline implementation was inspired by: Social auth core. For more
-        information check their Github repository: https://github.com/python-social-auth/social-core
         """
         pipeline, fail_silently, extra_config = cls.get_pipeline_configuration()
 
