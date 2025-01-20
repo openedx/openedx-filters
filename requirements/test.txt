@@ -10,13 +10,13 @@ asgiref==3.8.1
     #   django
 click==8.1.8
     # via code-annotations
-code-annotations==2.1.0
+code-annotations==2.2.0
     # via -r requirements/test.in
 coverage[toml]==7.6.10
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
-django==4.2.17
+django==4.2.18
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.txt
