@@ -30,7 +30,7 @@ You should review the :doc:`list of filters <../reference/filters>` available in
 Step 2: Install Open edX Filters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-First, add the ``openedx-filters`` plugin into your dependencies so the library's environment recognizes the event you want to consume. You can install ``openedx-filters`` by running:
+First, add the ``openedx-filters`` library into your dependencies so the environment recognizes the filter you want to use. You can install ``openedx-filters`` by running:
 
 .. code-block:: bash
 

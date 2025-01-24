@@ -33,6 +33,8 @@ Assumptions
 - You have reviewed the :doc:`../decisions/0007-filter-design-practices` ADR.
 - You have identified that you need to create a new filter and have a use case for the filter.
 
+.. warning:: You only need to create a new filter if you have a use case that cannot be implemented using the existing filters. Before creating a new filter, review the :doc:`existing filters <../reference/filters>` to see if any of them can be used to implement your use case.
+
 Steps
 -----
 
@@ -49,7 +51,7 @@ Before contributing a new filter, it is important to propose the filter to the c
 
 In our example our use case proposal could be:
 
-   I want to add a filter that will be triggered when a user enrolls in a course from the course about page. This filter will be used to prfilter users from enrolling in a course if they do not meet the eligibility criteria. The filter will be triggered when the user clicks the enroll button on the course about page and will check if the user meets the eligibility criteria. If the user does not meet the criteria, the filter will raise an exception to prfilter the user from enrolling in the course.
+   I want to add a filter that will be triggered when a user enrolls in a course from the course about page. This filter will be used to prevent users from enrolling in a course if they do not meet the eligibility criteria. The filter will be triggered when the user clicks the enroll button on the course about page and will check if the user meets the eligibility criteria. If the user does not meet the criteria, the filter will raise an exception to prevent the user from enrolling in the course.
 
 If you are confident that the filter is beneficial to the community, you can proceed to the next steps and implement the filter.
 
