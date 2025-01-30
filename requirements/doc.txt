@@ -142,7 +142,7 @@ pygments==2.19.1
     #   readme-renderer
     #   rich
     #   sphinx
-pymongo==4.10.1
+pymongo==4.11
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys

@@ -119,7 +119,7 @@ iniconfig==2.0.0
     # via
     #   -r requirements/quality.txt
     #   pytest
-isort==5.13.2
+isort==6.0.0
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -218,7 +218,7 @@ pygments==2.19.1
     #   diff-cover
     #   readme-renderer
     #   rich
-pylint==3.3.3
+pylint==3.3.4
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -238,7 +238,7 @@ pylint-plugin-utils==0.8.2
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pymongo==4.10.1
+pymongo==4.11
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
