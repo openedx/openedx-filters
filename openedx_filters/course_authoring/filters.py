@@ -9,8 +9,9 @@ class LMSPageURLRequested(OpenEdxPublicFilter):
     """
     Filter used to modify the URL of the page requested by the user.
 
-    This filter is triggered when a user loads a page in Studio that references an LMS page, allowing the filter to
-    modify the URL of the page requested by the user.
+    Purpose:
+        This filter is triggered when a user loads a page in Studio that references an LMS page, allowing the filter to
+        modify the URL of the page requested by the user.
 
     Filter Type:
         org.openedx.course_authoring.lms.page.url.requested.v1

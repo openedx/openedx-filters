@@ -13,8 +13,14 @@ Change Log
 
 Unreleased
 ----------
-* Configuration for automatic filters docs generation.
 
+[1.13.0] - 2025-01-31
+---------------------
+
+Added
+~~~~~
+
+* Use edx-lint linter for Open edX Filters classes docstrings validation.
 
 [1.12.0] - 2024-12-12
 ---------------------
@@ -40,6 +46,7 @@ Added
 ~~~~~
 
 * IDVPageURLRequested filter added which can be used to modify the URL for the ID verification process.
+* Configuration for automatic filters docs generation.
 
 [1.9.0] - 2024-06-14
 --------------------
