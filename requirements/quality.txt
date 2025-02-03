@@ -14,7 +14,7 @@ astroid==3.3.8
     #   pylint-celery
 backports-tarfile==1.2.0
     # via jaraco-context
-certifi==2024.12.14
+certifi==2025.1.31
     # via requests
 cffi==1.17.1
     # via cryptography
