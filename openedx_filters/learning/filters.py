@@ -2,7 +2,7 @@
 Package where filters related to the learning architectural subdomain are implemented.
 """
 
-from typing import Any, Optional, Union
+from typing import Any, Optional
 
 from django.db.models.query import QuerySet
 from django.http import HttpResponse, QueryDict

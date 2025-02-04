@@ -3,7 +3,6 @@ Utilities for Open edX filters usage.
 """
 
 
-from typing import Union
 from django.http import QueryDict
 
 
@@ -30,7 +29,7 @@ class SensitiveDataManagementMixin:
             {"username": "example"}
         """
         sensitive_data = {}
-        base_form_data  = form_data.copy()
+        base_form_data = form_data.copy()
         for key, value in base_form_data.items():
             if key in cls.sensitive_form_data:
                 form_data.pop(key)
