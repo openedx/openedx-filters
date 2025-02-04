@@ -23,8 +23,8 @@ class OpenEdxFilterException(Exception):
 
     def __init__(
         self,
-        message: Optional[str] = "",
-        redirect_to: Optional[str] = "",
+        message: str = "",
+        redirect_to: str = "",
         status_code: Optional[int] = None,
         **kwargs
     ) -> None:

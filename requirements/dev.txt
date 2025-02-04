@@ -8,6 +8,7 @@ asgiref==3.8.1
     # via
     #   -r requirements/quality.txt
     #   django
+    #   django-stubs
 astroid==3.3.8
     # via
     #   -r requirements/quality.txt
@@ -25,7 +26,7 @@ cachetools==5.5.1
     # via
     #   -r requirements/ci.txt
     #   tox
-certifi==2024.12.14
+certifi==2025.1.31
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -72,7 +73,7 @@ cryptography==44.0.0
     #   secretstorage
 ddt==1.7.2
     # via -r requirements/quality.txt
-diff-cover==9.2.1
+diff-cover==9.2.2
     # via -r requirements/dev.in
 dill==0.3.9
     # via
@@ -86,6 +87,14 @@ django==4.2.18
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
+    #   django-stubs
+    #   django-stubs-ext
+django-stubs==5.1.2
+    # via -r requirements/quality.txt
+django-stubs-ext==5.1.2
+    # via
+    #   -r requirements/quality.txt
+    #   django-stubs
 dnspython==2.7.0
     # via
     #   -r requirements/quality.txt
@@ -170,6 +179,12 @@ more-itertools==10.6.0
     #   -r requirements/quality.txt
     #   jaraco-classes
     #   jaraco-functools
+mypy==1.14.1
+    # via -r requirements/quality.txt
+mypy-extensions==1.0.0
+    # via
+    #   -r requirements/quality.txt
+    #   mypy
 nh3==0.2.20
     # via
     #   -r requirements/quality.txt
@@ -323,10 +338,17 @@ tox==4.24.1
     # via -r requirements/ci.txt
 twine==6.1.0
     # via -r requirements/quality.txt
+types-pyyaml==6.0.12.20241230
+    # via
+    #   -r requirements/quality.txt
+    #   django-stubs
 typing-extensions==4.12.2
     # via
     #   -r requirements/quality.txt
+    #   django-stubs
+    #   django-stubs-ext
     #   edx-opaque-keys
+    #   mypy
 urllib3==2.2.3
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt

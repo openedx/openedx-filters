@@ -2,7 +2,7 @@
 Tooling necessary to use Open edX Filters.
 """
 from logging import getLogger
-from typing import Any, Optional
+from typing import Any, Union
 
 from django.conf import settings
 from django.utils.module_loading import import_string
@@ -26,7 +26,7 @@ class OpenEdxPublicFilter:
         return "<OpenEdxPublicFilter: {filter_type}>".format(filter_type=self.filter_type)
 
     @classmethod
-    def get_steps_for_pipeline(cls, pipeline: list, fail_silently: Optional[bool] = True) -> list:
+    def get_steps_for_pipeline(cls, pipeline: list, fail_silently: bool = True) -> list:
         """
         Get pipeline objects from paths.
 
@@ -96,11 +96,9 @@ class OpenEdxPublicFilter:
             False the opposite.
             extra_config: anything else defined in the dictionary.
         """
-        filter_config: dict = cls.get_filter_config()
+        filter_config = cls.get_filter_config()
 
-        pipeline: list = []
-        fail_silently: bool = True
-        extra_config: dict = {}
+        pipeline, fail_silently, extra_config = [], True, {}
 
         if not filter_config:
             return pipeline, fail_silently, extra_config
@@ -201,12 +199,14 @@ class OpenEdxPublicFilter:
         information check their Github repository:
         https://github.com/python-social-auth/social-core
         """
-        pipeline, fail_silently, extra_config = cls.get_pipeline_configuration()
+        pipeline: list[str] = []
+        fail_silently: bool = True
+        extra_config: dict[str, Any] = {}
 
         if not pipeline:
             return kwargs
 
-        steps = cls.get_steps_for_pipeline(pipeline, fail_silently)
+        steps: list[] = cls.get_steps_for_pipeline(pipeline, fail_silently)
         filter_metadata = {
             "filter_type": cls.filter_type,
             "running_pipeline": pipeline,

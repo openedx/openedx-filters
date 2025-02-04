@@ -23,9 +23,9 @@ django==4.2.18
     #   -r requirements/base.txt
     #   django-stubs
     #   django-stubs-ext
-django-stubs==5.1.1
+django-stubs==5.1.2
     # via -r requirements/test.in
-django-stubs-ext==5.1.1
+django-stubs-ext==5.1.2
     # via django-stubs
 dnspython==2.7.0
     # via

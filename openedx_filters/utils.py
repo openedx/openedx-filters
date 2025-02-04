@@ -11,7 +11,7 @@ class SensitiveDataManagementMixin:
     Custom class used manage sensitive data within filter arguments.
     """
 
-    sensitive_form_data: list[str] = []
+    sensitive_form_data = []
 
     @classmethod
     def extract_sensitive_data(cls, form_data: QueryDict) -> dict:
@@ -28,8 +28,8 @@ class SensitiveDataManagementMixin:
             >> form_data
             {"username": "example"}
         """
-        sensitive_data: dict = {}
-        base_form_data: QueryDict = form_data.copy()
+        sensitive_data = {}
+        base_form_data = form_data.copy()
         for key, value in base_form_data.items():
             if key in cls.sensitive_form_data:
                 form_data.pop(key)
