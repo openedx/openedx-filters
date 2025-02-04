@@ -25,7 +25,7 @@ class LMSPageURLRequested(OpenEdxPublicFilter):
     filter_type = "org.openedx.course_authoring.lms.page.url.requested.v1"
 
     @classmethod
-    def run_filter(cls, url: str, org: str) -> tuple[str, str]:
+    def run_filter(cls, url: str, org: str) -> tuple[str | None, str | None]:
         """
         Process the inputs using the configured pipeline steps to modify the URL of the page requested by the user.
 

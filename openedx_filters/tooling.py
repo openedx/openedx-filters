@@ -2,7 +2,7 @@
 Tooling necessary to use Open edX Filters.
 """
 from logging import getLogger
-from typing import Any, Union
+from typing import Any
 
 from django.conf import settings
 from django.utils.module_loading import import_string
@@ -26,7 +26,7 @@ class OpenEdxPublicFilter:
         return "<OpenEdxPublicFilter: {filter_type}>".format(filter_type=self.filter_type)
 
     @classmethod
-    def get_steps_for_pipeline(cls, pipeline: list, fail_silently: bool = True) -> list:
+    def get_steps_for_pipeline(cls, pipeline: list, fail_silently: bool = True) -> list[type]:
         """
         Get pipeline objects from paths.
 
@@ -69,7 +69,7 @@ class OpenEdxPublicFilter:
         return step_list
 
     @classmethod
-    def get_pipeline_configuration(cls) -> tuple[list, bool, dict]:
+    def get_pipeline_configuration(cls) -> tuple[list[str], bool, dict[str, Any]]:
         """
         Get pipeline configuration from filter settings.
 
@@ -98,7 +98,9 @@ class OpenEdxPublicFilter:
         """
         filter_config = cls.get_filter_config()
 
-        pipeline, fail_silently, extra_config = [], True, {}
+        pipeline: list = []
+        fail_silently: bool = True
+        extra_config: dict = {}
 
         if not filter_config:
             return pipeline, fail_silently, extra_config
@@ -120,7 +122,7 @@ class OpenEdxPublicFilter:
         return pipeline, fail_silently, extra_config
 
     @classmethod
-    def get_filter_config(cls) -> dict:
+    def get_filter_config(cls) -> dict[str, Any]:
         """
         Get filters configuration from settings.
 
@@ -162,7 +164,7 @@ class OpenEdxPublicFilter:
         return filters_config.get(cls.filter_type, {})
 
     @classmethod
-    def run_pipeline(cls, **kwargs: Any) -> dict:
+    def run_pipeline(cls, **kwargs: Any) -> dict[str, Any] | Any:
         """
         Execute filters in order.
 
@@ -199,14 +201,12 @@ class OpenEdxPublicFilter:
         information check their Github repository:
         https://github.com/python-social-auth/social-core
         """
-        pipeline: list[str] = []
-        fail_silently: bool = True
-        extra_config: dict[str, Any] = {}
+        pipeline, fail_silently, extra_config = cls.get_pipeline_configuration()
 
         if not pipeline:
             return kwargs
 
-        steps: list[] = cls.get_steps_for_pipeline(pipeline, fail_silently)
+        steps = cls.get_steps_for_pipeline(pipeline, fail_silently)
         filter_metadata = {
             "filter_type": cls.filter_type,
             "running_pipeline": pipeline,
