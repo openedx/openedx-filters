@@ -675,7 +675,7 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
             Initialize the exception with the message and the template to render instead.
 
             Arguments:
-                message (Str): error message for the exception.
+                message (str): error message for the exception.
                 course_about_template (str): template path rendered instead.
                 template_context (dict): context used to the new course_about_template.
             """

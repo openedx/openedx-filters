@@ -30,6 +30,7 @@ class PipelineStep:
                     "course_key": course_key,
                     "mode": "no-id-professional",
                 }
+
     Another version would be:
 
     >>> class MyFilterStep(PipelineStep):
