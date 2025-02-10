@@ -42,13 +42,19 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
         This exception is propagated to the account settings view and handled by the view to redirect the user to
         a new page.
 
-        Arguments:
-            - message (str): error message for the exception.
-            - redirect_to (str): URL to redirect to.
+        Attributes:
+            message (str): error message for the exception.
+            redirect_to (str): URL to redirect to.
         """
 
         def __init__(self, message: str, redirect_to: str) -> None:
-            """Initialize the exception with the message and the URL to redirect to."""
+            """
+            Initialize the exception with the message and the URL to redirect to.
+
+            Arguments:
+                message (str): error message for the exception.
+                redirect_to (str): URL to redirect to.
+            """
             super().__init__(message, redirect_to=redirect_to)
 
     class RenderInvalidAccountSettings(OpenEdxFilterException):
@@ -58,10 +64,10 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
         This exception is propagated to the account settings view and handled by the view to render a different
         template instead.
 
-        Arguments:
-            - message (str): error message for the exception.
-            - account_settings_template (str): template path rendered instead.
-            - template_context (dict): context used to the new account settings template.
+        Attributes:
+            message (str): error message for the exception.
+            account_settings_template (str): template path rendered instead.
+            template_context (dict): context used to the new account settings template.
         """
 
         def __init__(
@@ -70,7 +76,14 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
             account_settings_template: str = "",
             template_context: Optional[dict] = None
         ) -> None:
-            """Initialize the exception with the message and the template path to render instead."""
+            """
+            Initialize the exception with the message and the template path to render instead.
+
+            Arguments:
+                message (str): error message for the exception.
+                account_settings_template (str): template path rendered instead.
+                template_context (dict): context used to the new account settings template.
+            """
             super().__init__(
                 message,
                 account_settings_template=account_settings_template,
@@ -84,13 +97,19 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
         This exception is propagated to the account settings view and handled by the view to return a custom response
         instead.
 
-        Arguments:
-            - message (str): error message for the exception.
-            - response (HttpResponse): custom response which will be returned by the account settings view.
+        Attributes:
+            message (str): error message for the exception.
+            response (HttpResponse): custom response which will be returned by the account settings view.
         """
 
         def __init__(self, message: str, response: Optional[HttpResponse] = None) -> None:
-            """Initialize the exception with the message and the custom response to return."""
+            """
+            Initialize the exception with the message and the custom response to return.
+
+            Arguments:
+                message (str): error message for the exception.
+                response (HttpResponse): custom response which will be returned by the account settings view.
+            """
             super().__init__(message, response=response)
 
     @classmethod
@@ -99,8 +118,8 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
         Process the input context and template_name using the configured pipeline steps to modify the account settings.
 
         Arguments:
-            - context (dict): template context for the account settings page.
-            - template_name (str): template path used to render the account settings page.
+            context (dict): template context for the account settings page.
+            template_name (str): template path used to render the account settings page.
 
         Returns:
             tuple[dict, str]:
@@ -152,10 +171,10 @@ class StudentRegistrationRequested(OpenEdxPublicFilter, SensitiveDataManagementM
         Process the registration form data using the configured pipeline steps to modify the registration process.
 
         Arguments:
-            - form_data (QueryDict): contains the request.data submitted by the registration form.
+            form_data (QueryDict): contains the request.data submitted by the registration form.
 
         Returns:
-            - QueryDict: form data dictionary, possibly modified.
+            QueryDict: form data dictionary, possibly modified.
         """
         sensitive_data = cls.extract_sensitive_data(form_data)
         data = super().run_pipeline(form_data=form_data)
@@ -189,11 +208,11 @@ class StudentLoginRequested(OpenEdxPublicFilter):
 
         This exception is propagated to the login view and handled by the view to stop the login process.
 
-        Arguments:
-            - message (str): error message for the exception.
-            - redirect_to (str): URL to redirect to.
-            - error_code (str): error code for the exception.
-            - context (dict): context dictionary to be used in the exception.
+        Attributes:
+            message (str): error message for the exception.
+            redirect_to (str): URL to redirect to.
+            error_code (str): error code for the exception.
+            context (dict): context dictionary to be used in the exception.
         """
 
         def __init__(
@@ -203,7 +222,15 @@ class StudentLoginRequested(OpenEdxPublicFilter):
             error_code: str = "",
             context: Optional[dict] = None
         ) -> None:
-            """Initialize the exception with the message and the URL to redirect to."""
+            """
+            Initialize the exception with the message and the URL to redirect to.
+
+            Arguments:
+                message (str): error message for the exception.
+                redirect_to (str): URL to redirect to.
+                error_code (str): error code for the exception.
+                context (dict): context dictionary to be used in the exception.
+            """
             super().__init__(message, redirect_to=redirect_to, error_code=error_code, context=context)
 
     @classmethod
@@ -212,10 +239,10 @@ class StudentLoginRequested(OpenEdxPublicFilter):
         Process the user object using the configured pipeline steps to modify the login process.
 
         Arguments:
-            - user (User): Django User object trying to log in.
+            user (User): Django User object trying to log in.
 
         Returns:
-            - User: Django User object, possibly modified.
+            User: Django User object, possibly modified.
         """
         data = super().run_pipeline(user=user)
         return data.get("user")
@@ -254,14 +281,15 @@ class CourseEnrollmentStarted(OpenEdxPublicFilter):
         Process the user, course_key, and mode using the configured pipeline steps to modify the enrollment process.
 
         Arguments:
-            - user (User): Django User enrolling in the course.
-            - course_key (CourseKey): course key associated with the enrollment.
-            - mode (str): specifies what kind of enrollment.
+            user (User): Django User enrolling in the course.
+            course_key (CourseKey): course key associated with the enrollment.
+            mode (str): specifies what kind of enrollment.
 
         Returns:
-            - User: Django User object.
-            - CourseKey: course key associated with the enrollment.
-            - str: mode of the enrollment.
+            tuple[Any, CourseKey, str]:
+                - User: Django User object.
+                - CourseKey: course key associated with the enrollment.
+                - str: mode of the enrollment.
         """
         data = super().run_pipeline(
             user=user, course_key=course_key, mode=mode,
@@ -302,10 +330,10 @@ class CourseUnenrollmentStarted(OpenEdxPublicFilter):
         Process the enrollment object using the configured pipeline steps to modify the unenrollment process.
 
         Arguments:
-            - enrollment (CourseEnrollment): user's enrollment in the course.
+            enrollment (CourseEnrollment): user's enrollment in the course.
 
         Returns:
-            - CourseEnrollment: user's enrollment in the course.
+            CourseEnrollment: user's enrollment in the course.
         """
         data = super().run_pipeline(enrollment=enrollment)
         return data.get("enrollment")
@@ -318,11 +346,6 @@ class CertificateCreationRequested(OpenEdxPublicFilter):
     Purpose:
         This filter is triggered when a user requests a certificate, just before the certificate is created allowing the
         filter to act on the user, course key, mode, status, grade, and generation mode.
-
-    Usage:
-        - Modify certificate parameters in runtime.
-        - Stop the certificate creation given a specific condition.
-        - Etc.
 
     Filter Type:
         org.openedx.learning.certificate.creation.requested.v1
@@ -357,20 +380,21 @@ class CertificateCreationRequested(OpenEdxPublicFilter):
         Process the inputs using the configured pipeline steps to modify the certificate creation process.
 
         Arguments:
-            - user (User): Django User object.
-            - course_key (CourseKey): course key associated with the certificate.
-            - mode (str): specifies what kind of certificate.
-            - status (str): specifies the status of the certificate.
-            - grade (float): grade of the certificate.
-            - generation_mode (str): specifies the mode of generation.
+            user (User): Django User object.
+            course_key (CourseKey): course key associated with the certificate.
+            mode (str): specifies what kind of certificate.
+            status (str): specifies the status of the certificate.
+            grade (float): grade of the certificate.
+            generation_mode (str): specifies the mode of generation.
 
         Returns:
-            - User: Django User object.
-            - CourseKey: course key associated with the certificate.
-            - str: mode of the certificate.
-            - str: status of the certificate.
-            - float: grade of the certificate.
-            - str: mode of generation.
+            tuple[User, CourseKey, str, str, float, str]:
+                - User: Django User object.
+                - CourseKey: course key associated with the certificate.
+                - str: mode of the certificate.
+                - str: status of the certificate.
+                - float: grade of the certificate.
+                - str: mode of generation.
         """
         data = super().run_pipeline(
             user=user,
@@ -415,13 +439,19 @@ class CertificateRenderStarted(OpenEdxPublicFilter):
 
         This exception is propagated to the certificate view and handled by the view to redirect the user to a new page.
 
-        Arguments:
-            - message (str): error message for the exception.
-            - redirect_to (str): URL to redirect to.
+        Attributes:
+            message (str): error message for the exception.
+            redirect_to (str): URL to redirect to.
         """
 
         def __init__(self, message: str, redirect_to: str = "") -> None:
-            """Initialize the exception with the message and the URL to redirect to."""
+            """
+            Initialize the exception with the message and the URL to redirect to.
+
+            Arguments:
+                message (str): error message for the exception.
+                redirect_to (str): URL to redirect to.
+            """
             super().__init__(message, redirect_to=redirect_to)
 
     class RenderAlternativeInvalidCertificate(OpenEdxFilterException):
@@ -431,13 +461,19 @@ class CertificateRenderStarted(OpenEdxPublicFilter):
         This exception is propagated to the certificate view and handled by the view to render a different template
         instead.
 
-        Arguments:
-            - message (str): error message for the exception.
-            - template_name (str): template path of the new certificate.
+        Attributes:
+            message (str): error message for the exception.
+            template_name (str): template path of the new certificate.
         """
 
         def __init__(self, message: str, template_name: str = "") -> None:
-            """Initialize the exception with the message and the template path to render instead."""
+            """
+            Initialize the exception with the message and the template path to render instead.
+
+            Arguments:
+                message (str): error message for the exception.
+                template_name (str): template path of the new certificate.
+            """
             super().__init__(message, template_name=template_name)
 
     class RenderCustomResponse(OpenEdxFilterException):
@@ -447,13 +483,19 @@ class CertificateRenderStarted(OpenEdxPublicFilter):
         This exception is propagated to the certificate view and handled by the view to return a custom response
         instead.
 
-        Arguments:
-            - message (str): error message for the exception.
-            - response (HttpResponse): custom response which will be returned by the certificate view.
+        Attributes:
+            message (str): error message for the exception.
+            response (HttpResponse): custom response which will be returned by the certificate view.
         """
 
         def __init__(self, message: str, response: HttpResponse) -> None:
-            """Initialize the exception with the message and the custom response to return."""
+            """
+            Initialize the exception with the message and the custom response to return.
+
+            Arguments:
+                message (str): error message for the exception.
+                response (HttpResponse): custom response which will be returned by the certificate view.
+            """
             super().__init__(
                 message,
                 response=response,
@@ -465,8 +507,8 @@ class CertificateRenderStarted(OpenEdxPublicFilter):
         Process the context and custom_template using the configured pipeline steps to modify the certificate rendering.
 
         Arguments:
-            - context (dict): context dictionary for certificate template.
-            - custom_template (CertificateTemplate): custom web certificate template.
+            context (dict): context dictionary for certificate template.
+            custom_template (CertificateTemplate): custom web certificate template.
 
         Returns:
             tuple[dict, CertificateTemplate]:
@@ -509,8 +551,8 @@ class CohortChangeRequested(OpenEdxPublicFilter):
         Process the inputs using the configured pipeline steps to modify the cohort change process.
 
         Arguments:
-            - current_membership (CohortMembership): CohortMembership instance representing the current user's cohort.
-            - target_cohort (CourseUserGroup): CourseUserGroup instance representing the new user's cohort.
+            current_membership (CohortMembership): CohortMembership instance representing the current user's cohort.
+            target_cohort (CourseUserGroup): CourseUserGroup instance representing the new user's cohort.
 
         Returns:
             tuple[CohortMembership, CourseUserGroup]:
@@ -545,6 +587,10 @@ class CohortAssignmentRequested(OpenEdxPublicFilter):
         Raise to prevent the cohort assignment process to continue.
 
         This exception is propagated to the assign method and handled by it to stop the cohort assignment process.
+
+        Attributes:
+            message (str): error message for the exception.
+            redirect_to (str): URL to redirect to.
         """
 
     @classmethod
@@ -553,8 +599,8 @@ class CohortAssignmentRequested(OpenEdxPublicFilter):
         Process the user and target_cohort using the configured pipeline steps to modify the cohort assignment process.
 
         Arguments:
-            - user (User): Django User object representing the user.
-            - target_cohort (CourseUserGroup): CourseUserGroup instance representing the new user's cohort.
+            user (User): Django User object representing the user.
+            target_cohort (CourseUserGroup): CourseUserGroup instance representing the new user's cohort.
 
         Returns:
             tuple[User, CourseUserGroup]:
@@ -591,13 +637,19 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
         This exception is propagated to the course about view and handled by the view to redirect the user to a new
         page.
 
-        Arguments:
-            - message (str): error message for the exception.
-            - redirect_to (str): URL to redirect to.
+        Attributes:
+            message (str): error message for the exception.
+            redirect_to (str): URL to redirect to.
         """
 
         def __init__(self, message: str, redirect_to: str = "") -> None:
-            """Initialize the exception with the message and the URL to redirect to."""
+            """
+            Initialize the exception with the message and the URL to redirect to.
+
+            Arguments:
+                message (str): error message for the exception.
+                redirect_to (str): URL to redirect to.
+            """
             super().__init__(message, redirect_to=redirect_to)
 
     class RenderInvalidCourseAbout(OpenEdxFilterException):
@@ -607,10 +659,10 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
         This exception is propagated to the course about view and handled by the view to render a different template
         instead.
 
-        Arguments:
-            - message (Str): error message for the exception.
-            - course_about_template (str): template path rendered instead.
-            - template_context (dict): context used to the new course_about_template.
+        Attributes:
+            message (str): error message for the exception.
+            course_about_template (str): template path rendered instead.
+            template_context (dict): context used to the new course_about_template.
         """
 
         def __init__(
@@ -619,7 +671,14 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
             course_about_template: str = "",
             template_context: Optional[dict] = None
         ) -> None:
-            """Initialize the exception with the message and the template to render instead."""
+            """
+            Initialize the exception with the message and the template to render instead.
+
+            Arguments:
+                message (str): error message for the exception.
+                course_about_template (str): template path rendered instead.
+                template_context (dict): context used to the new course_about_template.
+            """
             super().__init__(
                 message,
                 course_about_template=course_about_template,
@@ -632,14 +691,16 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
 
         This exception is propagated to the course about view and handled by the view to return a custom response
         instead.
-
-        Arguments:
-            - message (str): error message for the exception.
-            - response (HttpResponse): custom response which will be returned by the course about view.
         """
 
         def __init__(self, message: str, response: HttpResponse) -> None:
-            """Initialize the exception with the message and the custom response to return."""
+            """
+            Initialize the exception with the message and the custom response to return.
+
+            Arguments:
+                message (str): error message for the exception.
+                response (HttpResponse): custom response which will be returned by the course about view.
+            """
             super().__init__(
                 message,
                 response=response,
@@ -651,8 +712,8 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
         Process the context and template_name using the configured pipeline steps to modify the course about rendering.
 
         Arguments:
-            - context (dict): context dictionary for course about template.
-            - template_name (str): template name to be rendered by the course about.
+            context (dict): context dictionary for course about template.
+            template_name (str): template name to be rendered by the course about.
 
         Returns:
             tuple[dict, str]:
@@ -691,13 +752,19 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
 
         This exception is propagated to the dashboard view and handled by the view to redirect the user to a new page.
 
-        Arguments:
-            - message (str): error message for the exception.
-            - redirect_to (str): URL to redirect to.
+        Attributes:
+            message (str): error message for the exception.
+            redirect_to (str): URL to redirect to.
         """
 
         def __init__(self, message: str, redirect_to: str = "") -> None:
-            """Initialize the exception with the message and the URL to redirect to."""
+            """
+            Initialize the exception with the message and the URL to redirect to.
+
+            Arguments:
+                message (str): error message for the exception.
+                redirect_to (str): URL to redirect to.
+            """
             super().__init__(message, redirect_to=redirect_to)
 
     class RenderInvalidDashboard(OpenEdxFilterException):
@@ -707,10 +774,10 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
         This exception is propagated to the dashboard view and handled by the view to render a different template
         instead.
 
-        Arguments:
-            - message (str): error message for the exception.
-            - dashboard_template (str): template path rendered instead.
-            - template_context (dict): context used to the new dashboard_template.
+        Attributes:
+            message (str): error message for the exception.
+            dashboard_template (str): template path rendered instead.
+            template_context (dict): context used to the new dashboard_template.
         """
 
         def __init__(
@@ -719,7 +786,14 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
             dashboard_template: str = "",
             template_context: Optional[dict] = None
         ) -> None:
-            """Initialize the exception with the message and the template to render instead."""
+            """
+            Initialize the exception with the message and the template to render instead.
+
+            Arguments:
+                message (str): error message for the exception.
+                dashboard_template (str): template path rendered instead.
+                template_context (dict): context used to the new dashboard_template.
+            """
             super().__init__(
                 message,
                 dashboard_template=dashboard_template,
@@ -732,13 +806,19 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
 
         This exception is propagated to the dashboard view and handled by the view to return a custom response instead.
 
-        Arguments:
-            - message (str): error message for the exception.
-            - response (HttpResponse): custom response which will be returned by the dashboard view.
+        Attributes:
+            message (str): error message for the exception.
+            response (HttpResponse): custom response which will be returned by the dashboard view.
         """
 
         def __init__(self, message: str, response: Optional[HttpResponse] = None) -> None:
-            """Initialize the exception with the message and the custom response to return."""
+            """
+            Initialize the exception with the message and the custom response to return.
+
+            Arguments:
+                message (str): error message for the exception.
+                response (HttpResponse): custom response which will be returned by the dashboard view.
+            """
             super().__init__(
                 message,
                 response=response,
@@ -750,8 +830,8 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
         Process the context and template_name using the configured pipeline steps to modify the dashboard rendering.
 
         Arguments:
-            - context (dict): context dictionary for student's dashboard template.
-            - template_name (str): template name to be rendered by the student's dashboard.
+            context (dict): context dictionary for student's dashboard template.
+            template_name (str): template name to be rendered by the student's dashboard.
 
         Returns:
             tuple[dict, str]:
@@ -795,8 +875,8 @@ class VerticalBlockChildRenderStarted(OpenEdxPublicFilter):
         Process the block and context using the configured pipeline steps to modify the rendering of a child block.
 
         Arguments:
-            - block (XBlock): the XBlock that is about to be rendered into HTML
-            - context (dict): rendering context values like is_mobile_app, show_title..etc
+            block (XBlock): the XBlock that is about to be rendered into HTML
+            context (dict): rendering context values like is_mobile_app, show_title..etc
 
         Returns:
             tuple[XBlock, dict]:
@@ -838,10 +918,10 @@ class CourseEnrollmentQuerysetRequested(OpenEdxPublicFilter):
         Process the enrollments QuerySet using the configured pipeline steps to modify the course enrollment data.
 
         Arguments:
-            - enrollments (QuerySet): data with all user's course enrollments.
+            enrollments (QuerySet): data with all user's course enrollments.
 
         Returns:
-            - QuerySet: data with all user's course enrollments, possibly modified.
+            QuerySet: data with all user's course enrollments, possibly modified.
         """
         data = super().run_pipeline(enrollments=enrollments)
         return data.get("enrollments")
@@ -881,13 +961,19 @@ class RenderXBlockStarted(OpenEdxPublicFilter):
         This exception is propagated to the XBlock render view and handled by the view to return a custom response
         instead.
 
-        Arguments:
-            - message (str): error message for the exception.
-            - response (HttpResponse): custom response which will be returned by the XBlock render view.
+        Attributes:
+            message (str): error message for the exception.
+            response (HttpResponse): custom response which will be returned by the XBlock render view.
         """
 
         def __init__(self, message: str, response: Optional[HttpResponse] = None):
-            """Initialize the exception with the message and the custom response to return."""
+            """
+            Initialize the exception with the message and the custom response to return.
+
+            Arguments:
+                message (str): error message for the exception.
+                response (HttpResponse): custom response which will be returned by the XBlock render view.
+            """
             super().__init__(message, response=response)
 
     @classmethod
@@ -896,8 +982,8 @@ class RenderXBlockStarted(OpenEdxPublicFilter):
         Process the inputs using the configured pipeline steps to modify the rendering of an XBlock.
 
         Arguments:
-            - context (dict): rendering context values like is_mobile_app, show_title, etc.
-            - student_view_context (dict): context passed to the student_view of the block context.
+            context (dict): rendering context values like is_mobile_app, show_title, etc.
+            student_view_context (dict): context passed to the student_view of the block context.
 
         Returns:
             tuple[dict, dict]:
@@ -941,16 +1027,17 @@ class VerticalBlockRenderCompleted(OpenEdxPublicFilter):
         Process the inputs using the configured pipeline steps to modify the rendering of a vertical block.
 
         Arguments:
-            - block (VerticalBlock): The VeriticalBlock instance which is being rendered.
-            - fragment (web_fragments.Fragment): The web-fragment containing the rendered content of VerticalBlock.
-            - context (dict): rendering context values like is_mobile_app, show_title..etc.
-            - view (str): the rendering view. Can be either 'student_view', or 'public_view'.
+            block (VerticalBlock): The VeriticalBlock instance which is being rendered.
+            fragment (web_fragments.Fragment): The web-fragment containing the rendered content of VerticalBlock.
+            context (dict): rendering context values like is_mobile_app, show_title..etc.
+            view (str): the rendering view. Can be either 'student_view', or 'public_view'.
 
         Returns:
-            - VerticalBlock: The VeriticalBlock instance which is being rendered.
-            - web_fragments.Fragment: The web-fragment containing the rendered content of VerticalBlock.
-            - dict: rendering context values like is_mobile_app, show_title..etc.
-            - str: the rendering view. Can be either 'student_view', or 'public_view'.
+            tuple[VeticalBlock, web_fragments.Fragment, dict, str]:
+                - VerticalBlock: The VeriticalBlock instance which is being rendered.
+                - web_fragments.Fragment: The web-fragment containing the rendered content of VerticalBlock.
+                - dict: rendering context values like is_mobile_app, show_title..etc.
+                - str: the rendering view. Can be either 'student_view', or 'public_view'.
         """
         data = super().run_pipeline(block=block, fragment=fragment, context=context, view=view)
         return data.get("block"), data.get("fragment"), data.get("context"), data.get("view")
@@ -986,8 +1073,8 @@ class CourseHomeUrlCreationStarted(OpenEdxPublicFilter):
 
         Returns:
             tuple[CourseKey, str]:
-                CourseKey: The course key for which the home url is being requested.
-                str: The url string for the course home.
+                - CourseKey: The course key for which the home url is being requested.
+                - str: The url string for the course home.
         """
         data = super().run_pipeline(course_key=course_key, course_home_url=course_home_url)
         return data.get("course_key"), data.get("course_home_url")
@@ -1018,8 +1105,8 @@ class CourseEnrollmentAPIRenderStarted(OpenEdxPublicFilter):
         Process the inputs using the configured pipeline steps to modify the course enrollment data.
 
         Arguments:
-            - course_key (CourseKey): The course key for which isStarted is being modify.
-            - serialized_enrollment (dict): enrollment data.
+            course_key (CourseKey): The course key for which isStarted is being modify.
+            serialized_enrollment (dict): enrollment data.
 
         Returns:
             tuple[CourseKey, dict]:
@@ -1055,10 +1142,10 @@ class CourseRunAPIRenderStarted(OpenEdxPublicFilter):
         Process the serialized_courserun using the configured pipeline steps to modify the course run data.
 
         Arguments:
-            - serialized_courserun (dict): courserun data.
+            serialized_courserun (dict): courserun data.
 
         Returns:
-            - dict: courserun data.
+            dict: courserun data.
         """
         data = super().run_pipeline(serialized_courserun=serialized_courserun)
         return data.get("serialized_courserun")
@@ -1090,13 +1177,19 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
         This exception is propagated to the instructor dashboard view and handled by the view to redirect the user to a
         new page.
 
-        Arguments:
-            - message (str): error message for the exception.
-            - redirect_to (str): URL to redirect to.
+        Attributes:
+            message (str): error message for the exception.
+            redirect_to (str): URL to redirect to.
         """
 
         def __init__(self, message: str, redirect_to: str = ""):
-            """Initialize the exception with the message and the URL to redirect to."""
+            """
+            Initialize the exception with the message and the URL to redirect to.
+
+            Arguments:
+                message (str): error message for the exception.
+                redirect_to (str): URL to redirect to.
+            """
             super().__init__(message, redirect_to=redirect_to)
 
     class RenderInvalidDashboard(OpenEdxFilterException):
@@ -1106,10 +1199,10 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
         This exception is propagated to the instructor dashboard view and handled by the view to render a different
         template instead.
 
-        Arguments:
-            - message (str): error message for the exception.
-            - instructor_template (str): template path rendered instead.
-            - template_context (dict): context used to the new instructor_template.
+        Attributes:
+            message (str): error message for the exception.
+            instructor_template (str): template path rendered instead.
+            template_context (dict): context used to the new instructor_template
         """
 
         def __init__(
@@ -1118,7 +1211,14 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
             instructor_template: str = "",
             template_context: Optional[dict] = None
         ):
-            """Initialize the exception with the message and the template to render instead."""
+            """
+            Initialize the exception with the message and the template to render instead.
+
+            Arguments:
+                message (str): error message for the exception.
+                instructor_template (str): template path rendered instead.
+                template_context (dict): context used to the new instructor_template.
+            """
             super().__init__(
                 message,
                 instructor_template=instructor_template,
@@ -1132,13 +1232,19 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
         This exception is propagated to the instructor dashboard view and handled by the view to return a custom
         response instead.
 
-        Arguments:
-            - message (str): error message for the exception.
-            - response (HttpResponse): custom response which will be returned by the dashboard view.
+        Attributes:
+            message (str): error message for the exception.
+            response (HttpResponse): custom response which will be returned by the dashboard view.
         """
 
         def __init__(self, message: str, response: Optional[HttpResponse] = None):
-            """Initialize the exception with the message and the custom response to return."""
+            """
+            Initialize the exception with the message and the custom response to return.
+
+            Arguments:
+                message (str): error message for the exception.
+                response (HttpResponse): custom response which will be returned by the dashboard view.
+            """
             super().__init__(
                 message,
                 response=response,
@@ -1150,8 +1256,8 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
         Process the context and template_name using the configured pipeline steps to modify the instructor dashboard.
 
         Arguments:
-            - context (dict): context dictionary for instructor's tab template.
-            - template_name (str): template name to be rendered by the instructor's tab.
+            context (dict): context dictionary for instructor's tab template.
+            template_name (str): template name to be rendered by the instructor's tab.
 
         Returns:
             tuple[dict, str]:
@@ -1189,9 +1295,9 @@ class ORASubmissionViewRenderStarted(OpenEdxPublicFilter):
         instead.
 
         Arguments:
-            - message (str): error message for the exception.
-            - context (dict): context used to the submission view template.
-            - template_name (str): template path rendered instead.
+            message (str): error message for the exception.
+            context (dict): context used to the submission view template.
+            template_name (str): template path rendered instead.
         """
 
         def __init__(
@@ -1208,8 +1314,8 @@ class ORASubmissionViewRenderStarted(OpenEdxPublicFilter):
         Process the context and template_name using the configured pipeline steps to modify the submission view.
 
         Arguments:
-            - context (dict): context dictionary for submission view template.
-            - template_name (str): template name to be rendered by the student's dashboard.
+            context (dict): context dictionary for submission view template.
+            template_name (str): template name to be rendered by the student's dashboard.
 
         Returns:
             tuple[dict, str]:
@@ -1245,10 +1351,10 @@ class IDVPageURLRequested(OpenEdxPublicFilter):
         Process the URL using the configured pipeline steps to modify the ID verification page URL.
 
         Arguments:
-            - url (str): The url for the ID verification page to be modified.
+            url (str): The url for the ID verification page to be modified.
 
         Returns:
-            - str: The modified URL for the ID verification page.
+            str: The modified URL for the ID verification page.
         """
         data = super().run_pipeline(url=url)
         return data.get("url")
@@ -1279,8 +1385,8 @@ class CourseAboutPageURLRequested(OpenEdxPublicFilter):
         Process the URL and org using the configured pipeline steps to modify the course about page URL.
 
         Arguments:
-            - url (str): the URL of the page to be modified.
-            - org (str): Course org filter used as context data to get LMS configurations.
+            url (str): the URL of the page to be modified.
+            org (str): Course org filter used as context data to get LMS configurations.
 
         Returns:
             tuple[str, str]:
@@ -1317,10 +1423,10 @@ class ScheduleQuerySetRequested(OpenEdxPublicFilter):
         Process the schedules QuerySet using the configured pipeline steps to modify the schedules data.
 
         Arguments:
-            - schedules (QuerySet): The original QuerySet of schedules to be filtered.
+            schedules (QuerySet): The original QuerySet of schedules to be filtered.
 
         Returns:
-            - QuerySet: A refined QuerySet of schedules after applying the filter.
+            QuerySet: A refined QuerySet of schedules after applying the filter.
         """
         data = super().run_pipeline(schedules=schedules)
         return data.get("schedules")

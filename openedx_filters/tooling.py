@@ -32,8 +32,15 @@ class OpenEdxPublicFilter:
         Helper function that given a pipeline with step paths gets
         the objects related to each path.
 
+        Arguments:
+            pipeline (list): paths where steps are defined.
+            fail_silently (bool): True meaning it won't raise exceptions and False the opposite.
+
+        Returns:
+            list: objects related to each path in the pipeline.
+
         Example usage:
-            steps = get_steps_for_pipeline(
+            >>> steps = get_steps_for_pipeline(
                 [
                     '1st_path_to_step',
                     ...
@@ -46,13 +53,6 @@ class OpenEdxPublicFilter:
                 ...
             ]
 
-        Arguments:
-            pipeline (list): paths where steps are defined.
-            fail_silently (bool): True meaning it won't raise exceptions and
-            False the opposite.
-
-        Returns:
-            step_list (list): class objects defined in pipeline.
         """
         step_list = []
         for step_path in pipeline:
@@ -76,24 +76,28 @@ class OpenEdxPublicFilter:
         the Pipeline Runner. It will take from the hooks configuration
         the list of functions to execute and how to execute them.
 
+        Returns:
+            tuple: pipeline configuration with the following structure:
+                - list: Paths where functions for the pipeline are defined.
+                - bool: Indicates whether exceptions are raised while executing the pipeline associated with a filter.
+                  Determined by the `fail_silently` configuration: `True` means it won't raise exceptions, and `False`
+                  means the opposite.
+                - dict: Extra configuration defined in the filter configuration.
+
+
         Example usage:
-            pipeline_config = cls.get_pipeline_configuration()
+            >>> pipeline_config = cls.get_pipeline_configuration()
             >>> pipeline_config
                 (
                     [
                         'my_plugin.hooks.filters.PipelineStepV1',
                         'my_plugin.hooks.filters.PipelineStepV2',
                     ],
+                    False,
+                    {
+                        'log_level': 'debug'
+                    }
                 )
-
-        Returns:
-            pipeline (list): paths where functions for the pipeline are
-            defined.
-            fail_silently (bool): defines whether exceptions are raised while
-            executing the pipeline associated with a filter. It's determined by
-            fail_silently configuration, True meaning it won't raise exceptions and
-            False the opposite.
-            extra_config: anything else defined in the dictionary.
         """
         filter_config = cls.get_filter_config()
 
@@ -121,40 +125,32 @@ class OpenEdxPublicFilter:
     @classmethod
     def get_filter_config(cls):
         """
-        Get filters configuration from settings.
+        Get filters configuration from Django settings.
 
-        Helper function used to get configuration needed for using
-        Hooks Extension Framework.
+        Helper function used to get configuration needed for using a filter.
 
-        Example usage:
-                configuration = get_filter_config('trigger')
-                >>> configuration
-                {
-                    'pipeline':
-                        [
-                            'my_plugin.hooks.filters.PipelineStepV1',
-                            'my_plugin.hooks.filters.PipelineStepV2',
-                        ],
-                    'fail_silently': False,
-                    'log_level': 'debug'
-                }
-
-                Where:
-                    - pipeline (list): paths where the functions to be executed by
-                    the pipeline are defined.
-                    - fail_silently (bool): determines whether the pipeline can
-                    raise exceptions while executing. If its value is True then
-                    common exceptions (TypeError, ImportError...) are caught and
-                    the execution continues, if False then exceptions are re-raised and the
-                    execution fails.
-                    - The rest: anything else defined in the dictionary.
-
-        Arguments:
-            filter_name (str): determines which configuration to use.
+        Where:
+            - pipeline (list): paths where the functions to be executed by the pipeline are defined.
+            - fail_silently (bool): determines whether the pipeline can raise exceptions while executing.
+               If its value is True then common exceptions (TypeError, ImportError...) are caught and
+               the execution continues, if False then exceptions are re-raised and the execution fails.
+            - The rest of the keys are extra configuration that can be used to customize the filter.
 
         Returns:
-            filters configuration (dict): taken from Django settings
-            containing filters configuration.
+            dict: configuration for the filter type defined in the class.
+
+        Example usage:
+            >>> configuration = get_filter_config('trigger')
+            >>> configuration
+            {
+                'pipeline':
+                    [
+                        'my_plugin.hooks.filters.PipelineStepV1',
+                        'my_plugin.hooks.filters.PipelineStepV2',
+                    ],
+                'fail_silently': False,
+                'log_level': 'debug'
+            }
         """
         filters_config = getattr(settings, "OPEN_EDX_FILTERS_CONFIG", {})
 
@@ -163,40 +159,33 @@ class OpenEdxPublicFilter:
     @classmethod
     def run_pipeline(cls, **kwargs):
         """
-        Execute filters in order.
+        Execute filters in order based on the pipeline configuration.
 
-        Given a list of functions paths, this function will execute
-        them using the Accumulative Pipeline pattern defined in
-        docs/decisions/0003-hooks-filter-tooling-pipeline.rst
-
-        Example usage:
-            filter_result = OpenEdxPublicFilter.run_filter(
-                user=user,
-            )
-            >>> filter_result
-            {
-                'result_test_1st_function': 1st_object,
-                'result_test_2nd_function': 2nd_object,
-            }
+        Given a list of pipeline steps, this function will execute them using the Accumulative Pipeline pattern
+        as specified in :doc:`../decisions/0003-hooks-filter-tooling-pipeline`.
 
         Arguments:
-            filter_name (str): determines which trigger we are listening to.
-            It also specifies which filter configuration to use.
+            **kwargs: arguments to be passed to the pipeline steps.
 
         Returns:
-            accumulated_output (dict): accumulated outputs of the functions defined in pipeline.
-            result (obj): return object of one of the pipeline functions. This will
-            be the returned by the pipeline if one of the functions returns
-            an object different than Dict or None.
+            dict | Any: accumulated outputs of the pipelines that were executed or the return value of a pipeline step
+                if it's not a dictionary.
 
-        Exceptions raised:
-            OpenEdxFilterException: custom exception re-raised when a function raises
-            an exception of this type. This behavior is common when using filters
-            to halt application execution.
+        Raises:
+            OpenEdxFilterException: exception re-raised when a pipeline step raises
+                an exception of this type. This behavior is common when using filters
+                to alter the application execution.
 
         This pipeline implementation was inspired by: Social auth core. For more
-        information check their Github repository:
-        https://github.com/python-social-auth/social-core
+        information check their Github repository: https://github.com/python-social-auth/social-core
+
+        Example usage:
+            >>> result = OpenEdxPublicFilter.run_filter(user=user, course=course)
+            >>> result
+            {
+                'result_1st_function': 1st_object,
+                'result_2nd_function': 2nd_object,
+            }
         """
         pipeline, fail_silently, extra_config = cls.get_pipeline_configuration()
 

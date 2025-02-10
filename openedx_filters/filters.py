@@ -13,33 +13,30 @@ class PipelineStep:
 
     Example usage:
 
-        Let's say we want a filter step that changes enrollment modes:
+    Let's say we want a filter step that changes enrollment modes:
 
-        1. If the enrollment mode is honor, then changes it to no-id-professional.
-        2. If it's other mode, then stop pipeline execution.
+    1. If the enrollment mode is honor, then changes it to no-id-professional.
+    2. If it's other mode, then stop pipeline execution.
 
-        This pipeline step can be used in conjunction with PreEnrollmentFilter, that's
-        why the runner method accepts user, course_key and mode as arguments.
+    This pipeline step can be used in conjunction with PreEnrollmentFilter, that's
+    why the runner method accepts user, course_key and mode as arguments.
 
-        class MyFilterStep(PipelineStep):
-
+    >>> class MyFilterStep(PipelineStep):
             def run_filter(self, user, course_key, mode):
                 if mode != "honor":
                     return
-
                 return {
                     "user": user,
                     "course_key": course_key,
                     "mode": "no-id-professional",
                 }
-        Another version would be:
 
-        class MyFilterStep(PipelineStep):
+    Another version would be:
 
+    >>> class MyFilterStep(PipelineStep):
             def run_filter(self, user, course_key, mode):
                 if mode != "honor":
                     return
-
                 return {"mode": "no-id-professional"}
     """
 
