@@ -113,7 +113,7 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
             super().__init__(message, response=response)
 
     @classmethod
-    def run_filter(cls, context: dict, template_name: str) -> tuple[dict, str]:
+    def run_filter(cls, context: dict[str, Any], template_name: str) -> tuple[dict[str, Any] | None, str | None]:
         """
         Process the input context and template_name using the configured pipeline steps to modify the account settings.
 
@@ -178,7 +178,7 @@ class StudentRegistrationRequested(OpenEdxPublicFilter, SensitiveDataManagementM
         """
         sensitive_data = cls.extract_sensitive_data(form_data)
         data = super().run_pipeline(form_data=form_data)
-        form_data = data.get("form_data")
+        form_data = data.get("form_data", QueryDict())
         form_data.update(sensitive_data)
         return form_data
 
@@ -276,7 +276,7 @@ class CourseEnrollmentStarted(OpenEdxPublicFilter):
         """
 
     @classmethod
-    def run_filter(cls, user: Any, course_key: CourseKey, mode: str) -> tuple[Any, CourseKey, str]:
+    def run_filter(cls, user: Any, course_key: CourseKey, mode: str) -> tuple[Any, CourseKey | None, str | None]:
         """
         Process the user, course_key, and mode using the configured pipeline steps to modify the enrollment process.
 
@@ -368,14 +368,14 @@ class CertificateCreationRequested(OpenEdxPublicFilter):
 
     @classmethod
     def run_filter(  # pylint: disable=too-many-positional-arguments
-        cls: type,
+        cls,
         user: Any,
         course_key: CourseKey,
         mode: str,
         status: str,
         grade: float,
         generation_mode: str,
-    ) -> tuple[Any, CourseKey, str, str, float, str]:
+    ) -> tuple[Any, CourseKey | None, str | None, str | None, float | None, str | None]:
         """
         Process the inputs using the configured pipeline steps to modify the certificate creation process.
 
@@ -502,7 +502,7 @@ class CertificateRenderStarted(OpenEdxPublicFilter):
             )
 
     @classmethod
-    def run_filter(cls, context: dict, custom_template: Any) -> tuple[dict, Any]:
+    def run_filter(cls, context: dict, custom_template: Any) -> tuple[dict[str, Any] | None, Any]:
         """
         Process the context and custom_template using the configured pipeline steps to modify the certificate rendering.
 
@@ -707,7 +707,7 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
             )
 
     @classmethod
-    def run_filter(cls, context: dict, template_name: str) -> tuple[dict, str]:
+    def run_filter(cls, context: dict[str, Any], template_name: str) -> tuple[dict[str, Any] | None, str | None]:
         """
         Process the context and template_name using the configured pipeline steps to modify the course about rendering.
 
@@ -825,7 +825,7 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
             )
 
     @classmethod
-    def run_filter(cls, context: dict, template_name: str) -> tuple[dict, str]:
+    def run_filter(cls, context: dict[str, Any], template_name: str) -> tuple[dict[str, Any] | None, str | None]:
         """
         Process the context and template_name using the configured pipeline steps to modify the dashboard rendering.
 
@@ -870,7 +870,7 @@ class VerticalBlockChildRenderStarted(OpenEdxPublicFilter):
         """
 
     @classmethod
-    def run_filter(cls, block: Any, context: dict) -> tuple[Any, dict]:
+    def run_filter(cls, block: Any, context: dict[str, Any]) -> tuple[Any, dict[str, Any] | None]:
         """
         Process the block and context using the configured pipeline steps to modify the rendering of a child block.
 
@@ -913,7 +913,7 @@ class CourseEnrollmentQuerysetRequested(OpenEdxPublicFilter):
         """
 
     @classmethod
-    def run_filter(cls, enrollments: QuerySet) -> QuerySet:
+    def run_filter(cls, enrollments: QuerySet) -> QuerySet | None:
         """
         Process the enrollments QuerySet using the configured pipeline steps to modify the course enrollment data.
 
@@ -977,7 +977,11 @@ class RenderXBlockStarted(OpenEdxPublicFilter):
             super().__init__(message, response=response)
 
     @classmethod
-    def run_filter(cls, context: dict, student_view_context: dict):
+    def run_filter(
+        cls,
+        context: dict[str, Any],
+        student_view_context: dict
+    ) -> tuple[dict[str, Any] | None, dict[str, Any] | None]:
         """
         Process the inputs using the configured pipeline steps to modify the rendering of an XBlock.
 
@@ -1022,7 +1026,13 @@ class VerticalBlockRenderCompleted(OpenEdxPublicFilter):
         """
 
     @classmethod
-    def run_filter(cls, block: Any, fragment: Any, context: dict, view: str) -> tuple[Any, Any, dict, str]:
+    def run_filter(
+        cls,
+        block: Any,
+        fragment: Any,
+        context: dict[str, Any],
+        view: str
+    ) -> tuple[Any, Any, dict[str, Any] | None, str | None]:
         """
         Process the inputs using the configured pipeline steps to modify the rendering of a vertical block.
 
@@ -1063,7 +1073,7 @@ class CourseHomeUrlCreationStarted(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.course.homepage.url.creation.started.v1"
 
     @classmethod
-    def run_filter(cls, course_key: CourseKey, course_home_url: str) -> tuple[CourseKey, str]:
+    def run_filter(cls, course_key: CourseKey, course_home_url: str) -> tuple[CourseKey | None, str | None]:
         """
         Process the course_key and course_home_url using the configured pipeline steps to modify the course home url.
 
@@ -1100,7 +1110,11 @@ class CourseEnrollmentAPIRenderStarted(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.home.enrollment.api.rendered.v1"
 
     @classmethod
-    def run_filter(cls, course_key: CourseKey, serialized_enrollment: dict) -> tuple[CourseKey, dict]:
+    def run_filter(
+        cls,
+        course_key: CourseKey,
+        serialized_enrollment: dict[str, Any]
+    ) -> tuple[CourseKey | None, dict[str, Any] | None]:
         """
         Process the inputs using the configured pipeline steps to modify the course enrollment data.
 
@@ -1137,7 +1151,7 @@ class CourseRunAPIRenderStarted(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.home.courserun.api.rendered.started.v1"
 
     @classmethod
-    def run_filter(cls, serialized_courserun: dict) -> dict:
+    def run_filter(cls, serialized_courserun: dict[str, Any]) -> dict[str, Any] | None:
         """
         Process the serialized_courserun using the configured pipeline steps to modify the course run data.
 
@@ -1251,7 +1265,7 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
             )
 
     @classmethod
-    def run_filter(cls, context: dict, template_name: str) -> tuple[dict, str]:
+    def run_filter(cls, context: dict[str, Any], template_name: str) -> tuple[dict[str, Any] | None, str | None]:
         """
         Process the context and template_name using the configured pipeline steps to modify the instructor dashboard.
 
@@ -1309,7 +1323,7 @@ class ORASubmissionViewRenderStarted(OpenEdxPublicFilter):
             super().__init__(message, context=context, template_name=template_name)
 
     @classmethod
-    def run_filter(cls, context: dict, template_name: str) -> tuple[dict, str]:
+    def run_filter(cls, context: dict[str, Any], template_name: str) -> tuple[dict[str, Any] | None, str | None]:
         """
         Process the context and template_name using the configured pipeline steps to modify the submission view.
 
@@ -1346,7 +1360,7 @@ class IDVPageURLRequested(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.idv.page.url.requested.v1"
 
     @classmethod
-    def run_filter(cls, url: str) -> str:
+    def run_filter(cls, url: str) -> str | None:
         """
         Process the URL using the configured pipeline steps to modify the ID verification page URL.
 
@@ -1380,7 +1394,7 @@ class CourseAboutPageURLRequested(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.course_about.page.url.requested.v1"
 
     @classmethod
-    def run_filter(cls, url: str, org: str) -> tuple[str, str]:
+    def run_filter(cls, url: str, org: str) -> tuple[str | None, str | None]:
         """
         Process the URL and org using the configured pipeline steps to modify the course about page URL.
 
@@ -1418,7 +1432,7 @@ class ScheduleQuerySetRequested(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.schedule.queryset.requested.v1"
 
     @classmethod
-    def run_filter(cls, schedules: QuerySet) -> QuerySet:
+    def run_filter(cls, schedules: QuerySet) -> QuerySet | None:
         """
         Process the schedules QuerySet using the configured pipeline steps to modify the schedules data.
 

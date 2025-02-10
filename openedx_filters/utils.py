@@ -3,15 +3,18 @@ Utilities for Open edX filters usage.
 """
 
 
+from django.http import QueryDict
+
+
 class SensitiveDataManagementMixin:
     """
     Custom class used manage sensitive data within filter arguments.
     """
 
-    sensitive_form_data = []
+    sensitive_form_data: list[str] = []
 
     @classmethod
-    def extract_sensitive_data(cls, form_data):
+    def extract_sensitive_data(cls, form_data: QueryDict) -> dict[str, str]:
         """
         Extract sensitive data from its child class input arguments.
 
@@ -30,6 +33,6 @@ class SensitiveDataManagementMixin:
         for key, value in base_form_data.items():
             if key in cls.sensitive_form_data:
                 form_data.pop(key)
-                sensitive_data[key] = value
+                sensitive_data[key] = str(value)
 
         return sensitive_data

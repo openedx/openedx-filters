@@ -3,6 +3,9 @@ Exceptions thrown by filters.
 """
 
 
+from typing import Optional
+
+
 class OpenEdxFilterException(Exception):
     """
     Base exception for filters.
@@ -18,7 +21,13 @@ class OpenEdxFilterException(Exception):
         exception.
     """
 
-    def __init__(self, message="", redirect_to=None, status_code=None, **kwargs):
+    def __init__(
+        self,
+        message: str = "",
+        redirect_to: str = "",
+        status_code: Optional[int] = None,
+        **kwargs
+    ) -> None:
         """
         Init method for OpenEdxFilterException.
 
@@ -31,7 +40,7 @@ class OpenEdxFilterException(Exception):
         for key, value in kwargs.items():
             setattr(self, key, value)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Show string representation of OpenEdxFilterException using its message.
         """
