@@ -5,7 +5,7 @@ from unittest.mock import Mock
 
 from django.test import TestCase
 
-from openedx_filters.course_authoring.filters import LMSPageURLRequested
+from openedx_filters.content_authoring.filters import LMSPageURLRequested
 
 
 class TestCourseAuthoringFilters(TestCase):
