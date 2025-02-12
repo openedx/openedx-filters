@@ -3,3 +3,4 @@
 
 django
 edx-opaque-keys[django]
+setuptools
