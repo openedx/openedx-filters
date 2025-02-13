@@ -107,7 +107,7 @@ class TestCertificateFilters(TestCase):
         """
         exception = CertificateException(message="You can't generate certificate", **attributes)
 
-        self.assertDictContainsSubset(attributes, exception.__dict__)
+        self.assertLessEqual(attributes.items(), exception.__dict__.items())
 
 
 @ddt
@@ -216,7 +216,7 @@ class TestAuthFilters(TestCase):
         """
         exception = auth_exception(**attributes)
 
-        self.assertDictContainsSubset(attributes, exception.__dict__)
+        self.assertLessEqual(attributes.items(), exception.__dict__.items())
 
 
 @ddt
@@ -276,7 +276,7 @@ class TestEnrollmentFilters(TestCase):
         """
         exception = enrollment_exception(**attributes)
 
-        self.assertDictContainsSubset(attributes, exception.__dict__)
+        self.assertLessEqual(attributes.items(), exception.__dict__.items())
 
     def test_course_enrollments_requested(self):
         """
@@ -307,7 +307,7 @@ class TestEnrollmentFilters(TestCase):
         """
         exception = request_exception(**attributes)
 
-        self.assertDictContainsSubset(attributes, exception.__dict__)
+        self.assertLessEqual(attributes.items(), exception.__dict__.items())
 
 
 @ddt
@@ -378,7 +378,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = dashboard_exception(message="You can't access the dashboard", **attributes)
 
-        self.assertDictContainsSubset(attributes, exception.__dict__)
+        self.assertLessEqual(attributes.items(), exception.__dict__.items())
 
     @data(
         (CourseAboutRenderStarted.RedirectToPage, {"redirect_to": "custom-course-about.html"}),
@@ -401,7 +401,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = course_about_exception(message="You can't access the course about", **attributes)
 
-        self.assertDictContainsSubset(attributes, exception.__dict__)
+        self.assertLessEqual(attributes.items(), exception.__dict__.items())
 
     def test_verticalblock_child_render_started(self):
         """
@@ -441,7 +441,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = block_render_exception(**attributes)
 
-        self.assertDictContainsSubset(attributes, exception.__dict__)
+        self.assertLessEqual(attributes.items(), exception.__dict__.items())
 
     def test_vertical_block_render_completed(self):
         """
@@ -482,7 +482,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = render_exception(**attributes)
 
-        self.assertDictContainsSubset(attributes, exception.__dict__)
+        self.assertLessEqual(attributes.items(), exception.__dict__.items())
 
     def test_xblock_render_started(self):
         """
@@ -524,7 +524,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = xblock_render_exception(**attributes)
 
-        self.assertDictContainsSubset(attributes, exception.__dict__)
+        self.assertLessEqual(attributes.items(), exception.__dict__.items())
 
     @data(
         (
@@ -544,7 +544,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = xblock_render_exception(**attributes)
 
-        self.assertDictContainsSubset(attributes, exception.__dict__)
+        self.assertLessEqual(attributes.items(), exception.__dict__.items())
 
     def test_account_settings_render_started(self):
         """
@@ -577,7 +577,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = AccountSettingsException(message="You can't access this page", **attributes)
 
-        self.assertDictContainsSubset(attributes, exception.__dict__)
+        self.assertLessEqual(attributes.items(), exception.__dict__.items())
 
     def test_instructor_dashboard_render_started(self):
         """
@@ -612,7 +612,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = dashboard_exception(message="You can't access the dashboard", **attributes)
 
-        self.assertDictContainsSubset(attributes, exception.__dict__)
+        self.assertLessEqual(attributes.items(), exception.__dict__.items())
 
     def test_ora_submission_view_render_started(self):
         """
@@ -642,7 +642,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = dashboard_exception(message="You can't access the view", **attributes)
 
-        self.assertDictContainsSubset(attributes, exception.__dict__)
+        self.assertLessEqual(attributes.items(), exception.__dict__.items())
 
 
 class TestCohortFilters(TestCase):
