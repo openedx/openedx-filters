@@ -25,7 +25,7 @@ Step 1: Understand your Use Case and Identify the Filter to Use
 
 Before creating a pipeline step, you should understand your use case for the filter and the specific logic you want to implement in the pipeline step. In our example, we want to prevent users from enrolling in a course if they do not have a valid email address. We will create a pipeline step that checks if the user's email address is valid and raise an exception if it is not.
 
-You should review the :doc:`list of filters <../reference/filters>` available in the Open edX platform and identify the filter that best fits your use case. In our example, we will use the `CourseEnrollmentStarted filter`_ to implement the logic for our use case. You should review the filter's arguments to understand the data that will be passed to the pipeline step and the expected output. This will help you define the pipeline step's logic and signature.
+You should review the :doc:`list of filters <../reference/filters>` available in the Open edX platform and identify the filter that best fits your use case. In our example, we will use the :class:`CourseEnrollmentStarted <openedx_filters.learning.filters.CourseEnrollmentStarted>` filter to implement the logic for our use case. You should review the filter's arguments to understand the data that will be passed to the pipeline step and the expected output. This will help you define the pipeline step's logic and signature.
 
 Step 2: Install Open edX Filters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -83,7 +83,7 @@ Step 4: Configure the Pipeline for the Filter
 
 After creating the pipeline step, you need to configure the pipeline for the filter in the :term:`filter configuration`. The configuration settings are specific for each :term:`filter type` and define the pipeline steps to be executed when the filter is triggered. You should add the path to the pipeline step class in the filter's pipeline configuration.
 
-In our example, we will configure the pipeline for the `CourseEnrollmentStarted filter`_ to include the pipeline step we created. The configuration should look like this:
+In our example, we will configure the pipeline for the :class:`CourseEnrollmentStarted <openedx_filters.learning.filters.CourseEnrollmentStarted>` filter to include the pipeline step we created. The configuration should look like this:
 
 .. code-block:: python
 
@@ -140,7 +140,6 @@ After testing the pipeline step, you should debug and iterate on the implementat
 .. note:: The default behavior of the pipeline tooling is to fail silently if a runtime exception is raised in a pipeline step. You can configure the filter to raise an exception when the pipeline step fails by setting ``fail_silently: False`` in the filter configuration. This will help you identify issues early and take appropriate action to resolve them. :term:`Filter Exceptions` will always be raised in the pipeline and will halt the execution of the pipeline. You can use exceptions to control the flow of the pipeline and handle specific scenarios in the pipeline step. In our example, we raise an exception when the user's email address is not valid to prevent them from enrolling in the course. The exceptions considered by the ``fail_silently`` flag are runtime exceptions that are not intentionally raised by the developer during the filter's execution, use the configuration as you see fit.
 
 .. _Tutor: https://docs.tutor.edly.io/
-.. _CourseEnrollmentStarted filter: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/learning/filters.py#L145-L170
 .. _PipelineStep: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/filters.py#L10-L77
 .. _Open edX Django plugins: https://docs.openedx.org/en/latest/developers/concepts/platform_overview.html#new-plugin
 .. _run_filter: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/filters.py#L60-L77
