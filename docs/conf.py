@@ -10,6 +10,7 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+import inspect
 import os
 import re
 import sys
@@ -39,6 +40,7 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
     'sphinx.ext.napoleon',
+    'sphinx.ext.linkcode',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -135,3 +137,32 @@ intersphinx_mapping = {
         None,
     ),
 }
+
+# Linkcode Extension Configuration
+
+REPO_URL = "https://github.com/openedx/openedx-filters/blob/main"
+
+def linkcode_resolve(domain, info):
+    if domain != "py":
+        return None
+
+    module = info["module"]
+    fullname = info["fullname"]
+
+    if not module:
+        return None
+
+    try:
+        obj = sys.modules[module]
+        for part in fullname.split("."):
+            obj = getattr(obj, part)
+
+        source_file = inspect.getsourcefile(obj)
+        source_lines, start_line = inspect.getsourcelines(obj)
+    except Exception:
+        return None
+
+    filename = source_file.replace("\\", "/").split("/")[-3:]
+    filename = "/".join(filename)
+
+    return f"{REPO_URL}/{filename}#L{start_line}-L{start_line + len(source_lines) - 1}"
