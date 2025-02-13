@@ -18,7 +18,7 @@ Reusable LTI Configuration
 
 When a course creator adds an LTI tool, a filter is executed to fetch reusable and pluggable LTI configurations from external plugins and display them to course creators as configuration options in Studio. This use case simplifies the setup of LTI tools by allowing reusable options to be used instead of manually setting them for each tool.
 
-More details on: 
+More details on:
 
 * `Reusable LTI Configuration`_.
 
@@ -27,7 +27,7 @@ Verification of Skills by Users
 
 When a user enters a unit, a filter is executed to inject verification forms where users can vote on the skills they have learned. This use case helps gather feedback from users about their learning experience in the course, helping to ensure the course objectives match what learners experience.
 
-More details on: 
+More details on:
 
 * `Verification of Skills by Users`_.
 
@@ -36,7 +36,7 @@ IDV Integration with New Vendors
 
 A filter is executed to return the URL for the configured Identity Verification (IDV) vendor. When student verify their identity from their account settings, they are redirected to the IDV vendor's configured to complete the verification process. This use case can be used to integrate new IDV vendors with the Open edX platform.
 
-More details on: 
+More details on:
 
 * `IDV Integration with new Vendors`_.
 
@@ -45,7 +45,7 @@ Show Consent Warning to Users
 
 When a student loads an Open Response Assessment (ORA) problem, a filter is executed to display a consent warning to the student. This use case can be used to inform students about the data collection and processing that will occur when they submit their responses. This is especially useful when the data is being processed by third-party services.
 
-More details on: 
+More details on:
 
 * `Show Consent Warning to Users`_.
 
