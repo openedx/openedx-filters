@@ -1,17 +1,17 @@
 Documenting Open edX Filters Classes
-====================================
+######################################
 
-When creating a new filter, you should document the purpose of the filter in the docstring of the filter class. This will help other developers understand the purpose of the filter and how to use it.
+When creating a new filter, you should document the filter's purpose in the filter class's docstring. This will help other developers understand the purpose of the filter and how to use it.
 
 The docstring should comply with the following guidelines:
 
 - The docstring should be a triple-quoted string.
 - The docstring should be placed at the beginning of the class definition.
-- The docstring should include a brief description of what's supposed to do.
+- The docstring should include a brief description of what it is supposed to do.
 - The docstring should describe the purpose of the filter.
 - The docstring should include the filter type ``filter_type``, which is the unique identifier for the filter.
-- The docstring should include the trigger information, which includes the repository, path, and function or method that triggers the filter. If for some reason the filter is triggered by multiple functions or methods, you should list them all. If it's not triggered by any function or method, you should use NA (Not Applicable).
-- The docstring should include any other relevant information about the filter (e.g., it works only for legacy views not MFEs).
+- The docstring should include the trigger information, which includes the repository, path, and function or method that triggers the filter. If, for some reason, the filter is triggered by multiple functions or methods, you should list them all. If it is not triggered by any function or method, you should use NA (Not Applicable).
+- The docstring should include any other relevant information about the filter (e.g., it works only for legacy views, not MFEs).
 
 Consider the following example:
 
@@ -36,3 +36,11 @@ Consider the following example:
     Additional Information:
         This filter doesn't work alongside the account MFE, only with the legacy account settings page.
     """
+
+**Maintenance chart**
+
++--------------+-------------------------------+----------------+--------------------------------+
+| Review Date  | Reviewer                      |   Release      |Test situation                  |
++--------------+-------------------------------+----------------+--------------------------------+
+|2025-02-13    | Maria Grimaldi                |  Sumac         |Pass.                           |
++--------------+-------------------------------+----------------+--------------------------------+
