@@ -14,6 +14,10 @@ import inspect
 import os
 import re
 import sys
+from os.path import dirname, relpath
+
+import openedx_filters
+
 sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
@@ -142,27 +146,68 @@ intersphinx_mapping = {
 
 REPO_URL = "https://github.com/openedx/openedx-filters/blob/main"
 
-def linkcode_resolve(domain, info):
+def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
+    """
+    Resolves source code links for Python objects in Sphinx documentation.
+    This function is based on the `linkcode_resolve` function in the SciPy project.
+
+    Args:
+        domain (str): The language domain of the object. Only processes Python objects ('py')
+        info (dict[str, str]): Dictionary containing information about the object to link.
+            Must contain:
+                - 'module': Name of the module containing the object
+                - 'fullname': Complete name of the object including its path
+
+    Returns:
+        str | None: URL to the source code on GitHub with specific line numbers,
+            or None if the link cannot be resolved
+    """
     if domain != "py":
         return None
 
-    module = info["module"]
+    modname = info["module"]
     fullname = info["fullname"]
 
-    if not module:
+    submod = sys.modules.get(modname)
+    if submod is None:
+        return None
+
+    obj = submod
+    for part in fullname.split("."):
+        try:
+            obj = getattr(obj, part)
+        except Exception:
+            return None
+
+    # Use the original function object if it is wrapped.
+    while hasattr(obj, "__wrapped__"):
+        obj = obj.__wrapped__
+
+    print(f"\n\n{obj}\n\n")
+
+    try:
+        file_path = inspect.getsourcefile(obj)
+    except Exception:
+        file_path = None
+    if not file_path:
+        try:
+            file_path = inspect.getsourcefile(sys.modules[obj.__module__])
+        except Exception:
+            file_path = None
+    if not file_path:
         return None
 
     try:
-        obj = sys.modules[module]
-        for part in fullname.split("."):
-            obj = getattr(obj, part)
-
-        source_file = inspect.getsourcefile(obj)
-        source_lines, start_line = inspect.getsourcelines(obj)
+        source, start_line = inspect.getsourcelines(obj)
     except Exception:
-        return None
+        start_line = None
 
-    filename = source_file.replace("\\", "/").split("/")[-3:]
-    filename = "/".join(filename)
+    if start_line:
+        linespec = f"#L{start_line}-L{start_line + len(source) - 1}"
+    else:
+        linespec = ""
 
-    return f"{REPO_URL}/{filename}#L{start_line}-L{start_line + len(source_lines) - 1}"
+    start_dir = os.path.abspath(os.path.join(dirname(openedx_filters.__file__), ".."))
+    file_path = relpath(file_path, start=start_dir).replace(os.path.sep, "/")
+
+    return f"{REPO_URL}/{file_path}{linespec}"
