@@ -136,6 +136,7 @@ In our example, the filter definition could be implemented as follows:
             )
             return data.get("user"), data.get("course_key"), data.get("mode")
 
+- The ``CourseEnrollmentStarted`` class is the filter definition that inherits from the ``OpenEdxPublicFilter`` class. The name of the class is referred as the filter name and should be descriptive of the filter's purpose. See :doc:`../reference/naming-suggestions` for more information.
 - The ``filter_type`` attribute should be set to the filter type that was identified in the previous steps. This attribute is used to identify the filter in the :term:`filter configuration`.
 - The ``PreventEnrollment`` class is a custom exception that is raised when the filter should halt the application behavior.
 - The ``run_filter`` method is the main method of the filter that is called when the filter is triggered. The method should call the ``run_pipeline`` method, passing down the input arguments and returning the final output of the filter.
