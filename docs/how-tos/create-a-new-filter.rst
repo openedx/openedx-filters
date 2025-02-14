@@ -114,25 +114,46 @@ In our example, the filter definition could be implemented as follows:
 
     class CourseEnrollmentStarted(OpenEdxPublicFilter):
         """
-        Custom class used to create enrollment filters and its custom methods.
+        Filter used to modify the enrollment process for a given user in a course.
+
+        Purpose:
+            This filter is triggered when a user initiates the enrollment process, just before the enrollment is completed
+            allowing the filter to act on the user, course key, and mode.
+
+        Filter Type:
+            org.openedx.learning.course.enrollment.started.v1
+
+        Trigger:
+            - Repository: openedx/edx-platform
+            - Path: common/djangoapps/student/models/course_enrollment.py
+            - Function or Method: enroll
         """
 
         filter_type = "org.openedx.learning.course.enrollment.started.v1"
 
         class PreventEnrollment(OpenEdxFilterException):
             """
-            Custom class used to stop the enrollment process.
+            Raise to prevent the enrollment process to continue.
+
+            This exception is propagated to the course enrollment model and handled by the model to stop the enrollment
+            process. All components using the enroll method handle this exception in the appropriate way.
             """
 
         @classmethod
-        def run_filter(cls, user, course_key, mode):
+        def run_filter(cls, user: Any, course_key: CourseKey, mode: str) -> tuple[Any, CourseKey | None, str | None]:
             """
-            Execute a filter with the signature specified.
+            Process the user, course_key, and mode using the configured pipeline steps to modify the enrollment process.
 
             Arguments:
-                user (User): is a Django User object.
+                user (User): Django User enrolling in the course.
                 course_key (CourseKey): course key associated with the enrollment.
-                mode (str): is a string specifying what kind of enrollment.
+                mode (str): specifies what kind of enrollment.
+
+            Returns:
+                tuple[Any, CourseKey, str]:
+                    - User: Django User object.
+                    - CourseKey: course key associated with the enrollment.
+                    - str: mode of the enrollment.
             """
             data = super().run_pipeline(
                 user=user, course_key=course_key, mode=mode,
@@ -144,6 +165,8 @@ In our example, the filter definition could be implemented as follows:
 - The ``PreventEnrollment`` class is a custom exception that is raised when the filter should halt the application behavior.
 - The ``run_filter`` method is the main method of the filter that is called when the filter is triggered. The method should call the |OpenEdxPublicFilter.run_pipeline| method, passing down the input arguments and returning the final output of the filter.
 - Use arguments names that are consistent with the triggering logic to avoid confusion and improve readability.
+- The docstrings should provide context on the purpose of the filter, the filter type, the triggering logic, and the arguments and return types of the ``run_filter`` method. See :doc:`../reference/documenting-filters-classes` for more details on how to document these definitions.
+- Annotate the arguments and return types of the ``run_filter`` method to provide clarity and safety.
 
 .. note:: Implement exceptions that are related to the filter behavior and specify how the filter should modify the application behavior with each exception. The caller should handle each exception differently based on the exception's  purpose. For example, the caller should halt the application behavior when the ``PreventEnrollment`` exception is raised.
 
@@ -154,7 +177,20 @@ After implementing the filter definition, you should trigger the filter in the a
 
 In our example, we identified that the triggering logic is the ``enroll`` method in the enrollment model in the LMS. Therefore, we should trigger the filter in the ``enroll`` method, passing down the user, course key, and mode arguments to the filter. The filter should be placed so that it is triggered before the enrollment process is completed, which can alter the enrollment process if the user does not meet the eligibility criteria.
 
-.. note:: Try placing the filter so it can be triggered before the process is completed, so it can alter the process if needed. In some cases, this would be at the beginning of the process, while in others, it would be elsewhere.
+Here is an example of how the filter could be triggered in the ``enroll`` method:
+
+.. code-block:: python
+
+    try:
+        # .. filter_implemented_name: CourseEnrollmentStarted
+        # .. filter_type: org.openedx.learning.course.enrollment.started.v1
+        user, course_key, mode = CourseEnrollmentStarted.run_filter(
+            user=user, course_key=course_key, mode=mode,
+        )
+    except CourseEnrollmentStarted.PreventEnrollment as exc:
+        raise EnrollmentNotAllowed(str(exc)) from exc
+
+.. note:: Try placing the filter so it can be triggered before the process is completed, so it can alter the process if needed. In some cases, this would be at the beginning of the process, while in others it would be elsewhere.
 
 Step 7: Implement Your Pipeline Steps
 ========================================
