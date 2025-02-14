@@ -16,8 +16,6 @@ import re
 import sys
 from os.path import dirname, relpath
 
-import openedx_filters
-
 sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
@@ -183,8 +181,6 @@ def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
     while hasattr(obj, "__wrapped__"):
         obj = obj.__wrapped__
 
-    print(f"\n\n{obj}\n\n")
-
     try:
         file_path = inspect.getsourcefile(obj)
     except Exception:
@@ -206,6 +202,8 @@ def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
         linespec = f"#L{start_line}-L{start_line + len(source) - 1}"
     else:
         linespec = ""
+
+    import openedx_filters
 
     start_dir = os.path.abspath(os.path.join(dirname(openedx_filters.__file__), ".."))
     file_path = relpath(file_path, start=start_dir).replace(os.path.sep, "/")
