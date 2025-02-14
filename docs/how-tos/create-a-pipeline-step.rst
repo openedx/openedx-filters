@@ -1,3 +1,5 @@
+.. include:: ../common_refs.rst
+
 Create a Pipeline Step
 ######################
 
@@ -25,7 +27,7 @@ Step 1: Understand your Use Case and Identify the Filter to Use
 
 Before creating a pipeline step, you should understand your use case for the filter and the specific logic you want to implement in the pipeline step. In our example, we want to prevent users from enrolling in a course if they do not have a valid email address. We will create a pipeline step that checks if the user's email address is valid and raise an exception if it is not.
 
-You should review the :doc:`list of filters <../reference/filters>` available in the Open edX platform and identify the filter that best fits your use case. In our example, we will use the :class:`CourseEnrollmentStarted <openedx_filters.learning.filters.CourseEnrollmentStarted>` filter to implement the logic for our use case. You should review the filter's arguments to understand the data that will be passed to the pipeline step and the expected output. This will help you define the pipeline step's logic and signature.
+You should review the :doc:`list of filters <../reference/filters>` available in the Open edX platform and identify the filter that best fits your use case. In our example, we will use the |CourseEnrollmentStarted| filter to implement the logic for our use case. You should review the filter's arguments to understand the data that will be passed to the pipeline step and the expected output. This will help you define the pipeline step's logic and signature.
 
 Step 2: Install Open edX Filters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -41,11 +43,11 @@ This will mainly make the filters available for your CI/CD pipeline and local de
 Step 3: Create a Pipeline Step
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A :term:`pipeline step` is a class that inherits from the base class `PipelineStep`_ and defines specific logic within its `run_filter`_ method. The ``run_filter`` method is executed by the pipeline tooling when the filter is triggered. To create a pipeline step, you should:
+A :term:`pipeline step` is a class that inherits from the base class |PipelineStep| and defines specific logic within its |PipelineStep.run_filter| method. The ``run_filter`` method is executed by the pipeline tooling when the filter is triggered. To create a pipeline step, you should:
 
 1. Create a new Python module for the pipeline step called ``pipeline.py``. Pipeline steps are usually implemented in a `Open edX Django plugins`_, so you should create the module in the plugin's directory.
-2. Create a new class for the pipeline step that inherits from the base class `PipelineStep`_.
-3. Implement the logic for the pipeline step within the `run_filter`_ method. The method signature should match the filter's signature to ensure compatibility with the pipeline tooling. In our example, the method should accept the user, course key, and enrollment mode as arguments and return the same arguments if the email address is valid. If the email address is not valid, the method should raise an exception.
+2. Create a new class for the pipeline step that inherits from the base class |PipelineStep|.
+3. Implement the logic for the pipeline step within the |PipelineStep.run_filter| method. The method signature should match the filter's signature to ensure compatibility with the pipeline tooling. In our example, the method should accept the user, course key, and enrollment mode as arguments and return the same arguments if the email address is valid. If the email address is not valid, the method should raise an exception.
 4. You can take an iterative approach to developing the pipeline step by testing it locally and making changes as needed.
 
 In our example, the pipeline step could look like this:
@@ -67,8 +69,8 @@ In our example, the pipeline step could look like this:
                "mode": mode,
             }
 
-- In this example, we create a new class called ``CheckValidEmailPipelineStep`` that inherits from the base class `PipelineStep`_.
-- We implement the logic for the pipeline step within the `run_filter`_ method. The method checks if the user's email address is valid using the ``is_user_email_allowed`` method and raises an exception if it is not. If the email address is valid, the method returns the user, course key, and enrollment mode in a dictionary.
+- In this example, we create a new class called ``CheckValidEmailPipelineStep`` that inherits from the base class |PipelineStep|.
+- We implement the logic for the pipeline step within the |PipelineStep.run_filter| method. The method checks if the user's email address is valid using the ``is_user_email_allowed`` method and raises an exception if it is not. If the email address is valid, the method returns the user, course key, and enrollment mode in a dictionary.
 - The method signature matches the filter's signature, accepting the user, course key, and enrollment mode as arguments and returning the same arguments if the email address is valid. You can also return an empty dictionary if you don't need to modify the data.
 
 Consider the following when creating a pipeline step:
@@ -83,7 +85,7 @@ Step 4: Configure the Pipeline for the Filter
 
 After creating the pipeline step, you need to configure the pipeline for the filter in the :term:`filter configuration`. The configuration settings are specific for each :term:`filter type` and define the pipeline steps to be executed when the filter is triggered. You should add the path to the pipeline step class in the filter's pipeline configuration.
 
-In our example, we will configure the pipeline for the :class:`CourseEnrollmentStarted <openedx_filters.learning.filters.CourseEnrollmentStarted>` filter to include the pipeline step we created. The configuration should look like this:
+In our example, we will configure the pipeline for the |CourseEnrollmentStarted| filter to include the pipeline step we created. The configuration should look like this:
 
 .. code-block:: python
 
@@ -139,7 +141,4 @@ After testing the pipeline step, you should debug and iterate on the implementat
 
 .. note:: The default behavior of the pipeline tooling is to fail silently if a runtime exception is raised in a pipeline step. You can configure the filter to raise an exception when the pipeline step fails by setting ``fail_silently: False`` in the filter configuration. This will help you identify issues early and take appropriate action to resolve them. :term:`Filter Exceptions` will always be raised in the pipeline and will halt the execution of the pipeline. You can use exceptions to control the flow of the pipeline and handle specific scenarios in the pipeline step. In our example, we raise an exception when the user's email address is not valid to prevent them from enrolling in the course. The exceptions considered by the ``fail_silently`` flag are runtime exceptions that are not intentionally raised by the developer during the filter's execution, use the configuration as you see fit.
 
-.. _Tutor: https://docs.tutor.edly.io/
-.. _PipelineStep: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/filters.py#L10-L77
 .. _Open edX Django plugins: https://docs.openedx.org/en/latest/developers/concepts/platform_overview.html#new-plugin
-.. _run_filter: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/filters.py#L60-L77

@@ -1,3 +1,5 @@
+.. include:: ../common_refs.rst
+
 Open edX Filters
 ================
 
@@ -18,7 +20,7 @@ How do Open edX Filters work?
 
 Open edX Filters are implemented using an accumulative pipeline mechanism, which executes a series of functions in a specific order. Each function in the pipeline receives the output of the previous function as input, allowing developers to build complex processing logic by chaining multiple functions together. The pipeline ensures that the order of execution is maintained and that the result of a previous function is available to the current one in the form of a pipeline.
 
-This pipeline mechanism is implemented by the `OpenEdxPublicFilter`_ class, which provides the necessary tools to fulfill the Open edX Filters requirements mentioned previously, such as ordered execution, configurability, interchangeable functions, argument definition, and cumulative behavior. This enables filters to modify the flow of the application dynamically during runtime based on predefined business logic or conditions. You can review the :doc:`Open edX Filters Tooling <../reference/filters-tooling>` for more information on the available methods and classes.
+This pipeline mechanism is implemented by the |OpenEdxPublicFilter| class, which provides the necessary tools to fulfill the Open edX Filters requirements mentioned previously, such as ordered execution, configurability, interchangeable functions, argument definition, and cumulative behavior. This enables filters to modify the flow of the application dynamically during runtime based on predefined business logic or conditions. You can review the :doc:`Open edX Filters Tooling <../reference/filters-tooling>` for more information on the available methods and classes.
 
 Architectural Diagram
 *********************
@@ -33,7 +35,7 @@ Components
 ~~~~~~~~~~
 
 #. Application (caller): The component that calls the filter during its execution, triggering the pipeline to process the input data. Developers may have added this call to a part of the application to include different behaviors. E.g., a user enrolls in a course, triggering the `CourseEnrollmentStarted filter`_.
-#. OpenEdxPublicFilter: The class that implements all methods used to manage the execution of the filter.
+#. |OpenEdxPublicFilter|: The class that implements all methods used to manage the execution of the filter.
 #. PipelineStep1...N: The pipeline steps that are executed in sequence, each processing the input data and returning potentially modified data. These steps are defined by the developer to introduce additional behaviors. E.g., a pipeline step that checks user eligibility for enrollment.
 
 Workflow
@@ -43,7 +45,7 @@ Workflow
 
 #. The caller passes the input data to the filter through the ``run_filter`` method, this data are in-memory platform objects that the filter will process.
 
-#. The ``run_filter`` method of the filter calls the ``OpenEdxPublicFilter.run_pipeline`` method under the hood, which manages the execution of the filter's pipeline.
+#. The ``run_filter`` method of the filter calls the |OpenEdxPublicFilter.run_pipeline| method under the hood, which manages the execution of the filter's pipeline.
 
 #. This method retrieves the configuration from ``OPEN_EDX_FILTERS_CONFIG``, which defines a list of N functions :math:`f_1, f_2, \ldots, f_{n}` that will be executed.
 
@@ -53,7 +55,7 @@ Workflow
 
 #. Each subsequent function receives the output from the previous function and returns its modified output until all functions have been executed.
 
-#. At any point in the pipeline, a developer can halt execution by raising an exception, based on conditions defined in the processing logic, to stop the application flow. Let's assume that :math:`f_{2}` raises an exception instead of returning the modified arguments ``kwargs_2``. In this case, the pipeline stops, and the ``OpenEdxPublicFilter.run_pipeline`` method raises the exception to the caller as the final output. From there the caller can handle the exception as needed.
+#. At any point in the pipeline, a developer can halt execution by raising an exception, based on conditions defined in the processing logic, to stop the application flow. Let's assume that :math:`f_{2}` raises an exception instead of returning the modified arguments ``kwargs_2``. In this case, the pipeline stops, and the |OpenEdxPublicFilter.run_pipeline| method raises the exception to the caller as the final output. From there the caller can handle the exception as needed.
 
 #. If no exceptions are raised, the pipeline continues executing the functions until the final function :math:`f_{n}` has been executed.
 
@@ -68,7 +70,7 @@ Here's an example of the `CourseEnrollmentStarted filter`_ in action:
 
 #. A user enrolls in a course, triggering the `CourseEnrollmentStarted filter`_ by calling the ``run_filter`` method with the enrollment details. This filter processes information about the user, course, and enrollment details.
 
-#. The ``run_pipeline`` method executes a series of functions configured in ``OPEN_EDX_FILTERS_CONFIG``, e.g. checking user eligibility for enrollment or updating the enrollment status in a third-party system.
+#. The |OpenEdxPublicFilter.run_pipeline| method executes a series of functions configured in ``OPEN_EDX_FILTERS_CONFIG``, e.g. checking user eligibility for enrollment or updating the enrollment status in a third-party system.
 
 #. Each function can modify the input data or halt the process based on business logic, e.g. denying enrollment if the user is ineligible.
 
@@ -89,5 +91,4 @@ For more information on how to use Open edX Filters, refer to the :doc:`how-tos 
 .. _Django Signals Documentation: https://docs.djangoproject.com/en/4.2/topics/signals/
 .. _CourseEnrollmentStarted filter: https://github.com/openedx/edx-platform/blob/master/common/djangoapps/student/models/course_enrollment.py#L719-L724
 .. _Python Social Auth: https://python-social-auth.readthedocs.io/en/latest/pipeline.html
-.. _OpenEdxPublicFilter: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/tooling.py#L14-L15
 .. _Open edX Django plugin: https://edx.readthedocs.io/projects/edx-django-utils/en/latest/plugins/readme.html
