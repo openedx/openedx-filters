@@ -188,7 +188,7 @@ For more details on how the contribution flow works, refer to the :doc:`docs.ope
 **Maintenance chart**
 
 +--------------+-------------------------------+----------------+--------------------------------+
-| Review Date  | Reviewer                      |   Release      |Test situation                  |
+| Review Date  | Reviewer                      |   Release      | Test situation                 |
 +--------------+-------------------------------+----------------+--------------------------------+
-|2025-02-13    |  Maria Grimaldi               |   Sumac        |Pass.                           |
+|2025-02-13    |  Maria Grimaldi               |   Sumac        | Pass.                          |
 +--------------+-------------------------------+----------------+--------------------------------+
