@@ -41,7 +41,7 @@ Workflow
 
 #. An application component (caller) invokes the filter during its execution by calling the ``run_filter`` method implemented by its :term:`filter definition<Filter Definition>`.
 
-#. The caller passes the input data to the filter through the ``run_filter`` method. This data is an in-memory platform object that the filter will process.
+#. The caller passes the input data to the filter through the ``run_filter`` method. These data are in-memory platform objects that the filter will process.
 
 #. The ``run_filter`` method of the filter calls the ``OpenEdxPublicFilter.run_pipeline`` method under the hood, which manages the execution of the filter's pipeline.
 
