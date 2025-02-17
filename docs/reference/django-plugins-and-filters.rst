@@ -32,12 +32,13 @@ file. The dictionary has the following structure:
         },
     }
 
+To learm more about this, visit :doc:`/reference/filters-configuration`.
 
 Create Pipeline Steps
 *********************
 
 In your plugin, you can create your own :term:`pipeline steps<Pipeline Step>` by inheriting from ``PipelineStep`` and implementing the
-``run_filter`` method. You can find examples of :term:`pipeline steps<Pipeline Step>` in the ``openedx-filters-samples`` repository. See :doc:`/quickstarts/index` for more details.
+``run_filter`` method. You can find examples of :term:`pipeline steps<Pipeline Step>` in the ``openedx-filters-samples`` repository. See :doc:`/quickstarts/index` for more details. To learn more about this process, visit :doc:`/how-tos/create-a-pipeline-step`.
 
 **Maintenance chart**
 
