@@ -14,6 +14,14 @@ Change Log
 Unreleased
 ----------
 
+[2.0.0] - 2025-02-17
+---------------------
+
+Changed
+~~~~~~~
+
+* **Breaking change**: Correctly name authoring subdomain according to DDD docs: https://openedx.atlassian.net/wiki/spaces/AC/pages/663224968/edX+DDD+Bounded+Contexts
+
 [1.13.1] - 2025-02-13
 ---------------------
 
