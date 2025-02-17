@@ -6,7 +6,7 @@ A filter has multiple components that are used to define, execute, and handle fi
 .. glossary::
 
    Architecture Subdomains
-    `Architecture Subdomains`_ categorize different areas of functionality within the Open edX platform. They are used in the naming convention for filters to indicate the specific domain a filter pertains to. 
+    `Architecture Subdomains`_ categorize different areas of functionality within the Open edX platform. They are used in the naming convention for filters to indicate the specific domain a filter pertains to.
 
    Filter Configuration
      The filter configuration is a dictionary that defines the pipeline settings for a filter. Each filter type has its own configuration, which includes settings like whether errors should fail silently or propagate, and the sequence of pipeline steps. Configurations specify the filter type, error-handling preferences, and a list of module paths for each pipeline step to be executed. E.g., the configuration for the `CourseEnrollmentStarted filter`_ might include settings like ``fail_silently: False`` and ``['my_plugin.filters.StopEnrollmentIfNotValidEmail']`` as its pipeline steps. See the :doc:`/decisions/0002-hooks-filter-config-location` for more details on the configuration format.
@@ -19,7 +19,7 @@ A filter has multiple components that are used to define, execute, and handle fi
 
    Filter Signature
      The filter signature consists of the specific parameters required by a filter's ``run_filter`` method. It defines the expected input and output structure for the filter, specifying the data the filter will process. The filter signature is used to ensure that all pipeline steps have the same input and output structure, enabling interchangeability between steps. E.g., the `CourseEnrollmentStarted filter`_ signature might include parameters like ``user``, ``course_key``, and ``enrollment mode``.
-  
+
    Filter Tooling
      The filter tooling is a set of methods that manage the execution of the filter pipeline. The tooling retrieves the filter configuration, executes the pipeline steps in the specified order, and handles exceptions raised by the pipeline steps. This tooling ensures that the pipeline steps are executed in the correct order and that the output of each step is passed to the next step in the pipeline. All this is mainly done by the `OpenEdxPublicFilter`_ class, which provides the necessary definitions to fulfill the Open edX Filters requirements.
 
@@ -36,7 +36,7 @@ A filter has multiple components that are used to define, execute, and handle fi
      A pipeline step is a function within a pipeline that receives, processes, and returns data. Each step may perform operations like transforming, validating, filtering, or enriching data. Pipeline steps are implemented as classes that inherit from the base class `PipelineStep`_ and define specific logic within their `run_filter`_ method, which is executed by the pipeline tooling when the filter is triggered.
 
    Public Filter
-     The `Public Filter`_ is a base class provided by the Open edX Filters framework. Developers create custom filters by inheriting from this class and implementing the run_filter method, which defines the filter's behavior. This class also manages the execution of the filter's pipeline and handles configuration settings. 
+     The `Public Filter`_ is a base class provided by the Open edX Filters framework. Developers create custom filters by inheriting from this class and implementing the run_filter method, which defines the filter's behavior. This class also manages the execution of the filter's pipeline and handles configuration settings.
 
 This glossary provides a high-level overview of the key concepts and components of the Open edX Filters library. Understanding these terms will help you implement filters in your application and leverage the filter tooling to control the flow of your application based on specific conditions. For a better illustration of these concepts, refer to the :doc:`/how-tos/create-a-new-filter` guide.
 
