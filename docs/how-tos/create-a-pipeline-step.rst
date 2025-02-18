@@ -45,7 +45,7 @@ Step 3: Create a Pipeline Step
 
 A :term:`pipeline step` is a class that inherits from the base class |PipelineStep| and defines specific logic within its |PipelineStep.run_filter| method. The ``run_filter`` method is executed by the pipeline tooling when the filter is triggered. To create a pipeline step, you should:
 
-1. Create a new Python module for the pipeline step called ``pipeline.py``. Pipeline steps are usually implemented in a `Open edX Django plugins`_, so you should create the module in the plugin's directory.
+1. Create a new Python module for the pipeline step called ``pipeline.py``. Pipeline steps are usually implemented in a `Open edX Django plugin`_, so you should create the module in the plugin's directory.
 2. Create a new class for the pipeline step that inherits from the base class |PipelineStep|.
 3. Implement the logic for the pipeline step within the |PipelineStep.run_filter| method. The method signature should match the filter's signature to ensure compatibility with the pipeline tooling. In our example, the method should accept the user, course key, and enrollment mode as arguments and return the same arguments if the email address is valid. If the email address is not valid, the method should raise an exception.
 4. You can take an iterative approach to developing the pipeline step by testing it locally and making changes as needed.
