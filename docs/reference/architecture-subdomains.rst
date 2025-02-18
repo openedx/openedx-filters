@@ -15,7 +15,7 @@ Currently, these are the `architecture subdomains`_ used by the Open edX Events 
 | Enterprise        | Provides tools for organizations to manage their learners and courses.                             |
 +-------------------+----------------------------------------------------------------------------------------------------+
 
-Here we list useful information about Open edX architecture subdomains and their use in the Hooks Extension framework:
+Here we list useful information about Open edX :term:`architecture subdomains` and their use in the Hooks Extension framework:
 
 - `Events Naming and Versioning`_
 - `Notes on events design and subdomains`_
