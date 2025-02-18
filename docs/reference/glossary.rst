@@ -33,7 +33,7 @@ A filter has multiple components that are used to define, execute, and handle fi
      A pipeline step is a function within a pipeline that receives, processes, and returns data. Each step may perform operations like transforming, validating, filtering, or enriching data. Pipeline steps are implemented as classes that inherit from the base class `PipelineStep`_ and define specific logic within their `run_filter`_ method, which is executed by the pipeline tooling when the filter is triggered.
 
    OpenEdxPublicFilter
-     The `OpenEdxPublicFilter`_ is a base class provided by the Open edX Filters framework. Developers create custom filters by inheriting from this class and implementing the run_filter method, which defines the filter's behavior. This class also manages the execution of the filter's pipeline and handles configuration settings.   
+     The `OpenEdxPublicFilter`_ is a base class provided by the Open edX Filters framework. Developers create custom filters by inheriting from this class and implementing the run_filter method, which defines the filter's behavior. This class also manages the execution of the filter's pipeline and handles configuration settings.
 
 
 This glossary provides a high-level overview of the key concepts and components of the Open edX Filters library. Understanding these terms will help you implement filters in your application and leverage the filter tooling to control the flow of your application based on specific conditions. For a better illustration of these concepts, refer to the :doc:`/how-tos/create-a-new-filter` guide.
