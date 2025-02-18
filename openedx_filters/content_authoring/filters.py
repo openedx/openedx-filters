@@ -14,7 +14,7 @@ class LMSPageURLRequested(OpenEdxPublicFilter):
         modify the URL of the page requested by the user.
 
     Filter Type:
-        org.openedx.course_authoring.lms.page.url.requested.v1
+        org.openedx.content_authoring.lms.page.url.requested.v1
 
     Trigger:
         - Repository: openedx/edx-platform
@@ -22,7 +22,7 @@ class LMSPageURLRequested(OpenEdxPublicFilter):
         - Function or Method: get_asset_json
     """
 
-    filter_type = "org.openedx.course_authoring.lms.page.url.requested.v1"
+    filter_type = "org.openedx.content_authoring.lms.page.url.requested.v1"
 
     @classmethod
     def run_filter(cls, url: str, org: str) -> tuple[str | None, str | None]:
