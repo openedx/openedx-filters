@@ -1,3 +1,5 @@
+.. include:: ../common_refs.rst
+
 Create a New Open edX Filter with Long-Term Support
 ####################################################
 
@@ -97,7 +99,7 @@ In our example, the filter arguments could include the user, course key, and enr
 Step 5: Implement the Filter Definition
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Implement the :term:`filter definition` by creating a new class that inherits from the `OpenEdxPublicFilter`_ class. The filter definition should implement the ``run_filter`` method, which defines the input and output behavior of the filter. The ``run_filter`` method should call the method `run_pipeline`_, passing down the input arguments and returning the final output of the filter. This class should be placed in the appropriate subdomain module in the library, in the ``filters.py`` file.
+Implement the :term:`filter definition` by creating a new class that inherits from the |OpenEdxPublicFilter| class. The filter definition should implement the ``run_filter`` method, which defines the input and output behavior of the filter. The ``run_filter`` method should call the method |OpenEdxPublicFilter.run_pipeline|, passing down the input arguments and returning the final output of the filter. This class should be placed in the appropriate subdomain module in the library, in the ``filters.py`` file.
 
 .. note:: The input arguments of the ``run_filter`` method should match the arguments that the triggering logic provides. The output of the filter should be consistent with the behavior that the filter intends to modify. Usually, the output is the modified data or the original data if no modifications are needed.
 
@@ -136,9 +138,10 @@ In our example, the filter definition could be implemented as follows:
             )
             return data.get("user"), data.get("course_key"), data.get("mode")
 
+- The ``CourseEnrollmentStarted`` class is the filter definition that inherits from the ``OpenEdxPublicFilter`` class. The name of the class is referred as the filter name and should be descriptive of the filter's purpose. See :doc:`../reference/naming-suggestions` for more information.
 - The ``filter_type`` attribute should be set to the filter type that was identified in the previous steps. This attribute is used to identify the filter in the :term:`filter configuration`.
 - The ``PreventEnrollment`` class is a custom exception that is raised when the filter should halt the application behavior.
-- The ``run_filter`` method is the main method of the filter that is called when the filter is triggered. The method should call the ``run_pipeline`` method, passing down the input arguments and returning the final output of the filter.
+- The ``run_filter`` method is the main method of the filter that is called when the filter is triggered. The method should call the |OpenEdxPublicFilter.run_pipeline| method, passing down the input arguments and returning the final output of the filter.
 - Use arguments names that are consistent with the triggering logic to avoid confusion and improve readability.
 
 .. note:: Implement exceptions that are related to the filter behavior and specify how the filter should modify the application behavior with each exception. The caller should handle each exception differently based the exceptions purpose. For example, the caller should halt the application behavior when the ``PreventEnrollment`` exception is raised.
@@ -179,8 +182,5 @@ After implementing the filter, you should continue the contribution process by c
 
 For more details on how the contribution flow works, refer to the :doc:`docs.openedx.org:developers/concepts/hooks_extension_framework` documentation.
 
-.. _Tutor: https://docs.tutor.edly.io/
 .. _Add Extensibility Mechanism to IDV to Enable Integration of New IDV Vendor Persona: https://openedx.atlassian.net/wiki/spaces/OEPM/pages/4307386369/Proposal+Add+Extensibility+Mechanisms+to+IDV+to+Enable+Integration+of+New+IDV+Vendor+Persona
-.. _OpenEdxPublicFilter: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/tooling.py#L14
-.. _run_pipeline: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/tooling.py#L164
 .. _test_filters.py: https://github.com/openedx/edx-platform/blob/master/common/djangoapps/student/tests/test_filters.py#L114-L190

@@ -1,3 +1,5 @@
+.. include:: ../common_refs.rst
+
 Django Plugins and Filters
 ##########################
 
@@ -37,8 +39,8 @@ To learm more about this, visit :doc:`/reference/filters-configuration`.
 Create Pipeline Steps
 *********************
 
-In your plugin, you can create your own :term:`pipeline steps<Pipeline Step>` by inheriting from ``PipelineStep`` and implementing the
-``run_filter`` method. You can find examples of :term:`pipeline steps<Pipeline Step>` in the ``openedx-filters-samples`` repository. See :doc:`/quickstarts/index` for more details. To learn more about this process, visit :doc:`/how-tos/create-a-pipeline-step`.
+In your own plugin, you can create your own :term:`pipeline steps<Pipeline Step>` by inheriting from |PipelineStep| and implementing the
+``run_filter`` method. You can find examples of :term:`pipeline steps<Pipeline Step>` in the ``openedx-filters-samples`` repository. See :doc:`/quickstarts/index` for more details.
 
 **Maintenance chart**
 
@@ -47,3 +49,4 @@ In your plugin, you can create your own :term:`pipeline steps<Pipeline Step>` by
 +--------------+-------------------------------+----------------+--------------------------------+
 |2025-02-13    | Maria Grimaldi                |  Sumac         |Pass.                           |
 +--------------+-------------------------------+----------------+--------------------------------+
+
