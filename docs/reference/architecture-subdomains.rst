@@ -1,10 +1,10 @@
 Architecture Subdomains
-=======================
+########################
 
 Currently, these are the `architecture subdomains`_ used by the Open edX Events library:
 
 +-------------------+----------------------------------------------------------------------------------------------------+
-| Subdomain name    | Description                                                                                        |
+| Subdomain Name    | Description                                                                                        |
 +===================+====================================================================================================+
 | Content Authoring | Allows educators to create, modify, package, annotate (tag), and share learning content.           |
 +-------------------+----------------------------------------------------------------------------------------------------+
@@ -31,3 +31,11 @@ Here we list useful information about Open edX :term:`architecture subdomains` a
 .. _`Message Content Data Guidelines`: https://docs.openedx.org/projects/openedx-proposals/en/latest/architectural-decisions/oep-0041-arch-async-server-event-messaging.html?highlight=subdomain#message-content-data-guidelines
 .. _`Notes on events design and subdomains`: https://github.com/openedx/openedx-events/issues/72#issuecomment-1179291340
 .. _architecture subdomains: https://microservices.io/patterns/decomposition/decompose-by-subdomain.html
+
+**Maintenance chart**
+
++--------------+-------------------------------+----------------+--------------------------------+
+| Review Date  | Reviewer                      |   Release      |Test situation                  |
++--------------+-------------------------------+----------------+--------------------------------+
+|2025-02-13    | Maria Grimaldi                |  Sumac         |Pass.                           |
++--------------+-------------------------------+----------------+--------------------------------+
