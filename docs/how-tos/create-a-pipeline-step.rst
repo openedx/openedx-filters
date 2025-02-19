@@ -56,17 +56,23 @@ In our example, the pipeline step could look like this:
 
    from openedx_filters.filters import PipelineStep
 
-   # Location my_plugin/pipeline.py
-   class CheckValidEmailPipelineStep(PipelineStep):
-       def run_filter(self, user, course_key, mode):
-           if self.not is_user_email_allowed(user.email):
-               log.debug("User %s does not have a valid email address, stopping enrollment", user.email)
-               raise CourseEnrollmentStarted.PreventEnrollment("User does not have a valid email address")
-           log.debug("User has a valid email address, allowing enrollment")
-           return {
-               "user": user,
-               "course_key": course_key,
-               "mode": mode,
+    # Location my_plugin/pipeline.py
+    class CheckValidEmailPipelineStep(PipelineStep):
+        def run_filter(self, user, course_key, mode):
+            if not is_user_email_allowed(user.email):
+                log.debug(
+                    "User %s does not have a valid email address, stopping enrollment",
+                    user.email,
+                )
+                raise CourseEnrollmentStarted.PreventEnrollment(
+                    "User does not have a valid email address"
+                )
+
+            log.debug("User has a valid email address, allowing enrollment")
+            return {
+                "user": user,
+                "course_key": course_key,
+                "mode": mode,
             }
 
 - In this example, we create a new class called ``CheckValidEmailPipelineStep`` that inherits from the base class |PipelineStep|.
@@ -109,6 +115,11 @@ In our example, you could write a unit test for the pipeline step like this:
 
 .. code-block:: python
 
+    from django.test import override_settings
+    from my_plugin.test_utils.factories import UserFactory
+
+    from openedx_filters.filters import CourseEnrollmentStarted
+
     # Location my_plugin/tests/test_pipeline.py
     @override_settings(
         OPEN_EDX_FILTERS_CONFIG={
@@ -116,7 +127,7 @@ In our example, you could write a unit test for the pipeline step like this:
                 "fail_silently": False,
                 "pipeline": [
                     "my_plugin.pipeline.CheckValidEmailPipelineStep",
-                ]
+                ],
             }
         }
     )
@@ -124,7 +135,9 @@ In our example, you could write a unit test for the pipeline step like this:
         user = UserFactory(email="invalid_email")
         with self.assertRaises(CourseEnrollmentStarted.PreventEnrollment):
             CourseEnrollmentStarted.run_filter(
-                user=user, course_key=self.course_key, mode="audit",
+                user=user,
+                course_key=self.course_key,
+                mode="audit",
             )
 
 Step 6: Debug and Iterate
