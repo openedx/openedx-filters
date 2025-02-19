@@ -5,7 +5,7 @@ Create a New Open edX Filter with Long-Term Support
 
 Open edX Filters are supported and maintained by the Open edX community. This mechanism is designed to be extensible and flexible to allow developers to create new filters to implement custom behavior in the application. This guide describes how to create a new Open edX filter with long-term support by following the practices outlined in the :doc:`../decisions/0007-filter-design-practices` ADR.
 
-Filters designed with long-support follow closely the practices described in the ADR to minimize breaking changes and maximize compatibility and support for future versions of Open edX.
+Filters designed with long-support follow closely the practices described in the ADR to minimize breaking changes and maximize compatibility and support for future Open edX versions.
 
 .. note:: Before starting, ensure you've reviewed the documentation on :doc:`docs.openedx.org:developers/concepts/hooks_extension_framework`, this documentation helps you decide if creating a new filter is necessary. You should also review the documentation on :doc:`../decisions/0007-filter-design-practices` to understand the practices that should be followed when creating a new filter.
 
@@ -77,7 +77,7 @@ For this, choose a specific point in the service where the filter should be trig
 
 .. note:: When designing a filter, consider the support over time of the service and triggering logic. If the service is likely to change or be deprecated, consider the implications of implementing the filter in that service.
 
-.. note:: It is helpful to inspect the triggering logic to review  the available data when the filter is triggered. This will help you determine the arguments of the filter and how the filter can modify the behavior.
+.. note:: It is helpful to inspect the triggering logic to review the available data when the filter is triggered. This will help you determine the arguments of the filter and how the filter can modify the behavior.
 
 Step 4: Determine the Arguments of the Filter
 ================================================
@@ -92,7 +92,7 @@ Our goal is to provide developers with enough control to implement new features 
 
 As a rule of thumb, start by passing the most relevant context data from the application flow, and then gradually add more details as you analyze the behavior of the triggering logic.
 
-.. note:: Considering the criticality of the arguments, could they be removed in the near future? This would mean introducing breaking changes to the filter.
+.. note:: Consider the criticality of the arguments. For example, could they be removed in the near future? This would mean introducing breaking changes to the filter..
 
 In our example, the filter arguments could include the user, course key, and enrollment mode. These arguments are essential for the filter to determine if the user meets the eligibility criteria for enrollment, and it is the minimum information required to make the decision (user to check the eligibility, course key to identify the course, and mode to determine the type of enrollment).
 
@@ -153,7 +153,7 @@ After implementing the filter definition, you should trigger the filter in the a
 
 In our example, we identified that the triggering logic is the ``enroll`` method in the enrollment model in the LMS. Therefore, we should trigger the filter in the ``enroll`` method, passing down the user, course key, and mode arguments to the filter. The filter should be placed so that it is triggered before the enrollment process is completed, which can alter the enrollment process if the user does not meet the eligibility criteria.
 
-.. note:: Try placing the filter so it can be triggered before the process is completed so it can alter the process if needed. In some cases, this would be at the beginning of the process, while in others, it would be elsewhere.
+.. note:: Try placing the filter so it can be triggered before the process is completed, so it can alter the process if needed. In some cases, this would be at the beginning of the process, while in others, it would be elsewhere.
 
 Step 7: Implement Your Pipeline Steps
 ========================================
