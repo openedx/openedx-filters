@@ -13,3 +13,4 @@ References
    real-life-use-cases
    architecture-subdomains
    documenting-filters-classes
+   naming-suggestions
