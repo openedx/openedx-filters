@@ -147,7 +147,8 @@ In our example, the filter definition could be implemented as follows:
             Arguments:
                 user (User): Django User enrolling in the course.
                 course_key (CourseKey): course key associated with the enrollment.
-                mode (str): specifies what kind of enrollment.
+                mode (str): specifies what kind of enrollment. The course modes available are: audit, professional,
+                    verified, honor and professional.
 
             Returns:
                 tuple[Any, CourseKey, str]:
