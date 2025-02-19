@@ -60,7 +60,7 @@ If you are confident that the filter is beneficial to the community, you can pro
 Step 2: Place Your Filter in an Architecture Subdomain
 ==========================================================
 
-To implement the new filter in the library, you should understand the purpose of the filter and where it fits in the Open edX main :term:`architecture subdomains`. This will help you place the filter in the right architecture subdomain and ensure that the filter is consistent with the framework's definitions. Fore more details on the Open edX Architectural Subdomains, refer to the :doc:`../reference/architecture-subdomains`.
+To implement the new filter in the library, you should understand the purpose of the filter and where it fits in the Open edX main :term:`architecture subdomains`. This will help you place the filter in the right architecture subdomain and ensure that the filter is consistent with the framework's definitions. For more details on the Open edX Architectural Subdomains, refer to the :doc:`../reference/architecture-subdomains`.
 
 In our example, the filter is related to the enrollment process, which is part of the ``learning`` subdomain. Therefore, the filter should be placed in the ``/learning`` module in the library. The subdomain is also used as part of the :term:`filter type <Filter Type>`, which is used to identify the filter. The filter type should be unique and follow the naming convention for filter types specified in the :doc:`../decisions/0004-filters-naming-and-versioning` ADR.
 
