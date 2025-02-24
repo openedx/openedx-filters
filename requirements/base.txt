@@ -20,7 +20,7 @@ pymongo==4.11.1
     # via edx-opaque-keys
 sqlparse==0.5.3
     # via django
-stevedore==5.4.0
+stevedore==5.4.1
     # via edx-opaque-keys
 typing-extensions==4.12.2
     # via edx-opaque-keys
