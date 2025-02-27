@@ -1,6 +1,8 @@
 [lint]
-# D: pydocstyle
-select = ["D"]
+select = [
+    "D", # pydocstyle
+]
+
 ignore = [
     "D101", # Missing docstring in public class
     "D200", # One-line docstring should fit on one line
