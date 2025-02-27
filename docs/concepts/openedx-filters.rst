@@ -91,7 +91,7 @@ For more information on how to use Open edX Filters, refer to the :doc:`how-tos 
 .. _Django Signals Documentation: https://docs.djangoproject.com/en/4.2/topics/signals/
 .. _CourseEnrollmentStarted filter: https://github.com/openedx/edx-platform/blob/master/common/djangoapps/student/models/course_enrollment.py#L719-L724
 .. _Python Social Auth: https://python-social-auth.readthedocs.io/en/latest/pipeline.html
-.. _Open edX Django plugin: https://edx.readthedocs.io/projects/edx-django-utils/en/latest/plugins/readme.html
+.. _Open edX Django plugin: https://docs.openedx.org/projects/edx-django-utils/en/latest/plugins/readme.html
 
 **Maintenance chart**
 
