@@ -243,7 +243,11 @@ sqlparse==0.5.3
     # via
     #   -r requirements/test.txt
     #   django
+<<<<<<< HEAD
 starlette==0.46.1
+=======
+starlette==0.46.0
+>>>>>>> 1dd355b (chore(deps): add ruff to quality.in requirements)
     # via sphinx-autobuild
 stevedore==5.4.1
     # via
