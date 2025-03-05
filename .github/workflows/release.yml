@@ -1,9 +1,10 @@
 name: Create a new GitHub Release
 
 on:
-  push:
-    tags:
-      - "*"
+  # push:
+  #   tags:
+  #     - "*"
+  workflow_dispatch:
 
 jobs:
   release:
@@ -27,6 +28,6 @@ jobs:
         run: make requirements
 
       - name: Create or update GitHub release
-        run: scriv github-release --repo=openedx/openedx-filters
+        run: scriv github-release --repo=bryanttv/openedx-filters
         env:
           GITHUB_TOKEN: ${{ github.token }}
