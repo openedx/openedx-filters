@@ -40,14 +40,6 @@ See the fragment files in the `changelog.d directory`_.
 
 .. scriv-insert-here
 
-[2.0.2] - 2025-03-05
---------------------
-
-Changed
-~~~~~~~
-
-* Add sample file
-
 [2.0.1] - 2025-02-18
 --------------------
 
