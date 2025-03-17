@@ -9,7 +9,7 @@ asgiref==3.8.1
     #   -r requirements/quality.txt
     #   django
     #   django-stubs
-astroid==3.3.8
+astroid==3.3.9
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -63,7 +63,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.6.12
+coverage[toml]==7.7.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -73,7 +73,7 @@ cryptography==44.0.2
     #   secretstorage
 ddt==1.7.2
     # via -r requirements/quality.txt
-diff-cover==9.2.3
+diff-cover==9.2.4
     # via -r requirements/dev.in
 dill==0.3.9
     # via
@@ -83,7 +83,7 @@ distlib==0.3.9
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==4.2.19
+django==4.2.20
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
@@ -107,7 +107,7 @@ edx-lint==5.6.0
     # via -r requirements/quality.txt
 edx-opaque-keys[django]==2.11.0
     # via -r requirements/quality.txt
-filelock==3.17.0
+filelock==3.18.0
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -149,7 +149,7 @@ jeepney==0.9.0
     #   -r requirements/quality.txt
     #   keyring
     #   secretstorage
-jinja2==3.1.5
+jinja2==3.1.6
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -233,7 +233,7 @@ pygments==2.19.1
     #   diff-cover
     #   readme-renderer
     #   rich
-pylint==3.3.4
+pylint==3.3.5
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -253,7 +253,7 @@ pylint-plugin-utils==0.8.2
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pymongo==4.11.1
+pymongo==4.11.2
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
@@ -334,7 +334,7 @@ tomlkit==0.13.2
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.24.1
+tox==4.24.2
     # via -r requirements/ci.txt
 twine==6.1.0
     # via -r requirements/quality.txt
@@ -355,7 +355,7 @@ urllib3==2.2.3
     #   -r requirements/quality.txt
     #   requests
     #   twine
-virtualenv==20.29.2
+virtualenv==20.29.3
     # via
     #   -r requirements/ci.txt
     #   tox
