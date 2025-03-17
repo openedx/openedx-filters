@@ -41,8 +41,8 @@ jobs:
       - name: Get current and new version
         id: version
         run: |
-          echo "NEW_VERSION=$(bump-my-version show --increment $TAG new_version)" >> $GITHUB_OUTPUT
           echo "CURRENT_VERSION=$(bump-my-version show current_version)" >> $GITHUB_OUTPUT
+          echo "NEW_VERSION=$(bump-my-version show --increment $TAG new_version)" >> $GITHUB_OUTPUT
 
       - name: Bump version
         run: bump-my-version bump $TAG
