@@ -50,14 +50,12 @@ jobs:
       - name: Collect changelog
         run: make changelog
 
-      - name: Commit changes
+      - name: Commit changes and create tag
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           branch: ${{ github.ref }}
           commit_message: "chore: bump version ${{ steps.version.outputs.CURRENT_VERSION }} → ${{ steps.version.outputs.NEW_VERSION }}"
-
-      - name: Create tag
-        run: git tag "v${{ steps.version.outputs.NEW_VERSION }}"
+          tagging_message: "v${{ steps.version.outputs.NEW_VERSION }}"
 
       - name: Create GitHub release
         run: scriv github-release --repo=openedx/openedx-filters
