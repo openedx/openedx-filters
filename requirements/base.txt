@@ -16,7 +16,7 @@ edx-opaque-keys[django]==2.11.0
     # via -r requirements/base.in
 pbr==6.1.1
     # via stevedore
-pymongo==4.11.2
+pymongo==4.11.3
     # via edx-opaque-keys
 sqlparse==0.5.3
     # via django
