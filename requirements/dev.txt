@@ -225,8 +225,6 @@ pycparser==2.22
     # via
     #   -r requirements/quality.txt
     #   cffi
-pydocstyle==6.3.0
-    # via -r requirements/quality.txt
 pygments==2.19.1
     # via
     #   -r requirements/quality.txt
@@ -305,6 +303,8 @@ rich==13.9.4
     # via
     #   -r requirements/quality.txt
     #   twine
+ruff==0.9.8
+    # via -r requirements/quality.txt
 secretstorage==3.3.3
     # via
     #   -r requirements/quality.txt
@@ -313,10 +313,6 @@ six==1.17.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-snowballstemmer==2.2.0
-    # via
-    #   -r requirements/quality.txt
-    #   pydocstyle
 sqlparse==0.5.3
     # via
     #   -r requirements/quality.txt
