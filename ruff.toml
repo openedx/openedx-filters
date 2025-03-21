@@ -1,9 +1,12 @@
 [lint]
 select = [
     "D", # pydocstyle
+    "E", # pycodestyle
+    "I", # isort
 ]
 
 ignore = [
+    # pydocstyle
     "D101", # Missing docstring in public class
     "D102", # Missing docstring in public method
     "D200", # One-line docstring should fit on one line
@@ -26,3 +29,7 @@ ignore = [
     "D414", # Section has no content
     "D415", # First line should end with a period, question mark, or exclamation point
 ]
+
+[lint.pycodestyle]
+max-line-length = 120
+max-doc-length = 120
