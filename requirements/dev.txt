@@ -212,8 +212,10 @@ pluggy==1.5.0
     #   diff-cover
     #   pytest
     #   tox
-pycodestyle==2.13.0
-    # via -r requirements/quality.txt
+pycparser==2.22
+    # via
+    #   -r requirements/quality.txt
+    #   cffi
 pygments==2.19.1
     # via
     #   -r requirements/quality.txt

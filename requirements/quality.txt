@@ -72,9 +72,7 @@ iniconfig==2.1.0
     #   -r requirements/test.txt
     #   pytest
 isort==6.0.1
-    # via
-    #   -r requirements/quality.in
-    #   pylint
+    # via pylint
 jaraco-classes==3.4.0
     # via keyring
 jaraco-context==6.0.1
@@ -126,8 +124,8 @@ pluggy==1.5.0
     # via
     #   -r requirements/test.txt
     #   pytest
-pycodestyle==2.13.0
-    # via -r requirements/quality.in
+pycparser==2.22
+    # via cffi
 pygments==2.19.1
     # via
     #   readme-renderer
