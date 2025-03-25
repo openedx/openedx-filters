@@ -62,7 +62,7 @@ upgrade:  ## update the requirements/*.txt files with the latest packages satisf
 quality: ## check coding style with pycodestyle and pylint
 	pylint openedx_filters test_utils *.py
 	mypy
-	ruff check test_utils openedx_filters --preview
+	ruff check test_utils openedx_filters
 	python setup.py bdist_wheel
 	twine check dist/*
 	make selfcheck
