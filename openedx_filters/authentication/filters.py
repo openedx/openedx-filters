@@ -1,7 +1,7 @@
 """
 Package where filters related to the ``authentication`` architectural subdomain are implemented.
 """
-from typing import Any
+from typing import Any, Dict, Tuple
 
 from openedx_filters.tooling import OpenEdxPublicFilter
 
@@ -26,7 +26,7 @@ class SessionJWTCreationRequested(OpenEdxPublicFilter):
     filter_type = "org.openedx.authentication.session.jwt.creation.requested.v1"
 
     @classmethod
-    def run_filter(cls, payload: dict, user: Any):
+    def run_filter(cls, payload: Dict[str, Any], user: Any) -> Tuple[Dict[str, Any], Any]:
         """
         Process the inputs using the configured pipeline steps to modify the payload of the JWT token.
 
@@ -40,4 +40,4 @@ class SessionJWTCreationRequested(OpenEdxPublicFilter):
                 - User: the user of the JWT token.
         """
         data = super().run_pipeline(payload=payload, user=user)
-        return data.get("payload"), data.get("user")
+        return data.get("payload", {}), data.get("user")

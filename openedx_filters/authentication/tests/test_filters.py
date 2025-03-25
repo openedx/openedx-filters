@@ -1,11 +1,12 @@
 """
 Tests for ``authentication`` subdomain filters.
 """
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from django.test import TestCase
 
 from openedx_filters.authentication.filters import SessionJWTCreationRequested
+from openedx_filters.tooling import OpenEdxPublicFilter
 
 
 class TestSessionJWTCreationRequested(TestCase):
@@ -23,10 +24,17 @@ class TestSessionJWTCreationRequested(TestCase):
         Expected behavior:
             - The filter should return the payload and the user.
         """
-        payload = Mock()
+        payload = {'key': 'value'}
+        modified_payload = {'key': 'modified_value'}
         user = Mock()
 
-        payload_result, user_result = SessionJWTCreationRequested.run_filter(payload, user)
+        with patch.object(
+            OpenEdxPublicFilter,
+            'run_pipeline',
+            return_value={"payload": modified_payload, "user": user},
+        ) as mock_run_pipeline:
+            payload_result, user_result = SessionJWTCreationRequested.run_filter(payload, user)
 
-        self.assertEqual(payload, payload_result)
-        self.assertEqual(user, user_result)
+            mock_run_pipeline.assert_called_once_with(payload=payload, user=user)
+            self.assertEqual(modified_payload, payload_result)
+            self.assertEqual(user, user_result)
