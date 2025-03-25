@@ -56,7 +56,7 @@ upgrade:  ## update the requirements/*.txt files with the latest packages satisf
 
 quality: ## Check code quality
 	mypy
-	ruff check test_utils openedx_filters --preview
+	ruff check test_utils openedx_filters
 	python setup.py bdist_wheel
 	twine check dist/*
 	make selfcheck
