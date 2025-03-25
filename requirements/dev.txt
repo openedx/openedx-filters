@@ -225,8 +225,6 @@ pluggy==1.5.0
     #   diff-cover
     #   pytest
     #   tox
-pycodestyle==2.12.1
-    # via -r requirements/quality.txt
 pycparser==2.22
     # via
     #   -r requirements/quality.txt
@@ -312,7 +310,7 @@ rich==13.9.4
     #   twine
 ruff==0.11.2
     # via -r requirements/quality.txt
-scriv==1.5.1
+scriv==1.6.1
     # via -r requirements/dev.in
 secretstorage==3.3.3
     # via
