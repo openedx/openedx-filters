@@ -1,0 +1,3 @@
+Added
+~~~~~
+* Migrate to ``scriv`` for manage changelog. (by @bryanttv)

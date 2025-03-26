@@ -1,0 +1,3 @@
+Changed
+~~~~~~~
+* Updated documentation titles and styles to follow the Open edX style guide. (by @Apgomeznext)
