@@ -54,16 +54,12 @@ upgrade:  ## update the requirements/*.txt files with the latest packages satisf
 	$(PIP_COMPILE) -o requirements/ci.txt requirements/ci.in
 	$(PIP_COMPILE) -o requirements/dev.txt requirements/dev.in
 
-quality: ## check coding style with pycodestyle and pylint
-	pylint openedx_filters test_utils *.py
+quality: ## Check code quality
 	mypy
-	pycodestyle openedx_filters  *.py
-	ruff check openedx_filters *.py
-	isort --check-only --diff --recursive test_utils openedx_filters *.py test_settings.py
+	ruff check test_utils openedx_filters
 	python setup.py bdist_wheel
 	twine check dist/*
 	make selfcheck
-
 
 requirements: ## install development environment requirements
 	pip install -r requirements/pip.txt
