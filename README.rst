@@ -110,8 +110,8 @@ Please do not report security issues in public. Please email security@openedx.or
     :target: https://pypi.python.org/pypi/openedx-filters/
     :alt: PyPI
 
-.. |ci-badge| image:: https://github.com/openedx/openedx-filters/workflows/Python%20CI/badge.svg?branch=main
-    :target: https://github.com/openedx/openedx-filters/actions
+.. |ci-badge| image:: https://github.com/openedx/openedx-filters/actions/workflows/ci.yml/badge.svg?branch=main
+    :target: https://github.com/openedx/openedx-filters/actions/workflows/ci.yml
     :alt: CI
 
 .. |codecov-badge| image:: https://codecov.io/github/openedx/openedx-filters/coverage.svg?branch=main
