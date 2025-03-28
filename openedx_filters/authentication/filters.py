@@ -25,7 +25,6 @@ class SessionJWTCreationRequested(OpenEdxPublicFilter):
 
     filter_type = "org.openedx.authentication.session.jwt.creation.requested.v1"
 
-    @classmethod
     def run_filter(cls, payload: Dict[str, Any], user: Any) -> Tuple[Dict[str, Any], Any]:
         """
         Process the inputs using the configured pipeline steps to modify the payload of the JWT token.

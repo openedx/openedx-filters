@@ -3,13 +3,11 @@ Tests for ``authentication`` subdomain filters.
 """
 from unittest.mock import Mock, patch
 
-from django.test import TestCase
-
 from openedx_filters.authentication.filters import SessionJWTCreationRequested
 from openedx_filters.tooling import OpenEdxPublicFilter
 
 
-class TestSessionJWTCreationRequested(TestCase):
+class TestSessionJWTCreationRequested():
     """
     Test class to verify standard behavior of the filters located in rendering views.
     You'll find test suites for:
