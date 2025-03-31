@@ -37,6 +37,7 @@ Where:
 - ``fail_silently`` is a boolean flag indicating whether the pipeline should
   continue executing the next steps when a runtime exception is raised by a
   pipeline step.
+
   - If ``True``, when a pipeline step raises a runtime exception (e.g.,
     ``ImportError`` or ``AttributeError``) that the developer does not
     intentionally raise during the filter's execution, the exception will not
@@ -44,6 +45,7 @@ Where:
     executed.
   - If ``False``, the exception will be propagated, and the execution will stop
     returning control to the caller.
+
 - ``pipeline`` is a list of paths for each pipeline step. Each path is a string
   with the following format: ``module.path.PipelineStepClassName``. The module
   path is the path to the module where the pipeline step class was implemented
