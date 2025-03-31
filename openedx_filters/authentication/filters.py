@@ -39,4 +39,4 @@ class SessionJWTCreationRequested(OpenEdxPublicFilter):
                 - User: the user of the JWT token.
         """
         data = super().run_pipeline(payload=payload, user=user)
-        return data.get("payload", {}), data.get("user")
+        return data.get('payload', {}), data.get('user')

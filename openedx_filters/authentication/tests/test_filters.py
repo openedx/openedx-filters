@@ -29,10 +29,30 @@ class TestSessionJWTCreationRequested():
         with patch.object(
             OpenEdxPublicFilter,
             'run_pipeline',
-            return_value={"payload": modified_payload, "user": user},
+            return_value={'payload': modified_payload, 'user': user},
         ) as mock_run_pipeline:
             payload_result, user_result = SessionJWTCreationRequested.run_filter(payload, user)
 
             mock_run_pipeline.assert_called_once_with(payload=payload, user=user)
             self.assertEqual(modified_payload, payload_result)
+            self.assertEqual(user, user_result)
+
+    def test_session_jwt_creation_requested_missing_payload(self):
+        """
+        Test SessionJWTCreationRequested filter behavior when the payload is missing.
+
+        Expected behavior:
+            - The filter should return an empty payload and the user.
+        """
+        user = Mock()
+
+        with patch.object(
+            OpenEdxPublicFilter,
+            'run_pipeline',
+            return_value={'payload': {}, 'user': user},
+        ) as mock_run_pipeline:
+            payload_result, user_result = SessionJWTCreationRequested.run_filter(None, user)
+
+            mock_run_pipeline.assert_called_once_with(payload=None, user=user)
+            self.assertEqual({}, payload_result)
             self.assertEqual(user, user_result)
