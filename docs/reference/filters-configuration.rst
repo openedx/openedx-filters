@@ -15,7 +15,10 @@ The :term:`filter configuration` is a dictionary used to configure the pipeline 
                 "module.path.PipelineStep1",
                 # Add more steps as needed
                 "module.path.PipelineStepN",
-            ]
+            ],
+            "other_option": "value1",
+            "another_option": "value2",
+            # Add other options as needed
         },
     }
 
@@ -23,9 +26,10 @@ Where:
 
 - ``FILTER_TYPE`` is the :term:`filter type`.
 - ``fail_silently`` is a boolean flag indicating whether the pipeline should continue executing the next steps when a runtime exception is raised by a pipeline step.
-   - If ``True``, when a pipeline step raises a runtime exception (e.g., ``ImportError`` or ``AttributeError``) that the developer does not intentionally raise during the filter’s execution, the exception will not be propagated, and the execution will resume, i.e., the next steps will be executed.
+   - If ``True``, when a pipeline step raises a runtime exception (e.g., ``ImportError`` or ``AttributeError``) that the developer does not intentionally raise during the filter's execution, the exception will not be propagated, and the execution will resume, i.e., the next steps will be executed.
    - If ``False``, the exception will be propagated, and the execution will stop returning control to the caller.
 - ``pipeline`` is a list of paths for each pipeline step. Each path is a string with the following format: ``module.path.PipelineStepClassName``. The module path is the path to the module where the pipeline step class was implemented and the class name is the name of the class that implements the ``run_filter`` method to be executed when the filter is triggered.
+- ``other_option`` and ``another_option`` are placeholders for any other options that may be required by the pipeline steps.
 
 With this configuration:
 
