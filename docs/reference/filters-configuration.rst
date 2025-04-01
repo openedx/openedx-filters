@@ -142,10 +142,8 @@ With this configuration:
         "<filter_type>": "non_existing_module.PipelineStep",
     }
 
-Triggering the filter will behave as follows:
-
-- The pipeline tooling will catch the ``ImportError`` exception raised by the
-  step and return control to the caller.
+The pipeline tooling will catch the ``ImportError`` exception raised by the
+step and return control to the caller.
 
 With this configuration:
 
@@ -155,10 +153,8 @@ With this configuration:
         "<filter_type>": "existing_module.NonExistingPipelineStep",
     }
 
-Triggering the filter will behave as follows:
-
-- The pipeline tooling will catch the ``AttributeError`` exception raised by
-  the step and return control to the caller.
+The pipeline tooling will catch the ``AttributeError`` exception raised by the
+step and return control to the caller.
 
 With this configuration:
 
@@ -168,9 +164,7 @@ With this configuration:
         "<filter_type>": "existing_module.PipelineStep",
     }
 
-Triggering the filter will behave as follows:
-
-- The pipeline tooling will execute the step successfully and return the result.
+The pipeline tooling will execute the step successfully and return the result.
 
 For more details on the configuration, see :ref:`ADR-2`.
 
