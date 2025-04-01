@@ -442,3 +442,21 @@ class VerticalBlockChildRenderStarted(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(block=block, context=context)
         return data.get("block"), data.get("context")
+
+
+class GetEnrollEmailNotificationExtraParameters(OpenEdxPublicFilter):
+    """
+    Custom class used to provide with extra parameters to email enroll notificatios.
+    """
+
+    filter_type = "org.openedx.learning.course.enrollment.email-notification-extra-params.v1"
+
+    @classmethod
+    def run_filter(cls, course_key):
+        """
+        Execute a filter with the signature specified.
+
+        Arguments:
+            course_key (CourseKey): course key associated with the enrollment.
+        """
+        return super().run_pipeline(course_key=course_key)
