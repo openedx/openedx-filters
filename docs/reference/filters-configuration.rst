@@ -140,10 +140,8 @@ With this configuration:
         "<filter_type>": "non_existing_module.PipelineStep",
     }
 
-Triggering the filter will behave as follows:
-
-- The pipeline tooling will catch the ``ImportError`` exception raised by the
-  step and return control to the caller.
+The pipeline tooling will catch the ``ImportError`` exception raised by the
+step and return control to the caller.
 
 With this configuration:
 
@@ -153,10 +151,8 @@ With this configuration:
         "<filter_type>": "existing_module.NonExistingPipelineStep",
     }
 
-Triggering the filter will behave as follows:
-
-- The pipeline tooling will catch the ``AttributeError`` exception raised by
-  the step and return control to the caller.
+The pipeline tooling will catch the ``AttributeError`` exception raised by the
+step and return control to the caller.
 
 With this configuration:
 
@@ -166,9 +162,7 @@ With this configuration:
         "<filter_type>": "existing_module.PipelineStep",
     }
 
-Triggering the filter will behave as follows:
-
-- The pipeline tooling will execute the step successfully and return the result.
+The pipeline tooling will execute the step successfully and return the result.
 
 The decisions about the configuration of filters are detailed in
 :doc:`../decisions/0002-hooks-filter-config-location`.
