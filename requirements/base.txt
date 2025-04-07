@@ -22,7 +22,7 @@ sqlparse==0.5.3
     # via django
 stevedore==5.4.1
     # via edx-opaque-keys
-typing-extensions==4.12.2
+typing-extensions==4.13.1
     # via edx-opaque-keys
 
 # The following packages are considered to be unsafe in a requirements file:
