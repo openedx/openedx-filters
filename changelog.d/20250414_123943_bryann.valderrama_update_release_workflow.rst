@@ -1,0 +1,4 @@
+Changed
+~~~~~~~
+* Update ``release.yml`` workflow to create PR with release changes. (by @bryanttv in #284)
+* Update ``new_fragment.rst.j2`` template to include PR number in the changes. (by @bryanttv in #284)
