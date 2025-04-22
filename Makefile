@@ -47,6 +47,13 @@ upgrade:  ## update the requirements/*.txt files with the latest packages satisf
 	$(PIP_COMPILE) -o requirements/ci.txt requirements/ci.in
 	$(PIP_COMPILE) -o requirements/dev.txt requirements/dev.in
 
+	# Delete django, from test.txt so that tox can control
+	# Django version.
+	sed -i.tmp '/^[dD]jango==/d' requirements/test.txt
+	sed -i.tmp '/^djangorestframework==/d' requirements/test.txt
+	rm requirements/test.txt.tmp
+
+
 quality: ## check coding style with pycodestyle and pylint
 	pylint openedx_filters test_utils *.py
 	pycodestyle openedx_filters  *.py

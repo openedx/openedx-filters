@@ -13,8 +13,15 @@ Change Log
 
 Unreleased
 ----------
-* Configuration for automatic filters docs generation.
 
+[1.13.0] - 2025--04-23
+---------------------
+
+Added
+~~~~~
+
+* Adding django5.2 support.
+* Configuration for automatic filters docs generation.
 
 [1.12.0] - 2024-12-12
 ---------------------
