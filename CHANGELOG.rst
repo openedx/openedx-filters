@@ -32,11 +32,18 @@ Change Log
 Unreleased
 ----------
 
+[2.1.0] - 2025-04-23
+
+Added
+~~~~~
+
+* Added django52 support.
+* Also releasing pending items.
+
 See the fragment files in the `changelog.d directory`_.
-
 .. _changelog.d directory: https://github.com/openedx/openedx-filters/tree/master/changelog.d
-
 .. scriv-insert-here
+
 
 [2.0.1] - 2025-02-18
 --------------------
