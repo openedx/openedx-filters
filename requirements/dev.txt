@@ -32,12 +32,16 @@ certifi==2025.4.26
     # via
     #   -r requirements/quality.txt
     #   requests
+cffi==1.17.1
+    # via
+    #   -r requirements/quality.txt
+    #   cryptography
 chardet==5.2.0
     # via
     #   -r requirements/ci.txt
     #   diff-cover
     #   tox
-charset-normalizer==3.4.1
+charset-normalizer==3.4.2
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -67,6 +71,10 @@ coverage[toml]==7.8.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
+cryptography==44.0.3
+    # via
+    #   -r requirements/quality.txt
+    #   secretstorage
 ddt==1.7.2
     # via -r requirements/quality.txt
 diff-cover==9.2.4
@@ -140,6 +148,11 @@ jaraco-functools==4.1.0
     # via
     #   -r requirements/quality.txt
     #   keyring
+jeepney==0.9.0
+    # via
+    #   -r requirements/quality.txt
+    #   keyring
+    #   secretstorage
 jinja2==3.1.6
     # via
     #   -r requirements/quality.txt
@@ -214,13 +227,17 @@ pluggy==1.5.0
     #   tox
 pycodestyle==2.13.0
     # via -r requirements/quality.txt
+pycparser==2.22
+    # via
+    #   -r requirements/quality.txt
+    #   cffi
 pygments==2.19.1
     # via
     #   -r requirements/quality.txt
     #   diff-cover
     #   readme-renderer
     #   rich
-pylint==3.3.6
+pylint==3.3.7
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -240,7 +257,7 @@ pylint-plugin-utils==0.8.2
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pymongo==4.12.0
+pymongo==4.12.1
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
@@ -293,10 +310,14 @@ rich==14.0.0
     # via
     #   -r requirements/quality.txt
     #   twine
-ruff==0.11.7
+ruff==0.11.8
     # via -r requirements/quality.txt
 scriv==1.7.0
     # via -r requirements/dev.in
+secretstorage==3.3.3
+    # via
+    #   -r requirements/quality.txt
+    #   keyring
 six==1.17.0
     # via
     #   -r requirements/quality.txt
