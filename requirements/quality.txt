@@ -9,7 +9,7 @@ asgiref==3.8.1
     #   -r requirements/test.txt
     #   django
     #   django-stubs
-astroid==3.3.9
+astroid==3.3.10
     # via
     #   pylint
     #   pylint-celery
@@ -17,9 +17,11 @@ backports-tarfile==1.2.0
     # via jaraco-context
 certifi==2025.4.26
     # via requests
-charset-normalizer==3.4.1
+cffi==1.17.1
+    # via cryptography
+charset-normalizer==3.4.2
     # via requests
-click==8.1.8
+click==8.2.0
     # via
     #   -r requirements/test.txt
     #   click-log
@@ -35,11 +37,13 @@ coverage[toml]==7.8.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
+cryptography==44.0.3
+    # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
 dill==0.4.0
     # via pylint
-django==4.2.20
+django==4.2.21
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -81,6 +85,10 @@ jaraco-context==6.0.1
     # via keyring
 jaraco-functools==4.1.0
     # via keyring
+jeepney==0.9.0
+    # via
+    #   keyring
+    #   secretstorage
 jinja2==3.1.6
     # via
     #   -r requirements/test.txt
@@ -120,7 +128,7 @@ pbr==6.1.1
     # via
     #   -r requirements/test.txt
     #   stevedore
-platformdirs==4.3.7
+platformdirs==4.3.8
     # via pylint
 pluggy==1.5.0
     # via
@@ -128,11 +136,13 @@ pluggy==1.5.0
     #   pytest
 pycodestyle==2.13.0
     # via -r requirements/quality.in
+pycparser==2.22
+    # via cffi
 pygments==2.19.1
     # via
     #   readme-renderer
     #   rich
-pylint==3.3.6
+pylint==3.3.7
     # via
     #   edx-lint
     #   pylint-celery
@@ -146,7 +156,7 @@ pylint-plugin-utils==0.8.2
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.12.0
+pymongo==4.12.1
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -180,8 +190,10 @@ rfc3986==2.0.0
     # via twine
 rich==14.0.0
     # via twine
-ruff==0.11.7
+ruff==0.11.9
     # via -r requirements/quality.in
+secretstorage==3.3.3
+    # via keyring
 six==1.17.0
     # via edx-lint
 sqlparse==0.5.3
