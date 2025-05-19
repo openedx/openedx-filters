@@ -6,7 +6,7 @@
 #
 asgiref==3.8.1
     # via django
-django==4.2.20
+django==4.2.21
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
@@ -16,7 +16,7 @@ edx-opaque-keys[django]==3.0.0
     # via -r requirements/base.in
 pbr==6.1.1
     # via stevedore
-pymongo==4.12.0
+pymongo==4.13.0
     # via edx-opaque-keys
 sqlparse==0.5.3
     # via django
