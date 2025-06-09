@@ -1,5 +1,7 @@
 .. include:: ../common_refs.rst
 
+.. _Create a Pipeline Step:
+
 Create a Pipeline Step
 ######################
 
@@ -12,9 +14,9 @@ Assumptions
 
 - You have a development environment set up using `Tutor`_.
 - You have a basic understanding of Python and Django.
-- You understand the concept of filters or have reviewed the relevant :doc:`/concepts/index` docs.
-- You are familiar with the terminology used in the project, such as the term :term:`Filter Type`. If not, you can review the :doc:`../reference/glossary` docs.
-- You have reviewed the :doc:`../decisions/0007-filter-design-practices` ADR.
+- You understand the concept of filters or have reviewed the relevant :ref:`Concepts` docs.
+- You are familiar with the terminology used in the project, such as the term :term:`Filter Type`. If not, you can review the :ref:`Glossary` docs.
+- You have reviewed the :ref:`ADR-7` ADR.
 - You understand the use case for the filter and the specific logic you want to implement in the pipeline step.
 
 Steps
@@ -27,7 +29,7 @@ Step 1: Understand your Use Case and Identify the Filter to Use
 
 Before creating a pipeline step, you should understand your use case for the filter and the specific logic you want to implement in the pipeline step. In our example, we want to prevent users from enrolling in a course if they do not have a valid email address. We will create a pipeline step that checks if the user's email address is valid and raises an exception if it is not.
 
-You should review the :doc:`list of filters <../reference/filters>` available in the Open edX platform and identify the filter that best fits your use case. In our example, we will use the |CourseEnrollmentStarted| filter to implement the logic for our use case. You should review the filter's arguments to understand the data that will be passed to the pipeline step and the expected output. This will help you define the pipeline step's logic and signature.
+You should review the :ref:`list of filters <Existing Filters>` available in the Open edX platform and identify the filter that best fits your use case. In our example, we will use the |CourseEnrollmentStarted| filter to implement the logic for our use case. You should review the filter's arguments to understand the data that will be passed to the pipeline step and the expected output. This will help you define the pipeline step's logic and signature.
 
 Step 2: Install Open edX Filters
 =================================

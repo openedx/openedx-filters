@@ -20,7 +20,7 @@ How Do Open edX Filters Work?
 
 Open edX Filters are implemented using an accumulative pipeline mechanism, which executes a series of functions in a specific order. Each function in the pipeline receives the output of the previous function as input, allowing developers to build complex processing logic by chaining multiple functions together. The pipeline ensures that the order of execution is maintained and that the result of a previous function is available to the current one in the form of a pipeline.
 
-This pipeline mechanism is implemented by the |OpenEdxPublicFilter| class, which provides the necessary tools to fulfill the Open edX Filters requirements mentioned previously, such as ordered execution, configurability, interchangeable functions, argument definition, and cumulative behavior. This enables filters to modify the flow of the application dynamically during runtime based on predefined business logic or conditions. You can review the :doc:`Open edX Filters Tooling <../reference/filters-tooling>` for more information on the available methods and classes.
+This pipeline mechanism is implemented by the |OpenEdxPublicFilter| class, which provides the necessary tools to fulfill the Open edX Filters requirements mentioned previously, such as ordered execution, configurability, interchangeable functions, argument definition, and cumulative behavior. This enables filters to modify the flow of the application dynamically during runtime based on predefined business logic or conditions. You can review the :ref:`Open edX Filters Tooling` for more information on the available methods and classes.
 
 Architectural Diagram
 *********************
@@ -85,7 +85,7 @@ How Are Open edX Filters Used?
 
 Developers can implement functions in an `Open edX Django plugin`_, configure them for a particular filter in the ``OPEN_EDX_FILTERS_CONFIG`` setting, and modify the application flow when the filter in question is invoked by the process in execution. These functions can change the application's behavior by altering data, adding new data, or stopping execution by raising exceptions. For example, a filter can stop a student's enrollment if certain conditions, such as business rules, are not met.
 
-For more information on how to use Open edX Filters, refer to the :doc:`how-tos section <../how-tos/index>`.
+For more information on how to use Open edX Filters, refer to the :ref:`how-tos section <How-tos>`.
 
 .. _Hooks Extension Framework: https://open-edx-proposals.readthedocs.io/en/latest/oep-0050-hooks-extension-framework.html
 .. _Django Signals Documentation: https://docs.djangoproject.com/en/4.2/topics/signals/

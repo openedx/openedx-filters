@@ -1,13 +1,15 @@
 .. include:: ../common_refs.rst
 
+.. _Create a New Open edX Filter with Long-Term Support:
+
 Create a New Open edX Filter with Long-Term Support
 ####################################################
 
-Open edX Filters are supported and maintained by the Open edX community. This mechanism is designed to be extensible and flexible to allow developers to create new filters to implement custom behavior in the application. This guide describes how to create a new Open edX filter with long-term support by following the practices outlined in the :doc:`../decisions/0007-filter-design-practices` ADR.
+Open edX Filters are supported and maintained by the Open edX community. This mechanism is designed to be extensible and flexible to allow developers to create new filters to implement custom behavior in the application. This guide describes how to create a new Open edX filter with long-term support by following the practices outlined in the :ref:`ADR-7` ADR.
 
 Filters designed with long-support follow closely the practices described in the ADR to minimize breaking changes and maximize compatibility and support for future Open edX versions.
 
-.. note:: Before starting, ensure you've reviewed the documentation on :ref:`docs.openedx.org:Hooks Extension Framework`, this documentation helps you decide if creating a new filter is necessary. You should also review the documentation on :doc:`../decisions/0007-filter-design-practices` to understand the practices that should be followed when creating a new filter.
+.. note:: Before starting, ensure you've reviewed the documentation on :ref:`docs.openedx.org:Hooks Extension Framework`, this documentation helps you decide if creating a new filter is necessary. You should also review the documentation on :ref:`ADR-7` to understand the practices that should be followed when creating a new filter.
 
 Throughout this guide, we will use an example of creating a new filter that will be triggered when a user enrolls in a course from the course about page to better illustrate the steps involved in creating a new filter.
 
@@ -30,12 +32,12 @@ Assumptions
 
 - You have a development environment set up using `Tutor`_.
 - You have a basic understanding of Python and Django.
-- You understand the concept of filters or have reviewed the relevant :doc:`/concepts/index` docs.
-- You are familiar with the terminology used in the project, such as the term :term:`Filter Type`. If not, you can review the :doc:`../reference/glossary` docs.
-- You have reviewed the :doc:`../decisions/0007-filter-design-practices` ADR.
+- You understand the concept of filters or have reviewed the relevant :ref:`Concepts` docs.
+- You are familiar with the terminology used in the project, such as the term :term:`Filter Type`. If not, you can review the :ref:`Glossary` docs.
+- You have reviewed the :ref:`ADR-7` ADR.
 - You have identified that you need to create a new filter and have a use case for the filter.
 
-.. warning:: You only need to create a new filter if you have a use case that cannot be implemented using the existing filters. Before creating a new filter, review the :doc:`existing filters <../reference/filters>` to see if any of them can be used to implement your use case.
+.. warning:: You only need to create a new filter if you have a use case that cannot be implemented using the existing filters. Before creating a new filter, review the :ref:`existing filters <Existing Filters>` to see if any of them can be used to implement your use case.
 
 Steps
 *******
@@ -60,9 +62,9 @@ If you are confident that the filter is beneficial to the community, you can pro
 Step 2: Place Your Filter in an Architecture Subdomain
 ==========================================================
 
-To implement the new filter in the library, you should understand the purpose of the filter and where it fits in the Open edX main :term:`architecture subdomains`. This will help you place the filter in the right architecture subdomain and ensure that the filter is consistent with the framework's definitions. For more details on the Open edX Architectural Subdomains, refer to the :doc:`../reference/architecture-subdomains`.
+To implement the new filter in the library, you should understand the purpose of the filter and where it fits in the Open edX main :term:`architecture subdomains`. This will help you place the filter in the right architecture subdomain and ensure that the filter is consistent with the framework's definitions. For more details on the Open edX Architectural Subdomains, refer to the :ref:`Architecture Subdomains Reference`.
 
-In our example, the filter is related to the enrollment process, which is part of the ``learning`` subdomain. Therefore, the filter should be placed in the ``/learning`` module in the library. The subdomain is also used as part of the :term:`filter type <Filter Type>`, which is used to identify the filter. The filter type should be unique and follow the naming convention for filter types specified in the :doc:`../decisions/0004-filters-naming-and-versioning` ADR.
+In our example, the filter is related to the enrollment process, which is part of the ``learning`` subdomain. Therefore, the filter should be placed in the ``/learning`` module in the library. The subdomain is also used as part of the :term:`filter type <Filter Type>`, which is used to identify the filter. The filter type should be unique and follow the naming convention for filter types specified in the :ref:`ADR-4` ADR.
 
 For the enrollment filter, the filter type could be ``org.openedx.learning.course.enrollment.v1``, where ``learning`` is the subdomain.
 
@@ -161,12 +163,12 @@ In our example, the filter definition could be implemented as follows:
             )
             return data.get("user"), data.get("course_key"), data.get("mode")
 
-- The ``CourseEnrollmentStarted`` class is the filter definition that inherits from the ``OpenEdxPublicFilter`` class. The name of the class is referred as the filter name and should be descriptive of the filter's purpose. See :doc:`../reference/naming-suggestions` for more information.
+- The ``CourseEnrollmentStarted`` class is the filter definition that inherits from the ``OpenEdxPublicFilter`` class. The name of the class is referred as the filter name and should be descriptive of the filter's purpose. See :ref:`Naming Suggestions` for more information.
 - The ``filter_type`` attribute should be set to the filter type that was identified in the previous steps. This attribute is used to identify the filter in the :term:`filter configuration`.
 - The ``PreventEnrollment`` class is a custom exception that is raised when the filter should halt the application behavior.
 - The ``run_filter`` method is the main method of the filter that is called when the filter is triggered. The method should call the |OpenEdxPublicFilter.run_pipeline| method, passing down the input arguments and returning the final output of the filter.
 - Use arguments names that are consistent with the triggering logic to avoid confusion and improve readability.
-- The docstrings should provide context on the purpose of the filter, the filter type, the triggering logic, and the arguments and return types of the ``run_filter`` method. See :doc:`../reference/documenting-filters-classes` for more details on how to document these definitions.
+- The docstrings should provide context on the purpose of the filter, the filter type, the triggering logic, and the arguments and return types of the ``run_filter`` method. See :ref:`Documenting Filters Classes` for more details on how to document these definitions.
 - Annotate the arguments and return types of the ``run_filter`` method to provide clarity and safety.
 
 .. note:: Implement exceptions that are related to the filter behavior and specify how the filter should modify the application behavior with each exception. The caller should handle each exception differently based on the exception's  purpose. For example, the caller should halt the application behavior when the ``PreventEnrollment`` exception is raised.
@@ -196,7 +198,7 @@ Here is an example of how the filter could be triggered in the ``enroll`` method
 Step 7: Implement Your Pipeline Steps
 ========================================
 
-Implementing pipeline steps allows you to modify the application's behavior when the filter is triggered. Pipeline steps are a sequence of steps that are executed in a specific order to modify the behavior of the application. You can configure them with the :term:`filter configuration` to define the sequence of steps that are executed when the filter is triggered. Follow the steps in the :doc:`../how-tos/create-a-pipeline-step` guide to implement the pipeline steps for the filter.
+Implementing pipeline steps allows you to modify the application's behavior when the filter is triggered. Pipeline steps are a sequence of steps that are executed in a specific order to modify the behavior of the application. You can configure them with the :term:`filter configuration` to define the sequence of steps that are executed when the filter is triggered. Follow the steps in the :ref:`Create a Pipeline Step` guide to implement the pipeline steps for the filter.
 
 Step 8: Test the Filter
 ========================
