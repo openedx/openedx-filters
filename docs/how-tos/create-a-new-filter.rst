@@ -7,7 +7,7 @@ Open edX Filters are supported and maintained by the Open edX community. This me
 
 Filters designed with long-support follow closely the practices described in the ADR to minimize breaking changes and maximize compatibility and support for future Open edX versions.
 
-.. note:: Before starting, ensure you've reviewed the documentation on :doc:`docs.openedx.org:developers/concepts/hooks_extension_framework`, this documentation helps you decide if creating a new filter is necessary. You should also review the documentation on :doc:`../decisions/0007-filter-design-practices` to understand the practices that should be followed when creating a new filter.
+.. note:: Before starting, ensure you've reviewed the documentation on :ref:`docs.openedx.org:Hooks Extension Framework`, this documentation helps you decide if creating a new filter is necessary. You should also review the documentation on :doc:`../decisions/0007-filter-design-practices` to understand the practices that should be followed when creating a new filter.
 
 Throughout this guide, we will use an example of creating a new filter that will be triggered when a user enrolls in a course from the course about page to better illustrate the steps involved in creating a new filter.
 
@@ -218,7 +218,7 @@ Step 9: Continue the Contribution Process
 
 After implementing the filter, you should continue the contribution process by creating a pull request in the repository. The pull requests should contain the changes you made to implement the filter, including the filter definition, data attrs, and the places where the filter is triggered.
 
-For more details on how the contribution flow works, refer to the :doc:`docs.openedx.org:developers/concepts/hooks_extension_framework` documentation.
+For more details on how the contribution flow works, refer to the :ref:`docs.openedx.org:Hooks Extension Framework` documentation.
 
 .. _Add Extensibility Mechanism to IDV to Enable Integration of New IDV Vendor Persona: https://openedx.atlassian.net/wiki/spaces/OEPM/pages/4307386369/Proposal+Add+Extensibility+Mechanisms+to+IDV+to+Enable+Integration+of+New+IDV+Vendor+Persona
 .. _test_filters.py: https://github.com/openedx/edx-platform/blob/master/common/djangoapps/student/tests/test_filters.py#L114-L190

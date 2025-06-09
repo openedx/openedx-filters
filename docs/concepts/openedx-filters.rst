@@ -6,7 +6,7 @@ Open edX Filters
 Overview
 *********
 
-As mentioned in the :doc:`docs.openedx.org:developers/concepts/hooks_extension_framework` docs, Open edX filters provide a mechanism for modifying the platform's behavior by altering runtime data or halting execution based on specific conditions. Filters allow developers to implement application flow control based on their business logic or requirements without directly modifying the application code.
+As mentioned in the :ref:`docs.openedx.org:Hooks Extension Framework` docs, Open edX filters provide a mechanism for modifying the platform's behavior by altering runtime data or halting execution based on specific conditions. Filters allow developers to implement application flow control based on their business logic or requirements without directly modifying the application code.
 
 Throughout this document, we will refer to Open edX Filters as filters interchangeably.
 
