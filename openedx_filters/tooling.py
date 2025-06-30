@@ -165,7 +165,7 @@ class OpenEdxPublicFilter:
         Execute filters in order based on the pipeline configuration.
 
         Given a list of pipeline steps, this function will execute them using the Accumulative Pipeline pattern
-        as specified in :doc:`../decisions/0003-hooks-filter-tooling-pipeline`.
+        as specified in :ref:`ADR-3`.
 
         Arguments:
             **kwargs: arguments to be passed to the pipeline steps.

@@ -4,7 +4,7 @@ Real-Life Use Cases for Open edX Filters
 Overview
 **********
 
-As mentioned in the :doc:`docs.openedx.org:developers/concepts/hooks_extension_framework`, Open edX Filters filters can be used when implementing features meant to modify the application's behavior, navigation, or user interaction.
+As mentioned in the :ref:`docs.openedx.org:Hooks Extension Framework`, Open edX Filters filters can be used when implementing features meant to modify the application's behavior, navigation, or user interaction.
 
 To illustrate the different solutions that can be implemented with this approach, we have compiled a list of implementations built using Open edX Filters to address various challenges. The goal of this list is to serve as a reference for extension developers to implement their own solutions based on the community's experience.
 

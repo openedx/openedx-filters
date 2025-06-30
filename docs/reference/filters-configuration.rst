@@ -1,3 +1,5 @@
+.. _Filter Configuration:
+
 Filter Configurations
 #####################
 
@@ -46,7 +48,7 @@ Triggering the filter will behave as follows:
 - The pipeline tooling will catch the ``AttributeError`` exception raised by the second step and continue executing the next steps.
 - The pipeline tooling will execute the third step successfully and then return the result.
 
-For more details on the configuration, see :doc:`../decisions/0002-hooks-filter-config-location`.
+For more details on the configuration, see :ref:`ADR-2`.
 
 **Maintenance chart**
 
