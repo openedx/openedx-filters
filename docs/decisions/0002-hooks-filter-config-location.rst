@@ -1,3 +1,5 @@
+.. _ADR-2:
+
 2. Configuration for filters in the Hooks Extension Framework
 =============================================================
 

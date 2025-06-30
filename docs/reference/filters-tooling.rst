@@ -1,3 +1,5 @@
+.. _Open edX Filters Tooling:
+
 Open edX Filters Tooling
 ##########################
 

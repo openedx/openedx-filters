@@ -1,3 +1,5 @@
+.. _ADR-7:
+
 7. Filters Design Practices
 ###########################
 
