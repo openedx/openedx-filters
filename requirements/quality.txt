@@ -14,7 +14,7 @@ astroid==3.3.11
     #   pylint-celery
 backports-tarfile==1.2.0
     # via jaraco-context
-certifi==2025.7.9
+certifi==2025.7.14
     # via requests
 cffi==1.17.1
     # via cryptography
@@ -48,9 +48,9 @@ django==4.2.23
     #   -r requirements/test.txt
     #   django-stubs
     #   django-stubs-ext
-django-stubs==5.2.1
+django-stubs==5.2.2
     # via -r requirements/test.txt
-django-stubs-ext==5.2.1
+django-stubs-ext==5.2.2
     # via
     #   -r requirements/test.txt
     #   django-stubs
@@ -108,7 +108,7 @@ more-itertools==10.7.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-mypy==1.16.1
+mypy==1.17.0
     # via
     #   -r requirements/quality.in
     #   -r requirements/test.txt
@@ -116,7 +116,7 @@ mypy-extensions==1.1.0
     # via
     #   -r requirements/test.txt
     #   mypy
-nh3==0.2.21
+nh3==0.3.0
     # via readme-renderer
 packaging==25.0
     # via
@@ -196,7 +196,7 @@ rfc3986==2.0.0
     # via twine
 rich==14.0.0
     # via twine
-ruff==0.12.3
+ruff==0.12.4
     # via -r requirements/quality.in
 secretstorage==3.3.3
     # via keyring
