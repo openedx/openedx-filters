@@ -14,11 +14,11 @@ astroid==3.3.11
     #   pylint-celery
 backports-tarfile==1.2.0
     # via jaraco-context
-certifi==2025.7.9
+certifi==2025.8.3
     # via requests
 cffi==1.17.1
     # via cryptography
-charset-normalizer==3.4.2
+charset-normalizer==3.4.3
     # via requests
 click==8.2.1
     # via
@@ -32,11 +32,11 @@ code-annotations==2.3.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-coverage[toml]==7.9.2
+coverage[toml]==7.10.4
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==45.0.5
+cryptography==45.0.6
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
@@ -44,13 +44,13 @@ dill==0.4.0
     # via pylint
 django==4.2.23
     # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   -c https:/raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
     #   django-stubs
     #   django-stubs-ext
-django-stubs==5.2.1
+django-stubs==5.2.2
     # via -r requirements/test.txt
-django-stubs-ext==5.2.1
+django-stubs-ext==5.2.2
     # via
     #   -r requirements/test.txt
     #   django-stubs
@@ -58,7 +58,7 @@ dnspython==2.7.0
     # via
     #   -r requirements/test.txt
     #   pymongo
-docutils==0.21.2
+docutils==0.22
     # via readme-renderer
 edx-lint==5.6.0
     # via -r requirements/quality.in
@@ -94,7 +94,7 @@ jinja2==3.1.6
     #   code-annotations
 keyring==25.6.0
     # via twine
-markdown-it-py==3.0.0
+markdown-it-py==4.0.0
     # via rich
 markupsafe==3.0.2
     # via
@@ -108,7 +108,7 @@ more-itertools==10.7.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-mypy==1.16.1
+mypy==1.17.1
     # via
     #   -r requirements/quality.in
     #   -r requirements/test.txt
@@ -116,7 +116,7 @@ mypy-extensions==1.1.0
     # via
     #   -r requirements/test.txt
     #   mypy
-nh3==0.2.21
+nh3==0.3.0
     # via readme-renderer
 packaging==25.0
     # via
@@ -127,7 +127,7 @@ pathspec==0.12.1
     # via
     #   -r requirements/test.txt
     #   mypy
-pbr==6.1.1
+pbr==7.0.0
     # via
     #   -r requirements/test.txt
     #   stevedore
@@ -148,7 +148,7 @@ pygments==2.19.2
     #   pytest
     #   readme-renderer
     #   rich
-pylint==3.3.7
+pylint==3.3.8
     # via
     #   edx-lint
     #   pylint-celery
@@ -162,7 +162,7 @@ pylint-plugin-utils==0.9.0
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.13.2
+pymongo==4.14.0
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -194,9 +194,9 @@ requests-toolbelt==1.0.0
     # via twine
 rfc3986==2.0.0
     # via twine
-rich==14.0.0
+rich==14.1.0
     # via twine
-ruff==0.12.3
+ruff==0.12.9
     # via -r requirements/quality.in
 secretstorage==3.3.3
     # via keyring
@@ -219,7 +219,7 @@ tomlkit==0.13.3
     # via pylint
 twine==6.1.0
     # via -r requirements/quality.in
-types-pyyaml==6.0.12.20250516
+types-pyyaml==6.0.12.20250809
     # via
     #   -r requirements/test.txt
     #   django-stubs
@@ -230,9 +230,8 @@ typing-extensions==4.14.1
     #   django-stubs-ext
     #   edx-opaque-keys
     #   mypy
-urllib3==2.2.3
+urllib3==2.5.0
     # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   requests
     #   twine
 zipp==3.23.0
