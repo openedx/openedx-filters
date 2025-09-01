@@ -12,7 +12,7 @@ click==8.2.1
     # via code-annotations
 code-annotations==2.3.0
     # via -r requirements/test.in
-coverage[toml]==7.10.5
+coverage[toml]==7.10.6
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
@@ -45,10 +45,6 @@ packaging==25.0
     # via pytest
 pathspec==0.12.1
     # via mypy
-pbr==7.0.1
-    # via
-    #   -r requirements/base.txt
-    #   stevedore
 pluggy==1.6.0
     # via
     #   pytest
@@ -75,7 +71,7 @@ sqlparse==0.5.3
     # via
     #   -r requirements/base.txt
     #   django
-stevedore==5.4.1
+stevedore==5.5.0
     # via
     #   -r requirements/base.txt
     #   code-annotations
@@ -84,13 +80,10 @@ text-unidecode==1.3
     # via python-slugify
 types-pyyaml==6.0.12.20250822
     # via django-stubs
-typing-extensions==4.14.1
+typing-extensions==4.15.0
     # via
     #   -r requirements/base.txt
     #   django-stubs
     #   django-stubs-ext
     #   edx-opaque-keys
     #   mypy
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
