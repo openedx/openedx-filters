@@ -6,15 +6,15 @@
 #
 asgiref==3.9.1
     # via django
-django==4.2.23
+django==4.2.24
     # via
     #   -c https:/raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
-dnspython==2.7.0
+dnspython==2.8.0
     # via pymongo
 edx-opaque-keys[django]==3.0.0
     # via -r requirements/base.in
-pymongo==4.14.1
+pymongo==4.15.0
     # via edx-opaque-keys
 sqlparse==0.5.3
     # via django
