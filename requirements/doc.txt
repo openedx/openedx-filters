@@ -32,7 +32,7 @@ cffi==2.0.0
     # via cryptography
 charset-normalizer==3.4.3
     # via requests
-click==8.2.1
+click==8.3.0
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -41,11 +41,11 @@ code-annotations==2.3.0
     # via -r requirements/test.txt
 colorama==0.4.6
     # via sphinx-autobuild
-coverage[toml]==7.10.6
+coverage[toml]==7.10.7
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==45.0.7
+cryptography==46.0.1
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
@@ -121,7 +121,7 @@ more-itertools==10.8.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-mypy==1.18.1
+mypy==1.18.2
     # via -r requirements/test.txt
 mypy-extensions==1.1.0
     # via
@@ -160,7 +160,7 @@ pygments==2.19.2
     #   readme-renderer
     #   rich
     #   sphinx
-pymongo==4.15.0
+pymongo==4.15.1
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -259,7 +259,7 @@ text-unidecode==1.3
     #   python-slugify
 twine==6.2.0
     # via -r requirements/doc.in
-types-pyyaml==6.0.12.20250822
+types-pyyaml==6.0.12.20250915
     # via
     #   -r requirements/test.txt
     #   django-stubs
@@ -278,7 +278,7 @@ urllib3==2.5.0
     # via
     #   requests
     #   twine
-uvicorn==0.35.0
+uvicorn==0.36.0
     # via sphinx-autobuild
 watchfiles==1.1.0
     # via sphinx-autobuild
