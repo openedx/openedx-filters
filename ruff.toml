@@ -1,9 +1,165 @@
 [lint]
+preview = true
+
 select = [
     "D", # pydocstyle
+    "E", # pycodestyle
+    "I", # isort
+]
+
+extend-select = [
+    # pylint
+    "PLC0105", # typevar-name-incorrect-variance
+    "D419", # empty-docstring
+    "SIM208", # unnecessary-negation
+    "E711", # singleton-comparison
+    "E712", # singleton-comparison
+    "E721", # unidiomatic-typecheck
+    "PLC0131", # typevar-double-variance
+    "PLC0132", # typevar-name-mismatch
+    "SIM118", # consider-iterating-dictionary
+    "N804", # bad-classmethod-argument
+    "PLC0206", # consider-using-dict-items
+    "PLC0208", # use-sequence-for-iteration
+    "E501", # line-too-long
+    "W291", # trailing-whitespace
+    "W292", # missing-final-newline
+    "W391", # trailing-newlines
+    "E701", # multiple-statements
+    "E702", # multiple-statements
+    "E401", # multiple-imports
+    "I001", # wrong-import-order
+    "E402", # wrong-import-position
+    "PLC0414", # useless-import-alias
+    "PLC1802", # use-implicit-booleaness-not-len
+    "PLC2401", # non-ascii-name
+    "PLC2403", # non-ascii-module-import
+    "PLC2801", # unnecessary-dunder-call
+    "E731", # unnecessary-lambda-assignment
+    "PLC3002", # unnecessary-direct-lambda-call
+    "S506", # unsafe-yaml-load
+    "PLE0100", # init-is-generator
+    "PLE0101", # return-in-init
+    "F811", # function-redefined
+    "F701", # not-in-loop
+    "F702", # not-in-loop
+    "F706", # return-outside-function
+    "F704", # yield-outside-function
+    "B002", # nonexistent-operator
+    "PLE0115", # nonlocal-and-global
+    "PLE0116", # continue-in-finally
+    "PLE0117", # nonlocal-without-binding
+    "PLE0118", # used-prior-global-declaration
+    "N805", # no-self-argument
+    "PLE0237", # assigning-non-slot
+    "PLE0241", # duplicate-bases
+    "PLE0302", # unexpected-special-method-signature
+    "PLE0303", # invalid-length-returned
+    "PLE0304", # invalid-bool-returned
+    "PLE0308", # invalid-bytes-returned
+    "PLE0309", # invalid-hash-returned
+    "F821", # used-before-assignment
+    "F821", # undefined-variable
+    "F822", # undefined-all-variable
+    "PLE0604", # invalid-all-object
+    "PLE0605", # invalid-all-format
+    "PLE0643", # potential-index-error
+    "PLE0704", # misplaced-bare-raise
+    "PLE1132", # repeated-keyword
+    "PLE1141", # dict-iter-missing-items
+    "PLE1142", # await-outside-async
+    "PLE1205", # logging-too-many-args
+    "PLE1206", # logging-too-few-args
+    "PLE1300", # bad-format-character
+    "F501", # truncated-format-string
+    "F502", # format-needs-mapping
+    "F506", # mixed-format-string
+    "F524", # missing-format-string-key
+    "F522", # too-many-format-args
+    "F524", # too-few-format-args
+    "PLE1307", # bad-string-format-type
+    "PLE1310", # bad-str-strip-call
+    "PLE1507", # invalid-envvar-value
+    "PLE1519", # singledispatch-method
+    "PLE1520", # singledispatchmethod-function
+    "PLE1700", # yield-inside-async-function
+    "PLE2502", # bidirectional-unicode
+    "PLE2510", # invalid-character-backspace
+    "PLE2512", # invalid-character-sub
+    "PLE2513", # invalid-character-esc
+    "PLE2514", # invalid-character-nul
+    "PLE2515", # invalid-character-zero-width-space
+    "PLE4703", # modified-iterating-set
+    "PLR0124", # comparison-with-itself
+    "PLR0202", # no-classmethod-decorator
+    "PLR0203", # no-staticmethod-decorator
+    "UP004", # useless-object-inheritance
+    "PLR0206", # property-with-parameters
+    "PLR0915", # too-many-statements
+    "PLR0916", # too-many-boolean-expressions
+    "PLR0917", # too-many-positional-arguments
+    "PLR1702", # too-many-nested-blocks
+    "SIM108", # simplifiable-if-statement
+    "PLR1704", # redefined-argument-from-local
+    "PLR1711", # useless-return
+    "C416", # unnecessary-comprehension
+    "PLR1733", # unnecessary-dict-index-lookup
+    "PLR1736", # unnecessary-list-index-lookup
+    "B006", # dangerous-default-value
+    "B018", # pointless-statement
+    "B018", # expression-not-assigned
+    "PIE790", # unnecessary-pass
+    "PLW0108", # unnecessary-lambda
+    "F601", # duplicate-key
+    "PLW0120", # useless-else-on-loop
+    "S102", # exec-used
+    "S307", # eval-used
+    "PLW0127", # self-assigning-variable
+    "PLW0128", # redeclared-assigned-name
+    "PLW0129", # assert-on-string-literal
+    "B033", # duplicate-value
+    "PLW0131", # named-expr-without-context
+    "B012", # lost-exception
+    "PLW0177", # nan-comparison
+    "F631", # assert-on-tuple
+    "PLW0211", # bad-staticmethod-argument
+    "SLF001", # protected-access
+    "PLW0245", # super-without-brackets
+    "E703", # unnecessary-semicolon
+    "F403", # wildcard-import
+    "F811", # reimported
+    "PLW0406", # import-self
+    "F404", # misplaced-future
+    "PLW0602", # global-variable-not-assigned
+    "PLW0604", # global-at-module-level
+    "F401", # unused-import
+    "F841", # unused-variable
+    "ARG001", # unused-argument
+    "A001", # redefined-builtin
+    "B023", # cell-var-from-loop
+    "E722", # bare-except
+    "B014", # duplicate-except
+    "PLW0711", # binary-op-exception
+    "BLE001", # broad-exception-caught
+    "B026", # keyword-arg-before-vararg
+    "G001", # logging-format-interpolation
+    "G002", # logging-not-lazy
+    "F504", # unused-format-string-key
+    "F521", # bad-format-string
+    "F524", # missing-format-argument-key
+    "F507", # unused-format-string-argument
+    "F525", # format-combined-specification
+    "F522", # invalid-format-index
+    "PLW1501", # bad-open-mode
+    "PLW1507", # shallow-copy-environ
+    "PLW1508", # invalid-envvar-default
+    "PLW1509", # subprocess-popen-preexec-fn
+    "PLW2101", # useless-with-lock
+    "PLW3301", # nested-min-max
 ]
 
 ignore = [
+    # pydocstyle
     "D101", # Missing docstring in public class
     "D102", # Missing docstring in public method
     "D200", # One-line docstring should fit on one line
@@ -25,4 +181,27 @@ ignore = [
     "D413", # Missing blank line after last section
     "D414", # Section has no content
     "D415", # First line should end with a period, question mark, or exclamation point
+
+    # pylint
+    "N815", # invalid-name
+    "I001", # ungrouped-imports
+    "PLR0904", # too-many-public-methods
+    "PLR0911", # too-many-return-statements
+    "PLR0912", # too-many-branches
+    "PLR0913", # too-many-arguments
+    "PLR0914", # too-many-locals
+    "RET505", # no-else-return
+    "E111", # bad-indentation
+    "FIX001", # fixme
+    "FIX002", # fixme
+    "FIX003", # fixme
+    "FIX004", # fixme
+    "PLW0603", # global-statement
+    "TRY002", # broad-exception-raised
+    "G004", # logging-fstring-interpolation
+    "PLW1514", # unspecified-encoding
 ]
+
+[lint.pycodestyle]
+max-line-length = 120
+max-doc-length = 120

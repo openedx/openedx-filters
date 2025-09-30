@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-asgiref==3.9.1
+asgiref==3.9.2
     # via django
 django==4.2.24
     # via
@@ -14,7 +14,7 @@ dnspython==2.8.0
     # via pymongo
 edx-opaque-keys[django]==3.0.0
     # via -r requirements/base.in
-pymongo==4.15.0
+pymongo==4.15.1
     # via edx-opaque-keys
 sqlparse==0.5.3
     # via django
