@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-asgiref==3.9.1
+asgiref==3.9.2
     # via
     #   -r requirements/quality.txt
     #   django
@@ -44,7 +44,7 @@ charset-normalizer==3.4.3
     # via
     #   -r requirements/quality.txt
     #   requests
-click==8.2.1
+click==8.3.0
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
@@ -66,17 +66,17 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.10.6
+coverage[toml]==7.10.7
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
-cryptography==45.0.7
+cryptography==46.0.1
     # via
     #   -r requirements/quality.txt
     #   secretstorage
 ddt==1.7.2
     # via -r requirements/quality.txt
-diff-cover==9.6.0
+diff-cover==9.7.1
     # via -r requirements/dev.in
 dill==0.4.0
     # via
@@ -102,7 +102,7 @@ dnspython==2.8.0
     # via
     #   -r requirements/quality.txt
     #   pymongo
-docutils==0.22
+docutils==0.22.2
     # via
     #   -r requirements/quality.txt
     #   readme-renderer
@@ -167,7 +167,7 @@ markdown-it-py==4.0.0
     #   -r requirements/quality.txt
     #   rich
     #   scriv
-markupsafe==3.0.2
+markupsafe==3.0.3
     # via
     #   -r requirements/quality.txt
     #   jinja2
@@ -184,7 +184,7 @@ more-itertools==10.8.0
     #   -r requirements/quality.txt
     #   jaraco-classes
     #   jaraco-functools
-mypy==1.18.1
+mypy==1.18.2
     # via -r requirements/quality.txt
 mypy-extensions==1.1.0
     # via
@@ -225,8 +225,6 @@ pluggy==1.6.0
     #   pytest
     #   pytest-cov
     #   tox
-pycodestyle==2.14.0
-    # via -r requirements/quality.txt
 pycparser==2.23
     # via
     #   -r requirements/quality.txt
@@ -258,7 +256,7 @@ pylint-plugin-utils==0.9.0
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pymongo==4.15.0
+pymongo==4.15.1
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
@@ -284,7 +282,7 @@ python-slugify==8.0.4
     # via
     #   -r requirements/quality.txt
     #   code-annotations
-pyyaml==6.0.2
+pyyaml==6.0.3
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -311,7 +309,7 @@ rich==14.1.0
     # via
     #   -r requirements/quality.txt
     #   twine
-ruff==0.13.0
+ruff==0.13.2
     # via -r requirements/quality.txt
 scriv==1.7.0
     # via -r requirements/dev.in
@@ -344,7 +342,7 @@ tox==4.30.2
     # via -r requirements/ci.txt
 twine==6.2.0
     # via -r requirements/quality.txt
-types-pyyaml==6.0.12.20250822
+types-pyyaml==6.0.12.20250915
     # via
     #   -r requirements/quality.txt
     #   django-stubs
