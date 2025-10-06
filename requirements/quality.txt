@@ -14,11 +14,11 @@ astroid==3.3.11
     #   pylint-celery
 backports-tarfile==1.2.0
     # via jaraco-context
-certifi==2025.7.9
+certifi==2025.8.3
     # via requests
-cffi==1.17.1
+cffi==2.0.0
     # via cryptography
-charset-normalizer==3.4.2
+charset-normalizer==3.4.3
     # via requests
 click==8.2.1
     # via
@@ -32,33 +32,33 @@ code-annotations==2.3.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-coverage[toml]==7.9.2
+coverage[toml]==7.10.6
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==45.0.5
+cryptography==45.0.7
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
 dill==0.4.0
     # via pylint
-django==4.2.23
+django==4.2.24
     # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   -c https:/raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
     #   django-stubs
     #   django-stubs-ext
-django-stubs==5.2.1
+django-stubs==5.2.5
     # via -r requirements/test.txt
-django-stubs-ext==5.2.1
+django-stubs-ext==5.2.5
     # via
     #   -r requirements/test.txt
     #   django-stubs
-dnspython==2.7.0
+dnspython==2.8.0
     # via
     #   -r requirements/test.txt
     #   pymongo
-docutils==0.21.2
+docutils==0.22
     # via readme-renderer
 edx-lint==5.6.0
     # via -r requirements/quality.in
@@ -82,7 +82,7 @@ jaraco-classes==3.4.0
     # via keyring
 jaraco-context==6.0.1
     # via keyring
-jaraco-functools==4.2.1
+jaraco-functools==4.3.0
     # via keyring
 jeepney==0.9.0
     # via
@@ -94,7 +94,7 @@ jinja2==3.1.6
     #   code-annotations
 keyring==25.6.0
     # via twine
-markdown-it-py==3.0.0
+markdown-it-py==4.0.0
     # via rich
 markupsafe==3.0.2
     # via
@@ -104,11 +104,11 @@ mccabe==0.7.0
     # via pylint
 mdurl==0.1.2
     # via markdown-it-py
-more-itertools==10.7.0
+more-itertools==10.8.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-mypy==1.16.1
+mypy==1.18.1
     # via
     #   -r requirements/quality.in
     #   -r requirements/test.txt
@@ -116,7 +116,7 @@ mypy-extensions==1.1.0
     # via
     #   -r requirements/test.txt
     #   mypy
-nh3==0.2.21
+nh3==0.3.0
     # via readme-renderer
 packaging==25.0
     # via
@@ -127,11 +127,7 @@ pathspec==0.12.1
     # via
     #   -r requirements/test.txt
     #   mypy
-pbr==6.1.1
-    # via
-    #   -r requirements/test.txt
-    #   stevedore
-platformdirs==4.3.8
+platformdirs==4.4.0
     # via pylint
 pluggy==1.6.0
     # via
@@ -140,7 +136,7 @@ pluggy==1.6.0
     #   pytest-cov
 pycodestyle==2.14.0
     # via -r requirements/quality.in
-pycparser==2.22
+pycparser==2.23
     # via cffi
 pygments==2.19.2
     # via
@@ -148,7 +144,7 @@ pygments==2.19.2
     #   pytest
     #   readme-renderer
     #   rich
-pylint==3.3.7
+pylint==3.3.8
     # via
     #   edx-lint
     #   pylint-celery
@@ -162,16 +158,16 @@ pylint-plugin-utils==0.9.0
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.13.2
+pymongo==4.15.0
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
-pytest==8.4.1
+pytest==8.4.2
     # via
     #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
-pytest-cov==6.2.1
+pytest-cov==7.0.0
     # via -r requirements/test.txt
 pytest-django==4.11.1
     # via -r requirements/test.txt
@@ -185,7 +181,7 @@ pyyaml==6.0.2
     #   code-annotations
 readme-renderer==44.0
     # via twine
-requests==2.32.4
+requests==2.32.5
     # via
     #   id
     #   requests-toolbelt
@@ -194,11 +190,11 @@ requests-toolbelt==1.0.0
     # via twine
 rfc3986==2.0.0
     # via twine
-rich==14.0.0
+rich==14.1.0
     # via twine
-ruff==0.12.3
+ruff==0.13.0
     # via -r requirements/quality.in
-secretstorage==3.3.3
+secretstorage==3.4.0
     # via keyring
 six==1.17.0
     # via edx-lint
@@ -206,7 +202,7 @@ sqlparse==0.5.3
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==5.4.1
+stevedore==5.5.0
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -217,26 +213,22 @@ text-unidecode==1.3
     #   python-slugify
 tomlkit==0.13.3
     # via pylint
-twine==6.1.0
+twine==6.2.0
     # via -r requirements/quality.in
-types-pyyaml==6.0.12.20250516
+types-pyyaml==6.0.12.20250822
     # via
     #   -r requirements/test.txt
     #   django-stubs
-typing-extensions==4.14.1
+typing-extensions==4.15.0
     # via
     #   -r requirements/test.txt
     #   django-stubs
     #   django-stubs-ext
     #   edx-opaque-keys
     #   mypy
-urllib3==2.2.3
+urllib3==2.5.0
     # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   requests
     #   twine
 zipp==3.23.0
     # via importlib-metadata
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools

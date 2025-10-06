@@ -18,7 +18,7 @@ Configure Filters
 *****************
 
 Filters are configured in the ``OPEN_EDX_FILTERS_CONFIG`` dictionary, which can be specified in your plugin's settings
-file. The dictionary has the following structure:
+file for testig purposes. The dictionary has the following structure:
 
 .. code-block:: python
 
@@ -33,6 +33,8 @@ file. The dictionary has the following structure:
             ]
         },
     }
+
+In a production environment, you'll have to add this config to your edx-platform settings file.
 
 To learm more about this, visit :ref:`Filter Configuration`.
 
