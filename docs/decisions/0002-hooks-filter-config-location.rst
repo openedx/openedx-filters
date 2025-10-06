@@ -1,3 +1,5 @@
+.. _ADR-2:
+
 2. Configuration for filters in the Hooks Extension Framework
 =============================================================
 
@@ -84,13 +86,11 @@ functions to be run by the pipeline.
 .. code-block:: python
 
     OPEN_EDX_FILTERS_CONFIG = {
-        "org.openedx.lms.auth_user.filter.before_creation.v1": {
-            [
-                "from_a_plugin.filters.filter_1",
-                "from_a_plugin.filters.filter_n",
-                "from_some_other_package.filters.filter_1",
-            ],
-        }
+        "org.openedx.lms.auth_user.filter.before_creation.v1": [
+            "from_a_plugin.filters.filter_1",
+            "from_a_plugin.filters.filter_n",
+            "from_some_other_package.filters.filter_1",
+        ]
     }
 
 **Option 3**: this option considers that there's just one function to be run.

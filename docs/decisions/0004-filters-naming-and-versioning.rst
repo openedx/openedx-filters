@@ -1,3 +1,5 @@
+.. _ADR-4:
+
 4. Open edX filters naming and versioning
 =========================================
 

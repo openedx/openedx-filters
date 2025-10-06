@@ -60,6 +60,16 @@ class PipelineStep:
 
         Used to implement custom code that'll be executed by OpenEdxPublicFilter's pipeline runner.
         It must be implemented by child classes.
+
+        By design, the pipeline expects either of three (3) types of returns:
+
+        1. A dictionary with the arguments the method received. They can be modified in the process.
+
+        2. None. Returning this will stop the pipeline execution. The accumulated output until
+           this moment will be returned.
+
+        3. An object different from a dict. Returning this will stop the pipeline execution.
+           The accumulated output until this moment will be returned.
         """
         log.warning(
             "PipelineStep run method not implemented.\n"

@@ -138,6 +138,12 @@ intersphinx_mapping = {
         f"https://docs.openedx.org/{rtd_language}/{rtd_version}",
         None,
     ),
+    "openedx-proposals": (
+        # Not setting the version on purpose because we always want the latest version
+        # of OEPs
+        f"https://docs.openedx.org/projects/openedx-proposals/{rtd_language}/latest",
+        None,
+    ),    
 }
 
 # Linkcode Extension Configuration

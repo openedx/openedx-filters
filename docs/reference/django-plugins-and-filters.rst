@@ -18,7 +18,7 @@ Configure Filters
 *****************
 
 Filters are configured in the ``OPEN_EDX_FILTERS_CONFIG`` dictionary, which can be specified in your plugin's settings
-file. The dictionary has the following structure:
+file for testig purposes. The dictionary has the following structure:
 
 .. code-block:: python
 
@@ -34,13 +34,15 @@ file. The dictionary has the following structure:
         },
     }
 
-To learm more about this, visit :doc:`/reference/filters-configuration`.
+In a production environment, you'll have to add this config to your edx-platform settings file.
+
+To learm more about this, visit :ref:`Filter Configuration`.
 
 Create Pipeline Steps
 *********************
 
 In your own plugin, you can create your own :term:`pipeline steps<Pipeline Step>` by inheriting from |PipelineStep| and implementing the
-``run_filter`` method. You can find examples of :term:`pipeline steps<Pipeline Step>` in the ``openedx-filters-samples`` repository. See :doc:`/quickstarts/index` for more details.
+``run_filter`` method. You can find examples of :term:`pipeline steps<Pipeline Step>` in the ``openedx-filters-samples`` repository. See :ref:`Quickstarts` for more details.
 
 **Maintenance chart**
 

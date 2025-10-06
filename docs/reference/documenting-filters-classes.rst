@@ -1,3 +1,5 @@
+.. _Documenting Filters Classes:
+
 Documenting Open edX Filters Classes
 ######################################
 
