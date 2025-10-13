@@ -48,9 +48,9 @@ django==4.2.25
     #   -r requirements/test.txt
     #   django-stubs
     #   django-stubs-ext
-django-stubs==5.2.6
+django-stubs==5.2.7
     # via -r requirements/test.txt
-django-stubs-ext==5.2.6
+django-stubs-ext==5.2.7
     # via
     #   -r requirements/test.txt
     #   django-stubs
@@ -66,7 +66,7 @@ edx-opaque-keys[django]==3.0.0
     # via -r requirements/test.txt
 id==1.5.0
     # via twine
-idna==3.10
+idna==3.11
     # via requests
 importlib-metadata==8.7.0
     # via keyring
@@ -116,7 +116,7 @@ mypy-extensions==1.1.0
     # via
     #   -r requirements/test.txt
     #   mypy
-nh3==0.3.0
+nh3==0.3.1
     # via readme-renderer
 packaging==25.0
     # via
@@ -127,7 +127,7 @@ pathspec==0.12.1
     # via
     #   -r requirements/test.txt
     #   mypy
-platformdirs==4.4.0
+platformdirs==4.5.0
     # via pylint
 pluggy==1.6.0
     # via
@@ -158,7 +158,7 @@ pylint-plugin-utils==0.9.0
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.15.2
+pymongo==4.15.3
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -190,9 +190,9 @@ requests-toolbelt==1.0.0
     # via twine
 rfc3986==2.0.0
     # via twine
-rich==14.1.0
+rich==14.2.0
     # via twine
-ruff==0.13.3
+ruff==0.14.0
     # via -r requirements/quality.in
 secretstorage==3.4.0
     # via keyring

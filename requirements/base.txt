@@ -14,7 +14,7 @@ dnspython==2.8.0
     # via pymongo
 edx-opaque-keys[django]==3.0.0
     # via -r requirements/base.in
-pymongo==4.15.2
+pymongo==4.15.3
     # via edx-opaque-keys
 sqlparse==0.5.3
     # via django

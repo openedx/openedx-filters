@@ -13,7 +13,7 @@ astroid==3.3.11
     #   -r requirements/quality.txt
     #   pylint
     #   pylint-celery
-attrs==25.3.0
+attrs==25.4.0
     # via scriv
 backports-tarfile==1.2.0
     # via
@@ -23,7 +23,7 @@ build==1.3.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-cachetools==6.2.0
+cachetools==6.2.1
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -92,9 +92,9 @@ django==4.2.25
     #   -r requirements/quality.txt
     #   django-stubs
     #   django-stubs-ext
-django-stubs==5.2.6
+django-stubs==5.2.7
     # via -r requirements/quality.txt
-django-stubs-ext==5.2.6
+django-stubs-ext==5.2.7
     # via
     #   -r requirements/quality.txt
     #   django-stubs
@@ -110,7 +110,7 @@ edx-lint==5.6.0
     # via -r requirements/quality.txt
 edx-opaque-keys[django]==3.0.0
     # via -r requirements/quality.txt
-filelock==3.19.1
+filelock==3.20.0
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -119,7 +119,7 @@ id==1.5.0
     # via
     #   -r requirements/quality.txt
     #   twine
-idna==3.10
+idna==3.11
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -190,7 +190,7 @@ mypy-extensions==1.1.0
     # via
     #   -r requirements/quality.txt
     #   mypy
-nh3==0.3.0
+nh3==0.3.1
     # via
     #   -r requirements/quality.txt
     #   readme-renderer
@@ -210,7 +210,7 @@ pathspec==0.12.1
     #   mypy
 pip-tools==7.5.1
     # via -r requirements/pip-tools.txt
-platformdirs==4.4.0
+platformdirs==4.5.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -258,11 +258,11 @@ pylint-plugin-utils==0.9.0
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pymongo==4.15.2
+pymongo==4.15.3
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
-pyproject-api==1.9.1
+pyproject-api==1.10.0
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -307,11 +307,11 @@ rfc3986==2.0.0
     # via
     #   -r requirements/quality.txt
     #   twine
-rich==14.1.0
+rich==14.2.0
     # via
     #   -r requirements/quality.txt
     #   twine
-ruff==0.13.3
+ruff==0.14.0
     # via -r requirements/quality.txt
 scriv==1.7.0
     # via -r requirements/dev.in
@@ -340,7 +340,7 @@ tomlkit==0.13.3
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.30.3
+tox==4.31.0
     # via -r requirements/ci.txt
 twine==6.2.0
     # via -r requirements/quality.txt
@@ -360,7 +360,7 @@ urllib3==2.5.0
     #   -r requirements/quality.txt
     #   requests
     #   twine
-virtualenv==20.34.0
+virtualenv==20.35.3
     # via
     #   -r requirements/ci.txt
     #   tox

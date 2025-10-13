@@ -55,9 +55,9 @@ django==4.2.25
     #   -r requirements/test.txt
     #   django-stubs
     #   django-stubs-ext
-django-stubs==5.2.6
+django-stubs==5.2.7
     # via -r requirements/test.txt
-django-stubs-ext==5.2.6
+django-stubs-ext==5.2.7
     # via
     #   -r requirements/test.txt
     #   django-stubs
@@ -80,7 +80,7 @@ h11==0.16.0
     # via uvicorn
 id==1.5.0
     # via twine
-idna==3.10
+idna==3.11
     # via
     #   anyio
     #   requests
@@ -127,7 +127,7 @@ mypy-extensions==1.1.0
     # via
     #   -r requirements/test.txt
     #   mypy
-nh3==0.3.0
+nh3==0.3.1
     # via readme-renderer
 packaging==25.0
     # via
@@ -160,7 +160,7 @@ pygments==2.19.2
     #   readme-renderer
     #   rich
     #   sphinx
-pymongo==4.15.2
+pymongo==4.15.3
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -198,7 +198,7 @@ restructuredtext-lint==1.4.0
     # via doc8
 rfc3986==2.0.0
     # via twine
-rich==14.1.0
+rich==14.2.0
     # via twine
 roman-numerals-py==3.1.0
     # via sphinx
