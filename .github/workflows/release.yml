@@ -51,7 +51,7 @@ jobs:
         run: make changelog
 
       - name: Commit changes and create tag
-        uses: stefanzweifel/git-auto-commit-action@v6
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           branch: ${{ github.ref }}
           commit_message: "chore: bump version ${{ steps.version.outputs.CURRENT_VERSION }} → ${{ steps.version.outputs.NEW_VERSION }}"
