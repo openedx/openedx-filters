@@ -33,7 +33,7 @@ docs: ## generate Sphinx HTML documentation, including API docs
 changelog-entry: ## Create a new changelog entry
 	scriv create
 
-changelog: ## Collect changelog entries in the CHANGELOG.rst file
+changelog-collect: ## Collect changelog entries in the CHANGELOG.rst file
 	scriv collect
 
 # Define PIP_COMPILE_OPTS=-v to get more information during make upgrade.

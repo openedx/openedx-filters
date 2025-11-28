@@ -22,27 +22,30 @@ Change Log
    - Edit and commit the newly-created file in the `changelog.d` folder
      following the instructions in the file.
 
-   If you need to create a new release:
+  If you need to create a new release:
 
-   - There is a `relese.yml` workflow to create a new release. You can trigger
-     it manually in the Actions tab in GitHub. The workflow will bump the
-     version, update the changelog, create a tag, and create a new GitHub
-     release! 🚀
+  - There are two workflows for creating releases:
 
-Unreleased
-----------
+    1. ``create-release-pr.yml`` - Creates a release pull request with version
+       bump and changelog collection. You can trigger it manually in the
+       Actions tab, selecting the semantic version type (major/minor/patch).
+
+    2. ``create-github-release.yml`` - Creates the actual GitHub release and tag.
+       Run this after merging the release PR to complete the release process! 🚀
+
+
+This file includes a history of past releases. Changes that were not yet added to a release are in the [changelog.d/](./changelog.d) folder.
+
+.. scriv-insert-here
 
 [2.1.0] - 2025-04-23
+--------------------
 
 Added
 ~~~~~
 
 * Added django52 support.
 * Also releasing pending items.
-
-See the fragment files in the `changelog.d directory`_.
-.. _changelog.d directory: https://github.com/openedx/openedx-filters/tree/master/changelog.d
-.. scriv-insert-here
 
 
 [2.0.1] - 2025-02-18

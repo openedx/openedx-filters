@@ -7,3 +7,4 @@
 
 diff-cover                # Changeset diff test coverage
 scriv                     # Changelog management tool
+bump-my-version           # Version management tool
