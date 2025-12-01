@@ -225,8 +225,6 @@ pluggy==1.6.0
     #   pytest
     #   pytest-cov
     #   tox
-pycodestyle==2.14.0
-    # via -r requirements/quality.txt
 pycparser==2.23
     # via
     #   -r requirements/quality.txt

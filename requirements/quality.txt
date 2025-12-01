@@ -134,8 +134,6 @@ pluggy==1.6.0
     #   -r requirements/test.txt
     #   pytest
     #   pytest-cov
-pycodestyle==2.14.0
-    # via -r requirements/quality.in
 pycparser==2.23
     # via cffi
 pygments==2.19.2
