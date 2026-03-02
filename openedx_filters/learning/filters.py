@@ -2,7 +2,7 @@
 Package where filters related to the learning architectural subdomain are implemented.
 """
 
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
 from django.db.models.query import QuerySet
 from django.http import HttpResponse, QueryDict
@@ -1445,3 +1445,45 @@ class ScheduleQuerySetRequested(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(schedules=schedules)
         return data.get("schedules")
+
+
+class GradeEventContextRequested(OpenEdxPublicFilter):
+    """
+    Filter used to enrich the context dict emitted with a grade analytics event.
+
+    Purpose:
+        This filter is triggered just before a grade-related analytics event is emitted,
+        allowing pipeline steps to inject additional key-value pairs into the event
+        tracking context.
+
+    Filter Type:
+        org.openedx.learning.grade.context.requested.v1
+
+    Trigger:
+        - Repository: openedx/edx-platform
+        - Path: lms/djangoapps/grades/events.py
+        - Function or Method: course_grade_passed_first_time
+    """
+
+    filter_type = "org.openedx.learning.grade.context.requested.v1"
+
+    @classmethod
+    def run_filter(
+        cls,
+        context: dict,
+        user_id: int,
+        course_id: Union[str, Any],
+    ) -> Optional[dict]:
+        """
+        Process the context dict using the configured pipeline steps.
+
+        Arguments:
+            context (dict): the event tracking context dict to be enriched.
+            user_id (int): the ID of the user whose grade event is being emitted.
+            course_id (str or CourseKey): the course identifier for the grade event.
+
+        Returns:
+            dict: the context dict, possibly enriched by pipeline steps.
+        """
+        data = super().run_pipeline(context=context, user_id=user_id, course_id=course_id)
+        return data.get("context")
