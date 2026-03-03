@@ -22,6 +22,7 @@ from openedx_filters.learning.filters import (
     CourseRunAPIRenderStarted,
     CourseUnenrollmentStarted,
     DashboardRenderStarted,
+    DiscountEligibilityCheckRequested,
     IDVPageURLRequested,
     InstructorDashboardRenderStarted,
     ORASubmissionViewRenderStarted,
@@ -801,3 +802,31 @@ class TestScheduleFilters(TestCase):
         result = ScheduleQuerySetRequested.run_filter(schedules)
 
         self.assertEqual(schedules, result)
+
+
+class TestDiscountEligibilityCheckRequestedFilter(TestCase):
+    """
+    Tests for the DiscountEligibilityCheckRequested filter.
+    """
+
+    def test_filter_type(self):
+        self.assertEqual(
+            DiscountEligibilityCheckRequested.filter_type,
+            "org.openedx.learning.discount.eligibility.check.requested.v1",
+        )
+
+    def test_run_filter_returns_false_when_pipeline_sets_ineligible(self):
+        user = Mock()
+        course_key = Mock()
+
+        with patch(
+            "openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline",
+            return_value={"user": user, "course_key": course_key, "is_eligible": False},
+        ):
+            returned_user, returned_course_key, is_eligible = DiscountEligibilityCheckRequested.run_filter(
+                user=user, course_key=course_key, is_eligible=True
+            )
+
+        self.assertFalse(is_eligible)
+        self.assertIs(returned_user, user)
+        self.assertIs(returned_course_key, course_key)
