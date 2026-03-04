@@ -37,12 +37,18 @@ extensions = [
     'sphinx_copybutton',
     'sphinx.ext.graphviz',
     'sphinxcontrib.mermaid',
+    'myst_parser',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
     'sphinx.ext.napoleon',
     'sphinx.ext.linkcode',
 ]
+
+# Render fenced ```mermaid code blocks in Markdown (MyST) sources through the
+# sphinxcontrib.mermaid directive, so the same fences render both on GitHub and
+# in the Sphinx-built docs.
+myst_fence_as_directive = ["mermaid"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
