@@ -1,3 +1,0 @@
-Changed
-~~~~~~~
-* Replaced the deprecated ``pydocstyle`` library with ``ruff``. (by @bryanttv)

@@ -1,3 +1,0 @@
-Added
-~~~~~
-* New documentation section with naming suggestions for creating filters. (by @mariajgrimaldi)
