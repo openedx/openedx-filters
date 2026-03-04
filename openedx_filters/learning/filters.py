@@ -1445,3 +1445,40 @@ class ScheduleQuerySetRequested(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(schedules=schedules)
         return data.get("schedules")
+
+
+class CourseModeCheckoutStarted(OpenEdxPublicFilter):
+    """
+    Filter used to enrich the course mode checkout context before the checkout flow begins.
+
+    Purpose:
+        This filter is triggered when a user selects a course mode and the checkout process
+        starts. Pipeline steps can modify the context dict to inject additional data required
+        by external systems (e.g. pricing APIs) to customise the checkout experience.
+
+    Filter Type:
+        org.openedx.learning.course_mode.checkout.started.v1
+
+    Trigger:
+        - Repository: openedx/edx-platform
+        - Path: common/djangoapps/course_modes/views.py
+        - Function or Method: ChooseModeView.post
+    """
+
+    filter_type = "org.openedx.learning.course_mode.checkout.started.v1"
+
+    @classmethod
+    def run_filter(cls, context: dict, request: Any, course_mode: Any) -> dict:
+        """
+        Process the checkout context through the configured pipeline steps.
+
+        Arguments:
+            context (dict): the checkout context dict.
+            request (HttpRequest): the current HTTP request.
+            course_mode (CourseMode): the selected course mode object.
+
+        Returns:
+            dict: the (possibly enriched) checkout context.
+        """
+        data = super().run_pipeline(context=context, request=request, course_mode=course_mode)
+        return data.get("context")
