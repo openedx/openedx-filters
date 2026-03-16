@@ -1460,7 +1460,7 @@ class AccountSettingsReadOnlyFieldsRequested(OpenEdxPublicFilter):
         org.openedx.learning.account.settings.read_only_fields.requested.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: openedx/core/djangoapps/user_api/accounts/api.py
         - Function or Method: _validate_read_only_fields
     """
