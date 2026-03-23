@@ -13,13 +13,13 @@ astroid==4.0.4
     #   -r requirements/quality.txt
     #   pylint
     #   pylint-celery
-attrs==25.4.0
+attrs==26.1.0
     # via scriv
 build==1.4.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-cachetools==7.0.3
+cachetools==7.0.5
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -31,9 +31,9 @@ cffi==2.0.0
     # via
     #   -r requirements/quality.txt
     #   cryptography
-chardet==7.0.1
+chardet==7.2.0
     # via diff-cover
-charset-normalizer==3.4.5
+charset-normalizer==3.4.6
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -51,7 +51,7 @@ click-log==0.4.0
     #   -r requirements/quality.txt
     #   edx-lint
     #   scriv
-code-annotations==2.3.2
+code-annotations==3.0.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -59,7 +59,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.13.4
+coverage[toml]==7.13.5
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -85,9 +85,9 @@ django==5.2.12
     #   -r requirements/quality.txt
     #   django-stubs
     #   django-stubs-ext
-django-stubs==5.2.9
+django-stubs==6.0.1
     # via -r requirements/quality.txt
-django-stubs-ext==5.2.9
+django-stubs-ext==6.0.1
     # via
     #   -r requirements/quality.txt
     #   django-stubs
@@ -99,11 +99,11 @@ docutils==0.22.4
     # via
     #   -r requirements/quality.txt
     #   readme-renderer
-edx-lint==5.6.0
+edx-lint==6.0.0
     # via -r requirements/quality.txt
 edx-opaque-keys[django]==3.1.0
     # via -r requirements/quality.txt
-filelock==3.25.0
+filelock==3.25.2
     # via
     #   -r requirements/ci.txt
     #   python-discovery
@@ -129,7 +129,7 @@ jaraco-classes==3.4.0
     # via
     #   -r requirements/quality.txt
     #   keyring
-jaraco-context==6.1.1
+jaraco-context==6.1.2
     # via
     #   -r requirements/quality.txt
     #   keyring
@@ -272,11 +272,11 @@ pytest==9.0.2
     #   -r requirements/quality.txt
     #   pytest-cov
     #   pytest-django
-pytest-cov==7.0.0
+pytest-cov==7.1.0
     # via -r requirements/quality.txt
 pytest-django==4.12.0
     # via -r requirements/quality.txt
-python-discovery==1.1.1
+python-discovery==1.2.0
     # via
     #   -r requirements/ci.txt
     #   virtualenv
@@ -310,7 +310,7 @@ rich==14.3.3
     # via
     #   -r requirements/quality.txt
     #   twine
-ruff==0.15.5
+ruff==0.15.7
     # via -r requirements/quality.txt
 scriv==1.8.0
     # via -r requirements/dev.in
@@ -343,7 +343,7 @@ tomlkit==0.14.0
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.49.0
+tox==4.50.3
     # via -r requirements/ci.txt
 twine==6.2.0
     # via -r requirements/quality.txt
@@ -364,7 +364,7 @@ urllib3==2.6.3
     #   id
     #   requests
     #   twine
-virtualenv==21.1.0
+virtualenv==21.2.0
     # via
     #   -r requirements/ci.txt
     #   tox
