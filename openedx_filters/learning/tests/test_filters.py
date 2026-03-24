@@ -809,23 +809,19 @@ class TestAccountSettingsReadOnlyFieldsRequestedFilter(TestCase):
     Tests for the AccountSettingsReadOnlyFieldsRequested filter.
     """
 
-    def test_run_filter_returns_empty_set_unchanged_when_no_pipeline(self):
+    def test_run_filter_returns_inputs_unchanged_when_no_pipeline(self):
         """
-        When no pipeline steps are configured, run_filter returns the original readonly_fields.
+        When no pipeline steps are configured, run_filter returns the original inputs unchanged.
         """
-        readonly_fields = set()
+        readonly_fields = {"username"}
         user = Mock()
 
-        with patch.object(
-            AccountSettingsReadOnlyFieldsRequested,
-            "run_pipeline",
-            return_value={"readonly_fields": readonly_fields},
-        ):
-            result = AccountSettingsReadOnlyFieldsRequested.run_filter(
-                readonly_fields=readonly_fields, user=user
-            )
+        result_fields, result_user = AccountSettingsReadOnlyFieldsRequested.run_filter(
+            readonly_fields=readonly_fields, user=user
+        )
 
-        self.assertEqual(result, readonly_fields)
+        self.assertEqual(result_fields, readonly_fields)
+        self.assertEqual(result_user, user)
 
     def test_filter_type(self):
         self.assertEqual(

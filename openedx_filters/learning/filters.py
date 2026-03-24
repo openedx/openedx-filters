@@ -1482,4 +1482,4 @@ class AccountSettingsReadOnlyFieldsRequested(OpenEdxPublicFilter):
             set: the (possibly expanded) set of read-only field names.
         """
         data = super().run_pipeline(readonly_fields=readonly_fields, user=user)
-        return data.get("readonly_fields", set())
+        return (data.get("readonly_fields"), data.get("user"))
