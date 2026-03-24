@@ -19,6 +19,7 @@ from openedx_filters.learning.filters import (
     CourseEnrollmentQuerysetRequested,
     CourseEnrollmentStarted,
     CourseHomeUrlCreationStarted,
+    CourseModeCheckoutStarted,
     CourseRunAPIRenderStarted,
     CourseUnenrollmentStarted,
     DashboardRenderStarted,
@@ -801,3 +802,29 @@ class TestScheduleFilters(TestCase):
         result = ScheduleQuerySetRequested.run_filter(schedules)
 
         self.assertEqual(schedules, result)
+
+
+@ddt
+class TestCourseModeFilters(TestCase):
+    """
+    Test class to verify standard behavior of the course mode filters.
+
+    You'll find test suites for:
+    - `CourseModeCheckoutStarted`
+    """
+
+    def test_course_mode_checkout_started(self):
+        """
+        Test CourseModeCheckoutStarted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter must have the signature specified.
+            - The filter should return the (possibly enriched) context dict.
+        """
+        context = {"course_id": "course-v1:edX+DemoX+Demo_Course"}
+        request = Mock()
+        course_mode = Mock()
+
+        result = CourseModeCheckoutStarted.run_filter(context, request, course_mode)
+
+        self.assertEqual(context, result)
