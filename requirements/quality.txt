@@ -16,7 +16,7 @@ certifi==2026.2.25
     # via requests
 cffi==2.0.0
     # via cryptography
-charset-normalizer==3.4.5
+charset-normalizer==3.4.6
     # via requests
 click==8.3.1
     # via
@@ -26,11 +26,11 @@ click==8.3.1
     #   edx-lint
 click-log==0.4.0
     # via edx-lint
-code-annotations==2.3.2
+code-annotations==3.0.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-coverage[toml]==7.13.4
+coverage[toml]==7.13.5
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -46,9 +46,9 @@ django==5.2.12
     #   -r requirements/test.txt
     #   django-stubs
     #   django-stubs-ext
-django-stubs==5.2.9
+django-stubs==6.0.1
     # via -r requirements/test.txt
-django-stubs-ext==5.2.9
+django-stubs-ext==6.0.1
     # via
     #   -r requirements/test.txt
     #   django-stubs
@@ -58,7 +58,7 @@ dnspython==2.8.0
     #   pymongo
 docutils==0.22.4
     # via readme-renderer
-edx-lint==5.6.0
+edx-lint==6.0.0
     # via -r requirements/quality.in
 edx-opaque-keys[django]==3.1.0
     # via -r requirements/test.txt
@@ -76,7 +76,7 @@ isort==8.0.1
     #   pylint
 jaraco-classes==3.4.0
     # via keyring
-jaraco-context==6.1.1
+jaraco-context==6.1.2
     # via keyring
 jaraco-functools==4.4.0
     # via keyring
@@ -167,7 +167,7 @@ pytest==9.0.2
     #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
-pytest-cov==7.0.0
+pytest-cov==7.1.0
     # via -r requirements/test.txt
 pytest-django==4.12.0
     # via -r requirements/test.txt
@@ -191,7 +191,7 @@ rfc3986==2.0.0
     # via twine
 rich==14.3.3
     # via twine
-ruff==0.15.5
+ruff==0.15.7
     # via -r requirements/quality.in
 secretstorage==3.5.0
     # via keyring
