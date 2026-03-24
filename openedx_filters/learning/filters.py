@@ -1445,3 +1445,48 @@ class ScheduleQuerySetRequested(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(schedules=schedules)
         return data.get("schedules")
+
+
+class DiscountEligibilityCheckRequested(OpenEdxPublicFilter):
+    """
+    Filter used to allow plugins to mark a user as ineligible for a course discount.
+
+    Purpose:
+        This filter is triggered during discount applicability checks, just before the
+        final eligibility decision is returned to the caller. Pipeline steps may set
+        ``is_eligible`` to ``False`` to exclude a user from receiving a discount.
+
+    Filter Type:
+        org.openedx.learning.discount.eligibility.check.requested.v1
+
+    Trigger:
+        - Repository: openedx/edx-platform
+        - Path: openedx/features/discounts/applicability.py
+        - Function or Method: can_receive_discount, can_show_streak_discount_coupon
+    """
+
+    filter_type = "org.openedx.learning.discount.eligibility.check.requested.v1"
+
+    @classmethod
+    def run_filter(
+        cls,
+        user: Any,
+        course_key: Any,
+        is_eligible: bool,
+    ) -> tuple:
+        """
+        Process the inputs using the configured pipeline steps.
+
+        Arguments:
+            user (User): the Django User being checked for discount eligibility.
+            course_key (CourseKey or course object): identifies the course.
+            is_eligible (bool): the current eligibility status before plugin evaluation.
+
+        Returns:
+            tuple[User, CourseKey, bool]:
+                - User: the Django User object (unchanged).
+                - CourseKey: the course key (unchanged).
+                - bool: the (possibly overridden) eligibility flag.
+        """
+        data = super().run_pipeline(user=user, course_key=course_key, is_eligible=is_eligible)
+        return data.get("user"), data.get("course_key"), data.get("is_eligible")
