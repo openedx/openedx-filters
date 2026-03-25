@@ -1468,7 +1468,7 @@ class AccountSettingsReadOnlyFieldsRequested(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.account.settings.read_only_fields.requested.v1"
 
     @classmethod
-    def run_filter(cls, readonly_fields: set, user: Any) -> set:
+    def run_filter(cls, readonly_fields: set, user: Any) -> tuple[Any, Any]:
         """
         Process the readonly_fields set using the configured pipeline steps.
 
