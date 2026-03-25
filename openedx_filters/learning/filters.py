@@ -1479,7 +1479,9 @@ class AccountSettingsReadOnlyFieldsRequested(OpenEdxPublicFilter):
             user (User): the Django User whose account settings are being updated.
 
         Returns:
-            set: the (possibly expanded) set of read-only field names.
+            tuple[Any | Any]:
+                Any: the (possibly expanded) set of read-only field names.
+                Any: the Django User object.
         """
         data = super().run_pipeline(readonly_fields=readonly_fields, user=user)
         return (data.get("readonly_fields"), data.get("user"))
