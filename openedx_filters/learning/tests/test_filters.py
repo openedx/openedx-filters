@@ -8,6 +8,7 @@ from ddt import data, ddt, unpack  # type: ignore
 from django.test import TestCase
 
 from openedx_filters.learning.filters import (
+    AccountSettingsReadOnlyFieldsRequested,
     AccountSettingsRenderStarted,
     CertificateCreationRequested,
     CertificateRenderStarted,
@@ -801,3 +802,29 @@ class TestScheduleFilters(TestCase):
         result = ScheduleQuerySetRequested.run_filter(schedules)
 
         self.assertEqual(schedules, result)
+
+
+class TestAccountSettingsReadOnlyFieldsRequestedFilter(TestCase):
+    """
+    Tests for the AccountSettingsReadOnlyFieldsRequested filter.
+    """
+
+    def test_run_filter_returns_inputs_unchanged_when_no_pipeline(self):
+        """
+        When no pipeline steps are configured, run_filter returns the original inputs unchanged.
+        """
+        readonly_fields = {"username"}
+        user = Mock()
+
+        result_fields, result_user = AccountSettingsReadOnlyFieldsRequested.run_filter(
+            readonly_fields=readonly_fields, user=user
+        )
+
+        self.assertEqual(result_fields, readonly_fields)
+        self.assertEqual(result_user, user)
+
+    def test_filter_type(self):
+        self.assertEqual(
+            AccountSettingsReadOnlyFieldsRequested.filter_type,
+            "org.openedx.learning.account.settings.read_only_fields.requested.v1",
+        )

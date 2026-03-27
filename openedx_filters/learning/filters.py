@@ -1445,3 +1445,43 @@ class ScheduleQuerySetRequested(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(schedules=schedules)
         return data.get("schedules")
+
+
+class AccountSettingsReadOnlyFieldsRequested(OpenEdxPublicFilter):
+    """
+    Filter used to expand the set of read-only fields on the account settings API.
+
+    Purpose:
+        This filter is triggered when the account settings API validates which fields
+        may be updated for a given user. Pipeline steps may add field names to
+        ``readonly_fields`` to mark those fields as read-only for the requesting user.
+
+    Filter Type:
+        org.openedx.learning.account.settings.read_only_fields.requested.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: openedx/core/djangoapps/user_api/accounts/api.py
+        - Function or Method: _validate_read_only_fields
+    """
+
+    filter_type = "org.openedx.learning.account.settings.read_only_fields.requested.v1"
+
+    @classmethod
+    def run_filter(cls, readonly_fields: set, user: Any) -> tuple[Any, Any]:
+        """
+        Process the readonly_fields set using the configured pipeline steps.
+
+        Arguments:
+            readonly_fields (set): the set of field names the caller considers read-only.
+                Pipeline steps add field names to this set to mark additional fields as
+                read-only.
+            user (User): the Django User whose account settings are being updated.
+
+        Returns:
+            tuple[Any | Any]:
+                Any: the (possibly expanded) set of read-only field names.
+                Any: the Django User object.
+        """
+        data = super().run_pipeline(readonly_fields=readonly_fields, user=user)
+        return (data.get("readonly_fields"), data.get("user"))
