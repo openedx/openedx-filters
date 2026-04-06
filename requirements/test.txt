@@ -8,7 +8,7 @@ asgiref==3.11.1
     # via
     #   -r requirements/base.txt
     #   django
-click==8.3.1
+click==8.3.2
     # via code-annotations
 code-annotations==3.0.0
     # via -r requirements/test.in
@@ -21,15 +21,15 @@ ddt==1.7.2
     #   -r requirements/base.txt
     #   django-stubs
     #   django-stubs-ext
-django-stubs==6.0.1
+django-stubs==6.0.2
     # via -r requirements/test.in
-django-stubs-ext==6.0.1
+django-stubs-ext==6.0.2
     # via django-stubs
 dnspython==2.8.0
     # via
     #   -r requirements/base.txt
     #   pymongo
-edx-opaque-keys[django]==3.1.0
+edx-opaque-keys[django]==4.0.0
     # via -r requirements/base.txt
 iniconfig==2.3.0
     # via pytest
@@ -39,7 +39,7 @@ librt==0.8.1
     # via mypy
 markupsafe==3.0.3
     # via jinja2
-mypy==1.19.1
+mypy==1.20.0
     # via -r requirements/test.in
 mypy-extensions==1.1.0
     # via mypy
