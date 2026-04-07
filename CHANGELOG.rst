@@ -32,7 +32,6 @@ Change Log
 Unreleased
 ----------
 
-[2.1.0] - 2025-04-23
 
 Added
 ~~~~~
@@ -44,6 +43,21 @@ See the fragment files in the `changelog.d directory`_.
 .. _changelog.d directory: https://github.com/openedx/openedx-filters/tree/master/changelog.d
 .. scriv-insert-here
 
+[3.1.0] - 2025-04-06
+--------------------
+
+Changed
+~~~~~~~
+
+* Added AccountSettingsReadOnlyFieldsRequested filter
+
+[3.0.0] - 2025-03-19
+--------------------
+
+Changed
+~~~~~~~
+
+* Dropped Python 3.11 support
 
 [2.0.1] - 2025-02-18
 --------------------
