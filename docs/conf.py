@@ -34,7 +34,6 @@ release = 'latest'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinxcontrib.contentui',
     'sphinx_copybutton',
     'sphinx.ext.graphviz',
     'sphinxcontrib.mermaid',
