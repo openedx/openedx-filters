@@ -43,6 +43,14 @@ See the fragment files in the `changelog.d directory`_.
 .. _changelog.d directory: https://github.com/openedx/openedx-filters/tree/master/changelog.d
 .. scriv-insert-here
 
+[3.2.0] - 2025-04-13
+--------------------
+
+Changed
+~~~~~~~
+
+* Added GradeEventContextRequested filter
+ 
 [3.1.0] - 2025-04-06
 --------------------
 

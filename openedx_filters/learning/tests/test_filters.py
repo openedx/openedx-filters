@@ -842,6 +842,7 @@ class TestGradeEventContextRequestedFilter(TestCase):
             "org.openedx.learning.grade.context.requested.v1",
         )
 
+
 class TestAccountSettingsReadOnlyFieldsRequestedFilter(TestCase):
     """
     Tests for the AccountSettingsReadOnlyFieldsRequested filter.

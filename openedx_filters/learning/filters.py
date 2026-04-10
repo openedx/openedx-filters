@@ -1468,7 +1468,7 @@ class AccountSettingsReadOnlyFieldsRequested(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.account.settings.read_only_fields.requested.v1"
 
     @classmethod
-    def run_filter(cls, readonly_fields: set, user: Any) -> tuple[Any, Any]:
+    def run_filter(cls, readonly_fields: set, user: Any) -> tuple[set, Any]:
         """
         Process the readonly_fields set using the configured pipeline steps.
 
@@ -1484,7 +1484,7 @@ class AccountSettingsReadOnlyFieldsRequested(OpenEdxPublicFilter):
                 Any: the Django User object.
         """
         data = super().run_pipeline(readonly_fields=readonly_fields, user=user)
-        return (data.get("readonly_fields"), data.get("user"))
+        return (data["readonly_fields"], data["user"])
 
 
 class GradeEventContextRequested(OpenEdxPublicFilter):
@@ -1507,7 +1507,7 @@ class GradeEventContextRequested(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.grade.context.requested.v1"
 
     @classmethod
-    def run_filter(cls, context: dict, user_id: int, course_id: str) -> tuple[dict | None, int | None, str | None]:
+    def run_filter(cls, context: dict, user_id: int, course_id: str) -> tuple[dict, int, str]:
         """
         Process the context dict using the configured pipeline steps.
 
@@ -1517,10 +1517,10 @@ class GradeEventContextRequested(OpenEdxPublicFilter):
             course_id (str): The identifier of the course.
 
         Returns:
-            tuple[dict | None, int | None, str | None]:
+            tuple[dict, int, str]:
                 dict: The enriched grade event context.
                 int: The user ID.
                 str: The course identifier.
         """
         data = super().run_pipeline(context=context, user_id=user_id, course_id=course_id)
-        return data.get("context"), data.get("user_id"), data.get("course_id")
+        return data["context"], data["user_id"], data["course_id"]
