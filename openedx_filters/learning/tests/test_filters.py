@@ -812,20 +812,26 @@ class TestGradeEventContextRequestedFilter(TestCase):
 
     def test_run_filter_returns_context_unchanged_when_no_pipeline(self):
         """
-        When no pipeline steps are configured, run_filter returns the original context.
+        When no pipeline steps are configured, run_filter returns all original inputs unchanged.
         """
         context = {"course_id": "course-v1:org+course+run"}
         user_id = 42
         course_id = "course-v1:org+course+run"
 
-        with patch.object(GradeEventContextRequested, "run_pipeline", return_value={"context": context}):
-            result = GradeEventContextRequested.run_filter(
+        with patch.object(
+            GradeEventContextRequested,
+            "run_pipeline",
+            return_value={"context": context, "user_id": user_id, "course_id": course_id},
+        ):
+            result_context, result_user_id, result_course_id = GradeEventContextRequested.run_filter(
                 context=context,
                 user_id=user_id,
                 course_id=course_id,
             )
 
-        self.assertEqual(result, context)
+        self.assertEqual(result_context, context)
+        self.assertEqual(result_user_id, user_id)
+        self.assertEqual(result_course_id, course_id)
 
     def test_filter_type(self):
         """
@@ -834,6 +840,7 @@ class TestGradeEventContextRequestedFilter(TestCase):
         self.assertEqual(
             GradeEventContextRequested.filter_type,
             "org.openedx.learning.grade.context.requested.v1",
+        )
 
 class TestAccountSettingsReadOnlyFieldsRequestedFilter(TestCase):
     """
