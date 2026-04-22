@@ -1468,7 +1468,7 @@ class AccountSettingsReadOnlyFieldsRequested(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.account.settings.read_only_fields.requested.v1"
 
     @classmethod
-    def run_filter(cls, readonly_fields: set, user: Any) -> tuple[Any, Any]:
+    def run_filter(cls, readonly_fields: set, user: Any) -> tuple[set, Any]:
         """
         Process the readonly_fields set using the configured pipeline steps.
 
@@ -1484,4 +1484,43 @@ class AccountSettingsReadOnlyFieldsRequested(OpenEdxPublicFilter):
                 Any: the Django User object.
         """
         data = super().run_pipeline(readonly_fields=readonly_fields, user=user)
-        return (data.get("readonly_fields"), data.get("user"))
+        return (data["readonly_fields"], data["user"])
+
+
+class GradeEventContextRequested(OpenEdxPublicFilter):
+    """
+    Filter used to enrich the context for grade events.
+
+    Purpose:
+        This filter is triggered when a grade event context is requested, allowing
+        pipeline steps to enrich the context dictionary with additional data.
+
+    Filter Type:
+        org.openedx.learning.grade.context.requested.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: lms/djangoapps/grades/events.py
+        - Function or Method: course_grade_passed_first_time
+    """
+
+    filter_type = "org.openedx.learning.grade.context.requested.v1"
+
+    @classmethod
+    def run_filter(cls, context: dict, user_id: int, course_id: str) -> tuple[dict, int, str]:
+        """
+        Process the context dict using the configured pipeline steps.
+
+        Arguments:
+            context (dict): The grade event context to be enriched.
+            user_id (int): The ID of the user associated with the grade event.
+            course_id (str): The identifier of the course.
+
+        Returns:
+            tuple[dict, int, str]:
+                dict: The enriched grade event context.
+                int: The user ID.
+                str: The course identifier.
+        """
+        data = super().run_pipeline(context=context, user_id=user_id, course_id=course_id)
+        return data["context"], data["user_id"], data["course_id"]

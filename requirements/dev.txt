@@ -15,7 +15,7 @@ astroid==4.0.4
     #   pylint-celery
 attrs==26.1.0
     # via scriv
-build==1.4.2
+build==1.4.3
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
@@ -31,13 +31,13 @@ cffi==2.0.0
     # via
     #   -r requirements/quality.txt
     #   cryptography
-chardet==7.4.0.post2
+chardet==7.4.3
     # via diff-cover
-charset-normalizer==3.4.6
+charset-normalizer==3.4.7
     # via
     #   -r requirements/quality.txt
     #   requests
-click==8.3.1
+click==8.3.2
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
@@ -63,7 +63,7 @@ coverage[toml]==7.13.5
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
-cryptography==46.0.6
+cryptography==46.0.7
     # via
     #   -r requirements/quality.txt
     #   secretstorage
@@ -79,15 +79,15 @@ distlib==0.4.0
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==5.2.12
+django==5.2.13
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
     #   django-stubs
     #   django-stubs-ext
-django-stubs==6.0.1
+django-stubs==6.0.3
     # via -r requirements/quality.txt
-django-stubs-ext==6.0.1
+django-stubs-ext==6.0.3
     # via
     #   -r requirements/quality.txt
     #   django-stubs
@@ -101,9 +101,9 @@ docutils==0.22.4
     #   readme-renderer
 edx-lint==6.0.0
     # via -r requirements/quality.txt
-edx-opaque-keys[django]==3.1.0
+edx-opaque-keys[django]==4.0.0
     # via -r requirements/quality.txt
-filelock==3.25.2
+filelock==3.29.0
     # via
     #   -r requirements/ci.txt
     #   python-discovery
@@ -152,7 +152,7 @@ keyring==25.7.0
     # via
     #   -r requirements/quality.txt
     #   twine
-librt==0.8.1
+librt==0.9.0
     # via
     #   -r requirements/quality.txt
     #   mypy
@@ -173,12 +173,12 @@ mdurl==0.1.2
     # via
     #   -r requirements/quality.txt
     #   markdown-it-py
-more-itertools==10.8.0
+more-itertools==11.0.2
     # via
     #   -r requirements/quality.txt
     #   jaraco-classes
     #   jaraco-functools
-mypy==1.19.1
+mypy==1.20.1
     # via -r requirements/quality.txt
 mypy-extensions==1.1.0
     # via
@@ -188,7 +188,7 @@ nh3==0.3.4
     # via
     #   -r requirements/quality.txt
     #   readme-renderer
-packaging==26.0
+packaging==26.1
     # via
     #   -r requirements/ci.txt
     #   -r requirements/pip-tools.txt
@@ -205,7 +205,7 @@ pathspec==1.0.4
     #   mypy
 pip-tools==7.5.3
     # via -r requirements/pip-tools.txt
-platformdirs==4.9.4
+platformdirs==4.9.6
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -267,7 +267,7 @@ pyproject-hooks==1.2.0
     #   -r requirements/pip-tools.txt
     #   build
     #   pip-tools
-pytest==9.0.2
+pytest==9.0.3
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -276,7 +276,7 @@ pytest-cov==7.1.0
     # via -r requirements/quality.txt
 pytest-django==4.12.0
     # via -r requirements/quality.txt
-python-discovery==1.2.1
+python-discovery==1.2.2
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -293,7 +293,7 @@ readme-renderer==44.0
     # via
     #   -r requirements/quality.txt
     #   twine
-requests==2.33.0
+requests==2.33.1
     # via
     #   -r requirements/quality.txt
     #   requests-toolbelt
@@ -307,11 +307,11 @@ rfc3986==2.0.0
     # via
     #   -r requirements/quality.txt
     #   twine
-rich==14.3.3
+rich==15.0.0
     # via
     #   -r requirements/quality.txt
     #   twine
-ruff==0.15.8
+ruff==0.15.11
     # via -r requirements/quality.txt
 scriv==1.8.0
     # via -r requirements/dev.in
@@ -344,11 +344,11 @@ tomlkit==0.14.0
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.51.0
+tox==4.53.0
     # via -r requirements/ci.txt
 twine==6.2.0
     # via -r requirements/quality.txt
-types-pyyaml==6.0.12.20250915
+types-pyyaml==6.0.12.20260408
     # via
     #   -r requirements/quality.txt
     #   django-stubs
@@ -365,7 +365,7 @@ urllib3==2.6.3
     #   id
     #   requests
     #   twine
-virtualenv==21.2.0
+virtualenv==21.2.4
     # via
     #   -r requirements/ci.txt
     #   tox

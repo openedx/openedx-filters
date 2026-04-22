@@ -32,6 +32,7 @@ Change Log
 Unreleased
 ----------
 
+
 Added
 ~~~~~
 
@@ -49,6 +50,30 @@ Changed
 ~~~~~~~
 
 * Expand Python version compatibility
+
+[3.2.0] - 2025-04-13
+--------------------
+
+Changed
+~~~~~~~
+
+* Added GradeEventContextRequested filter
+ 
+[3.1.0] - 2025-04-06
+--------------------
+
+Changed
+~~~~~~~
+
+* Added AccountSettingsReadOnlyFieldsRequested filter
+
+[3.0.0] - 2025-03-19
+--------------------
+
+Changed
+~~~~~~~
+
+* Dropped Python 3.11 support
 
 [2.0.1] - 2025-02-18
 --------------------
