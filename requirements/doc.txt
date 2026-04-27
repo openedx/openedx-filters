@@ -22,15 +22,15 @@ babel==2.18.0
     #   sphinx
 beautifulsoup4==4.14.3
     # via pydata-sphinx-theme
-build==1.4.3
+build==1.4.4
     # via -r requirements/doc.in
-certifi==2026.2.25
+certifi==2026.4.22
     # via requests
 cffi==2.0.0
     # via cryptography
 charset-normalizer==3.4.7
     # via requests
-click==8.3.2
+click==8.3.3
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -43,7 +43,7 @@ coverage[toml]==7.13.5
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==46.0.7
+cryptography==47.0.0
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
@@ -78,7 +78,7 @@ h11==0.16.0
     # via uvicorn
 id==1.6.1
     # via twine
-idna==3.11
+idna==3.13
     # via
     #   anyio
     #   requests
@@ -122,22 +122,22 @@ more-itertools==11.0.2
     # via
     #   jaraco-classes
     #   jaraco-functools
-mypy==1.20.1
+mypy==1.20.2
     # via -r requirements/test.txt
 mypy-extensions==1.1.0
     # via
     #   -r requirements/test.txt
     #   mypy
-nh3==0.3.4
+nh3==0.3.5
     # via readme-renderer
-packaging==26.1
+packaging==26.2
     # via
     #   -r requirements/test.txt
     #   build
     #   pytest
     #   sphinx
     #   twine
-pathspec==1.0.4
+pathspec==1.1.0
     # via
     #   -r requirements/test.txt
     #   mypy
@@ -160,7 +160,7 @@ pygments==2.20.0
     #   readme-renderer
     #   rich
     #   sphinx
-pymongo==4.16.0
+pymongo==4.17.0
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -273,7 +273,7 @@ urllib3==2.6.3
     #   id
     #   requests
     #   twine
-uvicorn==0.44.0
+uvicorn==0.46.0
     # via sphinx-autobuild
 watchfiles==1.1.1
     # via sphinx-autobuild
