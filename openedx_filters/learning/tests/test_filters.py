@@ -883,10 +883,10 @@ class TestInstructorDashboardTabsGenerated(TestCase):
         """
         Test InstructorDashboardTabsGenerated filter behavior under normal conditions.
 
-        When no pipeline steps are configured, run_filter returns the original inputs unchanged.
-        
+        When no pipeline steps are configured, run_filter returns the original tabs unchanged.
+
         Expected behavior:
-            - The filter should return the tabs list, course, user, and course_key unchanged.
+            - The filter should return the tabs list unchanged.
         """
         tabs = [
             {"tab_id": "courseware", "title": "Course", "url": "/course/123", "sort_order": 0},
@@ -896,14 +896,11 @@ class TestInstructorDashboardTabsGenerated(TestCase):
         user = Mock()
         course_key = Mock()
 
-        result_tabs, result_course, result_user, result_course_key = InstructorDashboardTabsGenerated.run_filter(
+        result_tabs = InstructorDashboardTabsGenerated.run_filter(
             tabs=tabs, course=course, user=user, course_key=course_key
         )
 
         self.assertEqual(result_tabs, tabs)
-        self.assertEqual(result_course, course)
-        self.assertEqual(result_user, user)
-        self.assertEqual(result_course_key, course_key)
 
     def test_filter_type(self):
         """Test that the filter type is properly set."""
