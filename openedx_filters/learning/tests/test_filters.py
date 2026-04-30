@@ -26,6 +26,7 @@ from openedx_filters.learning.filters import (
     GradeEventContextRequested,
     IDVPageURLRequested,
     InstructorDashboardRenderStarted,
+    InstructorDashboardTabsGenerated,
     ORASubmissionViewRenderStarted,
     RenderXBlockStarted,
     ScheduleQuerySetRequested,
@@ -867,3 +868,73 @@ class TestAccountSettingsReadOnlyFieldsRequestedFilter(TestCase):
             AccountSettingsReadOnlyFieldsRequested.filter_type,
             "org.openedx.learning.account.settings.read_only_fields.requested.v1",
         )
+
+
+@ddt
+class TestInstructorDashboardTabsGenerated(TestCase):
+    """
+    Test class to verify standard behavior of the InstructorDashboardTabsGenerated filter.
+
+    You'll find test suites for:
+    - InstructorDashboardTabsGenerated
+    """
+
+    def test_run_filter_returns_unchanged_tabs_when_no_pipeline(self):
+        """
+        Test InstructorDashboardTabsGenerated filter behavior under normal conditions.
+
+        When no pipeline steps are configured, run_filter returns the original inputs unchanged.
+        
+        Expected behavior:
+            - The filter should return the tabs list, course, user, and course_key unchanged.
+        """
+        tabs = [
+            {"tab_id": "courseware", "title": "Course", "url": "/course/123", "sort_order": 0},
+            {"tab_id": "instructor", "title": "Instructor", "url": "/instructor/123", "sort_order": 1},
+        ]
+        course = Mock()
+        user = Mock()
+        course_key = Mock()
+
+        result_tabs, result_course, result_user, result_course_key = InstructorDashboardTabsGenerated.run_filter(
+            tabs=tabs, course=course, user=user, course_key=course_key
+        )
+
+        self.assertEqual(result_tabs, tabs)
+        self.assertEqual(result_course, course)
+        self.assertEqual(result_user, user)
+        self.assertEqual(result_course_key, course_key)
+
+    def test_filter_type(self):
+        """Test that the filter type is properly set."""
+        self.assertEqual(
+            InstructorDashboardTabsGenerated.filter_type,
+            "org.openedx.learning.instructor.dashboard.tabs.generated.v1",
+        )
+
+    @data(
+        (
+            InstructorDashboardTabsGenerated.PreventTabsGeneration,
+            {
+                "message": "Custom tabs provided by plugin",
+                "tabs": [{"tab_id": "custom", "title": "Custom", "url": "/custom", "sort_order": 0}],
+            }
+        ),
+        (
+            InstructorDashboardTabsGenerated.PreventTabsGeneration,
+            {
+                "message": "Disable tab generation",
+            }
+        ),
+    )
+    @unpack
+    def test_prevent_tabs_generation_exception(self, exception_class, attributes):
+        """
+        Test that the PreventTabsGeneration exception can be initialized with required attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = exception_class(**attributes)
+
+        self.assertLessEqual(attributes.items(), exception.__dict__.items())

@@ -1487,6 +1487,87 @@ class AccountSettingsReadOnlyFieldsRequested(OpenEdxPublicFilter):
         return (data["readonly_fields"], data["user"])
 
 
+class InstructorDashboardTabsGenerated(OpenEdxPublicFilter):
+    """
+    Filter used to modify the instructor dashboard tabs generation process.
+
+    Purpose:
+        This filter is triggered when instructor dashboard tabs are generated, allowing plugins
+        to add, modify, or remove tabs from the instructor dashboard in the MFE.
+
+    Filter Type:
+        org.openedx.learning.instructor.dashboard.tabs.generated.v1
+
+    Trigger:
+        - Repository: openedx/edx-platform
+        - Path: lms/djangoapps/instructor/views/serializers_v2.py
+        - Function or Method: CourseInformationSerializerV2.get_tabs
+    """
+
+    filter_type = "org.openedx.learning.instructor.dashboard.tabs.generated.v1"
+
+    class PreventTabsGeneration(OpenEdxFilterException):
+        """
+        Raise to prevent the normal tabs generation process and optionally provide custom tabs.
+
+        This exception is propagated to the instructor dashboard serializer and handled to stop
+        the normal tab generation process. Plugins can provide their own tabs list.
+
+        Attributes:
+            message (str): error message for the exception.
+            tabs (list): optional custom tabs list to use instead.
+        """
+
+        def __init__(self, message: str, tabs: Optional[list] = None) -> None:
+            """
+            Initialize the exception with the message and optional custom tabs.
+
+            Arguments:
+                message (str): error message for the exception.
+                tabs (list): optional custom tabs list to use instead.
+            """
+            super().__init__(message, tabs=tabs)
+
+    @classmethod
+    def run_filter(
+        cls,
+        tabs: list,
+        course: Any,
+        user: Any,
+        course_key: CourseKey
+    ) -> list | None:
+        """
+        Process the tabs list using the configured pipeline steps to modify instructor dashboard tabs.
+
+        Arguments:
+            tabs (list): List of tab dictionaries containing tab_id, title, url, sort_order, etc.
+            course (CourseBlock): Course object.
+            user (User): Django User object (usually an instructor or staff member).
+            course_key (CourseKey): Course key for the instructor dashboard.
+
+        Returns:
+            list | None:
+                List of tab dictionaries, possibly modified.
+        """
+        data = super().run_pipeline(
+            tabs=tabs,
+            course=course,
+            user=user,
+            course_key=course_key
+        )
+
+        # Always return only the tabs, never the course object or other parameters
+        # The run_pipeline method may return all the original kwargs including the course object
+        if isinstance(data, dict) and "tabs" in data:
+            filtered_tabs = data["tabs"]
+            # Double-check that we're returning a list of dictionaries, not course objects
+            if isinstance(filtered_tabs, list):
+                return filtered_tabs
+
+        # Fallback to original tabs if anything goes wrong
+        return tabs
+
+
 class GradeEventContextRequested(OpenEdxPublicFilter):
     """
     Filter used to enrich the context for grade events.
