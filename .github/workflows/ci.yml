@@ -17,6 +17,14 @@ jobs:
         os: [ubuntu-latest]
         python-version: ['3.12']
         toxenv: ["django42", "django52", "quality", "docs"]
+        # [TEMP] include 3.11 tests until most operators developing filters have migrated to Verawood/Python 3.12.
+        include:
+          - os: ubuntu-latest
+            python-version: '3.11'
+            toxenv: "py311-django42"
+          - os: ubuntu-latest
+            python-version: '3.11'
+            toxenv: "py311-django52"
 
     steps:
     - uses: actions/checkout@v6
