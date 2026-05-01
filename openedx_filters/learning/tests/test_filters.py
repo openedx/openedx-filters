@@ -927,7 +927,11 @@ class TestInstructorDashboardTabsGenerated(TestCase):
         course_key = Mock()
 
         with patch("openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline") as mock_run_pipeline:
-            mock_run_pipeline.return_value = {"tabs": modified_tabs, "course": course, "user": user, "course_key": course_key}
+            mock_run_pipeline.return_value = {
+                "tabs": modified_tabs, "course":
+                course, "user": user,
+                "course_key": course_key
+                }
             result_tabs = InstructorDashboardTabsGenerated.run_filter(
                 tabs=tabs, course=course, user=user, course_key=course_key
             )
@@ -971,7 +975,12 @@ class TestInstructorDashboardTabsGenerated(TestCase):
         course_key = Mock()
 
         with patch("openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline") as mock_run_pipeline:
-            mock_run_pipeline.return_value = {"tabs": "not_a_list", "course": course, "user": user, "course_key": course_key}
+            mock_run_pipeline.return_value = {
+                "tabs": "not_a_list",
+                "course": course,
+                "user": user,
+                "course_key": course_key
+                }
             result_tabs = InstructorDashboardTabsGenerated.run_filter(
                 tabs=tabs, course=course, user=user, course_key=course_key
             )
