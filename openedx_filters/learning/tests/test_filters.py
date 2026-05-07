@@ -876,7 +876,6 @@ class TestInstructorDashboardTabsRequested(TestCase):
     Test class to verify standard behavior of the InstructorDashboardTabsRequested filter.
 
     You'll find test suites for:
-class TestInstructorDashboardTabsRequested(TestCase):
     - InstructorDashboardTabsRequested
     """
 
