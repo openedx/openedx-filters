@@ -1297,8 +1297,8 @@ class InstructorDashboardTabsRequested(OpenEdxPublicFilter):
         to add, modify, or remove tabs from the instructor dashboard in the MFE.
 
         There's an old version of this filter (org.openedx.learning.instructor.dashboard.render.started.v1)
-        that applies to the legacy instructor dashboard,
-        but this new filter is specifically designed to work with the instructor dashboard app and its tabs generation process.
+        that applies to the legacy instructor dashboard, but this new filter is specifically designed
+        to work with the instructor dashboard app and its tabs generation process.
 
     Filter Type:
         org.openedx.learning.instructor.dashboard.tabs.requested.v1
