@@ -1174,6 +1174,10 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
         This filter is triggered when an instructor requests to view the dashboard, just before the page is rendered
         allowing the filter to act on the context and the template used to render the page.
 
+        There's a new version of this filter (org.openedx.learning.instructor.dashboard.tabs.requested.v1)
+        that applies to the instructor dashboard app,
+        but this filter will still be triggered for the legacy instructor dashboard.
+
     Filter Type:
         org.openedx.learning.instructor.dashboard.render.started.v1
 
@@ -1290,6 +1294,10 @@ class InstructorDashboardTabsRequested(OpenEdxPublicFilter):
     Purpose:
         This filter is triggered when instructor dashboard tabs are generated, allowing plugins
         to add, modify, or remove tabs from the instructor dashboard in the MFE.
+
+        There's an old version of this filter (org.openedx.learning.instructor.dashboard.render.started.v1)
+        that applies to the legacy instructor dashboard,
+        but this new filter is specifically designed to work with the instructor dashboard app and its tabs generation process.
 
     Filter Type:
         org.openedx.learning.instructor.dashboard.tabs.generated.v1
