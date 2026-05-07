@@ -40,7 +40,7 @@ Added
 
 * Added django52 support.
 * Also releasing pending items.
-* Added new ``InstructorDashboardTabsGenerated`` filter to allow for dynamic generation of instructor dashboard tabs. (by @holaontiveros)
+* Added new ``InstructorDashboardTabsRequested`` filter to allow for dynamic generation of instructor dashboard tabs. (by @holaontiveros)
 
 See the fragment files in the `changelog.d directory`_.
 .. _changelog.d directory: https://github.com/openedx/openedx-filters/tree/master/changelog.d

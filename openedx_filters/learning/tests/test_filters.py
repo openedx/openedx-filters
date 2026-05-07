@@ -26,7 +26,7 @@ from openedx_filters.learning.filters import (
     GradeEventContextRequested,
     IDVPageURLRequested,
     InstructorDashboardRenderStarted,
-    InstructorDashboardTabsGenerated,
+    InstructorDashboardTabsRequested,
     ORASubmissionViewRenderStarted,
     RenderXBlockStarted,
     ScheduleQuerySetRequested,
@@ -871,17 +871,18 @@ class TestAccountSettingsReadOnlyFieldsRequestedFilter(TestCase):
 
 
 @ddt
-class TestInstructorDashboardTabsGenerated(TestCase):
+class TestInstructorDashboardTabsRequested(TestCase):
     """
-    Test class to verify standard behavior of the InstructorDashboardTabsGenerated filter.
+    Test class to verify standard behavior of the InstructorDashboardTabsRequested filter.
 
     You'll find test suites for:
-    - InstructorDashboardTabsGenerated
+class TestInstructorDashboardTabsRequested(TestCase):
+    - InstructorDashboardTabsRequested
     """
 
     def test_run_filter_returns_unchanged_tabs_when_no_pipeline(self):
         """
-        Test InstructorDashboardTabsGenerated filter behavior under normal conditions.
+        Test InstructorDashboardTabsRequested filter behavior under normal conditions.
 
         When no pipeline steps are configured, run_filter returns the original tabs unchanged.
 
@@ -897,7 +898,7 @@ class TestInstructorDashboardTabsGenerated(TestCase):
 
         with patch("openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline") as mock_run_pipeline:
             mock_run_pipeline.return_value = {"tabs": tabs, "user": user, "course_key": course_key}
-            result_tabs = InstructorDashboardTabsGenerated.run_filter(
+            result_tabs = InstructorDashboardTabsRequested.run_filter(
                 tabs=tabs, user=user, course_key=course_key
             )
 
@@ -906,13 +907,13 @@ class TestInstructorDashboardTabsGenerated(TestCase):
     def test_filter_type(self):
         """Test that the filter type is properly set."""
         self.assertEqual(
-            InstructorDashboardTabsGenerated.filter_type,
-            "org.openedx.learning.instructor.dashboard.tabs.generated.v1",
+            InstructorDashboardTabsRequested.filter_type,
+            "org.openedx.learning.instructor.dashboard.tabs.requested.v1",
         )
 
     def test_run_filter_with_pipeline_returning_dict_with_tabs(self):
         """
-        Test InstructorDashboardTabsGenerated filter when pipeline returns dict with tabs.
+        Test InstructorDashboardTabsRequested filter when pipeline returns dict with tabs.
 
         Expected behavior:
             - The filter should return the filtered tabs from the pipeline result.
@@ -930,7 +931,7 @@ class TestInstructorDashboardTabsGenerated(TestCase):
             mock_run_pipeline.return_value = {
                 "tabs": modified_tabs, "user": user, "course_key": course_key
             }
-            result_tabs = InstructorDashboardTabsGenerated.run_filter(
+            result_tabs = InstructorDashboardTabsRequested.run_filter(
                 tabs=tabs, user=user, course_key=course_key
             )
 
@@ -938,14 +939,14 @@ class TestInstructorDashboardTabsGenerated(TestCase):
 
     @data(
         (
-            InstructorDashboardTabsGenerated.PreventTabsGeneration,
+            InstructorDashboardTabsRequested.PreventTabsGeneration,
             {
                 "message": "Custom tabs provided by plugin",
                 "tabs": [{"tab_id": "custom", "title": "Custom", "url": "/custom", "sort_order": 0}],
             }
         ),
         (
-            InstructorDashboardTabsGenerated.PreventTabsGeneration,
+            InstructorDashboardTabsRequested.PreventTabsGeneration,
             {
                 "message": "Disable tab generation",
             }
