@@ -1532,27 +1532,24 @@ class InstructorDashboardTabsGenerated(OpenEdxPublicFilter):
     def run_filter(
         cls,
         tabs: list,
-        course: Any,
         user: Any,
         course_key: CourseKey
-    ) -> list:
+    ) -> list | None:
         """
         Process the tabs list using the configured pipeline steps to modify instructor dashboard tabs.
         Arguments:
             tabs (list): List of tab dictionaries containing tab_id, title, url, sort_order, etc.
-            course (CourseBlock): Course object.
             user (User): Django User object (usually an instructor or staff member).
             course_key (CourseKey): Course key for the instructor dashboard.
         Returns:
-            list: Tab dictionaries, possibly modified by pipeline steps.
+            list | None: Tab dictionaries, possibly modified by pipeline steps, or None if not provided.
         """
         data = super().run_pipeline(
             tabs=tabs,
-            course=course,
             user=user,
             course_key=course_key
         )
-        return data.get("tabs") or []
+        return data.get("tabs")
 
 
 class GradeEventContextRequested(OpenEdxPublicFilter):

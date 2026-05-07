@@ -892,13 +892,14 @@ class TestInstructorDashboardTabsGenerated(TestCase):
             {"tab_id": "courseware", "title": "Course", "url": "/course/123", "sort_order": 0},
             {"tab_id": "instructor", "title": "Instructor", "url": "/instructor/123", "sort_order": 1},
         ]
-        course = Mock()
         user = Mock()
         course_key = Mock()
 
-        result_tabs = InstructorDashboardTabsGenerated.run_filter(
-            tabs=tabs, course=course, user=user, course_key=course_key
-        )
+        with patch("openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline") as mock_run_pipeline:
+            mock_run_pipeline.return_value = {"tabs": tabs, "user": user, "course_key": course_key}
+            result_tabs = InstructorDashboardTabsGenerated.run_filter(
+                tabs=tabs, user=user, course_key=course_key
+            )
 
         self.assertEqual(result_tabs, tabs)
 
@@ -922,18 +923,15 @@ class TestInstructorDashboardTabsGenerated(TestCase):
         modified_tabs = [
             {"tab_id": "custom", "title": "Custom Tab", "url": "/custom/123", "sort_order": 0},
         ]
-        course = Mock()
         user = Mock()
         course_key = Mock()
 
         with patch("openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline") as mock_run_pipeline:
             mock_run_pipeline.return_value = {
-                "tabs": modified_tabs, "course":
-                course, "user": user,
-                "course_key": course_key
-                }
+                "tabs": modified_tabs, "user": user, "course_key": course_key
+            }
             result_tabs = InstructorDashboardTabsGenerated.run_filter(
-                tabs=tabs, course=course, user=user, course_key=course_key
+                tabs=tabs, user=user, course_key=course_key
             )
 
         self.assertEqual(result_tabs, modified_tabs)
