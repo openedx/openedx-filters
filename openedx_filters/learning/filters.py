@@ -1301,7 +1301,7 @@ class InstructorDashboardTabsRequested(OpenEdxPublicFilter):
         but this new filter is specifically designed to work with the instructor dashboard app and its tabs generation process.
 
     Filter Type:
-        org.openedx.learning.instructor.dashboard.tabs.generated.v1
+        org.openedx.learning.instructor.dashboard.tabs.requested.v1
 
     Trigger:
         - Repository: openedx/edx-platform
