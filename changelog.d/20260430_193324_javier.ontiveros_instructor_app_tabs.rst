@@ -1,3 +1,0 @@
-Added
-~~~~~
-* Added new ``InstructorDashboardTabsRequested`` filter to allow for dynamic generation of instructor dashboard tabs. (by @holaontiveros)
