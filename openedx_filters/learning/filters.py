@@ -1166,6 +1166,7 @@ class CourseRunAPIRenderStarted(OpenEdxPublicFilter):
         return data.get("serialized_courserun")
 
 
+# DEPR-38432: This filter should be handled as part of mentioned deprecation ticket
 class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
     """
     Filter used to modify the instructor dashboard rendering process.
