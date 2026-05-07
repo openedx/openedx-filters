@@ -1166,6 +1166,7 @@ class CourseRunAPIRenderStarted(OpenEdxPublicFilter):
         return data.get("serialized_courserun")
 
 
+# DEPR-38432: This filter should be handled as part of mentioned deprecation ticket
 class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
     """
     Filter used to modify the instructor dashboard rendering process.
@@ -1173,6 +1174,10 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
     Purpose:
         This filter is triggered when an instructor requests to view the dashboard, just before the page is rendered
         allowing the filter to act on the context and the template used to render the page.
+
+        There's a new version of this filter (org.openedx.learning.instructor.dashboard.tabs.requested.v1)
+        that applies to the instructor dashboard app,
+        but this filter will still be triggered for the legacy instructor dashboard.
 
     Filter Type:
         org.openedx.learning.instructor.dashboard.render.started.v1
@@ -1281,6 +1286,75 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(context=context, template_name=template_name)
         return data.get("context"), data.get("template_name")
+
+
+class InstructorDashboardTabsRequested(OpenEdxPublicFilter):
+    """
+    Filter used to modify the instructor dashboard tabs generation process.
+
+    Purpose:
+        This filter is triggered when instructor dashboard tabs are generated, allowing plugins
+        to add, modify, or remove tabs from the instructor dashboard in the MFE.
+
+        There's an old version of this filter (org.openedx.learning.instructor.dashboard.render.started.v1)
+        that applies to the legacy instructor dashboard, but this new filter is specifically designed
+        to work with the instructor dashboard app and its tabs generation process.
+
+    Filter Type:
+        org.openedx.learning.instructor.dashboard.tabs.requested.v1
+
+    Trigger:
+        - Repository: openedx/edx-platform
+        - Path: lms/djangoapps/instructor/views/serializers_v2.py
+        - Function or Method: CourseInformationSerializerV2.get_tabs
+    """
+
+    filter_type = "org.openedx.learning.instructor.dashboard.tabs.requested.v1"
+
+    class PreventTabsGeneration(OpenEdxFilterException):
+        """
+        Raise to prevent the normal tabs generation process and optionally provide custom tabs.
+
+        This exception is propagated to the instructor dashboard serializer and handled to stop
+        the normal tab generation process. Plugins can provide their own tabs list.
+
+        Attributes:
+            message (str): error message for the exception.
+            tabs (list): optional custom tabs list to use instead.
+        """
+
+        def __init__(self, message: str, tabs: Optional[list] = None) -> None:
+            """
+            Initialize the exception with the message and optional custom tabs.
+
+            Arguments:
+                message (str): error message for the exception.
+                tabs (list): optional custom tabs list to use instead.
+            """
+            super().__init__(message, tabs=tabs)
+
+    @classmethod
+    def run_filter(
+        cls,
+        tabs: list,
+        user: Any,
+        course_key: CourseKey
+    ) -> list | None:
+        """
+        Process the tabs list using the configured pipeline steps to modify instructor dashboard tabs.
+        Arguments:
+            tabs (list): List of tab dictionaries containing tab_id, title, url, sort_order, etc.
+            user (User): Django User object (usually an instructor or staff member).
+            course_key (CourseKey): Course key for the instructor dashboard.
+        Returns:
+            list | None: Tab dictionaries, possibly modified by pipeline steps, or None if not provided.
+        """
+        data = super().run_pipeline(
+            tabs=tabs,
+            user=user,
+            course_key=course_key
+        )
+        return data.get("tabs")
 
 
 class ORASubmissionViewRenderStarted(OpenEdxPublicFilter):

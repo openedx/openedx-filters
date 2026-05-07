@@ -31,17 +31,19 @@ Change Log
 
 Unreleased
 ----------
+.. scriv-insert-here
 
+[3.4.0] - 2026-05-07
 
 Added
 ~~~~~
 
 * Added django52 support.
 * Also releasing pending items.
+* Added new ``InstructorDashboardTabsRequested`` filter to allow for dynamic generation of instructor dashboard tabs. (by @holaontiveros)
 
 See the fragment files in the `changelog.d directory`_.
 .. _changelog.d directory: https://github.com/openedx/openedx-filters/tree/master/changelog.d
-.. scriv-insert-here
 
 [3.3.0] - 2025-04-17
 --------------------
@@ -58,7 +60,7 @@ Changed
 ~~~~~~~
 
 * Added GradeEventContextRequested filter
- 
+
 [3.1.0] - 2025-04-06
 --------------------
 

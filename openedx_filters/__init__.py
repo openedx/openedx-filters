@@ -6,7 +6,7 @@ import warnings
 
 from openedx_filters.filters import *
 
-__version__ = "3.3.0"
+__version__ = "3.4.0"
 
 if sys.version_info < (3, 12):  # pragma: no cover
     warnings.warn(
