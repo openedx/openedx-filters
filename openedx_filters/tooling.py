@@ -160,7 +160,7 @@ class OpenEdxPublicFilter:
         return filters_config.get(cls.filter_type, {})
 
     @classmethod
-    def run_pipeline(cls, **kwargs: Any) -> dict[str, Any] | Any:
+    def run_pipeline(cls, **kwargs: Any) -> dict[str, Any]:
         """
         Execute filters in order based on the pipeline configuration.
 
@@ -171,8 +171,8 @@ class OpenEdxPublicFilter:
             **kwargs: arguments to be passed to the pipeline steps.
 
         Returns:
-            dict | Any: accumulated outputs of the pipelines that were executed or the return value of a pipeline step
-                if it's not a dictionary.
+            dict: the input kwargs with any cumulative modifications applied by all pipeline steps which ran
+            successfully.
 
         Raises:
             OpenEdxFilterException: exception re-raised when a pipeline step raises
@@ -186,8 +186,8 @@ class OpenEdxPublicFilter:
             >>> result = OpenEdxPublicFilter.run_filter(user=user, course=course)
             >>> result
             {
-                'result_1st_function': 1st_object,
-                'result_2nd_function': 2nd_object,
+                'user': <possibly modified user>,
+                'course': <possibly modified course>,
             }
         """
         pipeline, fail_silently, extra_config = cls.get_pipeline_configuration()
