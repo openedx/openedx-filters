@@ -21,7 +21,10 @@ from openedx_filters.learning.filters import (
     CourseEnrollmentStarted,
     CourseHomeUrlCreationStarted,
     CourseRunAPIRenderStarted,
+    CourseStartDateValidationFailed,
     CourseUnenrollmentStarted,
+    CoursewareAccessChecksRequested,
+    CoursewareViewStarted,
     DashboardRenderStarted,
     GradeEventContextRequested,
     IDVPageURLRequested,
@@ -962,3 +965,89 @@ class TestInstructorDashboardTabsRequested(TestCase):
         exception = exception_class(**attributes)
 
         self.assertLessEqual(attributes.items(), exception.__dict__.items())
+
+
+class TestCoursewareViewStarted(TestCase):
+    """
+    Test class to verify standard behavior of the CoursewareViewStarted filter.
+    """
+
+    def test_returns_redirect_url_unchanged_when_no_pipeline_steps(self):
+        """
+        Test CoursewareViewStarted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter returns ``redirect_url`` unchanged when no pipeline steps modify it.
+            - The request and course_key are returned unchanged.
+        """
+        redirect_url = None
+        request = Mock()
+        course_key = Mock()
+
+        result_url, result_request, result_course_key = CoursewareViewStarted.run_filter(
+            redirect_url, request, course_key
+        )
+
+        self.assertIsNone(result_url)
+        self.assertEqual(request, result_request)
+        self.assertEqual(course_key, result_course_key)
+
+
+class TestCourseStartDateValidationFailed(TestCase):
+    """
+    Test class to verify standard behavior of the CourseStartDateValidationFailed filter.
+    """
+
+    def test_returns_inputs_unchanged_when_no_pipeline_steps(self):
+        """
+        Test CourseStartDateValidationFailed filter behavior under normal conditions.
+
+        Expected behavior:
+            - Each input field is returned unchanged when no pipeline steps modify it.
+        """
+        request = Mock()
+        course_key = Mock()
+
+        error_code, developer_message, user_message, result_request, result_course_key = (
+            CourseStartDateValidationFailed.run_filter(None, None, None, request, course_key)
+        )
+
+        self.assertIsNone(error_code)
+        self.assertIsNone(developer_message)
+        self.assertIsNone(user_message)
+        self.assertEqual(request, result_request)
+        self.assertEqual(course_key, result_course_key)
+
+
+class TestCoursewareAccessChecksRequested(TestCase):
+    """
+    Test class to verify standard behavior of the CoursewareAccessChecksRequested filter.
+    """
+
+    def test_returns_inputs_unchanged_when_no_pipeline_steps(self):
+        """
+        Filter passes through user and course_key when no pipeline steps are configured.
+        """
+        user = Mock()
+        course_key = Mock()
+
+        result_user, result_course_key = CoursewareAccessChecksRequested.run_filter(
+            user, course_key,
+        )
+
+        self.assertEqual(user, result_user)
+        self.assertEqual(course_key, result_course_key)
+
+    def test_prevent_exception_preserves_kwargs(self):
+        """
+        PreventCoursewareAccess stores error_code, developer_message, and
+        user_message as attributes on the exception instance.
+        """
+        exc = CoursewareAccessChecksRequested.PreventCoursewareAccess(
+            error_code="some_code",
+            developer_message="dev",
+            user_message="user",
+        )
+        self.assertEqual(exc.error_code, "some_code")
+        self.assertEqual(exc.developer_message, "dev")
+        self.assertEqual(exc.user_message, "user")

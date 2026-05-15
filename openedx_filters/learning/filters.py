@@ -1598,3 +1598,165 @@ class GradeEventContextRequested(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(context=context, user_id=user_id, course_id=course_id)
         return data["context"], data["user_id"], data["course_id"]
+
+
+class CoursewareViewStarted(OpenEdxPublicFilter):
+    """
+    Filter used to determine whether a courseware view should redirect the user.
+
+    Purpose:
+        This filter is triggered before a courseware view is rendered, allowing pipeline
+        steps to provide a redirect URL. If ``redirect_url`` is non-None after the
+        pipeline runs, the view redirects the user to that URL. A pipeline step should
+        leave ``redirect_url`` as-is when it has no opinion, or set it to a string URL.
+        Earlier steps win by convention: a later step should not overwrite a non-None
+        value set by an earlier step.
+
+    Filter Type:
+        org.openedx.learning.courseware.view.started.v1
+
+    Trigger:
+        - Repository: openedx/edx-platform
+        - Path: lms/djangoapps/courseware/decorators.py
+        - Function or Method: courseware_view_redirect
+    """
+
+    filter_type = "org.openedx.learning.courseware.view.started.v1"
+
+    @classmethod
+    def run_filter(cls, redirect_url: Optional[str], request: Any, course_key: Any) -> tuple:
+        """
+        Process the inputs using the configured pipeline steps.
+
+        Arguments:
+            redirect_url (str or None): initial redirect URL (typically ``None``).
+            request (HttpRequest): the current Django HTTP request.
+            course_key (CourseKey): the course key for the view being accessed.
+
+        Returns:
+            tuple[Optional[str], HttpRequest, CourseKey]:
+                - str or None: the (possibly populated) redirect URL.
+                - HttpRequest: the request object (unchanged).
+                - CourseKey: the course key (unchanged).
+        """
+        data = super().run_pipeline(
+            redirect_url=redirect_url, request=request, course_key=course_key
+        )
+        return data.get("redirect_url"), data.get("request"), data.get("course_key")
+
+
+class CourseStartDateValidationFailed(OpenEdxPublicFilter):
+    """
+    Filter triggered from the failure branch of the course start-date access check.
+
+    Purpose:
+        Invoked after start-date validation has already failed for the base case,
+        allowing pipeline steps to inject a more specific access-error payload. A
+        pipeline step that wants to substitute a more specific error sets
+        ``error_code`` (and optionally ``developer_message`` and ``user_message``).
+        The caller raises a corresponding access error when ``error_code`` is non-None;
+        otherwise it falls back to the default start-date error.
+
+    Filter Type:
+        org.openedx.learning.course.start_date.validation_failed.v1
+
+    Trigger:
+        - Repository: openedx/edx-platform
+        - Path: lms/djangoapps/courseware/access_utils.py
+        - Function or Method: check_start_date
+    """
+
+    filter_type = "org.openedx.learning.course.start_date.validation_failed.v1"
+
+    @classmethod
+    def run_filter(
+        cls,
+        error_code: Optional[str],
+        developer_message: Optional[str],
+        user_message: Optional[str],
+        request: Any,
+        course_key: Any,
+    ) -> tuple:
+        """
+        Process the inputs using the configured pipeline steps.
+
+        Arguments:
+            error_code (str or None): initial error code (typically ``None``).
+            developer_message (str or None): initial developer-facing message.
+            user_message (str or None): initial user-facing message.
+            request (HttpRequest): the current Django HTTP request.
+            course_key (CourseKey): the course key for the view being accessed.
+
+        Returns:
+            tuple[Optional[str], Optional[str], Optional[str], HttpRequest, CourseKey]:
+                - str or None: the (possibly populated) error code.
+                - str or None: the (possibly populated) developer message.
+                - str or None: the (possibly populated) user message.
+                - HttpRequest: the request object (unchanged).
+                - CourseKey: the course key (unchanged).
+        """
+        data = super().run_pipeline(
+            error_code=error_code,
+            developer_message=developer_message,
+            user_message=user_message,
+            request=request,
+            course_key=course_key,
+        )
+        return (
+            data.get("error_code"),
+            data.get("developer_message"),
+            data.get("user_message"),
+            data.get("request"),
+            data.get("course_key"),
+        )
+
+
+class CoursewareAccessChecksRequested(OpenEdxPublicFilter):
+    """
+    Filter triggered during courseware access checks so plugins can deny access.
+
+    Purpose:
+        Invoked from the courseware access-check flow after platform-internal
+        checks have passed. Pipeline steps that wish to deny access raise the
+        nested ``PreventCoursewareAccess`` exception, which the framework
+        propagates back to the caller regardless of ``fail_silently``. Denials
+        surfaced through this filter are treated as priority — i.e. they cannot
+        be bypassed by staff users.
+
+        The first pipeline step to raise wins; later steps do not run.
+
+    Filter Type:
+        org.openedx.learning.courseware.access_checks.requested.v1
+
+    Trigger:
+        - Repository: openedx/edx-platform
+        - Path: lms/djangoapps/courseware/courses.py
+        - Function or Method: check_course_access
+    """
+
+    filter_type = "org.openedx.learning.courseware.access_checks.requested.v1"
+
+    class PreventCoursewareAccess(OpenEdxFilterException):
+        """
+        Raised by a pipeline step to deny courseware access.
+
+        Constructed with ``error_code``, ``developer_message``, and
+        ``user_message`` keyword arguments. These are stored on the exception
+        instance (via the base class's setattr) and used by the caller to
+        build a platform-side access error.
+        """
+
+    @classmethod
+    def run_filter(cls, user: Any, course_key: Any) -> tuple:
+        """
+        Run the pipeline so plugins can deny access.
+
+        Arguments:
+            user: the user whose access is being checked.
+            course_key: the course key being accessed.
+
+        Returns:
+            tuple[Any, Any]: ``(user, course_key)``, unchanged.
+        """
+        data = super().run_pipeline(user=user, course_key=course_key)
+        return data.get("user"), data.get("course_key")
