@@ -8,9 +8,9 @@ asgiref==3.11.1
     # via
     #   -r requirements/base.txt
     #   django
-ast-serialize==0.3.0
+ast-serialize==0.5.0
     # via mypy
-click==8.3.3
+click==8.4.0
     # via code-annotations
 code-annotations==3.0.0
     # via -r requirements/test.in
@@ -41,7 +41,7 @@ librt==0.11.0
     # via mypy
 markupsafe==3.0.3
     # via jinja2
-mypy==2.0.0
+mypy==2.1.0
     # via -r requirements/test.in
 mypy-extensions==1.1.0
     # via mypy

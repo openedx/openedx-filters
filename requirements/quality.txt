@@ -8,7 +8,7 @@ asgiref==3.11.1
     # via
     #   -r requirements/test.txt
     #   django
-ast-serialize==0.3.0
+ast-serialize==0.5.0
     # via
     #   -r requirements/test.txt
     #   mypy
@@ -22,7 +22,7 @@ cffi==2.0.0
     # via cryptography
 charset-normalizer==3.4.7
     # via requests
-click==8.3.3
+click==8.4.0
     # via
     #   -r requirements/test.txt
     #   click-log
@@ -68,7 +68,7 @@ edx-opaque-keys[django]==4.0.0
     # via -r requirements/test.txt
 id==1.6.1
     # via twine
-idna==3.14
+idna==3.15
     # via requests
 iniconfig==2.3.0
     # via
@@ -82,7 +82,7 @@ jaraco-classes==3.4.0
     # via keyring
 jaraco-context==6.1.2
     # via keyring
-jaraco-functools==4.4.0
+jaraco-functools==4.5.0
     # via keyring
 jeepney==0.9.0
     # via
@@ -112,7 +112,7 @@ more-itertools==11.0.2
     # via
     #   jaraco-classes
     #   jaraco-functools
-mypy==2.0.0
+mypy==2.1.0
     # via
     #   -r requirements/quality.in
     #   -r requirements/test.txt
@@ -185,7 +185,7 @@ pyyaml==6.0.3
     #   code-annotations
 readme-renderer==44.0
     # via twine
-requests==2.33.1
+requests==2.34.2
     # via
     #   requests-toolbelt
     #   twine
@@ -195,7 +195,7 @@ rfc3986==2.0.0
     # via twine
 rich==15.0.0
     # via twine
-ruff==0.15.12
+ruff==0.15.13
     # via -r requirements/quality.in
 secretstorage==3.5.0
     # via keyring
