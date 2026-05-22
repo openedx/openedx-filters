@@ -1642,4 +1642,4 @@ class DiscountEligibilityCheckRequested(OpenEdxPublicFilter):
                 - bool: the (possibly overridden) eligibility flag.
         """
         data = super().run_pipeline(user=user, course_key=course_key, is_eligible=is_eligible)
-        return data.get("user"), data.get("course_key"), data.get("is_eligible")
+        return data["user"], data["course_key"], data["is_eligible"]
