@@ -987,3 +987,17 @@ class TestDiscountEligibilityCheckRequestedFilter(TestCase):
         self.assertTrue(is_eligible)
         self.assertIs(returned_user, user)
         self.assertIs(returned_course_key, course_key)
+
+    def test_run_filter_skips_pipeline_when_already_ineligible(self):
+        user = Mock()
+        course_key = Mock()
+
+        with patch("openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline") as mock_run_pipeline:
+            returned_user, returned_course_key, is_eligible = (
+                DiscountEligibilityCheckRequested.run_filter(user, course_key, False)
+            )
+
+        mock_run_pipeline.assert_not_called()
+        self.assertFalse(is_eligible)
+        self.assertIs(returned_user, user)
+        self.assertIs(returned_course_key, course_key)

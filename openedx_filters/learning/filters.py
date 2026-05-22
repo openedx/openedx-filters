@@ -1642,5 +1642,8 @@ class DiscountEligibilityCheckRequested(OpenEdxPublicFilter):
                 - CourseKey: the course key (unchanged).
                 - bool: the (possibly overridden) eligibility flag.
         """
+        if is_eligible is False:
+            # If the user is already marked as ineligible, skip the pipeline to avoid unnecessary processing.
+            return user, course_key, is_eligible
         data = super().run_pipeline(user=user, course_key=course_key, is_eligible=is_eligible)
         return data["user"], data["course_key"], data["is_eligible"]
