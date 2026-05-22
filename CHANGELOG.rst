@@ -33,6 +33,13 @@ Unreleased
 ----------
 .. scriv-insert-here
 
+[3.5.0] - 2026-05-22
+
+Added
+~~~~~
+
+* Added new ``DiscountEligibilityCheckRequested`` filter
+
 [3.4.0] - 2026-05-07
 
 Added
