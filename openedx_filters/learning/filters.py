@@ -1599,6 +1599,7 @@ class GradeEventContextRequested(OpenEdxPublicFilter):
         data = super().run_pipeline(context=context, user_id=user_id, course_id=course_id)
         return data["context"], data["user_id"], data["course_id"]
 
+
 class DiscountEligibilityCheckRequested(OpenEdxPublicFilter):
     """
     Filter used to allow plugins to mark a user as ineligible for a course discount.
@@ -1612,7 +1613,7 @@ class DiscountEligibilityCheckRequested(OpenEdxPublicFilter):
         org.openedx.learning.discount.eligibility.check.requested.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: openedx/features/discounts/applicability.py
         - Function or Method: can_receive_discount, can_show_streak_discount_coupon
     """
@@ -1623,9 +1624,9 @@ class DiscountEligibilityCheckRequested(OpenEdxPublicFilter):
     def run_filter(
         cls,
         user: Any,
-        course_key: Any,
+        course_key: CourseKey,
         is_eligible: bool,
-    ) -> tuple:
+    ) -> tuple[Any, CourseKey | None, bool | None]:
         """
         Process the inputs using the configured pipeline steps.
 
