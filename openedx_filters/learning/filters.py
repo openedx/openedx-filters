@@ -4,6 +4,7 @@ Package where filters related to the learning architectural subdomain are implem
 
 from typing import Any, Optional
 
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.db.models.query import QuerySet
 from django.http import HttpResponse, QueryDict
 from opaque_keys.edx.keys import CourseKey
@@ -1623,10 +1624,10 @@ class DiscountEligibilityCheckRequested(OpenEdxPublicFilter):
     @classmethod
     def run_filter(
         cls,
-        user: Any,
+        user: AbstractBaseUser,
         course_key: CourseKey,
         is_eligible: bool,
-    ) -> tuple[Any, CourseKey | None, bool | None]:
+    ) -> tuple[AbstractBaseUser, CourseKey, bool]:
         """
         Process the inputs using the configured pipeline steps.
 
