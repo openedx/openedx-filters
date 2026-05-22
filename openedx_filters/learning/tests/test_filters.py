@@ -8,6 +8,7 @@ from ddt import data, ddt, unpack  # type: ignore
 from django.test import TestCase
 
 from openedx_filters.learning.filters import (
+    AccountSettingsReadOnlyFieldsRequested,
     AccountSettingsRenderStarted,
     CertificateCreationRequested,
     CertificateRenderStarted,
@@ -23,8 +24,10 @@ from openedx_filters.learning.filters import (
     CourseUnenrollmentStarted,
     DashboardRenderStarted,
     DiscountEligibilityCheckRequested,
+    GradeEventContextRequested,
     IDVPageURLRequested,
     InstructorDashboardRenderStarted,
+    InstructorDashboardTabsRequested,
     ORASubmissionViewRenderStarted,
     RenderXBlockStarted,
     ScheduleQuerySetRequested,
@@ -802,6 +805,164 @@ class TestScheduleFilters(TestCase):
         result = ScheduleQuerySetRequested.run_filter(schedules)
 
         self.assertEqual(schedules, result)
+
+
+class TestGradeEventContextRequestedFilter(TestCase):
+    """
+    Tests for the GradeEventContextRequested filter.
+    """
+
+    def test_run_filter_returns_context_unchanged_when_no_pipeline(self):
+        """
+        When no pipeline steps are configured, run_filter returns all original inputs unchanged.
+        """
+        context = {"course_id": "course-v1:org+course+run"}
+        user_id = 42
+        course_id = "course-v1:org+course+run"
+
+        with patch.object(
+            GradeEventContextRequested,
+            "run_pipeline",
+            return_value={"context": context, "user_id": user_id, "course_id": course_id},
+        ):
+            result_context, result_user_id, result_course_id = GradeEventContextRequested.run_filter(
+                context=context,
+                user_id=user_id,
+                course_id=course_id,
+            )
+
+        self.assertEqual(result_context, context)
+        self.assertEqual(result_user_id, user_id)
+        self.assertEqual(result_course_id, course_id)
+
+    def test_filter_type(self):
+        """
+        Confirm the filter type string is correct.
+        """
+        self.assertEqual(
+            GradeEventContextRequested.filter_type,
+            "org.openedx.learning.grade.context.requested.v1",
+        )
+
+
+class TestAccountSettingsReadOnlyFieldsRequestedFilter(TestCase):
+    """
+    Tests for the AccountSettingsReadOnlyFieldsRequested filter.
+    """
+
+    def test_run_filter_returns_inputs_unchanged_when_no_pipeline(self):
+        """
+        When no pipeline steps are configured, run_filter returns the original inputs unchanged.
+        """
+        readonly_fields = {"username"}
+        user = Mock()
+
+        result_fields, result_user = AccountSettingsReadOnlyFieldsRequested.run_filter(
+            readonly_fields=readonly_fields, user=user
+        )
+
+        self.assertEqual(result_fields, readonly_fields)
+        self.assertEqual(result_user, user)
+
+    def test_filter_type(self):
+        self.assertEqual(
+            AccountSettingsReadOnlyFieldsRequested.filter_type,
+            "org.openedx.learning.account.settings.read_only_fields.requested.v1",
+        )
+
+
+@ddt
+class TestInstructorDashboardTabsRequested(TestCase):
+    """
+    Test class to verify standard behavior of the InstructorDashboardTabsRequested filter.
+
+    You'll find test suites for:
+    - InstructorDashboardTabsRequested
+    """
+
+    def test_run_filter_returns_unchanged_tabs_when_no_pipeline(self):
+        """
+        Test InstructorDashboardTabsRequested filter behavior under normal conditions.
+
+        When no pipeline steps are configured, run_filter returns the original tabs unchanged.
+
+        Expected behavior:
+            - The filter should return the tabs list unchanged.
+        """
+        tabs = [
+            {"tab_id": "courseware", "title": "Course", "url": "/course/123", "sort_order": 0},
+            {"tab_id": "instructor", "title": "Instructor", "url": "/instructor/123", "sort_order": 1},
+        ]
+        user = Mock()
+        course_key = Mock()
+
+        with patch("openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline") as mock_run_pipeline:
+            mock_run_pipeline.return_value = {"tabs": tabs, "user": user, "course_key": course_key}
+            result_tabs = InstructorDashboardTabsRequested.run_filter(
+                tabs=tabs, user=user, course_key=course_key
+            )
+
+        self.assertEqual(result_tabs, tabs)
+
+    def test_filter_type(self):
+        """Test that the filter type is properly set."""
+        self.assertEqual(
+            InstructorDashboardTabsRequested.filter_type,
+            "org.openedx.learning.instructor.dashboard.tabs.requested.v1",
+        )
+
+    def test_run_filter_with_pipeline_returning_dict_with_tabs(self):
+        """
+        Test InstructorDashboardTabsRequested filter when pipeline returns dict with tabs.
+
+        Expected behavior:
+            - The filter should return the filtered tabs from the pipeline result.
+        """
+        tabs = [
+            {"tab_id": "courseware", "title": "Course", "url": "/course/123", "sort_order": 0},
+        ]
+        modified_tabs = [
+            {"tab_id": "custom", "title": "Custom Tab", "url": "/custom/123", "sort_order": 0},
+        ]
+        user = Mock()
+        course_key = Mock()
+
+        with patch("openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline") as mock_run_pipeline:
+            mock_run_pipeline.return_value = {
+                "tabs": modified_tabs, "user": user, "course_key": course_key
+            }
+            result_tabs = InstructorDashboardTabsRequested.run_filter(
+                tabs=tabs, user=user, course_key=course_key
+            )
+
+        self.assertEqual(result_tabs, modified_tabs)
+
+    @data(
+        (
+            InstructorDashboardTabsRequested.PreventTabsGeneration,
+            {
+                "message": "Custom tabs provided by plugin",
+                "tabs": [{"tab_id": "custom", "title": "Custom", "url": "/custom", "sort_order": 0}],
+            }
+        ),
+        (
+            InstructorDashboardTabsRequested.PreventTabsGeneration,
+            {
+                "message": "Disable tab generation",
+            }
+        ),
+    )
+    @unpack
+    def test_prevent_tabs_generation_exception(self, exception_class, attributes):
+        """
+        Test that the PreventTabsGeneration exception can be initialized with required attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = exception_class(**attributes)
+
+        self.assertLessEqual(attributes.items(), exception.__dict__.items())
 
 
 class TestDiscountEligibilityCheckRequestedFilter(TestCase):
