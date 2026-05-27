@@ -897,11 +897,13 @@ class TestInstructorDashboardTabsRequested(TestCase):
 
         with patch("openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline") as mock_run_pipeline:
             mock_run_pipeline.return_value = {"tabs": tabs, "user": user, "course_key": course_key}
-            result_tabs = InstructorDashboardTabsRequested.run_filter(
+            result_tabs, result_user, result_course_key = InstructorDashboardTabsRequested.run_filter(
                 tabs=tabs, user=user, course_key=course_key
             )
 
         self.assertEqual(result_tabs, tabs)
+        self.assertEqual(result_user, user)
+        self.assertEqual(result_course_key, course_key)
 
     def test_filter_type(self):
         """Test that the filter type is properly set."""
@@ -930,11 +932,13 @@ class TestInstructorDashboardTabsRequested(TestCase):
             mock_run_pipeline.return_value = {
                 "tabs": modified_tabs, "user": user, "course_key": course_key
             }
-            result_tabs = InstructorDashboardTabsRequested.run_filter(
+            result_tabs, result_user, result_course_key = InstructorDashboardTabsRequested.run_filter(
                 tabs=tabs, user=user, course_key=course_key
             )
 
         self.assertEqual(result_tabs, modified_tabs)
+        self.assertEqual(result_user, user)
+        self.assertEqual(result_course_key, course_key)
 
     @data(
         (

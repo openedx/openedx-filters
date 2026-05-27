@@ -1339,7 +1339,7 @@ class InstructorDashboardTabsRequested(OpenEdxPublicFilter):
         tabs: list,
         user: Any,
         course_key: CourseKey
-    ) -> list | None:
+    ) -> tuple[list | None, Any | None, CourseKey | None]:
         """
         Process the tabs list using the configured pipeline steps to modify instructor dashboard tabs.
         Arguments:
@@ -1347,14 +1347,17 @@ class InstructorDashboardTabsRequested(OpenEdxPublicFilter):
             user (User): Django User object (usually an instructor or staff member).
             course_key (CourseKey): Course key for the instructor dashboard.
         Returns:
-            list | None: Tab dictionaries, possibly modified by pipeline steps, or None if not provided.
+            tuple[list | None, Any | None, CourseKey | None]:
+                - list | None: Tab dictionaries, possibly modified by pipeline steps, or None if not provided.
+                - Any | None: User object, possibly modified by pipeline steps, or None if not provided.
+                - CourseKey | None: Course key, possibly modified by pipeline steps, or None if not provided.
         """
         data = super().run_pipeline(
             tabs=tabs,
             user=user,
             course_key=course_key
         )
-        return data.get("tabs")
+        return data.get("tabs"), data.get("user"), data.get("course_key")
 
 
 class ORASubmissionViewRenderStarted(OpenEdxPublicFilter):

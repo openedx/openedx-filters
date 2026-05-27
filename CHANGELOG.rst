@@ -33,6 +33,14 @@ Unreleased
 ----------
 .. scriv-insert-here
 
+[3.4.1] - 2026-05-26
+
+Changed
+~~~~~
+
+* Update ``InstructorDashboardTabsRequested`` to match ``run_filter`` return pattern of other filters. by @holaontiveros
+
+
 [3.4.0] - 2026-05-07
 
 Added
