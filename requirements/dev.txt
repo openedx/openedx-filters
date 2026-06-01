@@ -8,7 +8,7 @@ asgiref==3.11.1
     # via
     #   -r requirements/quality.txt
     #   django
-ast-serialize==0.3.0
+ast-serialize==0.5.0
     # via
     #   -r requirements/quality.txt
     #   mypy
@@ -23,11 +23,11 @@ build==1.5.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-cachetools==7.1.1
+cachetools==7.1.4
     # via
     #   -r requirements/ci.txt
     #   tox
-certifi==2026.4.22
+certifi==2026.5.20
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -41,7 +41,7 @@ charset-normalizer==3.4.7
     # via
     #   -r requirements/quality.txt
     #   requests
-click==8.3.3
+click==8.4.1
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
@@ -63,7 +63,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.14.0
+coverage[toml]==7.14.1
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -73,7 +73,7 @@ cryptography==48.0.0
     #   secretstorage
 ddt==1.7.2
     # via -r requirements/quality.txt
-diff-cover==10.2.0
+diff-cover==10.3.0
     # via -r requirements/dev.in
 dill==0.4.1
     # via
@@ -89,9 +89,9 @@ django==5.2.14
     #   -r requirements/quality.txt
     #   django-stubs
     #   django-stubs-ext
-django-stubs==6.0.4
+django-stubs==6.0.5
     # via -r requirements/quality.txt
-django-stubs-ext==6.0.4
+django-stubs-ext==6.0.5
     # via
     #   -r requirements/quality.txt
     #   django-stubs
@@ -99,7 +99,7 @@ dnspython==2.8.0
     # via
     #   -r requirements/quality.txt
     #   pymongo
-docutils==0.22.4
+docutils==0.23
     # via
     #   -r requirements/quality.txt
     #   readme-renderer
@@ -117,7 +117,7 @@ id==1.6.1
     # via
     #   -r requirements/quality.txt
     #   twine
-idna==3.14
+idna==3.17
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -137,7 +137,7 @@ jaraco-context==6.1.2
     # via
     #   -r requirements/quality.txt
     #   keyring
-jaraco-functools==4.4.0
+jaraco-functools==4.5.0
     # via
     #   -r requirements/quality.txt
     #   keyring
@@ -177,12 +177,12 @@ mdurl==0.1.2
     # via
     #   -r requirements/quality.txt
     #   markdown-it-py
-more-itertools==11.0.2
+more-itertools==11.1.0
     # via
     #   -r requirements/quality.txt
     #   jaraco-classes
     #   jaraco-functools
-mypy==2.0.0
+mypy==2.1.0
     # via -r requirements/quality.txt
 mypy-extensions==1.1.0
     # via
@@ -209,7 +209,7 @@ pathspec==1.1.1
     #   mypy
 pip-tools==7.5.3
     # via -r requirements/pip-tools.txt
-platformdirs==4.9.6
+platformdirs==4.10.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -262,7 +262,7 @@ pymongo==4.17.0
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
-pyproject-api==1.10.0
+pyproject-api==1.10.1
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -280,7 +280,7 @@ pytest-cov==7.1.0
     # via -r requirements/quality.txt
 pytest-django==4.12.0
     # via -r requirements/quality.txt
-python-discovery==1.3.0
+python-discovery==1.4.0
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -297,7 +297,7 @@ readme-renderer==44.0
     # via
     #   -r requirements/quality.txt
     #   twine
-requests==2.33.1
+requests==2.34.2
     # via
     #   -r requirements/quality.txt
     #   requests-toolbelt
@@ -315,7 +315,7 @@ rich==15.0.0
     # via
     #   -r requirements/quality.txt
     #   twine
-ruff==0.15.12
+ruff==0.15.15
     # via -r requirements/quality.txt
 scriv==1.8.0
     # via -r requirements/dev.in
@@ -331,7 +331,7 @@ sqlparse==0.5.5
     # via
     #   -r requirements/quality.txt
     #   django
-stevedore==5.7.0
+stevedore==5.8.0
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -349,11 +349,11 @@ tomlkit==0.15.0
     #   -r requirements/quality.txt
     #   edx-lint
     #   pylint
-tox==4.53.1
+tox==4.55.0
     # via -r requirements/ci.txt
 twine==6.2.0
     # via -r requirements/quality.txt
-types-pyyaml==6.0.12.20260510
+types-pyyaml==6.0.12.20260518
     # via
     #   -r requirements/quality.txt
     #   django-stubs
@@ -370,7 +370,7 @@ urllib3==2.7.0
     #   id
     #   requests
     #   twine
-virtualenv==21.3.1
+virtualenv==21.4.2
     # via
     #   -r requirements/ci.txt
     #   tox
