@@ -2,10 +2,14 @@
 Package where filters related to the learning architectural subdomain are implemented.
 """
 
-from typing import Any, Optional
+from __future__ import annotations
 
-from django.contrib.auth.base_user import AbstractBaseUser
+from typing import TYPE_CHECKING, Any, Optional
+
 from django.db.models.query import QuerySet
+
+if TYPE_CHECKING:
+    from django.contrib.auth.base_user import AbstractBaseUser
 from django.http import HttpResponse, QueryDict
 from opaque_keys.edx.keys import CourseKey
 
