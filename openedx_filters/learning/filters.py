@@ -7,15 +7,15 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, Optional
 
 from django.db.models.query import QuerySet
-
-if TYPE_CHECKING:
-    from django.contrib.auth.base_user import AbstractBaseUser
 from django.http import HttpResponse, QueryDict
 from opaque_keys.edx.keys import CourseKey
 
 from openedx_filters.exceptions import OpenEdxFilterException
 from openedx_filters.tooling import OpenEdxPublicFilter
 from openedx_filters.utils import SensitiveDataManagementMixin
+
+if TYPE_CHECKING:
+    from django.contrib.auth.base_user import AbstractBaseUser
 
 
 class AccountSettingsRenderStarted(OpenEdxPublicFilter):
