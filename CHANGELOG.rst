@@ -33,12 +33,22 @@ Unreleased
 ----------
 .. scriv-insert-here
 
+<<<<<<< HEAD
 [3.5.0] - 2026-05-22
 
 Added
 ~~~~~
 
 * Added new ``DiscountEligibilityCheckRequested`` filter
+=======
+[3.4.1] - 2026-05-26
+
+Changed
+~~~~~
+
+* Update ``InstructorDashboardTabsRequested`` to match ``run_filter`` return pattern of other filters. by @holaontiveros
+
+>>>>>>> main
 
 [3.4.0] - 2026-05-07
 
