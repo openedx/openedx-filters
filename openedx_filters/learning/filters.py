@@ -2,9 +2,7 @@
 Package where filters related to the learning architectural subdomain are implemented.
 """
 
-from __future__ import annotations
-
-from typing import TYPE_CHECKING, Any, Optional
+from typing import Any, Optional
 
 from django.db.models.query import QuerySet
 from django.http import HttpResponse, QueryDict
@@ -13,9 +11,6 @@ from opaque_keys.edx.keys import CourseKey
 from openedx_filters.exceptions import OpenEdxFilterException
 from openedx_filters.tooling import OpenEdxPublicFilter
 from openedx_filters.utils import SensitiveDataManagementMixin
-
-if TYPE_CHECKING:
-    from django.contrib.auth.base_user import AbstractBaseUser
 
 
 class AccountSettingsRenderStarted(OpenEdxPublicFilter):
@@ -1628,13 +1623,29 @@ class DiscountEligibilityCheckRequested(OpenEdxPublicFilter):
 
     filter_type = "org.openedx.learning.discount.eligibility.check.requested.v1"
 
+    class DiscountIneligible(OpenEdxFilterException):
+        """
+        Raised by a pipeline step to indicate user is ineligible for discounts
+        """
+
+        def __init__(
+            self,
+            message: str,
+        ) -> None:
+            """
+            Initialize with a human-readable reason why the user is ineligible for a discount.
+            """
+            if not isinstance(message, str) or not message.strip():
+                raise ValueError("message must be a non-blank string with reason for discount ineligibility")
+            super().__init__(message=message)
+
     @classmethod
     def run_filter(
         cls,
-        user: AbstractBaseUser,
+        user: Any,
         course_key: CourseKey,
         is_eligible: bool,
-    ) -> tuple[AbstractBaseUser, CourseKey, bool]:
+    ) -> tuple[Any, CourseKey, bool]:
         """
         Process the inputs using the configured pipeline steps.
 
@@ -1648,9 +1659,10 @@ class DiscountEligibilityCheckRequested(OpenEdxPublicFilter):
                 - User: the Django User object (unchanged).
                 - CourseKey: the course key (unchanged).
                 - bool: the (possibly overridden) eligibility flag.
+
+        Raises:
+            DiscountIneligible: when a pipeline step determines the user is
+                not eligible for a discount and halts further processing.
         """
-        if is_eligible is False:
-            # If the user is already marked as ineligible, skip the pipeline to avoid unnecessary processing.
-            return user, course_key, is_eligible
         data = super().run_pipeline(user=user, course_key=course_key, is_eligible=is_eligible)
         return data["user"], data["course_key"], data["is_eligible"]

@@ -980,7 +980,7 @@ class TestDiscountEligibilityCheckRequestedFilter(TestCase):
             "org.openedx.learning.discount.eligibility.check.requested.v1",
         )
 
-    def test_run_filter_returns_false_when_pipeline_sets_ineligible(self):
+    def test_run_filter_passes_through_eligible_status(self):
         user = Mock()
         course_key = Mock()
 
@@ -992,16 +992,45 @@ class TestDiscountEligibilityCheckRequestedFilter(TestCase):
         self.assertIs(returned_user, user)
         self.assertIs(returned_course_key, course_key)
 
-    def test_run_filter_skips_pipeline_when_already_ineligible(self):
+    def test_run_filter_passes_through_ineligible_status(self):
         user = Mock()
         course_key = Mock()
 
-        with patch("openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline") as mock_run_pipeline:
-            returned_user, returned_course_key, is_eligible = (
-                DiscountEligibilityCheckRequested.run_filter(user, course_key, False)
-            )
+        returned_user, returned_course_key, is_eligible = (
+            DiscountEligibilityCheckRequested.run_filter(user, course_key, False)
+        )
 
-        mock_run_pipeline.assert_not_called()
         self.assertFalse(is_eligible)
         self.assertIs(returned_user, user)
         self.assertIs(returned_course_key, course_key)
+
+    def test_run_filter_raises_discount_ineligible_from_pipeline(self):
+        user = Mock()
+        course_key = Mock()
+        exc = DiscountEligibilityCheckRequested.DiscountIneligible("Enterprise contract prohibits discount.")
+
+        with patch(
+            "openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline",
+            side_effect=exc,
+        ):
+            with self.assertRaises(DiscountEligibilityCheckRequested.DiscountIneligible):
+                DiscountEligibilityCheckRequested.run_filter(user, course_key, True)
+
+    def test_discount_ineligible_exception_stores_message(self):
+        exc = DiscountEligibilityCheckRequested.DiscountIneligible("Enterprise contract prohibits discount.")
+
+        self.assertEqual(exc.message, "Enterprise contract prohibits discount.")
+
+    def test_discount_ineligible_exception_rejects_blank_message(self):
+        self.assertRaises(
+            ValueError,
+            DiscountEligibilityCheckRequested.DiscountIneligible,
+            "   ",
+        )
+
+    def test_discount_ineligible_exception_rejects_non_string_message(self):
+        self.assertRaises(
+            ValueError,
+            DiscountEligibilityCheckRequested.DiscountIneligible,
+            None,
+        )
