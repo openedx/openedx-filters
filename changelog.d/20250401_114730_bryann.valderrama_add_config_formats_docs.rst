@@ -1,3 +1,0 @@
-Changed
-~~~~~~~
-* Improved documentation of filter configuration including details on configuration formats. (by @bryanttv)

@@ -33,15 +33,26 @@ Unreleased
 ----------
 .. scriv-insert-here
 
+.. _changelog-3.5.0:
+
+[v3.5.0] - 2026-06-02
+---------------------
+
+Added
+~~~~~
+
+* Added ``CoursewareViewStarted``, ``CourseStartDateValidationFailed``, and ``CoursewareAccessChecksRequested`` filters to the learning subdomain.
+
 [3.4.1] - 2026-05-26
+--------------------
 
 Changed
-~~~~~
+~~~~~~~
 
 * Update ``InstructorDashboardTabsRequested`` to match ``run_filter`` return pattern of other filters. by @holaontiveros
 
-
 [3.4.0] - 2026-05-07
+--------------------
 
 Added
 ~~~~~
@@ -53,7 +64,7 @@ Added
 See the fragment files in the `changelog.d directory`_.
 .. _changelog.d directory: https://github.com/openedx/openedx-filters/tree/master/changelog.d
 
-[3.3.0] - 2025-04-17
+[3.3.0] - 2026-04-17
 --------------------
 
 Changed
@@ -61,7 +72,7 @@ Changed
 
 * Expand Python version compatibility
 
-[3.2.0] - 2025-04-13
+[3.2.0] - 2026-04-13
 --------------------
 
 Changed
@@ -69,7 +80,7 @@ Changed
 
 * Added GradeEventContextRequested filter
 
-[3.1.0] - 2025-04-06
+[3.1.0] - 2026-04-06
 --------------------
 
 Changed
@@ -77,13 +88,38 @@ Changed
 
 * Added AccountSettingsReadOnlyFieldsRequested filter
 
-[3.0.0] - 2025-03-19
+[3.0.0] - 2026-03-19
 --------------------
 
 Changed
 ~~~~~~~
 
 * Dropped Python 3.11 support
+
+[2.1.0] - 2025-04-28
+--------------------
+
+Added
+~~~~~
+
+* New documentation section with naming suggestions for creating filters. (by @mariajgrimaldi)
+
+* Migrate to ``scriv`` for manage changelog. (by @bryanttv)
+
+Changed
+~~~~~~~
+
+* Updated documentation titles and styles to follow the Open edX style guide. (by @Apgomeznext)
+
+* Updated the glossary section in the documentation. (by @Apgomeznext)
+
+* Improved how-to guides including updates to filters, samples, and formatting. (by @mariajgrimaldi)
+
+* Updated edX RTD link to Open edX RTD. (by @sarina)
+
+* Replaced the deprecated ``pydocstyle`` library with ``ruff``. (by @bryanttv)
+
+* Improved documentation of filter configuration including details on configuration formats. (by @bryanttv)
 
 [2.0.1] - 2025-02-18
 --------------------

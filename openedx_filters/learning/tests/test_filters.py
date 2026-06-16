@@ -1,11 +1,13 @@
 """
 Tests for learning subdomain filters.
 """
+from datetime import datetime
 from unittest.mock import Mock, patch
 
 # Ignore the type error for ddt import since it is not recognized by mypy.
 from ddt import data, ddt, unpack  # type: ignore
 from django.test import TestCase
+from opaque_keys.edx.keys import CourseKey
 
 from openedx_filters.learning.filters import (
     AccountSettingsReadOnlyFieldsRequested,
@@ -21,7 +23,10 @@ from openedx_filters.learning.filters import (
     CourseEnrollmentStarted,
     CourseHomeUrlCreationStarted,
     CourseRunAPIRenderStarted,
+    CourseStartDateValidationFailed,
     CourseUnenrollmentStarted,
+    CoursewareAccessChecksRequested,
+    CoursewareViewStarted,
     DashboardRenderStarted,
     GradeEventContextRequested,
     IDVPageURLRequested,
@@ -966,3 +971,112 @@ class TestInstructorDashboardTabsRequested(TestCase):
         exception = exception_class(**attributes)
 
         self.assertLessEqual(attributes.items(), exception.__dict__.items())
+
+
+class TestCoursewareViewStarted(TestCase):
+    """
+    Test class to verify standard behavior of the CoursewareViewStarted filter.
+    """
+
+    def test_returns_course_key_unchanged_when_no_pipeline_steps(self):
+        """
+        Test CoursewareViewStarted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter returns ``course_key`` unchanged when no pipeline steps raise.
+        """
+        course_key = CourseKey.from_string("course-v1:edX+DemoX+Demo_Course")
+        view_name = "test_view"
+        result_course_key, result_view_name = CoursewareViewStarted.run_filter(
+            course_key=course_key,
+            view_name=view_name,
+        )
+        assert result_course_key == course_key
+        assert result_view_name == view_name
+
+    def test_redirect_to_url_stores_url(self):
+        """
+        Test that RedirectToUrl stores the redirect_to attribute on the exception instance.
+
+        Expected behavior:
+            - Instantiating RedirectToUrl sets ``exc.redirect_to`` to the provided value.
+        """
+        exc = CoursewareViewStarted.RedirectToUrl(message="test message", redirect_to="/some/path/")
+        assert exc.message == "test message"
+        assert exc.redirect_to == "/some/path/"
+
+
+class TestCourseStartDateValidationFailed(TestCase):
+    """
+    Test class to verify standard behavior of the CourseStartDateValidationFailed filter.
+    """
+
+    def test_returns_inputs_unchanged_when_no_pipeline_steps(self):
+        """
+        Test CourseStartDateValidationFailed filter behavior under normal conditions.
+
+        Expected behavior:
+            - Each input field is returned unchanged when no pipeline steps raise.
+        """
+        course_key = CourseKey.from_string("course-v1:edX+DemoX+Demo_Course")
+        start_date = datetime(2026, 9, 1)
+        result_course_key, result_start_date = CourseStartDateValidationFailed.run_filter(
+            course_key=course_key,
+            start_date=start_date,
+        )
+        assert result_course_key == course_key
+        assert result_start_date == start_date
+
+    def test_override_start_date_error_stores_fields(self):
+        """
+        Test that OverrideStartDateError stores all fields on the exception instance.
+
+        Expected behavior:
+            - Instantiating OverrideStartDateError sets ``message``, ``error_code``,
+              ``developer_message``, and ``user_message`` on the instance.
+        """
+        exc = CourseStartDateValidationFailed.OverrideStartDateError(
+            message="Course has not started (message).",
+            error_code="course_not_started",
+            developer_message="Course has not started (developer message).",
+            user_message="Course has not started (user message).",
+        )
+        assert exc.message == "Course has not started (message)."
+        assert exc.error_code == "course_not_started"
+        assert exc.developer_message == "Course has not started (developer message)."
+        assert exc.user_message == "Course has not started (user message)."
+
+
+class TestCoursewareAccessChecksRequested(TestCase):
+    """
+    Test class to verify standard behavior of the CoursewareAccessChecksRequested filter.
+    """
+
+    def test_returns_inputs_unchanged_when_no_pipeline_steps(self):
+        """
+        Filter passes through user and course_key when no pipeline steps are configured.
+        """
+        user = Mock()
+        course_key = CourseKey.from_string("course-v1:edX+DemoX+Demo_Course")
+        result_user, result_course_key = CoursewareAccessChecksRequested.run_filter(
+            user=user,
+            course_key=course_key,
+        )
+        assert result_user == user
+        assert result_course_key == course_key
+
+    def test_prevent_exception_preserves_kwargs(self):
+        """
+        PreventCoursewareAccess stores message, error_code, developer_message, and
+        user_message as attributes on the exception instance.
+        """
+        exc = CoursewareAccessChecksRequested.PreventCoursewareAccess(
+            message="test message",
+            error_code="some_code",
+            developer_message="developer message",
+            user_message="user message",
+        )
+        assert exc.message == "test message"
+        assert exc.error_code == "some_code"
+        assert exc.developer_message == "developer message"
+        assert exc.user_message == "user message"
