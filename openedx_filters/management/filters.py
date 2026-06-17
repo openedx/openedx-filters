@@ -20,7 +20,7 @@ class ManagementCommandExecutionRequested(OpenEdxPublicFilter):
         org.openedx.platform.management.command.execute.requested.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: edx/edx-platform
         - Path: manage.py
         - Function or Method: __main__
     """
