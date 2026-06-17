@@ -1,11 +1,13 @@
 """
 Tests for learning subdomain filters.
 """
+from datetime import datetime
 from unittest.mock import Mock, patch
 
 # Ignore the type error for ddt import since it is not recognized by mypy.
 from ddt import data, ddt, unpack  # type: ignore
 from django.test import TestCase
+from opaque_keys.edx.keys import CourseKey
 
 from openedx_filters.learning.filters import (
     AccountSettingsReadOnlyFieldsRequested,
@@ -21,10 +23,15 @@ from openedx_filters.learning.filters import (
     CourseEnrollmentStarted,
     CourseHomeUrlCreationStarted,
     CourseRunAPIRenderStarted,
+    CourseStartDateValidationFailed,
     CourseUnenrollmentStarted,
+    CoursewareAccessChecksRequested,
+    CoursewareViewStarted,
     DashboardRenderStarted,
+    GradeEventContextRequested,
     IDVPageURLRequested,
     InstructorDashboardRenderStarted,
+    InstructorDashboardTabsRequested,
     ORASubmissionViewRenderStarted,
     RenderXBlockStarted,
     ScheduleQuerySetRequested,
@@ -804,6 +811,44 @@ class TestScheduleFilters(TestCase):
         self.assertEqual(schedules, result)
 
 
+class TestGradeEventContextRequestedFilter(TestCase):
+    """
+    Tests for the GradeEventContextRequested filter.
+    """
+
+    def test_run_filter_returns_context_unchanged_when_no_pipeline(self):
+        """
+        When no pipeline steps are configured, run_filter returns all original inputs unchanged.
+        """
+        context = {"course_id": "course-v1:org+course+run"}
+        user_id = 42
+        course_id = "course-v1:org+course+run"
+
+        with patch.object(
+            GradeEventContextRequested,
+            "run_pipeline",
+            return_value={"context": context, "user_id": user_id, "course_id": course_id},
+        ):
+            result_context, result_user_id, result_course_id = GradeEventContextRequested.run_filter(
+                context=context,
+                user_id=user_id,
+                course_id=course_id,
+            )
+
+        self.assertEqual(result_context, context)
+        self.assertEqual(result_user_id, user_id)
+        self.assertEqual(result_course_id, course_id)
+
+    def test_filter_type(self):
+        """
+        Confirm the filter type string is correct.
+        """
+        self.assertEqual(
+            GradeEventContextRequested.filter_type,
+            "org.openedx.learning.grade.context.requested.v1",
+        )
+
+
 class TestAccountSettingsReadOnlyFieldsRequestedFilter(TestCase):
     """
     Tests for the AccountSettingsReadOnlyFieldsRequested filter.
@@ -828,3 +873,210 @@ class TestAccountSettingsReadOnlyFieldsRequestedFilter(TestCase):
             AccountSettingsReadOnlyFieldsRequested.filter_type,
             "org.openedx.learning.account.settings.read_only_fields.requested.v1",
         )
+
+
+@ddt
+class TestInstructorDashboardTabsRequested(TestCase):
+    """
+    Test class to verify standard behavior of the InstructorDashboardTabsRequested filter.
+
+    You'll find test suites for:
+    - InstructorDashboardTabsRequested
+    """
+
+    def test_run_filter_returns_unchanged_tabs_when_no_pipeline(self):
+        """
+        Test InstructorDashboardTabsRequested filter behavior under normal conditions.
+
+        When no pipeline steps are configured, run_filter returns the original tabs unchanged.
+
+        Expected behavior:
+            - The filter should return the tabs list unchanged.
+        """
+        tabs = [
+            {"tab_id": "courseware", "title": "Course", "url": "/course/123", "sort_order": 0},
+            {"tab_id": "instructor", "title": "Instructor", "url": "/instructor/123", "sort_order": 1},
+        ]
+        user = Mock()
+        course_key = Mock()
+
+        with patch("openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline") as mock_run_pipeline:
+            mock_run_pipeline.return_value = {"tabs": tabs, "user": user, "course_key": course_key}
+            result_tabs, result_user, result_course_key = InstructorDashboardTabsRequested.run_filter(
+                tabs=tabs, user=user, course_key=course_key
+            )
+
+        self.assertEqual(result_tabs, tabs)
+        self.assertEqual(result_user, user)
+        self.assertEqual(result_course_key, course_key)
+
+    def test_filter_type(self):
+        """Test that the filter type is properly set."""
+        self.assertEqual(
+            InstructorDashboardTabsRequested.filter_type,
+            "org.openedx.learning.instructor.dashboard.tabs.requested.v1",
+        )
+
+    def test_run_filter_with_pipeline_returning_dict_with_tabs(self):
+        """
+        Test InstructorDashboardTabsRequested filter when pipeline returns dict with tabs.
+
+        Expected behavior:
+            - The filter should return the filtered tabs from the pipeline result.
+        """
+        tabs = [
+            {"tab_id": "courseware", "title": "Course", "url": "/course/123", "sort_order": 0},
+        ]
+        modified_tabs = [
+            {"tab_id": "custom", "title": "Custom Tab", "url": "/custom/123", "sort_order": 0},
+        ]
+        user = Mock()
+        course_key = Mock()
+
+        with patch("openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline") as mock_run_pipeline:
+            mock_run_pipeline.return_value = {
+                "tabs": modified_tabs, "user": user, "course_key": course_key
+            }
+            result_tabs, result_user, result_course_key = InstructorDashboardTabsRequested.run_filter(
+                tabs=tabs, user=user, course_key=course_key
+            )
+
+        self.assertEqual(result_tabs, modified_tabs)
+        self.assertEqual(result_user, user)
+        self.assertEqual(result_course_key, course_key)
+
+    @data(
+        (
+            InstructorDashboardTabsRequested.PreventTabsGeneration,
+            {
+                "message": "Custom tabs provided by plugin",
+                "tabs": [{"tab_id": "custom", "title": "Custom", "url": "/custom", "sort_order": 0}],
+            }
+        ),
+        (
+            InstructorDashboardTabsRequested.PreventTabsGeneration,
+            {
+                "message": "Disable tab generation",
+            }
+        ),
+    )
+    @unpack
+    def test_prevent_tabs_generation_exception(self, exception_class, attributes):
+        """
+        Test that the PreventTabsGeneration exception can be initialized with required attributes.
+
+        Expected behavior:
+            - The exception must have the attributes specified.
+        """
+        exception = exception_class(**attributes)
+
+        self.assertLessEqual(attributes.items(), exception.__dict__.items())
+
+
+class TestCoursewareViewStarted(TestCase):
+    """
+    Test class to verify standard behavior of the CoursewareViewStarted filter.
+    """
+
+    def test_returns_course_key_unchanged_when_no_pipeline_steps(self):
+        """
+        Test CoursewareViewStarted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter returns ``course_key`` unchanged when no pipeline steps raise.
+        """
+        course_key = CourseKey.from_string("course-v1:edX+DemoX+Demo_Course")
+        view_name = "test_view"
+        result_course_key, result_view_name = CoursewareViewStarted.run_filter(
+            course_key=course_key,
+            view_name=view_name,
+        )
+        assert result_course_key == course_key
+        assert result_view_name == view_name
+
+    def test_redirect_to_url_stores_url(self):
+        """
+        Test that RedirectToUrl stores the redirect_to attribute on the exception instance.
+
+        Expected behavior:
+            - Instantiating RedirectToUrl sets ``exc.redirect_to`` to the provided value.
+        """
+        exc = CoursewareViewStarted.RedirectToUrl(message="test message", redirect_to="/some/path/")
+        assert exc.message == "test message"
+        assert exc.redirect_to == "/some/path/"
+
+
+class TestCourseStartDateValidationFailed(TestCase):
+    """
+    Test class to verify standard behavior of the CourseStartDateValidationFailed filter.
+    """
+
+    def test_returns_inputs_unchanged_when_no_pipeline_steps(self):
+        """
+        Test CourseStartDateValidationFailed filter behavior under normal conditions.
+
+        Expected behavior:
+            - Each input field is returned unchanged when no pipeline steps raise.
+        """
+        course_key = CourseKey.from_string("course-v1:edX+DemoX+Demo_Course")
+        start_date = datetime(2026, 9, 1)
+        result_course_key, result_start_date = CourseStartDateValidationFailed.run_filter(
+            course_key=course_key,
+            start_date=start_date,
+        )
+        assert result_course_key == course_key
+        assert result_start_date == start_date
+
+    def test_override_start_date_error_stores_fields(self):
+        """
+        Test that OverrideStartDateError stores all fields on the exception instance.
+
+        Expected behavior:
+            - Instantiating OverrideStartDateError sets ``message``, ``error_code``,
+              ``developer_message``, and ``user_message`` on the instance.
+        """
+        exc = CourseStartDateValidationFailed.OverrideStartDateError(
+            message="Course has not started (message).",
+            error_code="course_not_started",
+            developer_message="Course has not started (developer message).",
+            user_message="Course has not started (user message).",
+        )
+        assert exc.message == "Course has not started (message)."
+        assert exc.error_code == "course_not_started"
+        assert exc.developer_message == "Course has not started (developer message)."
+        assert exc.user_message == "Course has not started (user message)."
+
+
+class TestCoursewareAccessChecksRequested(TestCase):
+    """
+    Test class to verify standard behavior of the CoursewareAccessChecksRequested filter.
+    """
+
+    def test_returns_inputs_unchanged_when_no_pipeline_steps(self):
+        """
+        Filter passes through user and course_key when no pipeline steps are configured.
+        """
+        user = Mock()
+        course_key = CourseKey.from_string("course-v1:edX+DemoX+Demo_Course")
+        result_user, result_course_key = CoursewareAccessChecksRequested.run_filter(
+            user=user,
+            course_key=course_key,
+        )
+        assert result_user == user
+        assert result_course_key == course_key
+
+    def test_prevent_exception_preserves_kwargs(self):
+        """
+        PreventCoursewareAccess stores message, error_code, developer_message, and
+        user_message as attributes on the exception instance.
+        """
+        exc = CoursewareAccessChecksRequested.PreventCoursewareAccess(
+            message="test message",
+            error_code="some_code",
+            developer_message="developer message",
+            user_message="user message",
+        )
+        assert exc.message == "test message"
+        assert exc.error_code == "some_code"
+        assert exc.developer_message == "developer message"
+        assert exc.user_message == "user message"
