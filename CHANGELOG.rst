@@ -35,6 +35,14 @@ Unreleased
 
 .. _changelog-3.5.0:
 
+[3.6.0] - 2026-06-18
+--------------------
+
+Added
+~~~~~
+
+* Added CourseEnrollmentViewStarted filter
+
 [v3.5.0] - 2026-06-02
 ---------------------
 

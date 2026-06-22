@@ -341,6 +341,62 @@ class CourseUnenrollmentStarted(OpenEdxPublicFilter):
         return data.get("enrollment")
 
 
+class CourseEnrollmentViewStarted(OpenEdxPublicFilter):
+    """
+    Filter used to perform pre-enrollment processing during the enrollment REST API view.
+
+    Purpose:
+        This filter is triggered when a user initiates enrollment via the enrollment REST API view,
+        just before the enrollment is created, allowing pipeline steps to perform pre-enrollment
+        processing scoped to the view layer.
+
+    Filter Type:
+        org.openedx.learning.course.enrollment.view.started.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: openedx/core/djangoapps/enrollments/views.py
+        - Function or Method: EnrollmentListView.post
+    """
+
+    filter_type = "org.openedx.learning.course.enrollment.view.started.v1"
+
+    class PreventEnrollment(OpenEdxFilterException):
+        """
+        Raise to prevent the enrollment process from continuing.
+        """
+
+    @classmethod
+    def run_filter(
+        cls, user: Any, course_key: CourseKey, requester_is_backend_service: bool
+    ) -> tuple[Any, CourseKey, bool]:
+        """
+        Process the user, course_key, and requester_is_backend_service using the configured
+        pipeline steps to preempt the enrollment process.
+
+        Arguments:
+            user (User): Django User enrolling in the course.
+            course_key (CourseKey): course key associated with the enrollment.
+            requester_is_backend_service (bool): if request was made by a server with an API key.
+
+        Returns:
+            tuple[Any, CourseKey, bool]:
+                - User: Django User object.
+                - CourseKey: course key associated with the enrollment.
+                - bool: if request was made by a server with an API key.
+        """
+        data = super().run_pipeline(
+            user=user,
+            course_key=course_key,
+            requester_is_backend_service=requester_is_backend_service
+        )
+        return (
+            data["user"],
+            data["course_key"],
+            data["requester_is_backend_service"],
+        )
+
+
 class CertificateCreationRequested(OpenEdxPublicFilter):
     """
     Filter used to modify the certificate creation process for a given user in a course.
