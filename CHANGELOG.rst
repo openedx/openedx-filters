@@ -33,9 +33,9 @@ Unreleased
 ----------
 .. scriv-insert-here
 
-.. _changelog-3.6.0:
+.. _changelog-3.7.0:
 
-[3.6.0] - 2026-06-22
+[3.7.0] - 2026-06-22
 ---------------------
 
 Added
