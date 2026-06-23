@@ -21,6 +21,7 @@ from openedx_filters.learning.filters import (
     CourseEnrollmentAPIRenderStarted,
     CourseEnrollmentQuerysetRequested,
     CourseEnrollmentStarted,
+    CourseEnrollmentViewStarted,
     CourseHomeUrlCreationStarted,
     CourseRunAPIRenderStarted,
     CourseStartDateValidationFailed,
@@ -78,10 +79,7 @@ class TestCertificateFilters(TestCase):
             generation_mode,
         )
 
-        self.assertTupleEqual(
-            (user, course_key, mode, status, grade, generation_mode,),
-            result,
-        )
+        assert result == (user, course_key, mode, status, grade, generation_mode,)
 
     def test_certificate_render_started(self):
         """
@@ -98,7 +96,7 @@ class TestCertificateFilters(TestCase):
 
         result = CertificateRenderStarted.run_filter(context, template_name)
 
-        self.assertTupleEqual((context, template_name,), result)
+        assert result == (context, template_name,)
 
     @data(
         (CertificateRenderStarted.RedirectToPage, {"redirect_to": "custom-certificate.pdf"}),
@@ -116,7 +114,7 @@ class TestCertificateFilters(TestCase):
         """
         exception = CertificateException(message="You can't generate certificate", **attributes)
 
-        self.assertLessEqual(attributes.items(), exception.__dict__.items())
+        assert attributes.items() <= exception.__dict__.items()
 
 
 @ddt
@@ -145,7 +143,7 @@ class TestAuthFilters(TestCase):
 
         form_data = StudentRegistrationRequested.run_filter(expected_form_data)
 
-        self.assertEqual(expected_form_data, form_data)
+        assert expected_form_data == form_data
 
     @patch(
         "openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline",
@@ -183,7 +181,7 @@ class TestAuthFilters(TestCase):
             }
         )
 
-        self.assertEqual(expected_form_data, form_data)
+        assert expected_form_data == form_data
 
     def test_student_login_requested(self):
         """
@@ -197,7 +195,7 @@ class TestAuthFilters(TestCase):
 
         user = StudentLoginRequested.run_filter(expected_user)
 
-        self.assertEqual(expected_user, user)
+        assert expected_user == user
 
     @data(
         (
@@ -225,7 +223,7 @@ class TestAuthFilters(TestCase):
         """
         exception = auth_exception(**attributes)
 
-        self.assertLessEqual(attributes.items(), exception.__dict__.items())
+        assert attributes.items() <= exception.__dict__.items()
 
 
 @ddt
@@ -237,6 +235,7 @@ class TestEnrollmentFilters(TestCase):
     - CourseEnrollmentStarted
     - CourseUnenrollmentStarted
     - CourseEnrollmentQuerysetRequested
+    - CourseEnrollmentViewStarted
     """
 
     def test_course_enrollment_started(self):
@@ -253,7 +252,7 @@ class TestEnrollmentFilters(TestCase):
 
         result = CourseEnrollmentStarted.run_filter(user, course_key, mode)
 
-        self.assertTupleEqual((user, course_key, mode,), result)
+        assert result == (user, course_key, mode,)
 
     def test_course_unenrollment_started(self):
         """
@@ -267,7 +266,23 @@ class TestEnrollmentFilters(TestCase):
 
         enrollment = CourseUnenrollmentStarted.run_filter(expected_enrollment)
 
-        self.assertEqual(expected_enrollment, enrollment)
+        assert expected_enrollment == enrollment
+
+    def test_course_enrollment_view_started(self):
+        """
+        Test CourseEnrollmentViewStarted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter must have the signature specified.
+            - The filter should return user, course_key, and requester_is_backend_service, in that order.
+        """
+        user = Mock()
+        course_key = Mock()
+        requester_is_backend_service = True
+
+        result = CourseEnrollmentViewStarted.run_filter(user, course_key, requester_is_backend_service)
+
+        assert result == (user, course_key, requester_is_backend_service)
 
     @data(
         (CourseEnrollmentStarted.PreventEnrollment, {"message": "Can't enroll into course."}),
@@ -285,7 +300,7 @@ class TestEnrollmentFilters(TestCase):
         """
         exception = enrollment_exception(**attributes)
 
-        self.assertLessEqual(attributes.items(), exception.__dict__.items())
+        assert attributes.items() <= exception.__dict__.items()
 
     def test_course_enrollments_requested(self):
         """
@@ -298,7 +313,7 @@ class TestEnrollmentFilters(TestCase):
 
         enrollments = CourseEnrollmentQuerysetRequested.run_filter(expected_enrollments)
 
-        self.assertEqual(expected_enrollments, enrollments)
+        assert expected_enrollments == enrollments
 
     @data(
         (
@@ -316,7 +331,18 @@ class TestEnrollmentFilters(TestCase):
         """
         exception = request_exception(**attributes)
 
-        self.assertLessEqual(attributes.items(), exception.__dict__.items())
+        assert attributes.items() <= exception.__dict__.items()
+
+    def test_halt_course_enrollment_view_process(self):
+        """
+        Test CourseEnrollmentViewStarted.PreventEnrollment exception handling.
+
+        Expected behavior:
+            - The exception must carry the message attribute specified.
+        """
+        test_message = "Enterprise enrollment processing failed"
+        exception = CourseEnrollmentViewStarted.PreventEnrollment(message=test_message)
+        assert exception.message == test_message
 
 
 @ddt
@@ -352,7 +378,7 @@ class TestRenderingFilters(TestCase):
         """
         result = CourseAboutRenderStarted.run_filter(self.context, self.template_name)
 
-        self.assertTupleEqual((self.context, self.template_name,), result)
+        assert result == (self.context, self.template_name,)
 
     def test_dashboard_render_started(self):
         """
@@ -364,14 +390,14 @@ class TestRenderingFilters(TestCase):
         """
         result = DashboardRenderStarted.run_filter(self.context, self.template_name)
 
-        self.assertTupleEqual((self.context, self.template_name,), result)
+        assert result == (self.context, self.template_name,)
 
     @data(
         (DashboardRenderStarted.RedirectToPage, {"redirect_to": "custom-dashboard.html"}),
         (
             DashboardRenderStarted.RenderInvalidDashboard,
             {
-                "dashboard_template": "custom-dasboard.html",
+                "dashboard_template": "custom-dashboard.html",
                 "template_context": {"user": Mock()},
             }
         ),
@@ -387,7 +413,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = dashboard_exception(message="You can't access the dashboard", **attributes)
 
-        self.assertLessEqual(attributes.items(), exception.__dict__.items())
+        assert attributes.items() <= exception.__dict__.items()
 
     @data(
         (CourseAboutRenderStarted.RedirectToPage, {"redirect_to": "custom-course-about.html"}),
@@ -410,7 +436,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = course_about_exception(message="You can't access the course about", **attributes)
 
-        self.assertLessEqual(attributes.items(), exception.__dict__.items())
+        assert attributes.items() <= exception.__dict__.items()
 
     def test_verticalblock_child_render_started(self):
         """
@@ -424,19 +450,19 @@ class TestRenderingFilters(TestCase):
         context = {
             "is_mobile_view": False,
             "username": "edx",
-            "child_of_veritcal": True,
+            "child_of_vertical": True,
             "bookmarked": False
         }
 
         result = VerticalBlockChildRenderStarted.run_filter(block, context)
 
-        self.assertTupleEqual((block, context,), result)
+        assert result == (block, context,)
 
     @data(
         (
             VerticalBlockChildRenderStarted.PreventChildBlockRender,
             {
-                "message": "Assessement question not available for Audit students"
+                "message": "Assessment question not available for Audit students"
             }
         )
     )
@@ -450,7 +476,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = block_render_exception(**attributes)
 
-        self.assertLessEqual(attributes.items(), exception.__dict__.items())
+        assert attributes.items() <= exception.__dict__.items()
 
     def test_vertical_block_render_completed(self):
         """
@@ -471,7 +497,7 @@ class TestRenderingFilters(TestCase):
 
         result = VerticalBlockRenderCompleted.run_filter(block, fragment, context, view)
 
-        self.assertTupleEqual((block, fragment, context, view), result)
+        assert result == (block, fragment, context, view)
 
     @data(
         (
@@ -491,7 +517,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = render_exception(**attributes)
 
-        self.assertLessEqual(attributes.items(), exception.__dict__.items())
+        assert attributes.items() <= exception.__dict__.items()
 
     def test_xblock_render_started(self):
         """
@@ -513,7 +539,7 @@ class TestRenderingFilters(TestCase):
 
         result = VerticalBlockChildRenderStarted.run_filter(context, student_view_context)
 
-        self.assertTupleEqual((context, student_view_context), result)
+        assert result == (context, student_view_context)
 
     @data(
         (
@@ -533,7 +559,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = xblock_render_exception(**attributes)
 
-        self.assertLessEqual(attributes.items(), exception.__dict__.items())
+        assert attributes.items() <= exception.__dict__.items()
 
     @data(
         (
@@ -553,7 +579,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = xblock_render_exception(**attributes)
 
-        self.assertLessEqual(attributes.items(), exception.__dict__.items())
+        assert attributes.items() <= exception.__dict__.items()
 
     def test_account_settings_render_started(self):
         """
@@ -570,7 +596,7 @@ class TestRenderingFilters(TestCase):
 
         result, _ = AccountSettingsRenderStarted.run_filter(context=context, template_name=None)
 
-        self.assertEqual(result, context)
+        assert result == context
 
     @data(
         (AccountSettingsRenderStarted.RedirectToPage, {"redirect_to": "custom_account_settings.html"}),
@@ -586,7 +612,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = AccountSettingsException(message="You can't access this page", **attributes)
 
-        self.assertLessEqual(attributes.items(), exception.__dict__.items())
+        assert attributes.items() <= exception.__dict__.items()
 
     def test_instructor_dashboard_render_started(self):
         """
@@ -598,14 +624,14 @@ class TestRenderingFilters(TestCase):
         """
         result = InstructorDashboardRenderStarted.run_filter(self.context, self.template_name)
 
-        self.assertTupleEqual((self.context, self.template_name,), result)
+        assert result == (self.context, self.template_name,)
 
     @data(
         (InstructorDashboardRenderStarted.RedirectToPage, {"redirect_to": "custom-dashboard.html"}),
         (
             InstructorDashboardRenderStarted.RenderInvalidDashboard,
             {
-                "instructor_template": "custom-dasboard.html",
+                "instructor_template": "custom-dashboard.html",
                 "template_context": {"course": Mock()},
             }
         ),
@@ -621,7 +647,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = dashboard_exception(message="You can't access the dashboard", **attributes)
 
-        self.assertLessEqual(attributes.items(), exception.__dict__.items())
+        assert attributes.items() <= exception.__dict__.items()
 
     def test_ora_submission_view_render_started(self):
         """
@@ -633,7 +659,7 @@ class TestRenderingFilters(TestCase):
         """
         result = ORASubmissionViewRenderStarted.run_filter(self.context, self.template_name)
 
-        self.assertTupleEqual((self.context, self.template_name,), result)
+        assert result == (self.context, self.template_name,)
 
     @data(
         (
@@ -651,7 +677,7 @@ class TestRenderingFilters(TestCase):
         """
         exception = dashboard_exception(message="You can't access the view", **attributes)
 
-        self.assertLessEqual(attributes.items(), exception.__dict__.items())
+        assert attributes.items() <= exception.__dict__.items()
 
 
 class TestCohortFilters(TestCase):
@@ -675,7 +701,7 @@ class TestCohortFilters(TestCase):
 
         result = CohortChangeRequested.run_filter(current_membership, target_cohort)
 
-        self.assertTupleEqual((current_membership, target_cohort,), result)
+        assert result == (current_membership, target_cohort,)
 
     def test_cohort_assignment_requested(self):
         """
@@ -689,7 +715,7 @@ class TestCohortFilters(TestCase):
 
         result = CohortAssignmentRequested.run_filter(user, target_cohort)
 
-        self.assertTupleEqual((user, target_cohort,), result)
+        assert result == (user, target_cohort,)
 
 
 class TestFederatedContentFilters(TestCase):
@@ -712,7 +738,7 @@ class TestFederatedContentFilters(TestCase):
 
         result = CourseHomeUrlCreationStarted.run_filter(course_key, course_home_url)
 
-        self.assertTupleEqual((course_key, course_home_url,), result)
+        assert result == (course_key, course_home_url,)
 
     def test_course_enrollment_api_render_started(self):
         """
@@ -726,7 +752,7 @@ class TestFederatedContentFilters(TestCase):
 
         result = CourseEnrollmentAPIRenderStarted.run_filter(course_key, serialized_enrollment)
 
-        self.assertTupleEqual((course_key, serialized_enrollment,), result)
+        assert result == (course_key, serialized_enrollment,)
 
     def test_course_run_api_render_started(self):
         """
@@ -740,7 +766,7 @@ class TestFederatedContentFilters(TestCase):
 
         result = CourseRunAPIRenderStarted.run_filter(serialized_courserun)
 
-        self.assertEqual(serialized_courserun, result)
+        assert serialized_courserun == result
 
 
 class TestIDVFilters(TestCase):
@@ -763,7 +789,7 @@ class TestIDVFilters(TestCase):
 
         result = IDVPageURLRequested.run_filter(url)
 
-        self.assertEqual(url, result)
+        assert url == result
 
 
 class TestCourseAboutPageURLRequested(TestCase):
@@ -785,8 +811,8 @@ class TestCourseAboutPageURLRequested(TestCase):
 
         url_result, org_result = CourseAboutPageURLRequested.run_filter(url, org)
 
-        self.assertEqual(url, url_result)
-        self.assertEqual(org, org_result)
+        assert url == url_result
+        assert org == org_result
 
 
 @ddt
@@ -809,7 +835,7 @@ class TestScheduleFilters(TestCase):
 
         result = ScheduleQuerySetRequested.run_filter(schedules)
 
-        self.assertEqual(schedules, result)
+        assert schedules == result
 
 
 class TestGradeEventContextRequestedFilter(TestCase):
@@ -836,18 +862,15 @@ class TestGradeEventContextRequestedFilter(TestCase):
                 course_id=course_id,
             )
 
-        self.assertEqual(result_context, context)
-        self.assertEqual(result_user_id, user_id)
-        self.assertEqual(result_course_id, course_id)
+        assert result_context == context
+        assert result_user_id == user_id
+        assert result_course_id == course_id
 
     def test_filter_type(self):
         """
         Confirm the filter type string is correct.
         """
-        self.assertEqual(
-            GradeEventContextRequested.filter_type,
-            "org.openedx.learning.grade.context.requested.v1",
-        )
+        assert GradeEventContextRequested.filter_type == "org.openedx.learning.grade.context.requested.v1"
 
 
 class TestAccountSettingsReadOnlyFieldsRequestedFilter(TestCase):
@@ -866,14 +889,12 @@ class TestAccountSettingsReadOnlyFieldsRequestedFilter(TestCase):
             readonly_fields=readonly_fields, user=user
         )
 
-        self.assertEqual(result_fields, readonly_fields)
-        self.assertEqual(result_user, user)
+        assert result_fields == readonly_fields
+        assert result_user == user
 
     def test_filter_type(self):
-        self.assertEqual(
-            AccountSettingsReadOnlyFieldsRequested.filter_type,
-            "org.openedx.learning.account.settings.read_only_fields.requested.v1",
-        )
+        filter_type = "org.openedx.learning.account.settings.read_only_fields.requested.v1"
+        assert AccountSettingsReadOnlyFieldsRequested.filter_type == filter_type
 
 
 @ddt
@@ -907,16 +928,14 @@ class TestInstructorDashboardTabsRequested(TestCase):
                 tabs=tabs, user=user, course_key=course_key
             )
 
-        self.assertEqual(result_tabs, tabs)
-        self.assertEqual(result_user, user)
-        self.assertEqual(result_course_key, course_key)
+        assert result_tabs == tabs
+        assert result_user == user
+        assert result_course_key == course_key
 
     def test_filter_type(self):
         """Test that the filter type is properly set."""
-        self.assertEqual(
-            InstructorDashboardTabsRequested.filter_type,
-            "org.openedx.learning.instructor.dashboard.tabs.requested.v1",
-        )
+        filter_type = "org.openedx.learning.instructor.dashboard.tabs.requested.v1"
+        assert InstructorDashboardTabsRequested.filter_type == filter_type
 
     def test_run_filter_with_pipeline_returning_dict_with_tabs(self):
         """
@@ -942,9 +961,9 @@ class TestInstructorDashboardTabsRequested(TestCase):
                 tabs=tabs, user=user, course_key=course_key
             )
 
-        self.assertEqual(result_tabs, modified_tabs)
-        self.assertEqual(result_user, user)
-        self.assertEqual(result_course_key, course_key)
+        assert result_tabs == modified_tabs
+        assert result_user == user
+        assert result_course_key == course_key
 
     @data(
         (
@@ -971,7 +990,7 @@ class TestInstructorDashboardTabsRequested(TestCase):
         """
         exception = exception_class(**attributes)
 
-        self.assertLessEqual(attributes.items(), exception.__dict__.items())
+        assert attributes.items() <= exception.__dict__.items()
 
 
 class TestCoursewareViewStarted(TestCase):
