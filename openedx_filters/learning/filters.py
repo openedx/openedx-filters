@@ -1809,31 +1809,18 @@ class DiscountEligibilityCheckRequested(OpenEdxPublicFilter):
         Raised by a pipeline step to indicate user is ineligible for discounts
         """
 
-        def __init__(
-            self,
-            message: str,
-        ) -> None:
-            """
-            Initialize with a human-readable reason why the user is ineligible for a discount.
-            """
-            if not isinstance(message, str) or not message.strip():
-                raise ValueError("message must be a non-blank string with reason for discount ineligibility")
-            super().__init__(message=message)
-
     @classmethod
     def run_filter(
         cls,
         user: Any,
         course_key: CourseKey,
-        is_eligible: bool,
-    ) -> tuple[Any, CourseKey, bool]:
+    ) -> tuple[Any, CourseKey]:
         """
         Process the inputs using the configured pipeline steps.
 
         Arguments:
             user (User): the Django User being checked for discount eligibility.
             course_key (CourseKey or course object): identifies the course.
-            is_eligible (bool): the current eligibility status before plugin evaluation.
 
         Returns:
             tuple[User, CourseKey, bool]:
@@ -1845,5 +1832,5 @@ class DiscountEligibilityCheckRequested(OpenEdxPublicFilter):
             DiscountIneligible: when a pipeline step determines the user is
                 not eligible for a discount and halts further processing.
         """
-        data = super().run_pipeline(user=user, course_key=course_key, is_eligible=is_eligible)
-        return data["user"], data["course_key"], data["is_eligible"]
+        data = super().run_pipeline(user=user, course_key=course_key)
+        return data["user"], data["course_key"]

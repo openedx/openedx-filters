@@ -1094,27 +1094,14 @@ class TestDiscountEligibilityCheckRequestedFilter(TestCase):
             "org.openedx.learning.discount.eligibility.check.requested.v1",
         )
 
-    def test_run_filter_passes_through_eligible_status(self):
+    def test_run_filter_passes_through_user_and_course_key(self):
         user = Mock()
         course_key = Mock()
 
-        returned_user, returned_course_key, is_eligible = (
-            DiscountEligibilityCheckRequested.run_filter(user, course_key, True)
+        returned_user, returned_course_key = (
+            DiscountEligibilityCheckRequested.run_filter(user, course_key)
         )
 
-        self.assertTrue(is_eligible)
-        self.assertIs(returned_user, user)
-        self.assertIs(returned_course_key, course_key)
-
-    def test_run_filter_passes_through_ineligible_status(self):
-        user = Mock()
-        course_key = Mock()
-
-        returned_user, returned_course_key, is_eligible = (
-            DiscountEligibilityCheckRequested.run_filter(user, course_key, False)
-        )
-
-        self.assertFalse(is_eligible)
         self.assertIs(returned_user, user)
         self.assertIs(returned_course_key, course_key)
 
@@ -1128,23 +1115,9 @@ class TestDiscountEligibilityCheckRequestedFilter(TestCase):
             side_effect=exc,
         ):
             with self.assertRaises(DiscountEligibilityCheckRequested.DiscountIneligible):
-                DiscountEligibilityCheckRequested.run_filter(user, course_key, True)
+                DiscountEligibilityCheckRequested.run_filter(user, course_key)
 
     def test_discount_ineligible_exception_stores_message(self):
         exc = DiscountEligibilityCheckRequested.DiscountIneligible("Enterprise contract prohibits discount.")
 
         self.assertEqual(exc.message, "Enterprise contract prohibits discount.")
-
-    def test_discount_ineligible_exception_rejects_blank_message(self):
-        self.assertRaises(
-            ValueError,
-            DiscountEligibilityCheckRequested.DiscountIneligible,
-            "   ",
-        )
-
-    def test_discount_ineligible_exception_rejects_non_string_message(self):
-        self.assertRaises(
-            ValueError,
-            DiscountEligibilityCheckRequested.DiscountIneligible,
-            None,
-        )
