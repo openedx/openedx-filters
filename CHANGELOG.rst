@@ -33,7 +33,15 @@ Unreleased
 ----------
 .. scriv-insert-here
 
-.. _changelog-3.5.0:
+.. _changelog-3.7.0:
+
+[3.7.0] - 2026-06-22
+---------------------
+
+Added
+~~~~~
+
+* Added new ``DiscountEligibilityCheckRequested`` filter
 
 [3.6.0] - 2026-06-18
 --------------------

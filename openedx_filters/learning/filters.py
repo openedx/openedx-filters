@@ -1838,3 +1838,55 @@ class CoursewareAccessChecksRequested(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(user=user, course_key=course_key)
         return data["user"], data["course_key"]
+
+
+class DiscountEligibilityCheckRequested(OpenEdxPublicFilter):
+    """
+    Filter used to allow plugins to mark a user as ineligible for a course discount.
+
+    Purpose:
+        This filter is triggered during discount applicability checks, just before the
+        final eligibility decision is returned to the caller. Pipeline steps may raise
+        ``DiscountIneligible`` to exclude a user from receiving a discount.
+
+    Filter Type:
+        org.openedx.learning.discount.eligibility.check.requested.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: openedx/features/discounts/applicability.py
+        - Function or Method: can_receive_discount, can_show_streak_discount_coupon
+    """
+
+    filter_type = "org.openedx.learning.discount.eligibility.check.requested.v1"
+
+    class DiscountIneligible(OpenEdxFilterException):
+        """
+        Raised by a pipeline step to indicate user is ineligible for discounts
+        """
+
+    @classmethod
+    def run_filter(
+        cls,
+        user: Any,
+        course_key: CourseKey,
+    ) -> tuple[Any, CourseKey]:
+        """
+        Process the inputs using the configured pipeline steps.
+
+        Arguments:
+            user (User): the Django User being checked for discount eligibility.
+            course_key (CourseKey or course object): identifies the course.
+
+        Returns:
+            tuple[User, CourseKey, bool]:
+                - User: the Django User object (unchanged).
+                - CourseKey: the course key (unchanged).
+                - bool: the (possibly overridden) eligibility flag.
+
+        Raises:
+            DiscountIneligible: when a pipeline step determines the user is
+                not eligible for a discount and halts further processing.
+        """
+        data = super().run_pipeline(user=user, course_key=course_key)
+        return data["user"], data["course_key"]

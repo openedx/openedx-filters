@@ -29,6 +29,7 @@ from openedx_filters.learning.filters import (
     CoursewareAccessChecksRequested,
     CoursewareViewStarted,
     DashboardRenderStarted,
+    DiscountEligibilityCheckRequested,
     GradeEventContextRequested,
     IDVPageURLRequested,
     InstructorDashboardRenderStarted,
@@ -1099,3 +1100,43 @@ class TestCoursewareAccessChecksRequested(TestCase):
         assert exc.error_code == "some_code"
         assert exc.developer_message == "developer message"
         assert exc.user_message == "user message"
+
+
+class TestDiscountEligibilityCheckRequestedFilter(TestCase):
+    """
+    Tests for the DiscountEligibilityCheckRequested filter.
+    """
+
+    def test_filter_type(self):
+        self.assertEqual(
+            DiscountEligibilityCheckRequested.filter_type,
+            "org.openedx.learning.discount.eligibility.check.requested.v1",
+        )
+
+    def test_run_filter_passes_through_user_and_course_key(self):
+        user = Mock()
+        course_key = Mock()
+
+        returned_user, returned_course_key = (
+            DiscountEligibilityCheckRequested.run_filter(user, course_key)
+        )
+
+        self.assertIs(returned_user, user)
+        self.assertIs(returned_course_key, course_key)
+
+    def test_run_filter_raises_discount_ineligible_from_pipeline(self):
+        user = Mock()
+        course_key = Mock()
+        exc = DiscountEligibilityCheckRequested.DiscountIneligible("Enterprise contract prohibits discount.")
+
+        with patch(
+            "openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline",
+            side_effect=exc,
+        ):
+            with self.assertRaises(DiscountEligibilityCheckRequested.DiscountIneligible):
+                DiscountEligibilityCheckRequested.run_filter(user, course_key)
+
+    def test_discount_ineligible_exception_stores_message(self):
+        exc = DiscountEligibilityCheckRequested.DiscountIneligible("Enterprise contract prohibits discount.")
+
+        self.assertEqual(exc.message, "Enterprise contract prohibits discount.")
