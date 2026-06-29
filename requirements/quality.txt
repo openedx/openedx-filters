@@ -8,7 +8,7 @@ asgiref==3.11.1
     # via
     #   -r requirements/test.txt
     #   django
-ast-serialize==0.3.0
+ast-serialize==0.5.0
     # via
     #   -r requirements/test.txt
     #   mypy
@@ -16,13 +16,13 @@ astroid==4.0.4
     # via
     #   pylint
     #   pylint-celery
-certifi==2026.4.22
+certifi==2026.6.17
     # via requests
 cffi==2.0.0
     # via cryptography
 charset-normalizer==3.4.7
     # via requests
-click==8.3.3
+click==8.4.2
     # via
     #   -r requirements/test.txt
     #   click-log
@@ -34,25 +34,25 @@ code-annotations==3.0.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-coverage[toml]==7.14.0
+coverage[toml]==7.14.3
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==48.0.0
+cryptography==49.0.0
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
 dill==0.4.1
     # via pylint
-django==5.2.14
+django==5.2.15
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
     #   django-stubs
     #   django-stubs-ext
-django-stubs==6.0.4
+django-stubs==6.0.6
     # via -r requirements/test.txt
-django-stubs-ext==6.0.4
+django-stubs-ext==6.0.6
     # via
     #   -r requirements/test.txt
     #   django-stubs
@@ -60,7 +60,7 @@ dnspython==2.8.0
     # via
     #   -r requirements/test.txt
     #   pymongo
-docutils==0.22.4
+docutils==0.23
     # via readme-renderer
 edx-lint==6.1.0
     # via -r requirements/quality.in
@@ -68,7 +68,7 @@ edx-opaque-keys[django]==4.0.0
     # via -r requirements/test.txt
 id==1.6.1
     # via twine
-idna==3.14
+idna==3.18
     # via requests
 iniconfig==2.3.0
     # via
@@ -82,7 +82,7 @@ jaraco-classes==3.4.0
     # via keyring
 jaraco-context==6.1.2
     # via keyring
-jaraco-functools==4.4.0
+jaraco-functools==4.5.0
     # via keyring
 jeepney==0.9.0
     # via
@@ -108,11 +108,11 @@ mccabe==0.7.0
     # via pylint
 mdurl==0.1.2
     # via markdown-it-py
-more-itertools==11.0.2
+more-itertools==11.1.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-mypy==2.0.0
+mypy==2.1.0
     # via
     #   -r requirements/quality.in
     #   -r requirements/test.txt
@@ -120,7 +120,7 @@ mypy-extensions==1.1.0
     # via
     #   -r requirements/test.txt
     #   mypy
-nh3==0.3.5
+nh3==0.3.6
     # via readme-renderer
 packaging==26.2
     # via
@@ -131,7 +131,7 @@ pathspec==1.1.1
     # via
     #   -r requirements/test.txt
     #   mypy
-platformdirs==4.9.6
+platformdirs==4.10.0
     # via pylint
 pluggy==1.6.0
     # via
@@ -148,7 +148,7 @@ pygments==2.20.0
     #   pytest
     #   readme-renderer
     #   rich
-pylint==4.0.5
+pylint==4.0.6
     # via
     #   edx-lint
     #   pylint-celery
@@ -166,7 +166,7 @@ pymongo==4.17.0
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
-pytest==9.0.3
+pytest==9.1.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -183,9 +183,9 @@ pyyaml==6.0.3
     # via
     #   -r requirements/test.txt
     #   code-annotations
-readme-renderer==44.0
+readme-renderer==45.0
     # via twine
-requests==2.33.1
+requests==2.34.2
     # via
     #   requests-toolbelt
     #   twine
@@ -195,7 +195,7 @@ rfc3986==2.0.0
     # via twine
 rich==15.0.0
     # via twine
-ruff==0.15.12
+ruff==0.15.20
     # via -r requirements/quality.in
 secretstorage==3.5.0
     # via keyring
@@ -205,7 +205,7 @@ sqlparse==0.5.5
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==5.7.0
+stevedore==5.8.0
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -220,7 +220,7 @@ tomlkit==0.15.0
     #   pylint
 twine==6.2.0
     # via -r requirements/quality.in
-types-pyyaml==6.0.12.20260510
+types-pyyaml==6.0.12.20260518
     # via
     #   -r requirements/test.txt
     #   django-stubs
