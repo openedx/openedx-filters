@@ -1,3 +1,0 @@
-Changed
-~~~~~~~
-* Improved how-to guides including updates to filters, samples, and formatting. (by @mariajgrimaldi)
