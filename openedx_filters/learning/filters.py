@@ -2,6 +2,7 @@
 Package where filters related to the learning architectural subdomain are implemented.
 """
 
+from datetime import datetime
 from typing import Any, Optional
 
 from django.db.models.query import QuerySet
@@ -25,7 +26,7 @@ class AccountSettingsRenderStarted(OpenEdxPublicFilter):
         org.openedx.learning.student.settings.render.started.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: openedx/core/djangoapps/user_api/accounts/settings_views.py
         - Function or Method: account_settings
 
@@ -142,7 +143,7 @@ class StudentRegistrationRequested(OpenEdxPublicFilter, SensitiveDataManagementM
         org.openedx.learning.student.registration.requested.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: openedx/core/djangoapps/user_authn/views/register.py
         - Function or Method: RegistrationView.post
     """
@@ -195,7 +196,7 @@ class StudentLoginRequested(OpenEdxPublicFilter):
         org.openedx.learning.student.login.requested.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: openedx/core/djangoapps/user_authn/views/login.py
         - Function or Method: login_user
     """
@@ -260,7 +261,7 @@ class CourseEnrollmentStarted(OpenEdxPublicFilter):
         org.openedx.learning.course.enrollment.started.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: common/djangoapps/student/models/course_enrollment.py
         - Function or Method: enroll
     """
@@ -310,7 +311,7 @@ class CourseUnenrollmentStarted(OpenEdxPublicFilter):
         org.openedx.learning.course.unenrollment.started.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: common/djangoapps/student/models/course_enrollment.py
         - Function or Method: unenroll
     """
@@ -340,6 +341,62 @@ class CourseUnenrollmentStarted(OpenEdxPublicFilter):
         return data.get("enrollment")
 
 
+class CourseEnrollmentViewStarted(OpenEdxPublicFilter):
+    """
+    Filter used to perform pre-enrollment processing during the enrollment REST API view.
+
+    Purpose:
+        This filter is triggered when a user initiates enrollment via the enrollment REST API view,
+        just before the enrollment is created, allowing pipeline steps to perform pre-enrollment
+        processing scoped to the view layer.
+
+    Filter Type:
+        org.openedx.learning.course.enrollment.view.started.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: openedx/core/djangoapps/enrollments/views.py
+        - Function or Method: EnrollmentListView.post
+    """
+
+    filter_type = "org.openedx.learning.course.enrollment.view.started.v1"
+
+    class PreventEnrollment(OpenEdxFilterException):
+        """
+        Raise to prevent the enrollment process from continuing.
+        """
+
+    @classmethod
+    def run_filter(
+        cls, user: Any, course_key: CourseKey, requester_is_backend_service: bool
+    ) -> tuple[Any, CourseKey, bool]:
+        """
+        Process the user, course_key, and requester_is_backend_service using the configured
+        pipeline steps to preempt the enrollment process.
+
+        Arguments:
+            user (User): Django User enrolling in the course.
+            course_key (CourseKey): course key associated with the enrollment.
+            requester_is_backend_service (bool): if request was made by a server with an API key.
+
+        Returns:
+            tuple[Any, CourseKey, bool]:
+                - User: Django User object.
+                - CourseKey: course key associated with the enrollment.
+                - bool: if request was made by a server with an API key.
+        """
+        data = super().run_pipeline(
+            user=user,
+            course_key=course_key,
+            requester_is_backend_service=requester_is_backend_service
+        )
+        return (
+            data["user"],
+            data["course_key"],
+            data["requester_is_backend_service"],
+        )
+
+
 class CertificateCreationRequested(OpenEdxPublicFilter):
     """
     Filter used to modify the certificate creation process for a given user in a course.
@@ -352,7 +409,7 @@ class CertificateCreationRequested(OpenEdxPublicFilter):
         org.openedx.learning.certificate.creation.requested.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: lms/djangoapps/certificates/generated_certificate.py
         - Function or Method: _generate_certificate_task
     """
@@ -427,7 +484,7 @@ class CertificateRenderStarted(OpenEdxPublicFilter):
         org.openedx.learning.certificate.render.started.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: lms/djangoapps/certificates/views/webview.py
         - Function or Method: render_html_view
     """
@@ -532,7 +589,7 @@ class CohortChangeRequested(OpenEdxPublicFilter):
         org.openedx.learning.cohort.change.requested.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: openedx/core/djangoapps/course_groups/models.py
         - Function or Method: assign
     """
@@ -576,7 +633,7 @@ class CohortAssignmentRequested(OpenEdxPublicFilter):
         org.openedx.learning.cohort.assignment.requested.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: openedx/core/djangoapps/course_groups/models.py
         - Function or Method: assign
     """
@@ -624,7 +681,7 @@ class CourseAboutRenderStarted(OpenEdxPublicFilter):
         org.openedx.learning.course_about.render.started.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: lms/djangoapps/courseware/views/views.py
         - Function or Method: course_about
     """
@@ -737,7 +794,7 @@ class DashboardRenderStarted(OpenEdxPublicFilter):
         org.openedx.learning.dashboard.render.started.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: common/djangoapps/student/views/dashboard.py
         - Function or Method: student_dashboard
 
@@ -855,7 +912,7 @@ class VerticalBlockChildRenderStarted(OpenEdxPublicFilter):
         org.openedx.learning.vertical_block_child.render.started.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: xmodule/vertical_block.py
         - Function or Method: VerticalBlock._student_or_public_view
     """
@@ -940,7 +997,7 @@ class RenderXBlockStarted(OpenEdxPublicFilter):
         org.openedx.learning.xblock.render.started.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: lms/djangoapps/courseware/views/views.py
         - Function or Method: render_xblock
     """
@@ -1011,7 +1068,7 @@ class VerticalBlockRenderCompleted(OpenEdxPublicFilter):
         org.openedx.learning.vertical_block.render.completed.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: xmodule/vertical_block.py
         - Function or Method: VerticalBlock._student_or_public_view
     """
@@ -1038,14 +1095,14 @@ class VerticalBlockRenderCompleted(OpenEdxPublicFilter):
         Process the inputs using the configured pipeline steps to modify the rendering of a vertical block.
 
         Arguments:
-            block (VerticalBlock): The VeriticalBlock instance which is being rendered.
+            block (VerticalBlock): The VerticalBlock instance which is being rendered.
             fragment (web_fragments.Fragment): The web-fragment containing the rendered content of VerticalBlock.
             context (dict): rendering context values like is_mobile_app, show_title..etc.
             view (str): the rendering view. Can be either 'student_view', or 'public_view'.
 
         Returns:
-            tuple[VeticalBlock, web_fragments.Fragment, dict, str]:
-                - VerticalBlock: The VeriticalBlock instance which is being rendered.
+            tuple[VerticalBlock, web_fragments.Fragment, dict, str]:
+                - VerticalBlock: The VerticalBlock instance which is being rendered.
                 - web_fragments.Fragment: The web-fragment containing the rendered content of VerticalBlock.
                 - dict: rendering context values like is_mobile_app, show_title..etc.
                 - str: the rendering view. Can be either 'student_view', or 'public_view'.
@@ -1066,7 +1123,7 @@ class CourseHomeUrlCreationStarted(OpenEdxPublicFilter):
         org.openedx.learning.course.homepage.url.creation.started.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: openedx/features/course_experience/__init__.py
         - Function or Method: course_home_url
     """
@@ -1103,7 +1160,7 @@ class CourseEnrollmentAPIRenderStarted(OpenEdxPublicFilter):
         org.openedx.learning.home.enrollment.api.rendered.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: lms/djangoapps/learner_home/serializers.py
         - Function or Method: EnrollmentSerializer.to_representation
     """
@@ -1144,7 +1201,7 @@ class CourseRunAPIRenderStarted(OpenEdxPublicFilter):
         org.openedx.learning.home.courserun.api.rendered.started.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: lms/djangoapps/learner_home/serializers.py
         - Function or Method: CourseRunSerializer.to_representation
     """
@@ -1183,7 +1240,7 @@ class InstructorDashboardRenderStarted(OpenEdxPublicFilter):
         org.openedx.learning.instructor.dashboard.render.started.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: lms/djangoapps/instructor/views/instructor_dashboard.py
         - Function or Method: instructor_dashboard_2
     """
@@ -1304,7 +1361,7 @@ class InstructorDashboardTabsRequested(OpenEdxPublicFilter):
         org.openedx.learning.instructor.dashboard.tabs.requested.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: lms/djangoapps/instructor/views/serializers_v2.py
         - Function or Method: CourseInformationSerializerV2.get_tabs
     """
@@ -1339,7 +1396,7 @@ class InstructorDashboardTabsRequested(OpenEdxPublicFilter):
         tabs: list,
         user: Any,
         course_key: CourseKey
-    ) -> list | None:
+    ) -> tuple[list | None, Any | None, CourseKey | None]:
         """
         Process the tabs list using the configured pipeline steps to modify instructor dashboard tabs.
         Arguments:
@@ -1347,14 +1404,17 @@ class InstructorDashboardTabsRequested(OpenEdxPublicFilter):
             user (User): Django User object (usually an instructor or staff member).
             course_key (CourseKey): Course key for the instructor dashboard.
         Returns:
-            list | None: Tab dictionaries, possibly modified by pipeline steps, or None if not provided.
+            tuple[list | None, Any | None, CourseKey | None]:
+                - list | None: Tab dictionaries, possibly modified by pipeline steps, or None if not provided.
+                - Any | None: User object, possibly modified by pipeline steps, or None if not provided.
+                - CourseKey | None: Course key, possibly modified by pipeline steps, or None if not provided.
         """
         data = super().run_pipeline(
             tabs=tabs,
             user=user,
             course_key=course_key
         )
-        return data.get("tabs")
+        return data.get("tabs"), data.get("user"), data.get("course_key")
 
 
 class ORASubmissionViewRenderStarted(OpenEdxPublicFilter):
@@ -1427,7 +1487,7 @@ class IDVPageURLRequested(OpenEdxPublicFilter):
         org.openedx.learning.idv.page.url.requested.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: lms/djangoapps/verify_student/services.py
         - Function or Method: XBlockVerificationService.get_verify_location
     """
@@ -1461,7 +1521,7 @@ class CourseAboutPageURLRequested(OpenEdxPublicFilter):
         org.openedx.learning.course_about.page.url.requested.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: common/djangoapps/util/course.py
         - Function or Method: get_link_for_about_page
     """
@@ -1493,13 +1553,13 @@ class ScheduleQuerySetRequested(OpenEdxPublicFilter):
     Purpose:
         This filter is triggered when a QuerySet of Schedules is requested, allowing the filter to act on the schedules
         data. If you want to know more about the Schedules feature, please refer to the official documentation:
-            - https://github.com/openedx/edx-platform/tree/master/openedx/core/djangoapps/schedules#readme
+            - https://github.com/openedx/openedx-platform/tree/master/openedx/core/djangoapps/schedules#readme
 
     Filter Type:
         org.openedx.learning.schedule.queryset.requested.v1
 
     Trigger:
-        - Repository: openedx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: openedx/core/djangoapps/schedules/resolvers.py
         - Function or Method: BinnedSchedulesBaseResolver.get_schedules_with_target_date_by_bin_and_orgs
     """
@@ -1598,3 +1658,274 @@ class GradeEventContextRequested(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(context=context, user_id=user_id, course_id=course_id)
         return data["context"], data["user_id"], data["course_id"]
+
+
+class CoursewareViewStarted(OpenEdxPublicFilter):
+    """
+    Filter triggered before a courseware view is rendered, allowing pipeline steps to redirect.
+
+    Purpose:
+        Invoked before a courseware view renders. A pipeline step that wants to redirect
+        the user raises the nested ``RedirectToUrl`` exception with the target URL. The
+        platform decorator catches the exception and calls ``django.shortcuts.redirect``.
+
+        The first pipeline step to raise wins; later steps do not run.
+
+    Filter Type:
+        org.openedx.learning.courseware.view.started.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: lms/djangoapps/courseware/decorators.py
+        - Function or Method: courseware_view_hooks
+    """
+
+    filter_type = "org.openedx.learning.courseware.view.started.v1"
+
+    class RedirectToUrl(OpenEdxFilterException):
+        """Raised by a pipeline step to redirect the user before the courseware view renders."""
+
+        def __init__(self, message: str, redirect_to: str) -> None:
+            """Require a redirect URL on the exception instance."""
+            super().__init__(message=message, redirect_to=redirect_to)
+
+    @classmethod
+    def run_filter(cls, course_key: CourseKey, view_name: str) -> tuple[CourseKey, str]:
+        """
+        Run the pipeline so plugins can redirect the user.
+
+        Arguments:
+            course_key (CourseKey): the course key for the view being accessed.
+            view_name (str): name of the view function being accessed (e.g. 'index', 'progress'),
+                used by pipeline steps for logging/auditing purposes.
+
+        Returns:
+            tuple[CourseKey, str]: ``(course_key, view_name)``, unchanged.
+
+        Note:
+            Pipeline steps that need the current request should obtain it via
+            ``crum.get_current_request()`` rather than expecting it as a kwarg.
+        """
+        data = super().run_pipeline(course_key=course_key, view_name=view_name)
+        return data["course_key"], data["view_name"]
+
+
+class CourseStartDateValidationFailed(OpenEdxPublicFilter):
+    """
+    Filter triggered from the failure branch of the course start-date access check.
+
+    Purpose:
+        Invoked after start-date validation has already failed for the base case,
+        allowing pipeline steps to substitute a more specific access-error payload.
+        A step that wants to override the default error raises the nested
+        ``OverrideStartDateError`` exception; the platform catches it and builds a
+        ``StartDateFiltersError`` from the exception's fields.
+
+        The first pipeline step to raise wins; later steps do not run.
+
+    Filter Type:
+        org.openedx.learning.course.start_date.validation_failed.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: lms/djangoapps/courseware/access_utils.py
+        - Function or Method: check_start_date
+    """
+
+    filter_type = "org.openedx.learning.course.start_date.validation_failed.v1"
+
+    class OverrideStartDateError(OpenEdxFilterException):
+        """
+        Raised by a pipeline step to substitute a more specific start-date access error.
+
+        The caller decides whether to surface ``user_message`` in the UI.
+        """
+
+        def __init__(
+            self,
+            message: str,
+            error_code: str,
+            developer_message: str,
+            user_message: str,
+        ) -> None:
+            """Store error fields on the exception instance."""
+            super().__init__(message=message)
+            # Explicit assignments keep pylint's no-member check happy; the base
+            # class would set these via **kwargs setattr but pylint can't see that.
+            self.error_code = error_code
+            self.developer_message = developer_message
+            self.user_message = user_message
+
+    @classmethod
+    def run_filter(
+        cls,
+        course_key: CourseKey,
+        start_date: datetime,
+    ) -> tuple[CourseKey, datetime]:
+        """
+        Run the pipeline so plugins can substitute a more specific start-date error.
+
+        Arguments:
+            course_key (CourseKey): the course key for the view being accessed.
+            start_date (datetime): the course start date.
+
+        Returns:
+            tuple[CourseKey, datetime]: the inputs unchanged.
+        """
+        data = super().run_pipeline(
+            course_key=course_key,
+            start_date=start_date,
+        )
+        return data["course_key"], data["start_date"]
+
+
+class CoursewareAccessChecksRequested(OpenEdxPublicFilter):
+    """
+    Filter triggered during courseware access checks so plugins can deny access.
+
+    Purpose:
+        Invoked from the courseware access-check flow after platform-internal
+        checks have passed. Pipeline steps that wish to deny access raise the
+        nested ``PreventCoursewareAccess`` exception, which the framework
+        propagates back to the caller regardless of ``fail_silently``. Denials
+        surfaced through this filter are treated as priority — i.e. they cannot
+        be bypassed by staff users.
+
+        The first pipeline step to raise wins; later steps do not run.
+
+    Filter Type:
+        org.openedx.learning.courseware.access_checks.requested.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: lms/djangoapps/courseware/courses.py
+        - Function or Method: check_course_access
+    """
+
+    filter_type = "org.openedx.learning.courseware.access_checks.requested.v1"
+
+    class PreventCoursewareAccess(OpenEdxFilterException):
+        """
+        Raised by a pipeline step to deny courseware access.
+        """
+
+        def __init__(
+            self,
+            message: str,
+            error_code: str,
+            developer_message: str,
+            user_message: str,
+        ) -> None:
+            """Store error fields on the exception instance."""
+            super().__init__(message=message)
+            # Explicit assignments keep pylint's no-member check happy; the base
+            # class would set these via **kwargs setattr but pylint can't see that.
+            self.error_code = error_code
+            self.developer_message = developer_message
+            self.user_message = user_message
+
+    @classmethod
+    def run_filter(cls, user: Any, course_key: CourseKey) -> tuple[Any, CourseKey]:
+        """
+        Run the pipeline so plugins can deny access.
+
+        Arguments:
+            user: the user whose access is being checked.
+            course_key: the course key being accessed.
+
+        Returns:
+            tuple[Any, CourseKey]: ``(user, course_key)``, unchanged.
+        """
+        data = super().run_pipeline(user=user, course_key=course_key)
+        return data["user"], data["course_key"]
+
+
+class DiscountEligibilityCheckRequested(OpenEdxPublicFilter):
+    """
+    Filter used to allow plugins to mark a user as ineligible for a course discount.
+
+    Purpose:
+        This filter is triggered during discount applicability checks, just before the
+        final eligibility decision is returned to the caller. Pipeline steps may raise
+        ``DiscountIneligible`` to exclude a user from receiving a discount.
+
+    Filter Type:
+        org.openedx.learning.discount.eligibility.check.requested.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: openedx/features/discounts/applicability.py
+        - Function or Method: can_receive_discount, can_show_streak_discount_coupon
+    """
+
+    filter_type = "org.openedx.learning.discount.eligibility.check.requested.v1"
+
+    class DiscountIneligible(OpenEdxFilterException):
+        """
+        Raised by a pipeline step to indicate user is ineligible for discounts
+        """
+
+    @classmethod
+    def run_filter(
+        cls,
+        user: Any,
+        course_key: CourseKey,
+    ) -> tuple[Any, CourseKey]:
+        """
+        Process the inputs using the configured pipeline steps.
+
+        Arguments:
+            user (User): the Django User being checked for discount eligibility.
+            course_key (CourseKey or course object): identifies the course.
+
+        Returns:
+            tuple[User, CourseKey, bool]:
+                - User: the Django User object (unchanged).
+                - CourseKey: the course key (unchanged).
+                - bool: the (possibly overridden) eligibility flag.
+
+        Raises:
+            DiscountIneligible: when a pipeline step determines the user is
+                not eligible for a discount and halts further processing.
+        """
+        data = super().run_pipeline(user=user, course_key=course_key)
+        return data["user"], data["course_key"]
+
+
+class CourseModeCheckoutStarted(OpenEdxPublicFilter):
+    """
+    Filter used to enrich the course mode checkout context before the checkout flow begins.
+
+    Purpose:
+        This filter is triggered when a user selects a course mode and the checkout process
+        starts. Pipeline steps can modify the context dict to inject additional data required
+        by external systems (e.g. pricing APIs) to customize the checkout experience.
+
+    Filter Type:
+        org.openedx.learning.course_mode.checkout.started.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: common/djangoapps/course_modes/views.py
+        - Function or Method: ChooseModeView.post
+    """
+
+    filter_type = "org.openedx.learning.course_mode.checkout.started.v1"
+
+    @classmethod
+    def run_filter(cls, context: dict, request: Any, course_mode: Any) -> tuple[dict | None, Any, Any]:
+        """
+        Process the checkout context through the configured pipeline steps.
+
+        Arguments:
+            context (dict): the checkout context dict.
+            request (HttpRequest): the current HTTP request.
+            course_mode (CourseMode): the selected course mode object.
+
+        Returns:
+            context: the (possibly enriched) checkout context dict
+            request (HttpRequest): the current HTTP request.
+            course_mode (CourseMode): the selected course mode object
+        """
+        data = super().run_pipeline(context=context, request=request, course_mode=course_mode)
+        return data.get("context"), data.get("request"), data.get("course_mode")
