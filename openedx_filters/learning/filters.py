@@ -1095,14 +1095,14 @@ class VerticalBlockRenderCompleted(OpenEdxPublicFilter):
         Process the inputs using the configured pipeline steps to modify the rendering of a vertical block.
 
         Arguments:
-            block (VerticalBlock): The VeriticalBlock instance which is being rendered.
+            block (VerticalBlock): The VerticalBlock instance which is being rendered.
             fragment (web_fragments.Fragment): The web-fragment containing the rendered content of VerticalBlock.
             context (dict): rendering context values like is_mobile_app, show_title..etc.
             view (str): the rendering view. Can be either 'student_view', or 'public_view'.
 
         Returns:
-            tuple[VeticalBlock, web_fragments.Fragment, dict, str]:
-                - VerticalBlock: The VeriticalBlock instance which is being rendered.
+            tuple[VerticalBlock, web_fragments.Fragment, dict, str]:
+                - VerticalBlock: The VerticalBlock instance which is being rendered.
                 - web_fragments.Fragment: The web-fragment containing the rendered content of VerticalBlock.
                 - dict: rendering context values like is_mobile_app, show_title..etc.
                 - str: the rendering view. Can be either 'student_view', or 'public_view'.
@@ -1890,3 +1890,49 @@ class DiscountEligibilityCheckRequested(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(user=user, course_key=course_key)
         return data["user"], data["course_key"]
+
+
+class CourseModePriceRequested(OpenEdxPublicFilter):
+    """
+    Filter used to determine the price a learner should be charged for a course mode.
+
+    Purpose:
+        This filter is triggered when the price for a course mode checkout needs to be
+        calculated. Pipeline steps can adjust the price and apply discounts, like
+        enterprise-negotiated pricing.
+
+    Filter Type:
+        org.openedx.learning.course_mode.price.requested.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: common/djangoapps/course_modes/views.py
+        - Function or Method: ChooseModeView.get
+    """
+
+    filter_type = "org.openedx.learning.course_mode.price.requested.v1"
+
+    @classmethod
+    def run_filter(
+        cls,
+        user: Any,
+        course_mode_data: Any,
+        price: int
+    ) -> tuple[Any, Any, int]:
+        """
+        Process and possibly adjust the price through the configured pipeline steps.
+
+        Arguments:
+            user (Any): The Django User object.
+            course_mode_data (Any): The selected course mode object.
+            price (int): Price of the course mode in whole currency units (e.g., dollars, not cents).
+                         The currency is stored on the course_mode_data object (course_mode_data.currency).
+        Returns:
+            tuple[Any, Any, int]:
+                - user (Any): django User object (unchanged)
+                - course_mode_data (Any): The selected course mode object (unchanged)
+                - price (int): Price (possibly adjusted)
+
+        """
+        data = super().run_pipeline(user=user, course_mode_data=course_mode_data, price=price)
+        return data["user"], data["course_mode_data"], data["price"]
