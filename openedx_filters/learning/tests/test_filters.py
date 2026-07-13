@@ -23,6 +23,7 @@ from openedx_filters.learning.filters import (
     CourseEnrollmentStarted,
     CourseEnrollmentViewStarted,
     CourseHomeUrlCreationStarted,
+    CourseModePriceRequested,
     CourseRunAPIRenderStarted,
     CourseStartDateValidationFailed,
     CourseUnenrollmentStarted,
@@ -1121,8 +1122,8 @@ class TestDiscountEligibilityCheckRequestedFilter(TestCase):
             DiscountEligibilityCheckRequested.run_filter(user, course_key)
         )
 
-        self.assertIs(returned_user, user)
-        self.assertIs(returned_course_key, course_key)
+        assert returned_user == user
+        assert returned_course_key == course_key
 
     def test_run_filter_raises_discount_ineligible_from_pipeline(self):
         user = Mock()
@@ -1139,4 +1140,31 @@ class TestDiscountEligibilityCheckRequestedFilter(TestCase):
     def test_discount_ineligible_exception_stores_message(self):
         exc = DiscountEligibilityCheckRequested.DiscountIneligible("Enterprise contract prohibits discount.")
 
-        self.assertEqual(exc.message, "Enterprise contract prohibits discount.")
+        assert exc.message == "Enterprise contract prohibits discount."
+
+
+class TestCourseModeFilters(TestCase):
+    """
+    Test class to verify standard behavior of the CourseModePriceRequested filter.
+    """
+
+    def test_course_mode_price_requested(self):
+        """
+        Test CourseModePriceRequested filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter must have the signature specified.
+            - The filter should return the (possibly discounted) price.
+        """
+        user = Mock()
+        course_mode_data = Mock()
+        price = 100
+        assert CourseModePriceRequested.filter_type == "org.openedx.learning.course_mode.price.requested.v1"
+
+        result_user, result_course_mode_data, result_price = CourseModePriceRequested.run_filter(
+            user, course_mode_data, price
+        )
+
+        assert user == result_user
+        assert course_mode_data == result_course_mode_data
+        assert price == result_price

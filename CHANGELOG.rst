@@ -35,6 +35,14 @@ Unreleased
 
 .. _changelog-3.7.0:
 
+[3.8.0] - 2026-07-07
+---------------------
+
+Added
+~~~~~
+
+* Added new ``CourseModePriceRequested`` filter
+
 [3.7.0] - 2026-06-22
 ---------------------
 
