@@ -41,8 +41,12 @@ fallback_version = "0.0.0"
 [tool.setuptools]
 include-package-data = true
 zip-safe = false
+# Package lives in src/ but is installed without the src prefix,
+# e.g. src/openedx_filters/ is installed as openedx_filters.
+package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
+where = ["src"]
 include = ["openedx_filters*"]
 exclude = ["*.tests", "*.tests.*", "tests", "tests.*"]
 
