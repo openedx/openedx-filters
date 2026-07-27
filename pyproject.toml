@@ -1,7 +1,77 @@
-[tool.bumpversion]
-current_version = "2.0.1"
-tag = false
-commit = false
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm>=8.0"]
+build-backend = "setuptools.build_meta"
 
-[[tool.bumpversion.files]]
-filename = "openedx_filters/__init__.py"
+[project]
+name = "openedx-filters"
+description = "Open edX Filters from Hooks Extensions Framework (OEP-50)."
+readme = "README.rst"
+license = "AGPL-3.0"
+license-files = ["LICENSE.txt"]
+authors = [
+    {name = "eduNEXT", email = "technical@edunext.co"},
+]
+keywords = ["Python", "openedx"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.2",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.11"
+dynamic = ["version"]
+dependencies = [
+    "django>=4.2,<6.0",
+    "edx-opaque-keys[django]",
+    "setuptools",
+]
+
+[project.urls]
+Homepage = "https://github.com/openedx/openedx-filters"
+
+[tool.setuptools_scm]
+version_scheme = "only-version"
+local_scheme = "no-local-version"
+fallback_version = "0.0.0"
+
+[tool.setuptools]
+include-package-data = true
+zip-safe = false
+
+[tool.setuptools.packages.find]
+include = ["openedx_filters*"]
+exclude = ["*.tests", "*.tests.*", "tests", "tests.*"]
+
+[tool.setuptools.exclude-package-data]
+"*" = ["tests*", "*.tests*", "spec*", "*.spec*"]
+
+[tool.uv]
+package = true
+
+[tool.coverage.run]
+branch = true
+source = ["openedx_filters"]
+omit = [
+    "*/tests/*",
+    "*/migrations/*",
+    "*/__pycache__/*",
+]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[tool.isort]
+include_trailing_comma = true
+indent = "    "
+line_length = 120
+multi_line_output = 3
