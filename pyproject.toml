@@ -51,6 +51,111 @@ exclude = ["*.tests", "*.tests.*", "tests", "tests.*"]
 
 [tool.uv]
 package = true
+# Every group that (transitively, via include-group) pulls in the default
+# Django pin from `test` must be declared here explicitly opposite
+# `django42` -- uv derives these transitively but its lockfile serialization
+# order for derived pairs is not stable across `uv lock` runs, which trips
+# up tox-uv-bare's `uv sync --locked` check. Listing them all explicitly
+# keeps `uv.lock` deterministic. Update this list if `doc`/`quality`/`dev`
+# stop including `test`, or if a new group starts including it.
+conflicts = [
+    [
+        {group = "test"},
+        {group = "django42"},
+    ],
+    [
+        {group = "doc"},
+        {group = "django42"},
+    ],
+    [
+        {group = "quality"},
+        {group = "django42"},
+    ],
+    [
+        {group = "dev"},
+        {group = "django42"},
+    ],
+]
+
+#  DO NOT EDIT constraint-dependencies DIRECTLY.
+#  This list is managed by `edx_lint write_uv_constraints`
+#  and will be overwritten the next time `make upgrade` is run.
+#  - GLOBAL constraints: edit edx_lint/files/common_constraints.txt
+#  - REPO-SPECIFIC constraints: edit [tool.edx_lint].uv_constraints in this file
+constraint-dependencies = [
+    "Django<6.0",
+    "elasticsearch<7.14.0",
+    "uv==0.11.32",
+]
+
+[tool.edx_lint]
+# uv (pulled in transitively by tox-uv/tox-uv-bare, used internally by the
+# uv-venv-lock-runner tox envs) is pinned to an exact version here so that the
+# `uv` binary tox-uv installs into each per-env venv always agrees with the
+# `uv.lock` file's own conflicts/resolution bookkeeping, regardless of which
+# uv release happens to be on PATH (e.g. via astral-sh/setup-uv in CI, or a
+# developer's local uv). Different uv releases have disagreed on how
+# [tool.uv].conflicts entries get recorded in the lockfile, which otherwise
+# trips up tox-uv-bare's `uv sync --locked` check. When bumping this, also
+# bump the `version:` pin on the `astral-sh/setup-uv` step in
+# .github/workflows/ci.yml to match.
+uv_constraints = ["uv==0.11.32"]
+
+[dependency-groups]
+# Base test packages, no Django version pinned.
+test-base = [
+    "code-annotations",
+    "ddt",
+    "django-stubs",
+    "mypy",
+    "pytest-cov",
+    "pytest-django",
+]
+# Default test group: current supported Django version.
+# Update the Django pin here when bumping the default; django42 below
+# covers the older supported version.
+test = [
+    {include-group = "test-base"},
+    "django>=5.2,<5.3",
+]
+# Legacy Django 4.2 support.
+django42 = [
+    {include-group = "test-base"},
+    "django>=4.2,<4.3",
+]
+quality = [
+    {include-group = "test"},
+    "build",
+    "edx-lint",
+    "isort",
+    "mypy",
+    "pycodestyle",
+    "ruff",
+    "twine",
+]
+doc = [
+    {include-group = "test"},
+    "build",
+    "doc8",
+    "sphinx",
+    "sphinx-autobuild",
+    "sphinx-book-theme",
+    "sphinx-copybutton",
+    "sphinxcontrib-mermaid",
+    "twine",
+]
+# Minimal CI group: just what's needed to invoke tox.
+ci = [
+    "tox",
+    "tox-uv",
+]
+dev = [
+    {include-group = "quality"},
+    {include-group = "ci"},
+    {include-group = "doc"},
+    "diff-cover",
+    "scriv",
+]
 
 [tool.coverage.run]
 branch = true
