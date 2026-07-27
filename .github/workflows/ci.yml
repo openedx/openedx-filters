@@ -10,9 +10,12 @@ on:
 
 jobs:
   run_tests:
-    name: tests
+    name: ${{ matrix.toxenv }}
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest]
         python-version: ['3.12']
@@ -28,21 +31,26 @@ jobs:
 
     steps:
     - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-    - name: Setup python
-      uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
       with:
+        fetch-depth: 0
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+      with:
+        enable-cache: true
         python-version: ${{ matrix.python-version }}
+        # Pinned to match the `uv` package version locked in uv.lock (a
+        # transitive dependency of tox-uv/tox-uv-bare). Keep this in sync
+        # whenever `make upgrade` changes that pinned version, otherwise
+        # tox-uv's internal `--locked` check can disagree with this
+        # workflow's own `uv sync`/`uv run` calls.
+        version: "0.11.32"
 
-    - name: Install pip
-      run: pip install -r requirements/pip.txt
-
-    - name: Install Dependencies
-      run: pip install -r requirements/ci.txt
+    - name: Install CI dependencies
+      run: uv sync --group ci
 
     - name: Run Tests
-      env:
-        TOXENV: ${{ matrix.toxenv }}
-      run: tox
+      run: uv run tox -e ${{ matrix.toxenv }}
 
     - name: Run coverage
       if: matrix.python-version == '3.12' && matrix.toxenv == 'django42'
