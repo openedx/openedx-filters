@@ -8,15 +8,15 @@ accessible-pygments==0.0.5
     # via pydata-sphinx-theme
 alabaster==1.0.0
     # via sphinx
-anyio==4.13.0
+anyio==4.14.2
     # via
     #   starlette
     #   watchfiles
-asgiref==3.11.1
+asgiref==3.12.1
     # via
     #   -r requirements/test.txt
     #   django
-ast-serialize==0.3.0
+ast-serialize==0.6.0
     # via
     #   -r requirements/test.txt
     #   mypy
@@ -24,17 +24,17 @@ babel==2.18.0
     # via
     #   pydata-sphinx-theme
     #   sphinx
-beautifulsoup4==4.14.3
+beautifulsoup4==4.15.0
     # via pydata-sphinx-theme
 build==1.5.0
     # via -r requirements/doc.in
-certifi==2026.4.22
+certifi==2026.7.22
     # via requests
-cffi==2.0.0
+cffi==2.1.0
     # via cryptography
-charset-normalizer==3.4.7
+charset-normalizer==3.4.9
     # via requests
-click==8.3.3
+click==8.4.2
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -43,23 +43,23 @@ code-annotations==3.0.0
     # via -r requirements/test.txt
 colorama==0.4.6
     # via sphinx-autobuild
-coverage[toml]==7.14.0
+coverage[toml]==7.15.2
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==48.0.0
+cryptography==49.0.0
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
-django==5.2.14
+django==5.2.16
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
     #   django-stubs
     #   django-stubs-ext
-django-stubs==6.0.4
+django-stubs==6.0.7
     # via -r requirements/test.txt
-django-stubs-ext==6.0.4
+django-stubs-ext==6.0.7
     # via
     #   -r requirements/test.txt
     #   django-stubs
@@ -82,7 +82,7 @@ h11==0.16.0
     # via uvicorn
 id==1.6.1
     # via twine
-idna==3.14
+idna==3.18
     # via
     #   anyio
     #   requests
@@ -96,7 +96,7 @@ jaraco-classes==3.4.0
     # via keyring
 jaraco-context==6.1.2
     # via keyring
-jaraco-functools==4.4.0
+jaraco-functools==4.6.0
     # via keyring
 jeepney==0.9.0
     # via
@@ -106,11 +106,12 @@ jinja2==3.1.6
     # via
     #   -r requirements/test.txt
     #   code-annotations
+    #   pydata-sphinx-theme
     #   sphinx
     #   sphinxcontrib-mermaid
 keyring==25.7.0
     # via twine
-librt==0.11.0
+librt==0.13.0
     # via
     #   -r requirements/test.txt
     #   mypy
@@ -122,17 +123,17 @@ markupsafe==3.0.3
     #   jinja2
 mdurl==0.1.2
     # via markdown-it-py
-more-itertools==11.0.2
+more-itertools==11.1.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-mypy==2.0.0
+mypy==2.3.0
     # via -r requirements/test.txt
 mypy-extensions==1.1.0
     # via
     #   -r requirements/test.txt
     #   mypy
-nh3==0.3.5
+nh3==0.3.6
     # via readme-renderer
 packaging==26.2
     # via
@@ -152,7 +153,7 @@ pluggy==1.6.0
     #   pytest-cov
 pycparser==3.0
     # via cffi
-pydata-sphinx-theme==0.16.1
+pydata-sphinx-theme==0.20.0
     # via sphinx-book-theme
 pygments==2.20.0
     # via
@@ -170,7 +171,7 @@ pymongo==4.17.0
     #   edx-opaque-keys
 pyproject-hooks==1.2.0
     # via build
-pytest==9.0.3
+pytest==9.1.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -188,10 +189,11 @@ pyyaml==6.0.3
     #   -r requirements/test.txt
     #   code-annotations
     #   sphinxcontrib-mermaid
-readme-renderer==44.0
+readme-renderer==45.0
     # via twine
-requests==2.33.1
+requests==2.34.2
     # via
+    #   pydata-sphinx-theme
     #   requests-toolbelt
     #   sphinx
     #   twine
@@ -207,9 +209,9 @@ roman-numerals==4.1.0
     # via sphinx
 secretstorage==3.5.0
     # via keyring
-snowballstemmer==3.0.1
+snowballstemmer==3.1.1
     # via sphinx
-soupsieve==2.8.3
+soupsieve==2.9.1
     # via beautifulsoup4
 sphinx==9.1.0
     # via
@@ -221,7 +223,7 @@ sphinx==9.1.0
     #   sphinxcontrib-mermaid
 sphinx-autobuild==2025.8.25
     # via -r requirements/doc.in
-sphinx-book-theme==1.2.0
+sphinx-book-theme==1.4.0
     # via -r requirements/doc.in
 sphinx-copybutton==0.5.2
     # via -r requirements/doc.in
@@ -233,7 +235,7 @@ sphinxcontrib-htmlhelp==2.1.0
     # via sphinx
 sphinxcontrib-jsmath==1.0.1
     # via sphinx
-sphinxcontrib-mermaid==2.0.2
+sphinxcontrib-mermaid==2.1.0
     # via -r requirements/doc.in
 sphinxcontrib-qthelp==2.0.0
     # via sphinx
@@ -243,9 +245,9 @@ sqlparse==0.5.5
     # via
     #   -r requirements/test.txt
     #   django
-starlette==1.0.0
+starlette==1.3.1
     # via sphinx-autobuild
-stevedore==5.7.0
+stevedore==5.9.0
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -257,11 +259,11 @@ text-unidecode==1.3
     #   python-slugify
 twine==6.2.0
     # via -r requirements/doc.in
-types-pyyaml==6.0.12.20260510
+types-pyyaml==6.0.12.20260724
     # via
     #   -r requirements/test.txt
     #   django-stubs
-typing-extensions==4.15.0
+typing-extensions==4.16.0
     # via
     #   -r requirements/test.txt
     #   anyio
@@ -270,16 +272,15 @@ typing-extensions==4.15.0
     #   django-stubs-ext
     #   edx-opaque-keys
     #   mypy
-    #   pydata-sphinx-theme
     #   starlette
 urllib3==2.7.0
     # via
     #   id
     #   requests
     #   twine
-uvicorn==0.46.0
+uvicorn==0.51.0
     # via sphinx-autobuild
-watchfiles==1.1.1
+watchfiles==1.2.0
     # via sphinx-autobuild
-websockets==16.0
+websockets==16.1.1
     # via sphinx-autobuild
