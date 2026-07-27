@@ -41,11 +41,11 @@ upgrade: ## update the uv.lock file with the latest packages satisfying pyprojec
 	uv lock --upgrade
 
 quality: ## check coding style with pycodestyle and pylint
-	pylint openedx_filters test_utils *.py
+	pylint src/openedx_filters test_utils *.py
 	mypy
-	pycodestyle openedx_filters  *.py
-	ruff check openedx_filters *.py
-	isort --check-only --diff --recursive test_utils openedx_filters *.py test_settings.py
+	pycodestyle src/openedx_filters *.py
+	ruff check src/openedx_filters *.py
+	isort --check-only --diff --recursive test_utils src/openedx_filters *.py test_settings.py
 	python -m build --wheel
 	twine check dist/*
 	make selfcheck
