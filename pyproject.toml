@@ -180,3 +180,8 @@ include_trailing_comma = true
 indent = "    "
 line_length = 120
 multi_line_output = 3
+
+[tool.semantic_release]
+build_command = "python -m pip install --upgrade build && SETUPTOOLS_SCM_PRETEND_VERSION=$NEW_VERSION python -m build"
+major_on_zero = false
+allow_zero_version = true
