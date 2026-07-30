@@ -34,6 +34,6 @@ class TestManagementFilters(TestCase):
             service_variant=service_variant,
         )
 
-        self.assertEqual(command_contextmanager, filtered_command_contextmanager)
-        self.assertEqual(command_name, filtered_command_name)
-        self.assertEqual(service_variant, filtered_service_variant)
+        assert command_contextmanager == filtered_command_contextmanager
+        assert command_name == filtered_command_name
+        assert service_variant == filtered_service_variant

@@ -19,7 +19,7 @@ class ManagementCommandContextmanagerRequested(OpenEdxPublicFilter):
         org.openedx.platform.management.command.contextmanager.requested.v1
 
     Trigger:
-        - Repository: edx/edx-platform
+        - Repository: openedx/openedx-platform
         - Path: manage.py
         - Function or Method: __main__
     """
