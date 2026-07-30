@@ -62,7 +62,5 @@ Check off if complete *or* not applicable:
 - [ ] Noted any: Concerns, dependencies, migration issues, deadlines, tickets
 
 **Post Merge:**
-- [ ] Trigger the release workflow to create a new GitHub release.
-- [ ] Check new version is pushed to PyPI after tag-triggered build is finished.
 - [ ] Delete working branch (if not needed anymore)
 - [ ] Upgrade the package in the Open edX platform requirements (if applicable)
