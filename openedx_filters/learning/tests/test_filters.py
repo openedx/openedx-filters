@@ -10,6 +10,8 @@ from django.test import TestCase
 from opaque_keys.edx.keys import CourseKey
 
 from openedx_filters.learning.filters import (
+    AccountActivationCompleted,
+    AccountActivationEmailComposed,
     AccountSettingsReadOnlyFieldsRequested,
     AccountSettingsRenderStarted,
     CertificateCreationRequested,
@@ -896,6 +898,58 @@ class TestAccountSettingsReadOnlyFieldsRequestedFilter(TestCase):
     def test_filter_type(self):
         filter_type = "org.openedx.learning.account.settings.read_only_fields.requested.v1"
         assert AccountSettingsReadOnlyFieldsRequested.filter_type == filter_type
+
+
+class TestAccountActivationEmailComposedFilter(TestCase):
+    """
+    Tests for the AccountActivationEmailComposed filter.
+    """
+
+    def test_filter_type(self):
+        assert (
+            AccountActivationEmailComposed.filter_type
+            == "org.openedx.learning.account.activation.email.compose.v1"
+        )
+
+    def test_run_filter_returns_inputs_unchanged_when_no_pipeline(self):
+        """
+        When no pipeline steps are configured, run_filter returns the original inputs unchanged.
+        """
+        user = Mock()
+        message_context = {"key": "abc123"}
+
+        result_user, result_context = AccountActivationEmailComposed.run_filter(
+            user=user, message_context=message_context
+        )
+
+        assert result_user == user
+        assert result_context == message_context
+
+
+class TestAccountActivationCompletedFilter(TestCase):
+    """
+    Tests for the AccountActivationCompleted filter.
+    """
+
+    def test_filter_type(self):
+        assert (
+            AccountActivationCompleted.filter_type
+            == "org.openedx.learning.account.activation.completed.v1"
+        )
+
+    def test_run_filter_returns_inputs_unchanged_when_no_pipeline(self):
+        """
+        When no pipeline steps are configured, run_filter returns the original inputs unchanged.
+        """
+        user = Mock()
+        redirect_url = "https://example.com/next"
+
+        result_user, result_redirect_url = AccountActivationCompleted.run_filter(
+            user=user, redirect_url=redirect_url
+        )
+
+        assert result_user == user
+        assert result_redirect_url == redirect_url
 
 
 @ddt

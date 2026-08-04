@@ -60,6 +60,14 @@ Added
     auth provider configuration that the form filters pass to pipeline steps.
   * ``RunningPipeline`` - authentication pipeline state.
 
+[3.9.0] - 2026-07-22
+---------------------
+
+Added
+~~~~~
+
+* Added new ``AccountActivationEmailComposed`` and ``AccountActivationCompleted`` filters
+
 [3.8.0] - 2026-07-07
 ---------------------
 
