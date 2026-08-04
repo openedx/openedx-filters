@@ -6,6 +6,7 @@ from unittest.mock import Mock
 from django.test import TestCase
 
 from openedx_filters.authentication.filters import (
+    AccountActivationEmailContextGenerated,
     AuthnMFEContextGenerated,
     LoginAltRedirectURLRequested,
     LoginFormGenerated,
@@ -160,3 +161,27 @@ class TestLogistrationViewRenderCompletedFilter(TestCase):
 
         assert returned_response is response
         assert returned_context is context
+
+
+class TestAccountActivationEmailContextGeneratedFilter(TestCase):
+    """
+    Tests for the AccountActivationEmailContextGenerated filter.
+    """
+
+    def test_filter_type(self):
+        assert AccountActivationEmailContextGenerated.filter_type == \
+            "org.openedx.authentication.account_activation.email.context.generated.v1"
+
+    def test_run_filter_returns_inputs_unchanged_when_no_pipeline(self):
+        """
+        When no pipeline steps are configured, run_filter returns the original inputs unchanged.
+        """
+        user = Mock()
+        message_context = {"key": "abc123"}
+
+        returned_user, returned_context = AccountActivationEmailContextGenerated.run_filter(
+            user=user, message_context=message_context
+        )
+
+        assert returned_user is user
+        assert returned_context is message_context

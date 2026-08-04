@@ -34,6 +34,17 @@ Unreleased
 .. scriv-insert-here
 
 
+.. _changelog-3.14.0:
+
+[3.14.0] - 2026-09-16
+----------------------
+
+Added
+~~~~~
+
+* Added new ``AccountActivationEmailContextGenerated`` filter to the authentication
+  subdomain, allowing pipeline steps to enrich the account activation email context
+
 .. _changelog-3.13.0:
 
 [3.13.0] - 2026-09-11
