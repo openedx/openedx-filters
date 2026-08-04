@@ -33,7 +33,16 @@ Unreleased
 ----------
 .. scriv-insert-here
 
-.. _changelog-3.9.0:
+
+.. _changelog-3.10.0:
+
+[3.10.0] - 2026-08-10
+---------------------
+
+Added
+~~~~~
+
+* Added new ``AccountActivationEmailComposed`` filter
 
 [3.9.0] - 2026-08-04
 --------------------
