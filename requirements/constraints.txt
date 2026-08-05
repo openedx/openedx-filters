@@ -10,3 +10,13 @@
 
 # Common constraints for edx repos
 -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+
+# pip 26.2 removed the private `stdlib_pkgs` attribute from `pip._internal.utils.compat`
+# (relocated to `pip._internal.metadata.base`), which pip-tools (through at least 7.6.0) still
+# imports directly. This breaks `pip-compile`/`make upgrade` with:
+#   ImportError: cannot import name 'stdlib_pkgs' from 'pip._internal.utils.compat'
+# See https://github.com/jazzband/pip-tools/issues/2436 and
+# https://github.com/pypa/pip/issues/14214 for details on the ongoing fix.
+# Remove this constraint once a pip-tools release lands that no longer depends on this
+# removed private API.
+pip<26.2
