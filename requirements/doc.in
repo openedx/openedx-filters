@@ -11,4 +11,5 @@ sphinx-book-theme
 sphinx-copybutton
 sphinx-autobuild
 sphinxcontrib-mermaid
+myst-parser               # Markdown (MyST) support for Sphinx docs
 

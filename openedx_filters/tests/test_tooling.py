@@ -33,7 +33,7 @@ class FirstPipelineStep(PipelineStep):
     Utility function used when getting steps for pipeline.
     """
 
-    def run_filter(self, **kwargs):
+    def run_filter(self, **kwargs):  # pylint: disable=arguments-differ
         return {}
 
 
@@ -42,7 +42,7 @@ class SecondPipelineStep(PipelineStep):
     Utility class used when getting steps for pipeline.
     """
 
-    def run_filter(self, **kwargs):
+    def run_filter(self, **kwargs):  # pylint: disable=arguments-differ
         return {}
 
 

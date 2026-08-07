@@ -3,6 +3,7 @@ Necessary classes used to define pipeline steps used by OpenEdxPublicFilter's pi
 """
 from abc import abstractmethod
 from logging import getLogger
+from typing import Any
 
 log = getLogger(__name__)
 
@@ -54,12 +55,20 @@ class PipelineStep:
         self.extra_config = extra_config
 
     @abstractmethod
-    def run_filter(self, **kwargs):
+    # The explicit ``return None`` below is required by static type checkers, which treat an
+    # implicit fall-through as a missing return whenever a return type is annotated.
+    def run_filter(  # pylint: disable=useless-return
+        self, *args: Any, **kwargs: Any,
+    ) -> dict[str, Any] | None:
         """
         Abstract pipeline step runner.
 
         Used to implement custom code that'll be executed by OpenEdxPublicFilter's pipeline runner.
         It must be implemented by child classes.
+
+        The signature is intentionally declared in its most permissive (gradual) form so that
+        subclasses may narrow the accepted keyword arguments to those of the filter they
+        implement without static type checkers reporting an incompatible override.
 
         By design, the pipeline expects either of three (3) types of returns:
 
@@ -81,3 +90,4 @@ class PipelineStep:
             "3. An object different from a dict. Returning this will stop the pipeline execution. "
             "The accumulated output until this moment will be returned.\n"
         )
+        return None
