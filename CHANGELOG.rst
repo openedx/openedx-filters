@@ -33,7 +33,16 @@ Unreleased
 ----------
 .. scriv-insert-here
 
-.. _changelog-3.9.0:
+
+.. _changelog-3.10.0:
+
+[3.10.0] - 2026-08-10
+---------------------
+
+Added
+~~~~~
+
+* Added new ``AccountActivationEmailComposed`` and ``AccountActivationCompleted`` filters
 
 [3.9.0] - 2026-08-04
 --------------------
@@ -59,14 +68,6 @@ Added
   * ``ProviderConfigProtocol`` - declares the minimal surface of the third-party
     auth provider configuration that the form filters pass to pipeline steps.
   * ``RunningPipeline`` - authentication pipeline state.
-
-[3.9.0] - 2026-07-22
----------------------
-
-Added
-~~~~~
-
-* Added new ``AccountActivationEmailComposed`` and ``AccountActivationCompleted`` filters
 
 [3.8.0] - 2026-07-07
 ---------------------

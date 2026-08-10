@@ -1641,7 +1641,7 @@ class AccountActivationEmailComposed(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.account.activation.email.compose.v1"
 
     @classmethod
-    def run_filter(cls, user: Any, message_context: dict) -> tuple[Any, dict | None]:
+    def run_filter(cls, user: Any, message_context: dict[str, Any]) -> tuple[Any, dict[str, Any] | None]:
         """
         Process the user and message_context using the configured pipeline steps to modify the
         activation email context.
@@ -1686,13 +1686,15 @@ class AccountActivationCompleted(OpenEdxPublicFilter):
 
         Arguments:
             user (User): Django User object whose account was just activated.
-            redirect_url (str): URL the user would be redirected to, empty string if none.
+            redirect_url (str): URL the user would be redirected to, empty string to trigger
+                the LMS default redirect.
 
         Returns:
-            tuple[User, str]:
+            tuple[User, str | None]:
                 - User: Django User object.
-                - str: URL to redirect to, possibly modified. Falsy values fall back to the
-                    dashboard.
+                - str | None: URL to redirect to, possibly modified. A falsy value (empty
+                    string or None) causes the LMS to fall back to its default redirect
+                    (currently the dashboard).
         """
         data = super().run_pipeline(user=user, redirect_url=redirect_url)
         return data.get("user"), data.get("redirect_url")
