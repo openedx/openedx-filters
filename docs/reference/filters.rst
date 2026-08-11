@@ -20,6 +20,18 @@ Course Authoring Subdomain
 .. automodule:: openedx_filters.course_authoring.filters
    :members:
 
+Authentication Subdomain
+*************************
+
+.. automodule:: openedx_filters.authentication.filters
+   :members:
+
+Some of these filters hand their pipeline steps payloads whose shape is declared as a
+structural type, so that steps do not couple to a concrete platform implementation:
+
+.. automodule:: openedx_filters.authentication.types
+   :members:
+
 **Maintenance chart**
 
 +--------------+-------------------------------+----------------+--------------------------------+

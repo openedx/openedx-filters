@@ -8,6 +8,8 @@ Currently, these are the `architecture subdomains`_ used by the Open edX Filters
 +-------------------+----------------------------------------------------------------------------------------------------+
 | Subdomain Name    | Description                                                                                        |
 +===================+====================================================================================================+
+| Authentication    | Handles how users sign in, register, and are routed through login/registration flows.              |
++-------------------+----------------------------------------------------------------------------------------------------+
 | Content Authoring | Allows educators to create, modify, package, annotate (tag), and share learning content.           |
 +-------------------+----------------------------------------------------------------------------------------------------+
 | Learning          | Allows learners to consume content and perform actions in a learning activity on the platform.     |
