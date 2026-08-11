@@ -141,6 +141,7 @@ doc = [
     {include-group = "test"},
     "build",
     "doc8",
+    "myst-parser",
     "sphinx",
     "sphinx-autobuild",
     "sphinx-book-theme",
