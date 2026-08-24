@@ -27,7 +27,12 @@ coverage: clean ## generate and view HTML coverage report
 	$(BROWSER)htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	uv run tox -e docs
+	uv sync --group doc
+	DJANGO_SETTINGS_MODULE=test_utils.test_settings PYTHONPATH=$(CURDIR) uv run doc8 --ignore-path docs/_build README.rst docs
+	rm -f docs/openedx_filters.rst
+	rm -f docs/modules.rst
+	DJANGO_SETTINGS_MODULE=test_utils.test_settings PYTHONPATH=$(CURDIR) uv run make -C docs clean
+	DJANGO_SETTINGS_MODULE=test_utils.test_settings PYTHONPATH=$(CURDIR) uv run make -C docs html
 	$(BROWSER)docs/_build/html/index.html
 
 changelog-entry: ## Create a new changelog entry
