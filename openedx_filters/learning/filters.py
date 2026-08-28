@@ -341,6 +341,62 @@ class CourseUnenrollmentStarted(OpenEdxPublicFilter):
         return data.get("enrollment")
 
 
+class CourseEnrollmentViewStarted(OpenEdxPublicFilter):
+    """
+    Filter used to perform pre-enrollment processing during the enrollment REST API view.
+
+    Purpose:
+        This filter is triggered when a user initiates enrollment via the enrollment REST API view,
+        just before the enrollment is created, allowing pipeline steps to perform pre-enrollment
+        processing scoped to the view layer.
+
+    Filter Type:
+        org.openedx.learning.course.enrollment.view.started.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: openedx/core/djangoapps/enrollments/views.py
+        - Function or Method: EnrollmentListView.post
+    """
+
+    filter_type = "org.openedx.learning.course.enrollment.view.started.v1"
+
+    class PreventEnrollment(OpenEdxFilterException):
+        """
+        Raise to prevent the enrollment process from continuing.
+        """
+
+    @classmethod
+    def run_filter(
+        cls, user: Any, course_key: CourseKey, requester_is_backend_service: bool
+    ) -> tuple[Any, CourseKey, bool]:
+        """
+        Process the user, course_key, and requester_is_backend_service using the configured
+        pipeline steps to preempt the enrollment process.
+
+        Arguments:
+            user (User): Django User enrolling in the course.
+            course_key (CourseKey): course key associated with the enrollment.
+            requester_is_backend_service (bool): if request was made by a server with an API key.
+
+        Returns:
+            tuple[Any, CourseKey, bool]:
+                - User: Django User object.
+                - CourseKey: course key associated with the enrollment.
+                - bool: if request was made by a server with an API key.
+        """
+        data = super().run_pipeline(
+            user=user,
+            course_key=course_key,
+            requester_is_backend_service=requester_is_backend_service
+        )
+        return (
+            data["user"],
+            data["course_key"],
+            data["requester_is_backend_service"],
+        )
+
+
 class CertificateCreationRequested(OpenEdxPublicFilter):
     """
     Filter used to modify the certificate creation process for a given user in a course.
@@ -1039,14 +1095,14 @@ class VerticalBlockRenderCompleted(OpenEdxPublicFilter):
         Process the inputs using the configured pipeline steps to modify the rendering of a vertical block.
 
         Arguments:
-            block (VerticalBlock): The VeriticalBlock instance which is being rendered.
+            block (VerticalBlock): The VerticalBlock instance which is being rendered.
             fragment (web_fragments.Fragment): The web-fragment containing the rendered content of VerticalBlock.
             context (dict): rendering context values like is_mobile_app, show_title..etc.
             view (str): the rendering view. Can be either 'student_view', or 'public_view'.
 
         Returns:
-            tuple[VeticalBlock, web_fragments.Fragment, dict, str]:
-                - VerticalBlock: The VeriticalBlock instance which is being rendered.
+            tuple[VerticalBlock, web_fragments.Fragment, dict, str]:
+                - VerticalBlock: The VerticalBlock instance which is being rendered.
                 - web_fragments.Fragment: The web-fragment containing the rendered content of VerticalBlock.
                 - dict: rendering context values like is_mobile_app, show_title..etc.
                 - str: the rendering view. Can be either 'student_view', or 'public_view'.
@@ -1782,3 +1838,101 @@ class CoursewareAccessChecksRequested(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(user=user, course_key=course_key)
         return data["user"], data["course_key"]
+
+
+class DiscountEligibilityCheckRequested(OpenEdxPublicFilter):
+    """
+    Filter used to allow plugins to mark a user as ineligible for a course discount.
+
+    Purpose:
+        This filter is triggered during discount applicability checks, just before the
+        final eligibility decision is returned to the caller. Pipeline steps may raise
+        ``DiscountIneligible`` to exclude a user from receiving a discount.
+
+    Filter Type:
+        org.openedx.learning.discount.eligibility.check.requested.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: openedx/features/discounts/applicability.py
+        - Function or Method: can_receive_discount, can_show_streak_discount_coupon
+    """
+
+    filter_type = "org.openedx.learning.discount.eligibility.check.requested.v1"
+
+    class DiscountIneligible(OpenEdxFilterException):
+        """
+        Raised by a pipeline step to indicate user is ineligible for discounts
+        """
+
+    @classmethod
+    def run_filter(
+        cls,
+        user: Any,
+        course_key: CourseKey,
+    ) -> tuple[Any, CourseKey]:
+        """
+        Process the inputs using the configured pipeline steps.
+
+        Arguments:
+            user (User): the Django User being checked for discount eligibility.
+            course_key (CourseKey or course object): identifies the course.
+
+        Returns:
+            tuple[User, CourseKey, bool]:
+                - User: the Django User object (unchanged).
+                - CourseKey: the course key (unchanged).
+                - bool: the (possibly overridden) eligibility flag.
+
+        Raises:
+            DiscountIneligible: when a pipeline step determines the user is
+                not eligible for a discount and halts further processing.
+        """
+        data = super().run_pipeline(user=user, course_key=course_key)
+        return data["user"], data["course_key"]
+
+
+class CourseModePriceRequested(OpenEdxPublicFilter):
+    """
+    Filter used to determine the price a learner should be charged for a course mode.
+
+    Purpose:
+        This filter is triggered when the price for a course mode checkout needs to be
+        calculated. Pipeline steps can adjust the price and apply discounts, like
+        enterprise-negotiated pricing.
+
+    Filter Type:
+        org.openedx.learning.course_mode.price.requested.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: common/djangoapps/course_modes/views.py
+        - Function or Method: ChooseModeView.get
+    """
+
+    filter_type = "org.openedx.learning.course_mode.price.requested.v1"
+
+    @classmethod
+    def run_filter(
+        cls,
+        user: Any,
+        course_mode_data: Any,
+        price: int
+    ) -> tuple[Any, Any, int]:
+        """
+        Process and possibly adjust the price through the configured pipeline steps.
+
+        Arguments:
+            user (Any): The Django User object.
+            course_mode_data (Any): The selected course mode object.
+            price (int): Price of the course mode in whole currency units (e.g., dollars, not cents).
+                         The currency is stored on the course_mode_data object (course_mode_data.currency).
+        Returns:
+            tuple[Any, Any, int]:
+                - user (Any): django User object (unchanged)
+                - course_mode_data (Any): The selected course mode object (unchanged)
+                - price (int): Price (possibly adjusted)
+
+        """
+        data = super().run_pipeline(user=user, course_mode_data=course_mode_data, price=price)
+        return data["user"], data["course_mode_data"], data["price"]

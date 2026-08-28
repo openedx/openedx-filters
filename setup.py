@@ -145,6 +145,7 @@ setup(
     packages=[
         "openedx_filters",
     ],
+    package_data={"openedx_filters": ["py.typed"]},
     include_package_data=True,
     install_requires=load_requirements("requirements/base.in"),
     python_requires=">=3.11",

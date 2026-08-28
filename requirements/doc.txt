@@ -116,11 +116,16 @@ librt==0.13.0
     #   -r requirements/test.txt
     #   mypy
 markdown-it-py==4.2.0
-    # via rich
+    # via
+    #   mdit-py-plugins
+    #   myst-parser
+    #   rich
 markupsafe==3.0.3
     # via
     #   -r requirements/test.txt
     #   jinja2
+mdit-py-plugins==0.6.1
+    # via myst-parser
 mdurl==0.1.2
     # via markdown-it-py
 more-itertools==11.1.0
@@ -133,7 +138,9 @@ mypy-extensions==1.1.0
     # via
     #   -r requirements/test.txt
     #   mypy
-nh3==0.3.6
+myst-parser==5.1.0
+    # via -r requirements/doc.in
+nh3==0.3.5
     # via readme-renderer
 packaging==26.2
     # via

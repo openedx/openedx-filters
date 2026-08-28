@@ -33,7 +33,56 @@ Unreleased
 ----------
 .. scriv-insert-here
 
-.. _changelog-3.5.0:
+.. _changelog-3.9.0:
+
+[3.9.0] - 2026-08-04
+--------------------
+
+Added
+~~~~~
+
+* Added new ``authentication`` architecture subdomain
+
+* Added six new authentication-related filters:
+
+  * ``LogistrationViewContextGenerated``
+  * ``AuthnMFEContextGenerated``
+  * ``LoginAltRedirectURLRequested``
+  * ``LoginFormGenerated``
+  * ``RegistrationFormGenerated``
+  * ``LogistrationViewRenderCompleted``
+
+* Added three new structural types used by several of the above filters:
+
+  * ``FormDescriptionProtocol`` - declares the minimal surface of the form
+    description that the form filters pass to pipeline steps.
+  * ``ProviderConfigProtocol`` - declares the minimal surface of the third-party
+    auth provider configuration that the form filters pass to pipeline steps.
+  * ``RunningPipeline`` - authentication pipeline state.
+
+[3.8.0] - 2026-07-07
+---------------------
+
+Added
+~~~~~
+
+* Added new ``CourseModePriceRequested`` filter
+
+[3.7.0] - 2026-06-22
+---------------------
+
+Added
+~~~~~
+
+* Added new ``DiscountEligibilityCheckRequested`` filter
+
+[3.6.0] - 2026-06-18
+--------------------
+
+Added
+~~~~~
+
+* Added CourseEnrollmentViewStarted filter
 
 [v3.5.0] - 2026-06-02
 ---------------------
