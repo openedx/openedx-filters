@@ -65,7 +65,7 @@ quality: ## check coding style with pycodestyle and pylint
 	mypy
 	pycodestyle openedx_filters  *.py
 	ruff check openedx_filters *.py
-	isort --check-only --diff --recursive test_utils openedx_filters *.py test_settings.py
+	isort --check-only --diff test_utils openedx_filters *.py
 	python setup.py bdist_wheel
 	twine check dist/*
 	make selfcheck
