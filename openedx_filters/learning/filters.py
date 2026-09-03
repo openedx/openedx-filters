@@ -1621,6 +1621,44 @@ class AccountSettingsReadOnlyFieldsRequested(OpenEdxPublicFilter):
         return (data["readonly_fields"], data["user"])
 
 
+class AccountActivationEmailComposed(OpenEdxPublicFilter):
+    """
+    Filter used to modify the activation email context before it is sent.
+
+    Purpose:
+        This filter is triggered when the account activation email is composed, just before the
+        message is personalized and sent, allowing the filter to act on the message context.
+
+    Filter Type:
+        org.openedx.learning.account.activation.email.compose.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: common/djangoapps/student/views/management.py
+        - Function or Method: compose_activation_email
+    """
+
+    filter_type = "org.openedx.learning.account.activation.email.compose.v1"
+
+    @classmethod
+    def run_filter(cls, user: Any, message_context: dict[str, Any]) -> tuple[Any, dict[str, Any] | None]:
+        """
+        Process the user and message_context using the configured pipeline steps to modify the
+        activation email context.
+
+        Arguments:
+            user (User): Django User object the activation email is being composed for.
+            message_context (dict): context dictionary used to render the activation email.
+
+        Returns:
+            tuple[User, dict]:
+                - User: Django User object.
+                - dict: context dictionary used to render the activation email, possibly modified.
+        """
+        data = super().run_pipeline(user=user, message_context=message_context)
+        return data.get("user"), data.get("message_context")
+
+
 class GradeEventContextRequested(OpenEdxPublicFilter):
     """
     Filter used to enrich the context for grade events.
