@@ -40,6 +40,8 @@ from openedx_filters.learning.filters import (
     ScheduleQuerySetRequested,
     StudentLoginRequested,
     StudentRegistrationRequested,
+    SupportContactContextRequested,
+    SupportEnrollmentDataRequested,
     VerticalBlockChildRenderStarted,
     VerticalBlockRenderCompleted,
 )
@@ -1168,3 +1170,74 @@ class TestCourseModeFilters(TestCase):
         assert user == result_user
         assert course_mode_data == result_course_mode_data
         assert price == result_price
+
+
+class TestSupportContactContextRequestedFilter(TestCase):
+    """
+    Tests for the SupportContactContextRequested filter.
+    """
+
+    def test_filter_type(self):
+        assert (
+            SupportContactContextRequested.filter_type
+            == "org.openedx.learning.support.contact.context.requested.v1"
+        )
+
+    def test_run_filter_returns_tags_unchanged_when_no_pipeline(self):
+        """
+        With no pipeline steps configured, the tags list is returned unchanged.
+        """
+        tags = ["some_tag"]
+        request = Mock()
+        user = Mock()
+
+        result = SupportContactContextRequested.run_filter(tags=tags, request=request, user=user)
+
+        assert result == tags
+
+    @patch(
+        "openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline",
+        return_value={"tags": ["some_tag", "enterprise_learner"]},
+    )
+    def test_run_filter_returns_tags_from_pipeline(self, _mock_run_pipeline):
+        """
+        The (possibly modified) tags list returned by the pipeline is passed through.
+        """
+        result = SupportContactContextRequested.run_filter(tags=["some_tag"], request=Mock(), user=Mock())
+
+        assert result == ["some_tag", "enterprise_learner"]
+
+
+class TestSupportEnrollmentDataRequestedFilter(TestCase):
+    """
+    Tests for the SupportEnrollmentDataRequested filter.
+    """
+
+    def test_filter_type(self):
+        assert (
+            SupportEnrollmentDataRequested.filter_type
+            == "org.openedx.learning.support.enrollment.data.requested.v1"
+        )
+
+    def test_run_filter_returns_enrollment_data_unchanged_when_no_pipeline(self):
+        """
+        With no pipeline steps configured, the enrollment_data dict is returned unchanged.
+        """
+        enrollment_data = {}
+        user = Mock()
+
+        result = SupportEnrollmentDataRequested.run_filter(enrollment_data=enrollment_data, user=user)
+
+        assert result == enrollment_data
+
+    @patch(
+        "openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline",
+        return_value={"enrollment_data": {"course-v1:edX+DemoX+Demo_Course": [{"course_id": "some-id"}]}},
+    )
+    def test_run_filter_returns_enrollment_data_from_pipeline(self, _mock_run_pipeline):
+        """
+        The (possibly enriched) enrollment_data dict returned by the pipeline is passed through.
+        """
+        result = SupportEnrollmentDataRequested.run_filter(enrollment_data={}, user=Mock())
+
+        assert result == {"course-v1:edX+DemoX+Demo_Course": [{"course_id": "some-id"}]}
