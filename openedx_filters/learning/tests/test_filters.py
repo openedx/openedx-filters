@@ -40,6 +40,7 @@ from openedx_filters.learning.filters import (
     ScheduleQuerySetRequested,
     StudentLoginRequested,
     StudentRegistrationRequested,
+    SupportContactContextRequested,
     VerticalBlockChildRenderStarted,
     VerticalBlockRenderCompleted,
 )
@@ -1168,3 +1169,38 @@ class TestCourseModeFilters(TestCase):
         assert user == result_user
         assert course_mode_data == result_course_mode_data
         assert price == result_price
+
+
+class TestSupportContactContextRequestedFilter(TestCase):
+    """
+    Tests for the SupportContactContextRequested filter.
+    """
+
+    def test_filter_type(self):
+        assert (
+            SupportContactContextRequested.filter_type
+            == "org.openedx.learning.support.contact.context.requested.v1"
+        )
+
+    def test_run_filter_returns_tags_unchanged_when_no_pipeline(self):
+        """
+        With no pipeline steps configured, the tags list and user are returned unchanged.
+        """
+        tags = ["some_tag"]
+        user = Mock()
+
+        result = SupportContactContextRequested.run_filter(tags=tags, user=user)
+
+        assert result == (tags, user)
+
+    @patch(
+        "openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline",
+        return_value={"tags": ["some_tag", "enterprise_learner"], "user": Mock()},
+    )
+    def test_run_filter_returns_tags_from_pipeline(self, mock_run_pipeline):
+        """
+        The (possibly modified) tags list returned by the pipeline is passed through.
+        """
+        result = SupportContactContextRequested.run_filter(tags=["some_tag"], user=Mock())
+
+        assert result == (["some_tag", "enterprise_learner"], mock_run_pipeline.return_value["user"])

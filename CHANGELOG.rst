@@ -33,6 +33,17 @@ Unreleased
 ----------
 .. scriv-insert-here
 
+
+.. _changelog-3.10.0:
+
+[3.10.0] - 2026-09-08
+---------------------
+
+Added
+~~~~~
+
+* Added new ``SupportContactContextRequested`` filter
+
 .. _changelog-3.9.0:
 
 [3.9.0] - 2026-08-04
