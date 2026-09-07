@@ -19,7 +19,7 @@ packaging==26.3
     # via
     #   pyproject-api
     #   tox
-platformdirs==4.11.5
+platformdirs==4.11.7
     # via
     #   tox
     #   virtualenv
@@ -37,5 +37,5 @@ tox==4.61.2
     # via -r requirements/ci.in
 typing-extensions==4.16.0
     # via tox
-virtualenv==21.7.7
+virtualenv==21.7.8
     # via tox

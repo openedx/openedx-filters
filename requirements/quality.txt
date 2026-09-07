@@ -8,7 +8,7 @@ asgiref==3.12.1
     # via
     #   -r requirements/test.txt
     #   django
-ast-serialize==0.8.0
+ast-serialize==0.9.0
     # via
     #   -r requirements/test.txt
     #   mypy
@@ -18,6 +18,8 @@ astroid==4.0.4
     #   pylint-celery
 certifi==2026.7.22
     # via requests
+cffi==2.1.1
+    # via cryptography
 charset-normalizer==3.5.1
     # via requests
 click==8.5.0
@@ -36,6 +38,8 @@ coverage[toml]==7.16.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
+cryptography==50.0.1
+    # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
 dill==0.4.1
@@ -80,6 +84,10 @@ jaraco-context==6.1.2
     # via keyring
 jaraco-functools==4.6.0
     # via keyring
+jeepney==0.9.0
+    # via
+    #   keyring
+    #   secretstorage
 jinja2==3.1.6
     # via
     #   -r requirements/test.txt
@@ -124,7 +132,7 @@ pathspec==1.1.1
     # via
     #   -r requirements/test.txt
     #   mypy
-platformdirs==4.11.5
+platformdirs==4.11.7
     # via pylint
 pluggy==1.6.0
     # via
@@ -133,6 +141,8 @@ pluggy==1.6.0
     #   pytest-cov
 pycodestyle==2.14.0
     # via -r requirements/quality.in
+pycparser==3.0
+    # via cffi
 pygments==2.21.0
     # via
     #   -r requirements/test.txt
@@ -153,7 +163,7 @@ pylint-plugin-utils==0.9.0
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.17.0
+pymongo==4.18.0
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -186,8 +196,10 @@ rfc3986==2.0.0
     # via twine
 rich==15.0.0
     # via twine
-ruff==0.16.5
+ruff==0.16.6
     # via -r requirements/quality.in
+secretstorage==3.5.0
+    # via keyring
 six==1.17.0
     # via edx-lint
 sqlparse==0.6.0
@@ -209,7 +221,7 @@ tomlkit==0.15.1
     #   pylint
 twine==7.0.0
     # via -r requirements/quality.in
-types-pyyaml==6.0.12.20260815
+types-pyyaml==6.0.12.20260906
     # via
     #   -r requirements/test.txt
     #   django-stubs
