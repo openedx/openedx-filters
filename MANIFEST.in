@@ -1,7 +1,5 @@
 include CHANGELOG.rst
 include LICENSE.txt
 include README.rst
-include requirements/base.in
-recursive-include openedx_filters *.html *.png *.gif *.js *.css *.jpg *.jpeg *.svg *.py
-include openedx_filters/py.typed
-include requirements/constraints.txt
+recursive-include src/openedx_filters *.html *.png *.gif *.js *.css *.jpg *.jpeg *.svg *.py
+include src/openedx_filters/py.typed

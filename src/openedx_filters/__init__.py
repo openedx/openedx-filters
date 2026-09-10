@@ -3,10 +3,11 @@ Filters of the Open edX platform.
 """
 import sys
 import warnings
+from importlib.metadata import version
 
 from openedx_filters.filters import *
 
-__version__ = "3.10.0"
+__version__ = version("openedx-filters")
 
 if sys.version_info < (3, 12):  # pragma: no cover
     warnings.warn(
