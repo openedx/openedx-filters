@@ -1182,25 +1182,24 @@ class TestSupportContactContextRequestedFilter(TestCase):
             == "org.openedx.learning.support.contact.context.requested.v1"
         )
 
-    def test_run_filter_returns_tags_unchanged_when_no_pipeline(self):
+    def test_run_filter_returns_context_unchanged_when_no_pipeline(self):
         """
-        With no pipeline steps configured, the tags list and user are returned unchanged.
+        With no pipeline steps configured, the context dict is returned unchanged.
         """
-        tags = ["some_tag"]
-        user = Mock()
+        context = {"tags": ["some_tag"]}
 
-        result = SupportContactContextRequested.run_filter(tags=tags, user=user)
+        result = SupportContactContextRequested.run_filter(context=context)
 
-        assert result == (tags, user)
+        assert result == context
 
     @patch(
         "openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline",
-        return_value={"tags": ["some_tag", "enterprise_learner"], "user": Mock()},
+        return_value={"context": {"tags": ["some_tag", "enterprise_learner"]}},
     )
-    def test_run_filter_returns_tags_from_pipeline(self, mock_run_pipeline):
+    def test_run_filter_returns_context_from_pipeline(self, mock_run_pipeline):
         """
-        The (possibly modified) tags list returned by the pipeline is passed through.
+        The (possibly modified) context dict returned by the pipeline is passed through.
         """
-        result = SupportContactContextRequested.run_filter(tags=["some_tag"], user=Mock())
+        result = SupportContactContextRequested.run_filter(context={"tags": ["some_tag"]})
 
-        assert result == (["some_tag", "enterprise_learner"], mock_run_pipeline.return_value["user"])
+        assert result == mock_run_pipeline.return_value["context"]
