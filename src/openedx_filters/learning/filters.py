@@ -1936,3 +1936,41 @@ class CourseModePriceRequested(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(user=user, course_mode_data=course_mode_data, price=price)
         return data["user"], data["course_mode_data"], data["price"]
+
+
+class SupportContactContextRequested(OpenEdxPublicFilter):
+    """
+    Filter used to enrich the support contact request context with custom tags.
+
+    Purpose:
+        This filter is triggered when a user submits a support contact request. Pipeline steps
+        can inspect the user to append custom tags to the tags list that will be associated
+        with the support ticket.
+
+    Filter Type:
+        org.openedx.learning.support.contact.context.requested.v1
+
+    Trigger:
+        - Repository: openedx/edx-platform
+        - Path: lms/djangoapps/support/views/contact_us.py
+        - Function or Method: ContactUsView.get
+    """
+
+    filter_type = "org.openedx.learning.support.contact.context.requested.v1"
+
+    @classmethod
+    def run_filter(cls, tags: list[str], user: Any) -> tuple[list, Any]:
+        """
+        Process the tags list through the configured pipeline steps.
+
+        Arguments:
+            tags (list[str]): the list of tags to be associated with the support ticket.
+            user (User): the user submitting the support request.
+
+        Returns:
+            tuple[list, Any]:
+                - list: the (possibly modified) tags list.
+                - Any: the Django User object (unchanged).
+        """
+        data = super().run_pipeline(tags=tags, user=user)
+        return data["tags"], data["user"]
