@@ -34,6 +34,18 @@ Unreleased
 .. scriv-insert-here
 
 
+.. _changelog-3.11.0:
+
+[3.11.0] - 2026-09-10
+----------------------
+
+Changed
+~~~~~~~
+
+* Changed ``SupportContactContextRequested`` to accept/return the entire support contact page
+  context dict instead of a bare tags list, and dropped the unused ``user`` argument (fetch it via
+  ``crum`` internally if needed, matching other filters' convention)
+
 .. _changelog-3.10.0:
 
 [3.10.0] - 2026-09-08
