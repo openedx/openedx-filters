@@ -34,6 +34,16 @@ Unreleased
 .. scriv-insert-here
 
 
+.. _changelog-3.12.0:
+
+[3.12.0] - 2026-09-08
+----------------------
+
+Added
+~~~~~
+
+* Added new ``SupportEnrollmentDataRequested`` filter
+
 .. _changelog-3.11.0:
 
 [3.11.0] - 2026-09-10
