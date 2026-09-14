@@ -1217,31 +1217,33 @@ class TestSupportEnrollmentDataRequestedFilter(TestCase):
             == "org.openedx.learning.support.enrollment.data.requested.v1"
         )
 
-    def test_run_filter_returns_enrollment_data_unchanged_when_no_pipeline(self):
+    def test_run_filter_returns_enrollments_unchanged_when_no_pipeline(self):
         """
-        With no pipeline steps configured, the enrollment_data dict and user are returned unchanged.
+        With no pipeline steps configured, the enrollments list and user are returned unchanged.
         """
-        enrollment_data = {}
+        enrollments_data = [{"course_id": "some-id"}]
         user = Mock()
 
-        result = SupportEnrollmentDataRequested.run_filter(enrollment_data=enrollment_data, user=user)
+        result = SupportEnrollmentDataRequested.run_filter(enrollments_data=enrollments_data, user=user)
 
-        assert result == (enrollment_data, user)
+        assert result == (enrollments_data, user)
 
     @patch(
         "openedx_filters.tooling.OpenEdxPublicFilter.run_pipeline",
         return_value={
-            "enrollment_data": {"course-v1:edX+DemoX+Demo_Course": [{"course_id": "some-id"}]},
+            "enrollments_data": [{"course_id": "some-id", "enterprise_course_enrollments": []}],
             "user": Mock(),
         },
     )
-    def test_run_filter_returns_enrollment_data_from_pipeline(self, mock_run_pipeline):
+    def test_run_filter_returns_enrollments_from_pipeline(self, mock_run_pipeline):
         """
-        The (possibly enriched) enrollment_data dict returned by the pipeline is passed through.
+        The (possibly augmented) enrollments list returned by the pipeline is passed through.
         """
-        result = SupportEnrollmentDataRequested.run_filter(enrollment_data={}, user=Mock())
+        result = SupportEnrollmentDataRequested.run_filter(
+            enrollments_data=[{"course_id": "some-id"}], user=Mock()
+        )
 
         assert result == (
-            {"course-v1:edX+DemoX+Demo_Course": [{"course_id": "some-id"}]},
+            mock_run_pipeline.return_value["enrollments_data"],
             mock_run_pipeline.return_value["user"],
         )

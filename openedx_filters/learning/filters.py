@@ -1979,7 +1979,8 @@ class SupportEnrollmentDataRequested(OpenEdxPublicFilter):
 
     Purpose:
         This filter is triggered when the support enrollment view fetches enrollment data for
-        a user. Pipeline steps can inject additional enrollment records or augment existing ones.
+        a user. Pipeline steps can augment each enrollment record in the list in place — e.g.
+        attach additional course-specific data — before the enrollment list is returned.
 
     Filter Type:
         org.openedx.learning.support.enrollment.data.requested.v1
@@ -1993,18 +1994,46 @@ class SupportEnrollmentDataRequested(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.support.enrollment.data.requested.v1"
 
     @classmethod
-    def run_filter(cls, enrollment_data: dict, user: Any) -> tuple[dict, Any]:
+    def run_filter(cls, enrollments_data: list[dict], user: Any) -> tuple[list[dict], Any]:
         """
-        Process the enrollment data dict through the configured pipeline steps.
+        Process the enrollments list through the configured pipeline steps.
 
         Arguments:
-            enrollment_data (dict): dict mapping course_id to list of enrollment records.
+            enrollments_data (list[dict]): list of enrollment record dicts, one per course the
+                user is enrolled in, e.g.:
+
+                    [
+                        {
+                            "course_id": "course-v1:edX+DemoX+Demo_Course",
+                            "mode": "audit",
+                            "is_active": True,
+                            "user": "staff",
+                            "course_start": "2024-01-01T00:00:00Z",
+                            "course_end": "2024-06-01T00:00:00Z",
+                            "enrollment_start": "2023-12-01T00:00:00Z",
+                            "enrollment_end": "2024-01-15T00:00:00Z",
+                            "course_modes": [{"slug": "audit", "name": "Audit", ...}],
+                            "verified_price": 149,
+                            "verified_upgrade_deadline": "2024-01-08T00:00:00Z",
+                            "verification_deadline": None,
+                            "order_number": "",
+                            "source_system": "",
+                            "manual_enrollment": {},
+                        },
+                        ...
+                    ]
+
+                Built from openedx.core.djangoapps.enrollments.api.get_enrollments and then
+                augmented by EnrollmentSupportListView.get (see Trigger above) before this
+                filter runs. See
+                https://github.com/openedx/edx-platform/blob/master/lms/djangoapps/support/views/enrollments.py
+                for the authoritative, up-to-date shape.
             user (User): the user whose enrollment data is being fetched.
 
         Returns:
-            tuple[dict, Any]:
-                - dict: the (possibly enriched) enrollment data dict.
+            tuple[list[dict], Any]:
+                - list[dict]: the (possibly augmented) enrollments list.
                 - Any: the Django User object (unchanged).
         """
-        data = super().run_pipeline(enrollment_data=enrollment_data, user=user)
-        return data["enrollment_data"], data["user"]
+        data = super().run_pipeline(enrollments_data=enrollments_data, user=user)
+        return data["enrollments_data"], data["user"]
