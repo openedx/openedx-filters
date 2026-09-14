@@ -34,6 +34,18 @@ Unreleased
 .. scriv-insert-here
 
 
+.. _changelog-3.13.0:
+
+[3.13.0] - 2026-09-11
+----------------------
+
+Changed
+~~~~~~~
+
+* Changed ``SupportEnrollmentDataRequested`` to accept/return the full enrollments list instead of
+  an empty placeholder dict keyed by course_id, so pipeline steps can augment each enrollment
+  record in place rather than being limited to bolting on a single hard-coded key
+
 .. _changelog-3.12.0:
 
 [3.12.0] - 2026-09-08

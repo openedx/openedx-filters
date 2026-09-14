@@ -1979,7 +1979,8 @@ class SupportEnrollmentDataRequested(OpenEdxPublicFilter):
 
     Purpose:
         This filter is triggered when the support enrollment view fetches enrollment data for
-        a user. Pipeline steps can inject additional enrollment records or augment existing ones.
+        a user. Pipeline steps can augment each enrollment record in the list in place — e.g.
+        attach additional course-specific data — before the enrollment list is returned.
 
     Filter Type:
         org.openedx.learning.support.enrollment.data.requested.v1
@@ -1993,18 +1994,18 @@ class SupportEnrollmentDataRequested(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.support.enrollment.data.requested.v1"
 
     @classmethod
-    def run_filter(cls, enrollment_data: dict, user: Any) -> tuple[dict, Any]:
+    def run_filter(cls, enrollments: list, user: Any) -> tuple[list, Any]:
         """
-        Process the enrollment data dict through the configured pipeline steps.
+        Process the enrollments list through the configured pipeline steps.
 
         Arguments:
-            enrollment_data (dict): dict mapping course_id to list of enrollment records.
+            enrollments (list): list of enrollment record dicts, each keyed by course_id.
             user (User): the user whose enrollment data is being fetched.
 
         Returns:
-            tuple[dict, Any]:
-                - dict: the (possibly enriched) enrollment data dict.
+            tuple[list, Any]:
+                - list: the (possibly augmented) enrollments list.
                 - Any: the Django User object (unchanged).
         """
-        data = super().run_pipeline(enrollment_data=enrollment_data, user=user)
-        return data["enrollment_data"], data["user"]
+        data = super().run_pipeline(enrollments=enrollments, user=user)
+        return data["enrollments"], data["user"]
