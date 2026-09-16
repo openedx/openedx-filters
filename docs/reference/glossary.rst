@@ -41,11 +41,11 @@ A filter has multiple components that are used to define, execute, and handle fi
 This glossary provides a high-level overview of the key concepts and components of the Open edX Filters library. Understanding these terms will help you implement filters in your application and leverage the filter tooling to control the flow of your application based on specific conditions. For a better illustration of these concepts, refer to the :ref:`Create a New Open edX Filter with Long-Term Support` guide.
 
 .. _Python Social Auth accumulative pipeline: https://python-social-auth.readthedocs.io/en/latest/pipeline.html
-.. _PipelineStep: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/filters.py#L10
-.. _run_filter: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/filters.py#L60
-.. _OpenEdxPublicFilter: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/tooling.py#L14
-.. _run_pipeline: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/tooling.py#L164
-.. _CourseEnrollmentStarted filter: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/learning/filters.py#L142
+.. _PipelineStep: https://github.com/openedx/openedx-filters/blob/main/src/openedx_filters/filters.py#L10
+.. _run_filter: https://github.com/openedx/openedx-filters/blob/main/src/openedx_filters/filters.py#L60
+.. _OpenEdxPublicFilter: https://github.com/openedx/openedx-filters/blob/main/src/openedx_filters/tooling.py#L14
+.. _run_pipeline: https://github.com/openedx/openedx-filters/blob/main/src/openedx_filters/tooling.py#L164
+.. _CourseEnrollmentStarted filter: https://github.com/openedx/openedx-filters/blob/main/src/openedx_filters/learning/filters.py#L142
 
 **Maintenance chart**
 
