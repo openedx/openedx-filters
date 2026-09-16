@@ -1940,12 +1940,12 @@ class CourseModePriceRequested(OpenEdxPublicFilter):
 
 class SupportContactContextRequested(OpenEdxPublicFilter):
     """
-    Filter used to enrich the support contact request context with custom tags.
+    Filter used to enrich the support contact request context.
 
     Purpose:
         This filter is triggered when a user submits a support contact request. Pipeline steps
-        can inspect the user to append custom tags to the tags list that will be associated
-        with the support ticket.
+        can inspect and modify the support contact page context — e.g. append custom tags to
+        context['tags'] — before the page is rendered and the ticket is associated with those tags.
 
     Filter Type:
         org.openedx.learning.support.contact.context.requested.v1
@@ -1959,18 +1959,52 @@ class SupportContactContextRequested(OpenEdxPublicFilter):
     filter_type = "org.openedx.learning.support.contact.context.requested.v1"
 
     @classmethod
-    def run_filter(cls, tags: list[str], user: Any) -> tuple[list, Any]:
+    def run_filter(cls, context: dict) -> dict:
         """
-        Process the tags list through the configured pipeline steps.
+        Process the support contact page context through the configured pipeline steps.
 
         Arguments:
-            tags (list[str]): the list of tags to be associated with the support ticket.
-            user (User): the user submitting the support request.
+            context (dict): the support contact page template context.
 
         Returns:
-            tuple[list, Any]:
-                - list: the (possibly modified) tags list.
+            dict: the (possibly modified) context dict.
+        """
+        data = super().run_pipeline(context=context)
+        return data["context"]
+
+
+class SupportEnrollmentDataRequested(OpenEdxPublicFilter):
+    """
+    Filter used to enrich the support enrollment data.
+
+    Purpose:
+        This filter is triggered when the support enrollment view fetches enrollment data for
+        a user. Pipeline steps can inject additional enrollment records or augment existing ones.
+
+    Filter Type:
+        org.openedx.learning.support.enrollment.data.requested.v1
+
+    Trigger:
+        - Repository: openedx/edx-platform
+        - Path: lms/djangoapps/support/views/enrollments.py
+        - Function or Method: EnrollmentSupportListView.get
+    """
+
+    filter_type = "org.openedx.learning.support.enrollment.data.requested.v1"
+
+    @classmethod
+    def run_filter(cls, enrollment_data: dict, user: Any) -> tuple[dict, Any]:
+        """
+        Process the enrollment data dict through the configured pipeline steps.
+
+        Arguments:
+            enrollment_data (dict): dict mapping course_id to list of enrollment records.
+            user (User): the user whose enrollment data is being fetched.
+
+        Returns:
+            tuple[dict, Any]:
+                - dict: the (possibly enriched) enrollment data dict.
                 - Any: the Django User object (unchanged).
         """
-        data = super().run_pipeline(tags=tags, user=user)
-        return data["tags"], data["user"]
+        data = super().run_pipeline(enrollment_data=enrollment_data, user=user)
+        return data["enrollment_data"], data["user"]
