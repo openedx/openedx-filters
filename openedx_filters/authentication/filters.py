@@ -289,3 +289,40 @@ class LogistrationViewRenderCompleted(OpenEdxPublicFilter):
         """
         data = super().run_pipeline(response=response, context=context)
         return data["response"], data["context"]
+
+
+class AccountActivationEmailContextGenerated(OpenEdxPublicFilter):
+    """
+    Filter used to enrich or modify the account activation email context.
+
+    Purpose:
+        This filter is triggered after the account activation email context has been generated
+        and just before the message is personalized and sent, allowing pipeline steps to modify
+        the context dict (e.g. add flags consumed by the email template) based on external
+        conditions.
+
+    Filter Type:
+        org.openedx.authentication.account_activation.email.context.generated.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: common/djangoapps/student/views/management.py
+        - Function or Method: compose_activation_email
+    """
+
+    filter_type = "org.openedx.authentication.account_activation.email.context.generated.v1"
+
+    @classmethod
+    def run_filter(cls, user: Any, message_context: dict[str, Any]) -> tuple[Any, dict[str, Any]]:
+        """
+        Process the user and message_context through the configured pipeline steps.
+
+        Arguments:
+            user (User): the Django User the activation email is being composed for.
+            message_context (dict): context dictionary used to render the activation email.
+
+        Returns:
+            tuple[User, dict]: the Django User and the (possibly modified) context dictionary.
+        """
+        data = super().run_pipeline(user=user, message_context=message_context)
+        return data["user"], data["message_context"]
