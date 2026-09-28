@@ -63,7 +63,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.16.1
+coverage[toml]==7.16.2
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -73,7 +73,7 @@ cryptography==50.0.1
     #   secretstorage
 ddt==1.7.2
     # via -r requirements/quality.txt
-diff-cover==10.5.1
+diff-cover==10.6.0
     # via -r requirements/dev.in
 dill==0.4.1
     # via
@@ -107,7 +107,7 @@ edx-lint==6.2.0
     # via -r requirements/quality.txt
 edx-opaque-keys[django]==4.0.0
     # via -r requirements/quality.txt
-filelock==3.32.7
+filelock==4.0.4
     # via
     #   -r requirements/ci.txt
     #   python-discovery
@@ -210,7 +210,7 @@ pathspec==1.1.1
     #   mypy
 pip-tools==7.6.1
     # via -r requirements/pip-tools.txt
-platformdirs==4.11.11
+platformdirs==4.12.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -225,7 +225,7 @@ pluggy==1.6.0
     #   pytest
     #   pytest-cov
     #   tox
-pycodestyle==2.14.0
+pycodestyle==2.15.0
     # via -r requirements/quality.txt
 pycparser==3.0
     # via
@@ -238,7 +238,7 @@ pygments==2.21.0
     #   pytest
     #   readme-renderer
     #   rich
-pylint==4.0.8
+pylint==4.0.9
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -258,7 +258,7 @@ pylint-plugin-utils==0.9.0
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pymongo==4.18.1
+pymongo==4.18.2
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
@@ -285,7 +285,7 @@ python-discovery==1.6.1
     #   -r requirements/ci.txt
     #   tox
     #   virtualenv
-python-slugify==9.1.0
+python-slugify==9.1.2
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -315,7 +315,7 @@ rich==15.0.0
     # via
     #   -r requirements/quality.txt
     #   twine
-ruff==0.16.8
+ruff==0.16.9
     # via -r requirements/quality.txt
 scriv==1.8.0
     # via -r requirements/dev.in
@@ -349,7 +349,7 @@ tomlkit==0.15.1
     #   -r requirements/quality.txt
     #   edx-lint
     #   pylint
-tox==4.63.0
+tox==4.64.4
     # via -r requirements/ci.txt
 twine==7.0.0
     # via -r requirements/quality.txt
@@ -372,7 +372,7 @@ urllib3==2.8.0
     #   id
     #   requests
     #   twine
-virtualenv==21.9.0
+virtualenv==21.13.0
     # via
     #   -r requirements/ci.txt
     #   tox
