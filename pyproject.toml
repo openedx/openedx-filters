@@ -96,13 +96,12 @@ constraint-dependencies = [
 # uv (pulled in transitively by tox-uv/tox-uv-bare, used internally by the
 # uv-venv-lock-runner tox envs) is pinned to an exact version here so that the
 # `uv` binary tox-uv installs into each per-env venv always agrees with the
-# `uv.lock` file's own conflicts/resolution bookkeeping, regardless of which
-# uv release happens to be on PATH (e.g. via astral-sh/setup-uv in CI, or a
-# developer's local uv). Different uv releases have disagreed on how
-# [tool.uv].conflicts entries get recorded in the lockfile, which otherwise
-# trips up tox-uv-bare's `uv sync --locked` check. When bumping this, also
-# bump the `version:` pin on the `astral-sh/setup-uv` step in
-# .github/workflows/ci.yml to match.
+# `uv.lock` file's own conflicts/resolution bookkeeping. Different uv releases
+# have disagreed on how [tool.uv].conflicts entries get recorded in the
+# lockfile, which otherwise trips up tox-uv-bare's `uv sync --locked` check.
+# (The uv release on PATH when invoking `uv sync`/`uv run` -- e.g. via
+# astral-sh/setup-uv in CI, or a developer's local uv -- does not need to
+# match this; only the version tox-uv-bare installs into its own venvs does.)
 uv_constraints = ["uv==0.11.32"]
 
 [dependency-groups]

@@ -35,12 +35,6 @@ jobs:
       with:
         enable-cache: true
         python-version: ${{ matrix.python-version }}
-        # Pinned to match the `uv` package version locked in uv.lock (a
-        # transitive dependency of tox-uv/tox-uv-bare). Keep this in sync
-        # whenever `make upgrade` changes that pinned version, otherwise
-        # tox-uv's internal `--locked` check can disagree with this
-        # workflow's own `uv sync`/`uv run` calls.
-        version: "0.11.32"
 
     - name: Install CI dependencies
       run: uv sync --group ci
