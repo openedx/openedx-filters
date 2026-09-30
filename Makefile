@@ -27,11 +27,11 @@ coverage: clean ## generate and view HTML coverage report
 
 docs: ## generate Sphinx HTML documentation, including API docs
 	uv sync --group doc
-	DJANGO_SETTINGS_MODULE=test_utils.test_settings PYTHONPATH=$(CURDIR) uv run doc8 --ignore-path docs/_build README.rst docs
+	DJANGO_SETTINGS_MODULE=test_utils.test_settings PYTHONPATH=$(CURDIR) doc8 --ignore-path docs/_build README.rst docs
 	rm -f docs/openedx_filters.rst
 	rm -f docs/modules.rst
-	DJANGO_SETTINGS_MODULE=test_utils.test_settings PYTHONPATH=$(CURDIR) uv run make -C docs clean
-	DJANGO_SETTINGS_MODULE=test_utils.test_settings PYTHONPATH=$(CURDIR) uv run make -C docs html
+	DJANGO_SETTINGS_MODULE=test_utils.test_settings PYTHONPATH=$(CURDIR) make -C docs clean
+	DJANGO_SETTINGS_MODULE=test_utils.test_settings PYTHONPATH=$(CURDIR) make -C docs html
 	$(BROWSER)docs/_build/html/index.html
 
 upgrade: ## update the uv.lock file with the latest packages satisfying pyproject.toml
@@ -59,7 +59,7 @@ diff_cover: test ## find diff lines that need test coverage
 	diff-cover coverage.xml
 
 test-all: quality ## run tests on every supported Python/Django combination
-	uv run tox
+	tox
 
 validate: quality test ## run tests and quality checks
 
