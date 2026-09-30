@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "openedx-filters"
 description = "Open edX Filters from Hooks Extensions Framework (OEP-50)."
 readme = "README.rst"
-license = "AGPL-3.0"
+license = "AGPL-3.0-or-later"
 license-files = ["LICENSE.txt"]
 authors = [
     {name = "eduNEXT", email = "technical@edunext.co"},
