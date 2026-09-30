@@ -76,6 +76,7 @@ jobs:
     needs: release
     if: github.ref_name == 'main' && needs.release.outputs.released == 'true'
     permissions:
+      contents: read
       id-token: write
 
     steps:
