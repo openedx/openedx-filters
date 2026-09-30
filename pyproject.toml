@@ -159,7 +159,6 @@ dev = [
     {include-group = "ci"},
     {include-group = "doc"},
     "diff-cover",
-    "scriv",
 ]
 
 [tool.coverage.run]
