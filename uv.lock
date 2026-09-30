@@ -1372,7 +1372,7 @@ test-base = [
 
 [package.metadata]
 requires-dist = [
-    { name = "django", specifier = ">=4.2,<6.0" },
+    { name = "django", specifier = ">=4.2" },
     { name = "edx-opaque-keys", extras = ["django"] },
     { name = "setuptools" },
 ]

@@ -25,7 +25,7 @@ classifiers = [
 requires-python = ">=3.11"
 dynamic = ["version"]
 dependencies = [
-    "django>=4.2,<6.0",
+    "django>=4.2",
     "edx-opaque-keys[django]",
     "setuptools",
 ]
