@@ -26,12 +26,7 @@ coverage: clean ## generate and view HTML coverage report
 	$(BROWSER)htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	uv sync --group doc
-	DJANGO_SETTINGS_MODULE=test_utils.test_settings PYTHONPATH=$(CURDIR) doc8 --ignore-path docs/_build README.rst docs
-	rm -f docs/openedx_filters.rst
-	rm -f docs/modules.rst
-	DJANGO_SETTINGS_MODULE=test_utils.test_settings PYTHONPATH=$(CURDIR) make -C docs clean
-	DJANGO_SETTINGS_MODULE=test_utils.test_settings PYTHONPATH=$(CURDIR) make -C docs html
+	tox -e docs
 	$(BROWSER)docs/_build/html/index.html
 
 upgrade: ## update the uv.lock file with the latest packages satisfying pyproject.toml

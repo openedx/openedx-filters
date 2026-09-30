@@ -24,7 +24,6 @@ conflicts = [[
 constraints = [
     { name = "django", specifier = "<6.0" },
     { name = "elasticsearch", specifier = "<7.14.0" },
-    { name = "uv", specifier = "==0.11.32" },
 ]
 
 [[package]]
