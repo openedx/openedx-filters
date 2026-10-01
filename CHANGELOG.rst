@@ -11,28 +11,8 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
-..
-   ⚠️ PLEASE, DO NOT ADD YOUR CHANGES TO THIS FILE! (unless you want to modify
-   existing changelog entries in this file) Changelog entries are managed by
-   scriv.
-
-   If you need to add a changelog entry:
-
-   - Run `make changelog-entry` to create a new changelog entry.
-   - Edit and commit the newly-created file in the `changelog.d` folder
-     following the instructions in the file.
-
-   If you need to create a new release:
-
-   - There is a `relese.yml` workflow to create a new release. You can trigger
-     it manually in the Actions tab in GitHub. The workflow will bump the
-     version, update the changelog, create a tag, and create a new GitHub
-     release! 🚀
-
 Unreleased
 ----------
-.. scriv-insert-here
-
 
 .. _changelog-3.14.0:
 

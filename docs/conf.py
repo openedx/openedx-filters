@@ -16,7 +16,7 @@ import re
 import sys
 from os.path import dirname, relpath
 
-sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('../src'))
 
 # -- Project information -----------------------------------------------------
 
@@ -218,7 +218,10 @@ def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
 
     import openedx_filters
 
-    start_dir = os.path.abspath(os.path.join(dirname(openedx_filters.__file__), ".."))
+    # openedx_filters.__file__ is src/openedx_filters/__init__.py under the
+    # src/ layout, so go up two levels (out of src/) to reach the repo root
+    # that GitHub blob URLs are relative to.
+    start_dir = os.path.abspath(os.path.join(dirname(openedx_filters.__file__), "..", ".."))
     file_path = relpath(file_path, start=start_dir).replace(os.path.sep, "/")
 
     return f"{REPO_URL}/{file_path}{linespec}"

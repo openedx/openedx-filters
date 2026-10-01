@@ -157,10 +157,10 @@ After testing the pipeline step, you should debug and iterate on the implementat
 .. note:: The default behavior of the pipeline tooling is to fail silently if a runtime exception is raised in a pipeline step. You can configure the filter to raise an exception when the pipeline step fails by setting ``fail_silently: False`` in the filter configuration. This will help you identify issues early and take appropriate action to resolve them. :term:`Filter exceptions` will always be raised in the pipeline and will halt its execution. You can use exceptions to control the flow of the pipeline and handle specific scenarios in the pipeline step. In our example, we raise an exception when the user's email address is not valid to prevent them from enrolling in the course. The exceptions considered by the ``fail_silently`` flag are runtime exceptions that the developer does not intentionally raise during the filter's execution, use the configuration as you see fit.
 
 .. _Tutor: https://docs.tutor.edly.io/
-.. _CourseEnrollmentStarted filter: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/learning/filters.py#L145-L170
-.. _PipelineStep: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/filters.py#L10-L77
+.. _CourseEnrollmentStarted filter: https://github.com/openedx/openedx-filters/blob/main/src/openedx_filters/learning/filters.py#L145-L170
+.. _PipelineStep: https://github.com/openedx/openedx-filters/blob/main/src/openedx_filters/filters.py#L10-L77
 .. _Open edX Django plugin: https://docs.openedx.org/en/latest/developers/concepts/platform_overview.html#new-plugin
-.. _run_filter: https://github.com/openedx/openedx-filters/blob/main/openedx_filters/filters.py#L60-L77
+.. _run_filter: https://github.com/openedx/openedx-filters/blob/main/src/openedx_filters/filters.py#L60-L77
 
 **Maintenance chart**
 
