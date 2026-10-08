@@ -1,7 +1,0 @@
-Added
-~~~~~
-* Added new ``ManagementCommandContextmanagerRequested`` filter to the management
-  subdomain, triggered in ``manage.py`` before a Django management command is
-  executed, allowing pipeline steps to wrap the command's execution in a
-  context manager (for example, to add observability such as Datadog tracing
-  and logging). (by @ktyagiapphelix2u, @rahul-apphelix)

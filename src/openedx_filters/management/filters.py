@@ -33,8 +33,8 @@ class ManagementCommandContextmanagerRequested(OpenEdxPublicFilter):
         Open edX filter, for example in Django settings::
 
             OPEN_EDX_FILTERS_CONFIG = {
-                "org.openedx.platform.management.command.contextmanager.requested.v1": {
-                    "fail_silently": False,
+                "org.openedx.management.command.contextmanager.requested.v1": {
+                    "fail_silently": True,
                     "pipeline": [
                         "my_plugin.pipeline.MonitorManagementCommand",
                     ],
@@ -47,7 +47,7 @@ class ManagementCommandContextmanagerRequested(OpenEdxPublicFilter):
         incoming value.
 
     Filter Type:
-        org.openedx.platform.management.command.contextmanager.requested.v1
+        org.openedx.management.command.contextmanager.requested.v1
 
     Trigger:
         - Repository: openedx/openedx-platform
@@ -55,7 +55,7 @@ class ManagementCommandContextmanagerRequested(OpenEdxPublicFilter):
         - Function or Method: __main__
     """
 
-    filter_type = "org.openedx.platform.management.command.contextmanager.requested.v1"
+    filter_type = "org.openedx.management.command.contextmanager.requested.v1"
 
     @classmethod
     def run_filter(
