@@ -20,6 +20,12 @@ Course Authoring Subdomain
 .. automodule:: openedx_filters.course_authoring.filters
    :members:
 
+Management Subdomain
+********************
+
+.. automodule:: openedx_filters.management.filters
+   :members:
+
 Authentication Subdomain
 *************************
 
