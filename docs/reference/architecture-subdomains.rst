@@ -14,6 +14,8 @@ Currently, these are the `architecture subdomains`_ used by the Open edX Filters
 +-------------------+----------------------------------------------------------------------------------------------------+
 | Learning          | Allows learners to consume content and perform actions in a learning activity on the platform.     |
 +-------------------+----------------------------------------------------------------------------------------------------+
+| Management        | Supports the execution and operation of Django management commands.                                |
++-------------------+----------------------------------------------------------------------------------------------------+
 
 Here we list useful information about Open edX architecture subdomains and their use in the Hooks Extension framework:
 
