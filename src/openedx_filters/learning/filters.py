@@ -950,13 +950,26 @@ class LearnerXBlockBound(OpenEdxPublicFilter):
     Filter used to modify an XBlock right after it is bound to a learner.
 
     Purpose:
-        This filter is triggered every time the LMS loads an XBlock for a learner (page renders, unit children,
-        handler calls, sequence metadata, course pages), after the block is bound and its access checked, and before
-        any of its views or handlers read its fields. It allows the filter to act on the bound block, for example to
-        change how authored text is shown to this learner.
+        This filter is triggered every time the LMS loads an XBlock for a user (page renders, unit children,
+        handler calls, sequence metadata, course pages), after the block is bound (and, for known users, its access
+        checked), and before any of its views or handlers read its fields. It allows the filter to act on the bound
+        block, for example to change how authored text is shown to this user.
 
-        It runs once per binding (not again when the same block is looked up for the same user) and not for unknown
-        users, such as block structure collection, whose result is cached and shared by every learner.
+        It runs once each time a block is bound to a user, including anonymous users, and again when the same block
+        instance is bound to a different user. It does not run for unknown users (``user.known`` is False), such as
+        block structure collection and no-auth handler calls, whose blocks stay as authored. Shared data built from
+        blocks (the block structure cache, course overviews) is read from new block instances, so it never sees
+        changes made by this filter.
+
+        Steps run on every block bind, so they should be fast and avoid queries per block. Steps must:
+
+        - change only the bound block in memory, never save it or write to the modulestore, and not leave the
+          changed fields marked as dirty (plain assignment does): dirty fields are saved after handler calls and
+          when the block is bound to another user, and authored fields are read-only in the LMS;
+        - return the block they were given;
+        - start from the authored values (restore anything they changed for a previous user), since the same
+          instance can be bound to another user later;
+        - not change fields that control access or visibility (the access check has already run) or grading.
 
     Filter Type:
         org.openedx.learning.xblock.bound.v1
@@ -980,7 +993,7 @@ class LearnerXBlockBound(OpenEdxPublicFilter):
             course_key (CourseKey): the course the block belongs to
 
         Returns:
-            XBlock: the bound XBlock
+            XBlock: the bound XBlock, the same instance that was passed in
         """
         data = super().run_pipeline(block=block, user=user, course_key=course_key)
         return data.get("block")
@@ -993,8 +1006,13 @@ class CourseBlocksTransformCompleted(OpenEdxPublicFilter):
     Purpose:
         This filter is triggered after the course block structure has been transformed for a learner and before it
         is returned to callers such as the course outline, navigation sidebar, blocks API, dates and progress. The
-        structure is a per-request copy, so changes (for example with override_xblock_field) do not reach the shared
-        block structure cache.
+        structure is a copy made for this call, so changes (for example with override_xblock_field) do not reach the
+        shared block structure cache.
+
+        Callers may still cache or store what they build from it: the navigation sidebar caches it per user and
+        language, and grading saves results computed from it, also in background tasks with no request. So a step's
+        changes should depend only on the user and the active language, and steps should not change fields that
+        control grading, access or the tree's shape.
 
     Filter Type:
         org.openedx.learning.course_blocks.transform.completed.v1
@@ -1018,7 +1036,7 @@ class CourseBlocksTransformCompleted(OpenEdxPublicFilter):
             starting_block_usage_key (UsageKey): the root block of the structure
 
         Returns:
-            BlockStructureBlockData: the transformed block structure
+            BlockStructureBlockData: the transformed block structure, never None
         """
         data = super().run_pipeline(
             block_structure=block_structure, user=user, starting_block_usage_key=starting_block_usage_key
@@ -1033,7 +1051,8 @@ class CourseOutlineAPIRenderStarted(OpenEdxPublicFilter):
     Purpose:
         This filter is triggered before the learner's course outline (used for breadcrumbs and "next up") is
         returned, allowing the filter to change its serialized data. The outline objects themselves are cached, so
-        only the serialized data is passed.
+        only the serialized data is passed. The data is built for this response only: steps may change it or return
+        a new dict, but must not change objects they did not create or cache the result.
 
     Filter Type:
         org.openedx.learning.course_outline.api.render.started.v1
@@ -1069,7 +1088,8 @@ class CourseHomeMetadataAPIRenderStarted(OpenEdxPublicFilter):
 
     Purpose:
         This filter is triggered before the course home metadata (course title, tabs) is returned to the learner,
-        allowing the filter to change its serialized data.
+        allowing the filter to change its serialized data. The data is built for this response only: steps may
+        change it or return a new dict, but must not change objects they did not create or cache the result.
 
     Filter Type:
         org.openedx.learning.course_home_metadata.api.render.started.v1
@@ -1105,7 +1125,9 @@ class CoursewareMetadataAPIRenderStarted(OpenEdxPublicFilter):
 
     Purpose:
         This filter is triggered before the courseware metadata (course name, overview, about sidebar) is returned
-        to the learner, allowing the filter to change its serialized data.
+        to the learner, allowing the filter to change its serialized data. The data is built for this response
+        only: steps may change it or return a new dict, but must not change objects they did not create or cache
+        the result.
 
     Filter Type:
         org.openedx.learning.courseware_metadata.api.render.started.v1
