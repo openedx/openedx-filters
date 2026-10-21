@@ -966,7 +966,8 @@ class LearnerXBlockBound(OpenEdxPublicFilter):
         - change only the bound block in memory, never save it or write to the modulestore, and not leave the
           changed fields marked as dirty (plain assignment does): dirty fields are saved after handler calls and
           when the block is bound to another user, and authored fields are read-only in the LMS;
-        - return the block they were given;
+        - return ``{"block": block}`` with the same block instance they were given (a result that is not a
+          dict stops the pipeline and skips the remaining steps);
         - start from the authored values (restore anything they changed for a previous user), since the same
           instance can be bound to another user later;
         - not change fields that control access or visibility (the access check has already run) or grading.
