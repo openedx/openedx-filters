@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.11"
 resolution-markers = [
     "python_full_version >= '3.15'",
@@ -175,11 +175,11 @@ wheels = [
 
 [[package]]
 name = "certifi"
-version = "2026.7.22"
+version = "2026.10.19"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/a3/c2/24167ea9858356b47a87a50d39908bfdb72ceeefe0041586e704e5376b3a/certifi-2026.7.22.tar.gz", hash = "sha256:741e2c3b351ddf169a738da9f2c048608ff7f2c5cc02f1ebc6b118bb090d5d55", size = 138112, upload-time = "2026-07-22T03:35:12.644Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a6/bd/1436c50cc46699de0230fbaacc1d1de7bfec413176099949e9d5112e88f2/certifi-2026.10.19.tar.gz", hash = "sha256:035c1e85572b141bf1c3a3eff0e33a8eb74917522f2559075ff8d2fea780a1ae", size = 137598, upload-time = "2026-10-20T02:24:16.604Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl", hash = "sha256:62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775", size = 136983, upload-time = "2026-07-22T03:35:11.276Z" },
+    { url = "https://files.pythonhosted.org/packages/c4/51/29046e48f693c54e5b7412216d447a1d8362c9653148d98c02cdf65fa733/certifi-2026.10.19-py3-none-any.whl", hash = "sha256:42d35340cc5b9ba78e818ddbff0c5b1c2b779de448a340fd1b989f5fa8670e1b", size = 136464, upload-time = "2026-10-20T02:24:15.072Z" },
 ]
 
 [[package]]
@@ -396,7 +396,7 @@ name = "click"
 version = "8.4.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "colorama", marker = "sys_platform == 'win32'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/76/d4/81420972a676e8ffea40450d8c8c92943e7218a78fe9b64359836cc9876b/click-8.4.2.tar.gz", hash = "sha256:9a6cea6e60b17ebe0a44c5cc636d94f09bd66142c1cd7d8b4cd731c4917a15f6", size = 338000, upload-time = "2026-06-24T17:45:15.148Z" }
 wheels = [
@@ -423,11 +423,11 @@ resolution-markers = [
     "python_full_version < '3.12'",
 ]
 dependencies = [
-    { name = "click", marker = "python_full_version < '3.12' or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "jinja2", marker = "python_full_version < '3.12' or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "python-slugify", marker = "python_full_version < '3.12' or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "pyyaml", marker = "python_full_version < '3.12' or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "stevedore", marker = "python_full_version < '3.12' or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "click" },
+    { name = "jinja2" },
+    { name = "python-slugify" },
+    { name = "pyyaml" },
+    { name = "stevedore" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/da/55/af2756d125d1a5ddb5bc142335f77011892c5e6f775741a96a21ff9d20f1/code_annotations-2.3.2.tar.gz", hash = "sha256:a6717673013a57f7b297ec510975b127cbe5a8112482e76c9d5ce814d2408ea0", size = 44691, upload-time = "2026-03-02T20:49:23.009Z" }
 wheels = [
@@ -443,11 +443,11 @@ resolution-markers = [
     "python_full_version >= '3.12' and python_full_version < '3.15'",
 ]
 dependencies = [
-    { name = "click", marker = "python_full_version >= '3.12' or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "jinja2", marker = "python_full_version >= '3.12' or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "python-slugify", marker = "python_full_version >= '3.12' or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "pyyaml", marker = "python_full_version >= '3.12' or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "stevedore", marker = "python_full_version >= '3.12' or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "click" },
+    { name = "jinja2" },
+    { name = "python-slugify" },
+    { name = "pyyaml" },
+    { name = "stevedore" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/98/cd/73b009a7790d67d218c7caf5f1030f37f6f4863383c3dee47f44eac7a568/code_annotations-3.0.0.tar.gz", hash = "sha256:7ce2e883ab5c62b27fd3e490658f9ccbd632910422b80280d659b851483b0200", size = 44676, upload-time = "2026-03-13T16:36:41.47Z" }
 wheels = [
@@ -549,7 +549,7 @@ wheels = [
 
 [package.optional-dependencies]
 toml = [
-    { name = "tomli", marker = "python_full_version <= '3.11' or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "tomli", marker = "python_full_version <= '3.11'" },
 ]
 
 [[package]]
@@ -679,9 +679,9 @@ resolution-markers = [
     "python_full_version < '3.12'",
 ]
 dependencies = [
-    { name = "asgiref", marker = "extra == 'group-15-openedx-filters-dev' or extra != 'group-15-openedx-filters-django42' or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "sqlparse", marker = "extra == 'group-15-openedx-filters-dev' or extra != 'group-15-openedx-filters-django42' or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "tzdata", marker = "(sys_platform == 'win32' and extra == 'group-15-openedx-filters-dev') or (sys_platform == 'win32' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "asgiref", marker = "extra == 'group-15-openedx-filters-dev' or extra != 'group-15-openedx-filters-django42' or extra == 'group-15-openedx-filters-doc' or extra == 'group-15-openedx-filters-quality' or extra == 'group-15-openedx-filters-test'" },
+    { name = "sqlparse", marker = "extra == 'group-15-openedx-filters-dev' or extra != 'group-15-openedx-filters-django42' or extra == 'group-15-openedx-filters-doc' or extra == 'group-15-openedx-filters-quality' or extra == 'group-15-openedx-filters-test'" },
+    { name = "tzdata", marker = "(sys_platform == 'win32' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/a9/26/889449d521ae508b26de715954faecd8bcf3f740affb81b2d146a83b42a5/django-5.2.16.tar.gz", hash = "sha256:59ea02020c3136fce14bef0bbece21a10a4febef5eed1c51c22ae468efa22200", size = 10890894, upload-time = "2026-07-07T13:52:17.005Z" }
 wheels = [
@@ -694,7 +694,7 @@ version = "6.0.7"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django", version = "4.2.30", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-openedx-filters-django42'" },
-    { name = "django", version = "5.2.16", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-openedx-filters-dev' or extra != 'group-15-openedx-filters-django42' or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "django", version = "5.2.16", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-openedx-filters-dev' or extra != 'group-15-openedx-filters-django42' or extra == 'group-15-openedx-filters-doc' or extra == 'group-15-openedx-filters-quality' or extra == 'group-15-openedx-filters-test'" },
     { name = "django-stubs-ext" },
     { name = "types-pyyaml" },
     { name = "typing-extensions" },
@@ -710,7 +710,7 @@ version = "6.0.7"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django", version = "4.2.30", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-openedx-filters-django42'" },
-    { name = "django", version = "5.2.16", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-openedx-filters-dev' or extra != 'group-15-openedx-filters-django42' or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "django", version = "5.2.16", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-openedx-filters-dev' or extra != 'group-15-openedx-filters-django42' or extra == 'group-15-openedx-filters-doc' or extra == 'group-15-openedx-filters-quality' or extra == 'group-15-openedx-filters-test'" },
     { name = "typing-extensions" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/36/50/917f7224ea470e89cdcdc93d3dfe75b8391adf976cf12f2ecdb5f5d122be/django_stubs_ext-6.0.7.tar.gz", hash = "sha256:c3172c5126614fd2a44d0196b313b44c21f717cb09477ba52b447d41f4ce613e", size = 6665, upload-time = "2026-07-14T10:07:56.933Z" }
@@ -758,8 +758,8 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
     { name = "click-log" },
-    { name = "code-annotations", version = "2.3.2", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "code-annotations", version = "3.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "code-annotations", version = "2.3.2", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "code-annotations", version = "3.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
     { name = "pylint" },
     { name = "pylint-celery" },
     { name = "pylint-django" },
@@ -1144,7 +1144,7 @@ version = "2.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "ast-serialize" },
-    { name = "librt", marker = "platform_python_implementation != 'PyPy' or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "librt", marker = "platform_python_implementation != 'PyPy'" },
     { name = "mypy-extensions" },
     { name = "pathspec" },
     { name = "typing-extensions" },
@@ -1209,8 +1209,8 @@ dependencies = [
     { name = "markdown-it-py" },
     { name = "mdit-py-plugins" },
     { name = "pyyaml" },
-    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/21/dc/603751677fff302f34396e206b610f556a59d7fe58b9a2145f54e96b48e8/myst_parser-5.1.0.tar.gz", hash = "sha256:ab69322dc6719dcc7f296479dbb70181b66df6ed315064f92dbc85c0e1bf2f02", size = 101182, upload-time = "2026-05-13T09:38:19.361Z" }
 wheels = [
@@ -1256,7 +1256,7 @@ name = "openedx-filters"
 source = { editable = "." }
 dependencies = [
     { name = "django", version = "4.2.30", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-openedx-filters-django42'" },
-    { name = "django", version = "5.2.16", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-openedx-filters-dev' or extra != 'group-15-openedx-filters-django42' or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "django", version = "5.2.16", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-openedx-filters-dev' or extra != 'group-15-openedx-filters-django42' or extra == 'group-15-openedx-filters-doc' or extra == 'group-15-openedx-filters-quality' or extra == 'group-15-openedx-filters-test'" },
     { name = "edx-opaque-keys" },
     { name = "setuptools" },
 ]
@@ -1268,8 +1268,8 @@ ci = [
 ]
 dev = [
     { name = "build" },
-    { name = "code-annotations", version = "2.3.2", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "code-annotations", version = "3.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "code-annotations", version = "2.3.2", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "code-annotations", version = "3.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
     { name = "ddt" },
     { name = "diff-cover" },
     { name = "django", version = "5.2.16", source = { registry = "https://pypi.org/simple" } },
@@ -1283,8 +1283,8 @@ dev = [
     { name = "pytest-cov" },
     { name = "pytest-django" },
     { name = "ruff" },
-    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
     { name = "sphinx-autobuild" },
     { name = "sphinx-book-theme" },
     { name = "sphinx-copybutton" },
@@ -1305,8 +1305,8 @@ django42 = [
 ]
 doc = [
     { name = "build" },
-    { name = "code-annotations", version = "2.3.2", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "code-annotations", version = "3.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "code-annotations", version = "2.3.2", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "code-annotations", version = "3.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
     { name = "ddt" },
     { name = "django", version = "5.2.16", source = { registry = "https://pypi.org/simple" } },
     { name = "django-stubs" },
@@ -1315,8 +1315,8 @@ doc = [
     { name = "myst-parser" },
     { name = "pytest-cov" },
     { name = "pytest-django" },
-    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
     { name = "sphinx-autobuild" },
     { name = "sphinx-book-theme" },
     { name = "sphinx-copybutton" },
@@ -1325,8 +1325,8 @@ doc = [
 ]
 quality = [
     { name = "build" },
-    { name = "code-annotations", version = "2.3.2", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "code-annotations", version = "3.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "code-annotations", version = "2.3.2", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "code-annotations", version = "3.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
     { name = "ddt" },
     { name = "django", version = "5.2.16", source = { registry = "https://pypi.org/simple" } },
     { name = "django-stubs" },
@@ -1350,8 +1350,8 @@ test = [
     { name = "pytest-django" },
 ]
 test-base = [
-    { name = "code-annotations", version = "2.3.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12' or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "code-annotations", version = "3.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12' or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "code-annotations", version = "2.3.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
+    { name = "code-annotations", version = "3.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
     { name = "ddt" },
     { name = "django-stubs" },
     { name = "mypy" },
@@ -1522,8 +1522,8 @@ dependencies = [
     { name = "jinja2" },
     { name = "pygments" },
     { name = "requests" },
-    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/ae/8e/add936feaaa9dade7d5b87c6852566d85e518b38ad32224dea32ef958984/pydata_sphinx_theme-0.20.0.tar.gz", hash = "sha256:0da172d41e19a66de875f4002f7054b385372ec65763852193791e658d50bb4a", size = 5004756, upload-time = "2026-07-09T09:09:14.693Z" }
 wheels = [
@@ -1680,7 +1680,7 @@ name = "pytest"
 version = "9.1.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "colorama", marker = "sys_platform == 'win32'" },
     { name = "iniconfig" },
     { name = "packaging" },
     { name = "pluggy" },
@@ -2033,8 +2033,8 @@ version = "2025.8.25"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "colorama" },
-    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
     { name = "starlette" },
     { name = "uvicorn" },
     { name = "watchfiles" },
@@ -2051,8 +2051,8 @@ version = "1.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pydata-sphinx-theme" },
-    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/e9/8a/cb008736682b3974cae6925c54939792fe56f5a167e37984cb45d8a85d8a/sphinx_book_theme-1.4.0.tar.gz", hash = "sha256:fee3cd70573d9a8cd4ab380a3cb1f11139c24dcaa2cf47d06d7f924f1b44eaff", size = 406113, upload-time = "2026-07-19T21:23:54.183Z" }
 wheels = [
@@ -2064,8 +2064,8 @@ name = "sphinx-copybutton"
 version = "0.5.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/fc/2b/a964715e7f5295f77509e59309959f4125122d648f86b4fe7d70ca1d882c/sphinx-copybutton-0.5.2.tar.gz", hash = "sha256:4cf17c82fb9646d1bc9ca92ac280813a3b605d8c421225fd9913154103ee1fbd", size = 23039, upload-time = "2023-04-14T08:10:22.998Z" }
 wheels = [
@@ -2115,8 +2115,8 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "jinja2" },
     { name = "pyyaml" },
-    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
-    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra == 'group-15-openedx-filters-dev') or (python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
+    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra != 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-dev' and extra == 'group-15-openedx-filters-django42') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-doc') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-quality') or (extra == 'group-15-openedx-filters-django42' and extra == 'group-15-openedx-filters-test')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/07/9d/bf3a48a657682c7e0445c71d916bca7ab8194454276cc22b16e7f974e502/sphinxcontrib_mermaid-2.1.0.tar.gz", hash = "sha256:13c5f9ac395cb6abf403eca34e228dc9fb3a30c9d960dbf3e40e9a8cef969549", size = 21695, upload-time = "2026-07-18T23:08:11.265Z" }
 wheels = [
