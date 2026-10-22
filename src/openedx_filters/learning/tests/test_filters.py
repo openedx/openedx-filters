@@ -18,16 +18,24 @@ from openedx_filters.learning.filters import (
     CohortChangeRequested,
     CourseAboutPageURLRequested,
     CourseAboutRenderStarted,
+    CourseBlocksTransformCompleted,
     CourseEnrollmentAPIRenderStarted,
     CourseEnrollmentQuerysetRequested,
     CourseEnrollmentStarted,
     CourseEnrollmentViewStarted,
+    CourseHomeDatesAPIRenderStarted,
+    CourseHomeMetadataAPIRenderStarted,
+    CourseHomeOutlineAPIRenderStarted,
+    CourseHomeProgressAPIRenderStarted,
     CourseHomeUrlCreationStarted,
     CourseModePriceRequested,
+    CourseNavigationAPIRenderStarted,
+    CourseOutlineAPIRenderStarted,
     CourseRunAPIRenderStarted,
     CourseStartDateValidationFailed,
     CourseUnenrollmentStarted,
     CoursewareAccessChecksRequested,
+    CoursewareMetadataAPIRenderStarted,
     CoursewareViewStarted,
     DashboardRenderStarted,
     DiscountEligibilityCheckRequested,
@@ -35,6 +43,7 @@ from openedx_filters.learning.filters import (
     IDVPageURLRequested,
     InstructorDashboardRenderStarted,
     InstructorDashboardTabsRequested,
+    LearnerXBlockBound,
     ORASubmissionViewRenderStarted,
     RenderXBlockStarted,
     ScheduleQuerySetRequested,
@@ -358,6 +367,8 @@ class TestRenderingFilters(TestCase):
     - DashboardRenderStarted
     - VerticalBlockChildRenderStarted
     - VerticalBlockRenderCompleted
+    - LearnerXBlockBound
+    - CourseBlocksTransformCompleted
     - AccountSettingsRenderStarted
     """
 
@@ -460,6 +471,52 @@ class TestRenderingFilters(TestCase):
         result = VerticalBlockChildRenderStarted.run_filter(block, context)
 
         assert result == (block, context,)
+
+    def test_learner_xblock_bound(self):
+        """
+        Test LearnerXBlockBound filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter should return the bound block.
+        """
+        block = Mock("block")
+
+        assert LearnerXBlockBound.run_filter(block=block, user=Mock(), course_key=Mock()) == block
+
+    def test_course_blocks_transform_completed(self):
+        """
+        Test CourseBlocksTransformCompleted filter behavior under normal conditions.
+
+        Expected behavior:
+            - The filter should return the block structure.
+        """
+        structure = Mock("block_structure")
+
+        result = CourseBlocksTransformCompleted.run_filter(
+            block_structure=structure, user=Mock(), starting_block_usage_key=Mock()
+        )
+
+        assert result == structure
+
+    @data(
+        CourseOutlineAPIRenderStarted,
+        CourseHomeMetadataAPIRenderStarted,
+        CoursewareMetadataAPIRenderStarted,
+        CourseHomeProgressAPIRenderStarted,
+        CourseHomeDatesAPIRenderStarted,
+        CourseHomeOutlineAPIRenderStarted,
+        CourseNavigationAPIRenderStarted,
+        )
+    def test_course_api_render_started(self, filter_class):
+        """
+        Test course API response filters under normal conditions.
+
+        Expected behavior:
+            - The filter should return the response data.
+        """
+        payload = {"title": "Course"}
+
+        assert filter_class.run_filter(course_key=Mock(), user=Mock(), data=payload) == payload
 
     @data(
         (

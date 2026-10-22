@@ -945,6 +945,371 @@ class VerticalBlockChildRenderStarted(OpenEdxPublicFilter):
         return data.get("block"), data.get("context")
 
 
+class LearnerXBlockBound(OpenEdxPublicFilter):
+    """
+    Filter used to modify an XBlock right after it is bound to a learner.
+
+    Purpose:
+        This filter is triggered every time the LMS loads an XBlock for a user (page renders, unit children,
+        handler calls, sequence metadata, course pages), after the block is bound (and, for known users, its access
+        checked), and before any of its views or handlers read its fields. It allows the filter to act on the bound
+        block, for example to change how authored text is shown to this user.
+
+        It runs once each time a block is bound to a user, including anonymous users, and again when the same block
+        instance is bound to a different user. It does not run for unknown users (``user.known`` is False), such as
+        block structure collection and no-auth handler calls, whose blocks stay as authored. Shared data built from
+        blocks (the block structure cache, course overviews) is read from new block instances, so it never sees
+        changes made by this filter.
+
+        Steps run on every block bind, so they should be fast and avoid queries per block. Steps must:
+
+        - change only the bound block in memory, never save it or write to the modulestore, and not leave the
+          changed fields marked as dirty (plain assignment does): dirty fields are saved after handler calls and
+          when the block is bound to another user, and authored fields are read-only in the LMS;
+        - return ``{"block": block}`` with the same block instance they were given (a result that is not a
+          dict stops the pipeline and skips the remaining steps);
+        - start from the authored values (restore anything they changed for a previous user), since the same
+          instance can be bound to another user later;
+        - not change fields that control access or visibility (the access check has already run) or grading.
+
+    Filter Type:
+        org.openedx.learning.xblock.bound.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: lms/djangoapps/courseware/block_render.py
+        - Function or Method: get_block_for_descriptor
+    """
+
+    filter_type = "org.openedx.learning.xblock.bound.v1"
+
+    @classmethod
+    def run_filter(cls, block: Any, user: Any, course_key: Any) -> Any:
+        """
+        Process the bound block using the configured pipeline steps.
+
+        Arguments:
+            block (XBlock): the XBlock that was just bound to the learner
+            user (User): the learner the block is bound to
+            course_key (CourseKey): the course the block belongs to
+
+        Returns:
+            XBlock: the bound XBlock, the same instance that was passed in
+        """
+        data = super().run_pipeline(block=block, user=user, course_key=course_key)
+        return data.get("block")
+
+
+class CourseBlocksTransformCompleted(OpenEdxPublicFilter):
+    """
+    Filter used to modify a learner's transformed course block structure.
+
+    Purpose:
+        This filter is triggered after the course block structure has been transformed for a learner and before it
+        is returned to callers such as the course outline, navigation sidebar, blocks API, dates and progress. The
+        structure is a copy made for this call, so changes (for example with override_xblock_field) do not reach the
+        shared block structure cache.
+
+        Callers may still cache or store what they build from it: the navigation sidebar caches it per user and
+        language, and grading saves results computed from it, also in background tasks with no request. So a step's
+        changes should depend only on the user and the active language, and steps should not change fields that
+        control grading, access or the tree's shape.
+
+    Filter Type:
+        org.openedx.learning.course_blocks.transform.completed.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: lms/djangoapps/course_blocks/api.py
+        - Function or Method: get_course_blocks
+    """
+
+    filter_type = "org.openedx.learning.course_blocks.transform.completed.v1"
+
+    @classmethod
+    def run_filter(cls, block_structure: Any, user: Any, starting_block_usage_key: Any) -> Any:
+        """
+        Process the transformed block structure using the configured pipeline steps.
+
+        Arguments:
+            block_structure (BlockStructureBlockData): the learner's transformed block structure
+            user (User): the learner the structure was transformed for
+            starting_block_usage_key (UsageKey): the root block of the structure
+
+        Returns:
+            BlockStructureBlockData: the transformed block structure, never None
+        """
+        data = super().run_pipeline(
+            block_structure=block_structure, user=user, starting_block_usage_key=starting_block_usage_key
+        )
+        return data.get("block_structure")
+
+
+class CourseOutlineAPIRenderStarted(OpenEdxPublicFilter):
+    """
+    Filter used to modify the learning sequences course outline response.
+
+    Purpose:
+        This filter is triggered before the learner's course outline (used for breadcrumbs and "next up") is
+        returned, allowing the filter to change its serialized data. The outline objects themselves are cached, so
+        only the serialized data is passed. The data is built for this response only: steps may change it or return
+        a new dict, but must not change objects they did not create or cache the result.
+
+    Filter Type:
+        org.openedx.learning.course_outline.api.render.started.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: openedx/core/djangoapps/content/learning_sequences/views.py
+        - Function or Method: CourseOutlineView.get
+    """
+
+    filter_type = "org.openedx.learning.course_outline.api.render.started.v1"
+
+    @classmethod
+    def run_filter(cls, course_key: Any, user: Any, data: dict) -> dict | None:
+        """
+        Process the serialized response body using the configured pipeline steps.
+
+        Arguments:
+            course_key (CourseKey): the course the response is about
+            user (User): the user making the request
+            data (dict): the serialized response body
+
+        Returns:
+            dict: the serialized response body
+        """
+        result = super().run_pipeline(course_key=course_key, user=user, data=data)
+        return result.get("data")
+
+
+class CourseHomeMetadataAPIRenderStarted(OpenEdxPublicFilter):
+    """
+    Filter used to modify the course home metadata response.
+
+    Purpose:
+        This filter is triggered before the course home metadata (course title, tabs) is returned to the learner,
+        allowing the filter to change its serialized data. The data is built for this response only: steps may
+        change it or return a new dict, but must not change objects they did not create or cache the result.
+
+    Filter Type:
+        org.openedx.learning.course_home_metadata.api.render.started.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: lms/djangoapps/course_home_api/course_metadata/views.py
+        - Function or Method: CourseHomeMetadataView.get
+    """
+
+    filter_type = "org.openedx.learning.course_home_metadata.api.render.started.v1"
+
+    @classmethod
+    def run_filter(cls, course_key: Any, user: Any, data: dict) -> dict | None:
+        """
+        Process the serialized response body using the configured pipeline steps.
+
+        Arguments:
+            course_key (CourseKey): the course the response is about
+            user (User): the user making the request
+            data (dict): the serialized response body
+
+        Returns:
+            dict: the serialized response body
+        """
+        result = super().run_pipeline(course_key=course_key, user=user, data=data)
+        return result.get("data")
+
+
+class CoursewareMetadataAPIRenderStarted(OpenEdxPublicFilter):
+    """
+    Filter used to modify the courseware metadata response.
+
+    Purpose:
+        This filter is triggered before the courseware metadata (course name, overview, about sidebar) is returned
+        to the learner, allowing the filter to change its serialized data. The data is built for this response
+        only: steps may change it or return a new dict, but must not change objects they did not create or cache
+        the result.
+
+    Filter Type:
+        org.openedx.learning.courseware_metadata.api.render.started.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: openedx/core/djangoapps/courseware_api/views.py
+        - Function or Method: CoursewareInformation.retrieve
+    """
+
+    filter_type = "org.openedx.learning.courseware_metadata.api.render.started.v1"
+
+    @classmethod
+    def run_filter(cls, course_key: Any, user: Any, data: dict) -> dict | None:
+        """
+        Process the serialized response body using the configured pipeline steps.
+
+        Arguments:
+            course_key (CourseKey): the course the response is about
+            user (User): the user making the request
+            data (dict): the serialized response body
+
+        Returns:
+            dict: the serialized response body
+        """
+        result = super().run_pipeline(course_key=course_key, user=user, data=data)
+        return result.get("data")
+
+
+class CourseHomeProgressAPIRenderStarted(OpenEdxPublicFilter):
+    """
+    Filter used to modify the course progress tab (grades, assignment types, section scores) response.
+
+    Purpose:
+        This filter is triggered before the course progress tab (grades, assignment types, section scores) is returned,
+        allowing the filter to change its serialized data. The data is built for this response only: steps may change it
+        or return a new dict, but must not change objects they did not create or cache the result. The user is the one
+        the response is built for: the learner whose data is shown, also when staff view it or masquerade as them.
+
+    Filter Type:
+        org.openedx.learning.course_home_progress.api.render.started.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: lms/djangoapps/course_home_api/progress/views.py
+        - Function or Method: ProgressTabView.get
+    """
+
+    filter_type = "org.openedx.learning.course_home_progress.api.render.started.v1"
+
+    @classmethod
+    def run_filter(cls, course_key: Any, user: Any, data: dict) -> dict | None:
+        """
+        Process the serialized response body using the configured pipeline steps.
+
+        Arguments:
+            course_key (CourseKey): the course the response is about
+            user (User): the user the response is built for
+            data (dict): the serialized response body
+
+        Returns:
+            dict: the serialized response body
+        """
+        result = super().run_pipeline(course_key=course_key, user=user, data=data)
+        return result.get("data")
+
+
+class CourseHomeDatesAPIRenderStarted(OpenEdxPublicFilter):
+    """
+    Filter used to modify the course dates tab response.
+
+    Purpose:
+        This filter is triggered before the course dates tab is returned, allowing the filter to change its serialized
+        data. The data is built for this response only: steps may change it or return a new dict, but must not change
+        objects they did not create or cache the result. The user is the one the response is built for: the learner
+        whose data is shown, also when staff view it or masquerade as them.
+
+    Filter Type:
+        org.openedx.learning.course_home_dates.api.render.started.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: lms/djangoapps/course_home_api/dates/views.py
+        - Function or Method: DatesTabView.get
+    """
+
+    filter_type = "org.openedx.learning.course_home_dates.api.render.started.v1"
+
+    @classmethod
+    def run_filter(cls, course_key: Any, user: Any, data: dict) -> dict | None:
+        """
+        Process the serialized response body using the configured pipeline steps.
+
+        Arguments:
+            course_key (CourseKey): the course the response is about
+            user (User): the user the response is built for
+            data (dict): the serialized response body
+
+        Returns:
+            dict: the serialized response body
+        """
+        result = super().run_pipeline(course_key=course_key, user=user, data=data)
+        return result.get("data")
+
+
+class CourseHomeOutlineAPIRenderStarted(OpenEdxPublicFilter):
+    """
+    Filter used to modify the course home outline tab response.
+
+    Purpose:
+        This filter is triggered before the course home outline tab is returned, allowing the filter to change its
+        serialized data. The data is built for this response only: steps may change it or return a new dict, but must
+        not change objects they did not create or cache the result. The user is the one the response is built for: the
+        learner whose data is shown, also when staff view it or masquerade as them.
+
+    Filter Type:
+        org.openedx.learning.course_home_outline.api.render.started.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: lms/djangoapps/course_home_api/outline/views.py
+        - Function or Method: OutlineTabView.get
+    """
+
+    filter_type = "org.openedx.learning.course_home_outline.api.render.started.v1"
+
+    @classmethod
+    def run_filter(cls, course_key: Any, user: Any, data: dict) -> dict | None:
+        """
+        Process the serialized response body using the configured pipeline steps.
+
+        Arguments:
+            course_key (CourseKey): the course the response is about
+            user (User): the user the response is built for
+            data (dict): the serialized response body
+
+        Returns:
+            dict: the serialized response body
+        """
+        result = super().run_pipeline(course_key=course_key, user=user, data=data)
+        return result.get("data")
+
+
+class CourseNavigationAPIRenderStarted(OpenEdxPublicFilter):
+    """
+    Filter used to modify the courseware navigation sidebar response.
+
+    Purpose:
+        This filter is triggered before the courseware navigation sidebar is returned, allowing the filter to change its
+        serialized data. The data is built for this response only: steps may change it or return a new dict, but must
+        not change objects they did not create or cache the result. The user is the one the response is built for: the
+        learner whose data is shown, also when staff view it or masquerade as them.
+
+    Filter Type:
+        org.openedx.learning.course_navigation.api.render.started.v1
+
+    Trigger:
+        - Repository: openedx/openedx-platform
+        - Path: lms/djangoapps/course_home_api/outline/views.py
+        - Function or Method: CourseNavigationBlocksView.get
+    """
+
+    filter_type = "org.openedx.learning.course_navigation.api.render.started.v1"
+
+    @classmethod
+    def run_filter(cls, course_key: Any, user: Any, data: dict) -> dict | None:
+        """
+        Process the serialized response body using the configured pipeline steps.
+
+        Arguments:
+            course_key (CourseKey): the course the response is about
+            user (User): the user the response is built for
+            data (dict): the serialized response body
+
+        Returns:
+            dict: the serialized response body
+        """
+        result = super().run_pipeline(course_key=course_key, user=user, data=data)
+        return result.get("data")
+
+
 class CourseEnrollmentQuerysetRequested(OpenEdxPublicFilter):
     """
     Filter used to modify the QuerySet of course enrollments.
