@@ -23,9 +23,13 @@ from openedx_filters.learning.filters import (
     CourseEnrollmentQuerysetRequested,
     CourseEnrollmentStarted,
     CourseEnrollmentViewStarted,
+    CourseHomeDatesAPIRenderStarted,
     CourseHomeMetadataAPIRenderStarted,
+    CourseHomeOutlineAPIRenderStarted,
+    CourseHomeProgressAPIRenderStarted,
     CourseHomeUrlCreationStarted,
     CourseModePriceRequested,
+    CourseNavigationAPIRenderStarted,
     CourseOutlineAPIRenderStarted,
     CourseRunAPIRenderStarted,
     CourseStartDateValidationFailed,
@@ -498,6 +502,10 @@ class TestRenderingFilters(TestCase):
         CourseOutlineAPIRenderStarted,
         CourseHomeMetadataAPIRenderStarted,
         CoursewareMetadataAPIRenderStarted,
+        CourseHomeProgressAPIRenderStarted,
+        CourseHomeDatesAPIRenderStarted,
+        CourseHomeOutlineAPIRenderStarted,
+        CourseNavigationAPIRenderStarted,
         )
     def test_course_api_render_started(self, filter_class):
         """
