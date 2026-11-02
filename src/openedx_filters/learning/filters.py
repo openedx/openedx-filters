@@ -1011,8 +1011,8 @@ class CourseBlocksTransformCompleted(OpenEdxPublicFilter):
         shared block structure cache.
 
         Callers may still cache or store what they build from it: the navigation sidebar caches it per user and
-        language, and grading saves results computed from it, also in background tasks with no request. So a step's
-        changes should depend only on the user and the active language, and steps should not change fields that
+        request context, and grading saves results computed from it, also in background tasks with no request. So a
+        step's changes should depend only on the user and the request, and steps should not change fields that
         control grading, access or the tree's shape.
 
     Filter Type:
@@ -1073,7 +1073,7 @@ class CourseOutlineAPIRenderStarted(OpenEdxPublicFilter):
 
         Arguments:
             course_key (CourseKey): the course the response is about
-            user (User): the user making the request
+            user (User): the user the response is built for
             data (dict): the serialized response body
 
         Returns:
@@ -1110,7 +1110,7 @@ class CourseHomeMetadataAPIRenderStarted(OpenEdxPublicFilter):
 
         Arguments:
             course_key (CourseKey): the course the response is about
-            user (User): the user making the request
+            user (User): the user the response is built for
             data (dict): the serialized response body
 
         Returns:
@@ -1148,7 +1148,7 @@ class CoursewareMetadataAPIRenderStarted(OpenEdxPublicFilter):
 
         Arguments:
             course_key (CourseKey): the course the response is about
-            user (User): the user making the request
+            user (User): the user the response is built for
             data (dict): the serialized response body
 
         Returns:
