@@ -1000,51 +1000,6 @@ class LearnerXBlockBound(OpenEdxPublicFilter):
         return data.get("block")
 
 
-class CourseBlocksTransformCompleted(OpenEdxPublicFilter):
-    """
-    Filter used to modify a learner's transformed course block structure.
-
-    Purpose:
-        This filter is triggered after the course block structure has been transformed for a learner and before it
-        is returned to callers such as the course outline, navigation sidebar, blocks API, dates and progress. The
-        structure is a copy made for this call, so changes (for example with override_xblock_field) do not reach the
-        shared block structure cache.
-
-        Callers may still cache or store what they build from it: the navigation sidebar caches it per user and
-        request context, and grading saves results computed from it, also in background tasks with no request. So a
-        step's changes should depend only on the user and the request, and steps should not change fields that
-        control grading, access or the tree's shape.
-
-    Filter Type:
-        org.openedx.learning.course_blocks.transform.completed.v1
-
-    Trigger:
-        - Repository: openedx/openedx-platform
-        - Path: lms/djangoapps/course_blocks/api.py
-        - Function or Method: get_course_blocks
-    """
-
-    filter_type = "org.openedx.learning.course_blocks.transform.completed.v1"
-
-    @classmethod
-    def run_filter(cls, block_structure: Any, user: Any, starting_block_usage_key: Any) -> Any:
-        """
-        Process the transformed block structure using the configured pipeline steps.
-
-        Arguments:
-            block_structure (BlockStructureBlockData): the learner's transformed block structure
-            user (User): the learner the structure was transformed for
-            starting_block_usage_key (UsageKey): the root block of the structure
-
-        Returns:
-            BlockStructureBlockData: the transformed block structure, never None
-        """
-        data = super().run_pipeline(
-            block_structure=block_structure, user=user, starting_block_usage_key=starting_block_usage_key
-        )
-        return data.get("block_structure")
-
-
 class CourseOutlineAPIRenderStarted(OpenEdxPublicFilter):
     """
     Filter used to modify the learning sequences course outline response.

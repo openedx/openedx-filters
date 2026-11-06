@@ -18,7 +18,6 @@ from openedx_filters.learning.filters import (
     CohortChangeRequested,
     CourseAboutPageURLRequested,
     CourseAboutRenderStarted,
-    CourseBlocksTransformCompleted,
     CourseEnrollmentAPIRenderStarted,
     CourseEnrollmentQuerysetRequested,
     CourseEnrollmentStarted,
@@ -368,7 +367,6 @@ class TestRenderingFilters(TestCase):
     - VerticalBlockChildRenderStarted
     - VerticalBlockRenderCompleted
     - LearnerXBlockBound
-    - CourseBlocksTransformCompleted
     - AccountSettingsRenderStarted
     """
 
@@ -482,21 +480,6 @@ class TestRenderingFilters(TestCase):
         block = Mock("block")
 
         assert LearnerXBlockBound.run_filter(block=block, user=Mock(), course_key=Mock()) == block
-
-    def test_course_blocks_transform_completed(self):
-        """
-        Test CourseBlocksTransformCompleted filter behavior under normal conditions.
-
-        Expected behavior:
-            - The filter should return the block structure.
-        """
-        structure = Mock("block_structure")
-
-        result = CourseBlocksTransformCompleted.run_filter(
-            block_structure=structure, user=Mock(), starting_block_usage_key=Mock()
-        )
-
-        assert result == structure
 
     @data(
         CourseOutlineAPIRenderStarted,
